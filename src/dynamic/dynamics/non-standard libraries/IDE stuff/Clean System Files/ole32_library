@@ -1,0 +1,4 @@
+ole32.dll
+CoInitialize@4
+CoUninitialize@0
+CoTaskMemFree@4

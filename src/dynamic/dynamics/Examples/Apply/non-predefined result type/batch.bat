@@ -1,0 +1,9 @@
+@echo off
+rem "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\CleanIDE.exe" -h 25M --batch-force-build "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\cvs\dynamic\dynamics\Examples\Apply\non-predefined result type\f.prj"
+rem "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\CleanIDE.exe" -h 25M --batch-force-build "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\cvs\dynamic\dynamics\Examples\Apply\non-predefined result type\v.prj"
+"C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\CleanIDE.exe" -h 25M --batch-force-build "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\cvs\dynamic\dynamics\Examples\Apply\non-predefined result type\apply.prj"
+rem "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\CleanIDE.exe" -h 25M --batch-force-build "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\cvs\dynamic\dynamics\Examples\Apply\non-predefined result type\read_dynamic_apply.prj"
+rem "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\CleanIDE.exe" -h 25M --batch-force-build "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\cvs\dynamic\dynamics\Examples\Apply\non-predefined result type\read_read_apply.prj"
+rem "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\CleanIDE.exe" -h 25M --batch-force-build "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\cvs\dynamic\dynamics\Examples\Apply\non-predefined result type\write_context_function.prj"
+rem "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\CleanIDE.exe" -h 25M --batch-force-build "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\cvs\dynamic\dynamics\Examples\Apply\non-predefined result type\context.prj"
+"C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\CleanIDE.exe" -h 25M --batch-force-build "C:\Documents and Settings\MIJN_COMPUTER\Desktop\Clean\cvs\dynamic\dynamics\Examples\Apply\non-predefined result type\equivalent_type_implementations_within_an_application.prj"

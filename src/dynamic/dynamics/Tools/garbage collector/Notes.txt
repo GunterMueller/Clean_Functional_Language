@@ -1,0 +1,34 @@
+Final notes for the garbage collector:
+
+modules: dynGarbCollector (main)			own
+         DynamicRefTools (used by Zoltan also)		own
+         fileSystem					own
+	 CopyFile					Zoltan's
+
+	DynamicRefTools is newer than the one you can get from Zoltan,
+	  but it should work fine for his program also. 
+	  (I've only deleted unnecessary comments, and cleaned up the mess.)
+	
+	fileSystem is not used by Zoltan. (as I know)
+	
+	CopyFile is Zoltan's, if you get a newer one from him, the Garb. collector
+	  should work fine with that also.
+
+other important notes:
+
+1.the (==) of paths is necessary to be good. At the moment the module fileSystem
+  exports it, but the difference of long and short paths are not handled.
+  Anyway: it didn't cause problems so far.
+  BUT it is important: necessary files can be deleted if we don't recognise
+  that two directories are the same.
+
+2.the garbage collector needs a file called "rootDir.txt" in the directory
+  given back by GetDynamicLinkerPath. The program handels (only) one root
+  directory.
+
+3.It produces log messages after a collection by APPENDING lines to the file
+  dynGarbCollectorLog.txt in the same directory.
+
+
+8/June/2002
+Matyas

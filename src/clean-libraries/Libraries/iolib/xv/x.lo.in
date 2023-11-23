@@ -1,0 +1,105 @@
+#
+# x.lo
+# ====
+#
+# Link Options file to link Clean applications that
+# use dynamic libraries for the Clean IO system.
+
+# This file is used to specify options to link Clean programs
+# that use the Clean IO library. The options file is passed
+# to the clm command with the -sl flag:
+#
+#	% clm -sl x <main module>
+
+# Link option files consist of two parts separated by an
+# '=' sign.
+#
+# The first section consists of options that are passed on
+# to the linker by clm.
+
+$CLEANIOLIB/libCleanIO.a
+$CLEANIOLIB/libCleanxv.a
+-R/usr/X11/lib
+-L/usr/X11/lib
+-R$OPENWINLIB
+-L$OPENWINLIB
+-lxview
+-lolgx
+-lXmu
+-lX11
+-lXt
+
+# The equal sign separates the two sections
+=
+
+# The second section lists all the modules that clm should *not*
+# pass to the linker, because they are already combined in
+# the Clean libraries
+#
+# The names between parentheses are the modules on which the
+# the first module depends.
+
+scrollList
+	(deltaIOState deltaDialog deltaTimer deltaSystem)
+xpicture
+deltaWindow
+	(deltaEventIO)
+xtimer
+xpath
+xmenu
+deltaMenu
+	(deltaEventIO)
+xwindow
+deltaIOState
+	(deltaEventIO)
+xfileselect
+deltaFileSelect
+	(deltaEventIO xfileselect)
+xkernel
+timerDevice
+	(ioState xtimer)
+menuDevice
+	(ioState xmenu StdEnv StdList StdOrdList StdTuple StdCharList StdFunc StdEnum _SystemEnum)
+misc
+	(StdString StdOverloaded StdClass StdBool StdInt StdFile)
+xdialog
+dialogDevice
+	(windowDevice)
+deltaDialog
+	(dialogDevice)
+deltaEventIO
+	(windowDevice)
+deltaTimer
+	(deltaEventIO timerDevice)
+deltaSystem
+	(StdString StdOverloaded xpath xwindow xdialog StdInt StdReal)
+deltaControls
+	(deltaDialog deltaTimer deltaSystem)
+ioState
+	(deltaIOSystem xevent)
+deltaIOSystem
+	(timerDef menuDef windowDef dialogDef)
+timerDef
+	(commonDef)
+menuDef
+	(commonDef)
+windowDef
+	(commonDef)
+dialogDef
+	(commonDef xtypes)
+xtypes
+xevent
+	(xtypes xkernel)
+xcursor
+windowDevice
+	(cursorInternal)
+cursorInternal
+	(windowDevice)
+deltaPicture
+	(deltaFont)
+deltaFont
+	(picture)
+picture
+	(StdArray _SystemArray xpicture StdMisc StdChar StdReal misc)
+commonDef
+	(deltaPicture)

@@ -1,0 +1,10 @@
+Ws2_32.dll
+WSAIoctl
+WSAGetLastError
+WSASocket
+WSASocketA
+WSASend
+WSARecv
+getpeername
+ 
+

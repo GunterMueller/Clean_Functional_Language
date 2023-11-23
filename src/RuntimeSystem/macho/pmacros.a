@@ -1,0 +1,45 @@
+
+.macro	lea	&r,&a
+	lis	$0,ha16($1)
+	addi	$0,$0,lo16($1)
+.endmacro
+
+.macro	tst
+	cmpwi	0,$0,0
+.endmacro
+
+.macro	badd
+	add	$0,$0,$1
+.endmacro
+
+.macro	baddi
+	addi	$0,$0,$1
+.endmacro
+
+.macro	baddicc
+	addic.	$0,$0,$1
+.endmacro
+
+.macro	bandic
+	andi.	$0,$0,$1
+.endmacro
+
+.macro	bsub
+	sub	$0,$0,$1
+.endmacro
+
+.macro	bsubc
+	sub.	$0,$0,$1
+.endmacro
+
+.macro	bsubi
+	subi	$0,$0,$1
+.endmacro
+
+.macro	bsubicc
+	subic.	$0,$0,$1
+.endmacro
+
+.macro	bor
+	or	$0,$0,$1
+.endmacro

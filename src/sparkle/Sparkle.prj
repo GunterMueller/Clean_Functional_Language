@@ -1,0 +1,76 @@
+Version: 1.4
+Global
+	Built:	True
+	Target:	Object IO
+	Exec:	{Project}\Tools\Sparkle.exe
+	CodeGen
+		CheckStacks:	False
+		CheckIndexes:	False
+	Application
+		HeapSize:	20480000
+		StackSize:	10240000
+		ExtraMemory:	81920
+		IntialHeapSize:	204800
+		HeapSizeMultiplier:	4096
+		ShowExecutionTime:	False
+		ShowGC:	False
+		ShowStackSize:	False
+		MarkingCollector:	False
+		StandardRuntimeEnv:	True
+		Profile
+			Memory:	False
+			MemoryMinimumHeapSize:	0
+			Time:	False
+			Stack:	False
+		Output
+			Output:	NoConsole
+			Font:	Courier
+			FontSize:	9
+			WriteStdErr:	False
+	Link
+		LinkMethod:	Static
+		GenerateRelocations:	False
+		GenerateLinkMap:	False
+		LinkResources:	False
+		ResourceSource:	
+		GenerateDLL:	False
+		ExportedNames:	
+	Paths
+		Path:	{Application}\Libraries\ArgEnv
+		Path:	{Application}\Libraries\Directory
+		Path:	{Project}\Tools
+		Path:	{Project}\Tools\Actions
+		Path:	{Project}\Tools\Core
+		Path:	{Project}\Tools\General Utilities
+		Path:	{Project}\Tools\Module Management
+		Path:	{Project}\Tools\Prove
+		Path:	{Project}\Tools\ProverOptions
+		Path:	{Project}\Tools\User Interface
+		Path:	{Project}\Libraries\Patch ObjectIO 1.2.3
+		Path:	{Project}\Libraries\Patch WrapDebug 1.0.3
+		Path:	{Project}\Libraries\StatusDialog v2.0
+		Path:	{Project}\Libraries\ErrorHandler
+		Path:	{Project}\Libraries\MarkUpText v2.0
+		Path:	{Project}\Libraries\MdM_IOlib
+		Path:	{Project}\Libraries\BalancedText
+		Path:	{Project}\Libraries\WrapDebug 1.0.4
+		Path:	{Project}\Libraries\frontend
+	Precompile:	
+	Postlink:	
+MainModule
+	Name:	Sparkle
+	Dir:	{Project}\Tools
+	Compiler
+		NeverMemoryProfile:	False
+		NeverTimeProfile:	False
+		StrictnessAnalysis:	True
+		ListTypes:	StrictExportTypes
+		ListAttributes:	True
+		Warnings:	True
+		Verbose:	True
+		ReadableABC:	False
+		ReuseUniqueNodes:	True
+		Fusion:	False
+	DclOpen:	False
+	IclOpen:	False
+	LastModified:	No 0 0 0 0 0 0

@@ -1,0 +1,174 @@
+#include "clean_types.h"
+
+extern int set_window_cursor(int,int);
+
+extern int create_commanddial(CLEAN_STRING,int,int,int);
+extern int create_propertydial(CLEAN_STRING,int,int);
+extern int add_dialog_button(int,int,int,int,int,CLEAN_STRING);
+extern int add_static_text(int,int,int,int,int,CLEAN_STRING);
+extern int add_edit_text(int,int,int,int,int,int,CLEAN_STRING);
+extern int add_dialog_exclusives(int,int,int,int,int,int,int);
+extern int add_dialog_popup(int,int,int,int,int);
+extern int get_popup_ex(int);
+extern int correct_popup_size(int);
+extern int add_dialog_radiob(int,int,CLEAN_STRING,int);
+extern int add_dialog_nonexclusives(int,int,int,int,int,int,int);
+extern int add_dialog_checkb(int,int,CLEAN_STRING,int);
+extern int add_dialog_control(int,int,int,int,int,int,int,int);
+extern int set_command_default(int,int);
+extern CLEAN_STRING get_edit_text(int);
+extern int set_edit_text(int,CLEAN_STRING);
+extern int set_static_text(int,CLEAN_STRING);
+extern int get_mark(int);
+extern int press_radio_widget(int,CLEAN_STRING);
+extern void get_dialog_event(int,int*,int*);
+extern int popup_modaldialog(int);
+extern int popup_modelessdialog(int);
+extern int create_notice(CLEAN_STRING);
+extern int create_about_dialog(int,int,int,int,int,CLEAN_STRING);
+extern int add_n_button(int,CLEAN_STRING,int);
+extern int handle_notice(int);
+extern int beep(int);
+extern void get_current_rect(int,int *,int *,int *,int *);
+extern int repos_widget(int,int,int,int,int);
+extern int get_father_width(int);
+extern int set_dialog_margins(int,int,int);
+extern int mm_to_pixel_hor(double);
+extern int mm_to_pixel_ver(double);
+extern int activate_dialog(int);
+extern int enable_dialog_item(int);
+extern int disable_dialog_item(int);
+extern int check_dialog_item(int,int);
+extern int destroy_dialog(int);
+extern int popdown_dialog(int);
+extern int dialog_item_to_object(int);
+
+extern int init_toplevelx(int);
+extern int set_toplevelname(CLEAN_STRING);
+extern int close_toplevelx(int);
+extern int open_toplevelx(int);
+extern int show_toplevelx(int);
+extern int hide_toplevelx(int);
+extern void single_event_catch(int,int *,int *);
+extern int destroy_widget(int);
+
+extern int add_menu_bar(int);
+extern int add_menu(int,CLEAN_STRING);
+extern int add_sub_menu(int,CLEAN_STRING);
+extern int add_check_item(int,CLEAN_STRING,int);
+extern int add_menu_separator(int);
+extern int add_menu_item(int,CLEAN_STRING);
+extern int enable_menu_widget(int);
+extern int disable_menu_widget(int);
+extern int check_widget(int,int);
+extern int set_widget_title(int,CLEAN_STRING);
+extern int install_shortcut(int,CLEAN_STRING);
+extern int hide_menu(int);
+extern int show_menu(int);
+extern void get_item_info(int, int *,int *,CLEAN_STRING *,CLEAN_STRING *);
+extern void get_submenu_info(int,CLEAN_STRING *,int *);
+extern int destroy_item_widget(int);
+extern int destroy_menu(int);
+
+extern CLEAN_STRING get_home_path(int);
+extern CLEAN_STRING get_appl_path(int);
+
+extern int start_drawing(int);
+extern int end_drawing(int);
+
+extern int hide_pen(int);
+extern int show_pen(int);
+extern void get_pen(int,int *,int *);
+extern int pen_size(int,int,int);
+extern int pen_mode(int,int);
+extern int pen_pattern(int,int);
+extern int pen_normal(int);
+
+extern int move_to(int,int,int);
+extern int move_relative(int,int,int);
+extern int line_to(int,int,int);
+extern int line_relative(int,int,int);
+extern int draw_string(CLEAN_STRING,int);
+
+extern int get_color(int);
+extern int foreground_color(int,int);
+extern int background_color(int,int);
+extern int rgb_fg_color(double,double,double,int);
+extern int rgb_bg_color(double,double,double,int);
+
+extern int draw_line(int,int,int,int,int);
+extern int draw_point(int,int,int);
+extern int frame_rectangle(int,int,int,int,int);
+extern int paint_rectangle(int,int,int,int,int);
+extern int erase_rectangle(int,int,int,int,int);
+extern int invert_rectangle(int,int,int,int,int);
+extern int move_rectangle(int,int,int,int,int,int,int);
+extern int copy_rectangle(int,int,int,int,int,int,int);
+extern int frame_round_rectangle(int,int,int,int,int,int,int);
+extern int paint_round_rectangle(int,int,int,int,int,int,int);
+extern int erase_round_rectangle(int,int,int,int,int,int,int);
+extern int invert_round_rectangle(int,int,int,int,int,int,int);
+extern int frame_oval(int,int,int,int,int);
+extern int paint_oval(int,int,int,int,int);
+extern int erase_oval(int,int,int,int,int);
+extern int invert_oval(int,int,int,int,int);
+extern int frame_arc(int,int,int,int,int,int,int);
+extern int paint_arc(int,int,int,int,int,int,int);
+extern int erase_arc(int,int,int,int,int,int,int);
+extern int invert_arc(int,int,int,int,int,int,int);
+extern int alloc_polygon(int);
+extern int free_polygon(int,int);
+extern int set_polygon_point(int,int,int,int);
+extern int frame_polygon(int,int,int,int,int);
+extern int paint_polygon(int,int,int,int,int);
+extern int erase_polygon(int,int,int,int,int);
+extern int invert_polygon(int,int,int,int,int);
+
+extern int get_number_fonts(int);
+extern CLEAN_STRING get_font_name(int);
+extern void get_font_info(int,int *,int *,int *,int *,int*);
+extern void get_font_font_info(int,int *,int *,int *,int *);
+extern void get_string_width(int,CLEAN_STRING,int *,int*);
+extern int get_font_string_width(int,CLEAN_STRING);
+extern int set_font(int,int,CLEAN_STRING,CLEAN_STRING,CLEAN_STRING);
+extern int set_font_name(int, CLEAN_STRING);
+extern int set_font_style(int, CLEAN_STRING);
+extern int set_font_size(int, CLEAN_STRING);
+extern int select_default_font(int);
+extern int select_font(CLEAN_STRING);
+extern void get_font_styles(CLEAN_STRING,int *,int *,int *,int *,int *);
+extern int get_font_sizes(CLEAN_STRING);
+extern int get_one_font_size(int);
+
+extern int install_timer(int);
+extern int change_timer_interval(int);
+extern int get_timer_count(int);
+extern int enable_timer(int);
+extern int disable_timer(int);
+extern void get_current_time(int,int *,int *,int *);
+extern void get_current_date(int,int *,int *,int *,int *);
+extern int wait_mseconds(int);
+
+extern void create_window(int,int,int,int,int,CLEAN_STRING,int,int,int,int,int,int,int,int,int,int,int *,int *);
+extern void get_mouse_state(int,int *,int *,int *,int *,int *,int *, int *);
+extern void get_expose_area(int,int *,int *,int *,int *,int *);
+extern int start_update(int);
+extern int end_update(int);
+extern void get_key_state(int,int *,int *,int*,int *,int *,int *); 
+extern void get_screen_size(int,int *,int *);
+extern int get_window_event(int);
+extern void set_scrollbars(int,int,int,int,int,int,int,int*,int*);
+extern void get_window_size(int, int*, int*);
+extern void get_current_thumbs(int, int *, int *);
+extern int change_window(int,int,int,int,int,int,int,int,int,int,int,int,int,int);
+extern void get_first_update(int,int *,int *);
+extern int discard_updates(int);
+extern int activate_window(int);
+extern int set_window_title(int,CLEAN_STRING);
+ 
+extern int popdown(int);
+extern int popup(int);
+extern int set_dd_distance(int);
+
+extern void select_input_file(int, int *,CLEAN_STRING *);
+extern void select_output_file(CLEAN_STRING,CLEAN_STRING,int *,CLEAN_STRING *);

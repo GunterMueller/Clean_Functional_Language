@@ -1,0 +1,35 @@
+
+SDIR = ./
+ODIR = ./
+
+all: $(ODIR)_startup.o $(ODIR)_reals.o crt.o crti.o crtn.o
+
+$(ODIR)_reals.o: $(SDIR)sreals.s
+	sed s/@// < $(SDIR)sreals.s > $(ODIR)sreals.a
+	as -P $(ODIR)sreals.a -o $(ODIR)_reals.o
+
+$(ODIR)_startup.o: $(ODIR)sstartup.o $(ODIR)sfileIO2.o $(ODIR)scon.o $(ODIR)ufileIO2.o
+	ld -r -o $(ODIR)_startup.o $(ODIR)sstartup.o $(ODIR)scon.o $(ODIR)sfileIO2.o $(ODIR)ufileIO2.o
+
+$(ODIR)scon.o: $(SDIR)scon.c
+	gcc -c -O -DGNU_C -DSOLARIS -o $(ODIR)scon.o $(SDIR)scon.c
+
+$(ODIR)ufileIO2.o: $(SDIR)ufileIO2.c
+	gcc -c -O -DGNU_C -DSOLARIS -o $(ODIR)ufileIO2.o $(SDIR)ufileIO2.c
+
+$(ODIR)sstartup.o: $(SDIR)sstartup.s $(SDIR)scopy.s $(SDIR)smark.s $(SDIR)scompact.s
+	sed s/@// < $(SDIR)/sstartup.s > $(ODIR)sstartup.a
+	sed s/@// < $(SDIR)/scopy.s > $(ODIR)scopy.a
+	sed s/@// < $(SDIR)/scompact.s > $(ODIR)scompact.a
+	sed s/@// < $(SDIR)/smark.s > $(ODIR)smark.a
+	as -P -DSOLARIS $(ODIR)sstartup.a -o $(ODIR)sstartup.o
+
+$(ODIR)sfileIO2.o: $(SDIR)sfileIO2.s
+	sed s/@// < $(SDIR)/sfileIO2.s > $(ODIR)sfileIO2.a
+	as -P $(ODIR)sfileIO2.a -o $(ODIR)sfileIO2.o
+
+crt.o: crt.s
+
+crti.o: crti.s
+
+crtn.o: crtn.s

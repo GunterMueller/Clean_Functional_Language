@@ -1,0 +1,10 @@
+foreign module xtimer;
+
+int install_timer(int)					'InstallXTimer';
+int change_timer_interval(int)				'ChangeXTimerInterval';
+int get_timer_count(int)				'GetTimerInfo';
+int enable_timer(int)					'EnableTheTimer';
+int disable_timer(int)					'DisableTheTimer';
+void get_current_time(int,int *,int *,int *)		'XGetCurrentTime';
+void get_current_date(int,int *,int *,int *,int *)	'XGetCurrentDate';
+int wait_mseconds(int)					'WaitmSeconds';

@@ -1,0 +1,6 @@
+kernel32.dll
+UnmapViewOfFile@4
+MapViewOfFile@20
+DuplicateHandle@28
+GetCurrentProcess@0
+CreateFileMappingA@24

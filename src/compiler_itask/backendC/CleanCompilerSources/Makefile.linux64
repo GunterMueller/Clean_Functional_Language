@@ -1,0 +1,15 @@
+# This is for linux 64
+CC = gcc
+CFLAGS = -D_SUN_ -DGNU_C -DG_A64 -O -fomit-frame-pointer
+AR = ar
+RANLIB = ranlib
+
+OBJECTS = \
+	backend.o backendsupport.o buildtree.o cocl.o \
+	codegen1.o codegen2.o codegen3.o codegen.o \
+	comsupport.o dbprint.o instructions.o optimisations.o \
+	pattern_match_2.o sa.o set_scope_numbers.o settings.o unix_io.o statesgen.o
+
+backend.a: $(OBJECTS)
+	$(AR) cur backend.a $(OBJECTS)
+	$(RANLIB) backend.a

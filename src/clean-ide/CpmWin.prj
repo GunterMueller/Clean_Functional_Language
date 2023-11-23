@@ -1,0 +1,75 @@
+Version: 1.5
+Global
+	ProjectRoot:	.
+	Target:	StdEnv
+	Exec:	{Project}\cpm\cpm.exe
+	CodeGen
+		CheckStacks:	False
+		CheckIndexes:	True
+	Application
+		HeapSize:	67108864
+		StackSize:	5242880
+		ExtraMemory:	8192
+		IntialHeapSize:	204800
+		HeapSizeMultiplier:	4096
+		ShowExecutionTime:	False
+		ShowGC:	False
+		ShowStackSize:	False
+		MarkingCollector:	False
+		DisableRTSFlags:	False
+		RunFromConsole:	True
+		StandardRuntimeEnv:	True
+		Profile
+			Memory:	False
+			MemoryMinimumHeapSize:	0
+			Time:	False
+			Stack:	False
+			Dynamics:	False
+			GenericFusion:	False
+			DescExL:	False
+		Output
+			Output:	NoReturnType
+			Font:	Monaco
+			FontSize:	9
+			WriteStdErr:	False
+	Link
+		LinkMethod:	Static
+		GenerateRelocations:	False
+		GenerateSymbolTable:	False
+		GenerateLinkMap:	False
+		LinkResources:	False
+		ResourceSource:	
+		GenerateDLL:	False
+		ExportedNames:	
+	Paths
+		Path:	{Project}*cpm
+		Path:	{Project}*cpm*Windows
+		Path:	{Application}*Libraries*ArgEnv
+		Path:	{Application}*Libraries*Directory
+		Path:	{Application}*Libraries*Generics
+		Path:	{Application}*Libraries*StdLib
+		Path:	{Project}*Win
+		Path:	{Project}*WinSupport
+		Path:	{Project}*Pm
+		Path:	{Project}*Util
+		Path:	{Project}*BatchBuild
+		Path:	{Project}*Interfaces*LinkerInterface
+		Path:	{Application}*Libraries*ObjectIO
+		Path:	{Application}*Libraries*ObjectIO*OS Windows
+	Precompile:	
+	Postlink:	
+MainModule
+	Name:	Cpm
+	Dir:	{Project}*cpm
+	Compiler
+		NeverMemoryProfile:	False
+		NeverTimeProfile:	False
+		StrictnessAnalysis:	True
+		ListTypes:	StrictExportTypes
+		ListAttributes:	True
+		Warnings:	True
+		Verbose:	True
+		ReadableABC:	False
+		ReuseUniqueNodes:	True
+		Fusion:	False
+OtherModules

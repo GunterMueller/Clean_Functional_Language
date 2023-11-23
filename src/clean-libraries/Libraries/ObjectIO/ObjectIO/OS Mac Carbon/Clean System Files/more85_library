@@ -1,0 +1,11 @@
+CarbonLib
+SetControlViewSize
+SetControl32BitMinimum
+GetControl32BitMinimum
+SetControl32BitMaximum
+GetControl32BitMaximum
+SetControl32BitValue
+GetControl32BitValue
+GetWindowStructureWidths
+CFStringCreateWithCString
+CFRelease

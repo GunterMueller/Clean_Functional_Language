@@ -1,0 +1,84 @@
+Version: 1.4
+Global
+	Built:	False
+	Target:	Object IO 1.2 (30 november 1999)
+	Exec:	{Project}\gathertest.exe
+	CodeGen
+		CheckStacks:	False
+		CheckIndexes:	False
+		TargetProcessor:	CurrentProcessor
+	Application
+		HeapSize:	409600
+		StackSize:	102400
+		ExtraMemory:	81920
+		IntialHeapSize:	204800
+		HeapSizeMultiplier:	4096
+		ShowExecutionTime:	False
+		ShowGC:	False
+		ShowStackSize:	False
+		MarkingCollector:	False
+		StandardRuntimeEnv:	True
+		Profile
+			Memory:	False
+			MemoryMinimumHeapSize:	0
+			Time:	True
+			Stack:	False
+		Output
+			Output:	ShowConstructors
+			Font:	Courier
+			FontSize:	9
+			WriteStdErr:	False
+	Link
+		LinkMethod:	Static
+		GenerateRelocations:	False
+		GenerateLinkMap:	False
+		LinkResources:	False
+		ResourceSource:	
+	Paths
+		Path:	{Project}
+		Path:	C:\CleanCompiler\Theorem Prover
+MainModule
+	Name:	gathertest
+	Dir:	{Project}
+	Compiler
+		NeverMemoryProfile:	False
+		NeverTimeProfile:	False
+		StrictnessAnalysis:	True
+		ListTypes:	NoTypes
+		ListAttributes:	False
+		Warnings:	False
+		Verbose:	False
+		ReadableABC:	False
+		ReuseUniqueNodes:	True
+	Dcl
+		Editor
+			TabSize:	4
+			Font:	Courier New
+			FontSize:	8
+			AutoIndent:	True
+			ShowTabs:	True
+			ShowLins:	True
+		WindowPosition
+			X:	0
+			Y:	0
+			SizeX:	500
+			SizeY:	300
+	DclOpen:	False
+	Icl
+		Editor
+			TabSize:	4
+			Font:	Courier New
+			FontSize:	8
+			AutoIndent:	True
+			ShowTabs:	True
+			ShowLins:	True
+		WindowPosition
+			X:	7
+			Y:	3
+			SizeX:	1082
+			SizeY:	902
+	IclOpen:	False
+	LastModified:	No 0 0 0 0 0 0
+Static
+	AppP:	
+	PrjP:	

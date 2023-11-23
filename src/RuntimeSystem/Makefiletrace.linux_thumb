@@ -1,0 +1,39 @@
+
+SDIR = ./
+ODIR = ./
+
+DEFINES = -DUSE_CLIB -DLINUX -DARM -DGNU_C -DELF -DTIME_PROFILE -DPROFILE
+
+all: $(ODIR)_startupTrace.o
+
+$(ODIR)_startupTrace.o: $(ODIR)tstartup.o $(ODIR)tfileIO3.o $(ODIR)ttrace.o $(ODIR)scon.o $(ODIR)ufileIO2.o $(ODIR)tdivmod.o $(ODIR)tudiv.o $(ODIR)tludiv.o
+	ld -r -o $(ODIR)_startupTrace.o $(ODIR)tstartup.o $(ODIR)tdivmod.o $(ODIR)tudiv.o $(ODIR)tludiv.o $(ODIR)ttrace.o $(ODIR)scon.o $(ODIR)tfileIO3.o $(ODIR)ufileIO2.o
+
+$(ODIR)scon.o: $(SDIR)scon.c
+	gcc -mthumb -O $(DEFINES) -ffunction-sections -fdata-sections $(SDIR)scon.c -S -o $(ODIR)scon.s
+	mv $(ODIR)scon.s $(ODIR)scon.s.copy
+	grep -v -w ___main $(ODIR)scon.s.copy > $(ODIR)scon.s
+	as $(DEFINES_A) $(ODIR)scon.s -o $(ODIR)scon.o
+
+$(ODIR)ufileIO2.o: $(SDIR)ufileIO2.c
+	gcc -mthumb -c -O $(DEFINES) -ffunction-sections -fdata-sections -o $(ODIR)ufileIO2.o $(SDIR)ufileIO2.c
+
+$(ODIR)tstartup.o: $(SDIR)tstartup.s
+	as $(ODIR)tstartup.s --defsym LINUX=1 --defsym PROFILE=1 --defsym TRACE=1 -o $(ODIR)tstartup.o
+
+$(ODIR)tfileIO3.o: $(SDIR)tfileIO3.s
+	as $(ODIR)tfileIO3.s -o $(ODIR)tfileIO3.o
+
+$(ODIR)ttrace.o: $(SDIR)ttrace.s
+	as $(ODIR)ttrace.s -o $(ODIR)ttrace.o
+
+$(ODIR)tdivmod.o: $(SDIR)tdivmod.s
+	as $(ODIR)tdivmod.s -o $(ODIR)tdivmod.o
+
+$(ODIR)tudiv.o: $(SDIR)tudiv.s
+	as $(ODIR)tudiv.s -o $(ODIR)tudiv.o
+
+$(ODIR)tludiv.o: $(SDIR)tludiv.s
+	as $(ODIR)tludiv.s -o $(ODIR)tludiv.o
+
+

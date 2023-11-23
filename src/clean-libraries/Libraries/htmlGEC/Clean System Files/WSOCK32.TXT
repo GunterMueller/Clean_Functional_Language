@@ -1,0 +1,8 @@
+WSOCK32.DLL
+WSACleanup@0
+WSAStartup@8
+send@16
+recv@16
+closesocket@4
+select@20
+shutdown@8

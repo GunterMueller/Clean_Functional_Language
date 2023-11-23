@@ -1,0 +1,22 @@
+Redirections of type implementations
+
+Each (non-data) dynamic has an application associated with it. This application
+provides an implementation for that dynamic. For the time being this
+application has been fixed to the application that created the dynamic.
+
+This may change in the future. For example if another application also
+provides the implementation and can be shared by dynamics, then the 
+amount of references can be reduced to that application.
+
+It is pointless to associate an application with a data-dynamic because
+its contents can only be used if the external type matches the specified
+pattern in the application reading that dynamic.
+
+Reading a dynamic:
+- after a dynamic has been correctly type checked, the implementation
+  chosen for that dynamic *overrides* a implementation provided by 
+  the application of the dynamic. 
+ 
+  It should be noted that in case of a datadynamic, no implementation
+  will be provided.
+

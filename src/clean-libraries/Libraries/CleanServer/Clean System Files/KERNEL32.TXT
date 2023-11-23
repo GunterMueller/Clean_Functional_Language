@@ -1,0 +1,6 @@
+KERNEL32.DLL
+OpenFileMappingA@12
+GetCurrentProcessId@0
+RtlMoveMemory@12
+CreateSemaphoreA@16
+ReleaseSemaphore@12

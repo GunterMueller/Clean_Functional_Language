@@ -1,0 +1,54 @@
+
+Set -e CIncludes 'Programs:Metrowerks CodeWarrior 6.0:Metrowerks CodeWarrior:Carbon Support:Universal Interfaces:CIncludes,Programs:MPW:Interfaces:CIncludes'
+
+mrc -w off -sym off -d MACOSX -d POWER -d G_POWER -d WRITE_HEAP mcon.c -o mcon.c.x
+mrc -sym off -d POWER -d G_POWER mwrite_heap.c -o mwrite_heap.c.x
+ppcasm -sym off -d PROFILE=0 -d MACOSX=1 -d LINUX=0 -typecheck pstartup.a -o pstartup.a.o
+PPCLink -sym off -xm library mcon.c.x mwrite_heap.c.x pstartup.a.o -o _startup.xo
+setfile -t CgOb -c 3PRM _startup.xo
+
+mrc -w off -sym off -d MACOSX -d POWER -d G_POWER -d WRITE_HEAP -d TIME_PROFILE -d LINUX=0 mcon.c -o mcon.c.x
+ppcasm -sym off -d PROFILE=1 -d MACOSX=1 -d LINUX=0 -typecheck pstartup.a -o pstartup.a.o
+ppcasm -d MACOSX=1 -d POWER601=0 -d LINUX=0 -sym off -typecheck pprofile.a -o pprofile.a.o
+PPCLink -sym off -xm library mcon.c.x mwrite_heap.c.x pprofile.a.o pstartup.a.o	-o _startupProfile.xo
+setfile -t CgOb -c 3PRM _startupProfile.xo
+
+ppcasm -d MACOSX=1 -d POWER601=1 -d LINUX=0 -sym off -typecheck pprofile.a -o pprofile.a.o
+PPCLink -sym off -xm library mcon.c.x mwrite_heap.c.x pprofile.a.o pstartup.a.o	-o _startupProfile601.xo
+setfile -t CgOb -c 3PRM _startupProfile601.xo
+
+ppcasm -d MACOSX=1 -sym off -typecheck ptrace.a -o ptrace.a.o
+PPCLink -sym off -xm library mcon.c.x mwrite_heap.c.x ptrace.a.o pstartup.a.o -o _startupTrace.xo
+setfile -t CgOb -c 3PRM _startupTrace.xo
+
+mrc -typecheck relaxed -w off -sym off -d MACOSX=1 -d POWER -d G_POWER mfileIO3.c
+ppcasm -d MACOSX=1 -sym off -typecheck pfileIO3.a -o pfileIO3.a.o
+PPCLink -sym off -xm library pfileIO3.a.o mfileIO3.c.o -o _library.xo
+setfile -t CgOb -c 3PRM _library.xo
+
+Set -e CIncludes 'Programs:Metrowerks CodeWarrior 6.0:Metrowerks CodeWarrior:Carbon Support:Universal Interfaces:CIncludes,Programs:MPW:Interfaces:CIncludes'
+
+mrc -w off -sym off -d POWER -d G_POWER -d WRITE_HEAP mcon.c -o mcon.c.x
+mrc -sym off -d POWER -d G_POWER mwrite_heap.c -o mwrite_heap.c.x
+ppcasm -sym off -d PROFILE=0 -d MACOSX=0 -d LINUX=0 -typecheck pstartup.a -o pstartup.a.o
+PPCLink -sym off -xm library mcon.c.x mwrite_heap.c.x pstartup.a.o -o _startup.cxo
+setfile -t CgOb -c 3PRM _startup.cxo
+
+mrc -w off -sym off -d POWER -d G_POWER -d WRITE_HEAP -d TIME_PROFILE -d LINUX=0 mcon.c -o mcon.c.x
+ppcasm -sym off -d PROFILE=1 -d MACOSX=0 -d LINUX=0 -typecheck pstartup.a -o pstartup.a.o
+ppcasm -d MACOSX=0 -d POWER601=0 -d LINUX=0 -sym off -typecheck pprofile.a -o pprofile.a.o
+PPCLink -sym off -xm library mcon.c.x mwrite_heap.c.x pprofile.a.o pstartup.a.o	-o _startupProfile.cxo
+setfile -t CgOb -c 3PRM _startupProfile.cxo
+
+ppcasm -d MACOSX=0 -d POWER601=1 -sym off -typecheck pprofile.a -o pprofile.a.o
+PPCLink -sym off -xm library mcon.c.x mwrite_heap.c.x pprofile.a.o pstartup.a.o	-o _startupProfile601.cxo
+setfile -t CgOb -c 3PRM _startupProfile601.cxo
+
+ppcasm -d MACOSX=0 -sym off -typecheck ptrace.a -o ptrace.a.o
+PPCLink -sym off -xm library mcon.c.x mwrite_heap.c.x ptrace.a.o pstartup.a.o -o _startupTrace.cxo
+setfile -t CgOb -c 3PRM _startupTrace.cxo
+
+mrc -typecheck relaxed -w off -sym off -d MACOSX=0 -d POWER -d G_POWER mfileIO3.c
+ppcasm -d MACOSX=0 -sym off -typecheck pfileIO3.a -o pfileIO3.a.o
+PPCLink -sym off -xm library pfileIO3.a.o mfileIO3.c.o -o _library.cxo
+setfile -t CgOb -c 3PRM _library.cxo

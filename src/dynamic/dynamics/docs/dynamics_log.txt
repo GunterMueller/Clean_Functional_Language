@@ -1,0 +1,298 @@
+Dynamic, 2001
+
+1st of june, Friday, Rinus:
+* a dynamic consists of
+  - graph
+  - code
+  - type
+  - type definitions
+
+  Both code and type definitions are reachable via the graph or the type
+
+* symbolic representation of a dynamic. Make a concrete representation
+  after its type is (partially) found correct.
+
+7th of June, Thursday:
+* nested dynamics have the following problems:
+  - the types of all dynamic nested in a dynamic to be written to disk,
+    have to be concretized to a SpecOnDisk-constructor because otherwise
+    references are no longer valid when the application terminates.
+* what about copied dynamics i.e. dynamics read from disk, but there has
+  been no attempt or only failed attempts to built it i.e. unifications
+  did not succeed. 
+
+* how to detect a copied dynamic? If no attempts were made to unify its
+  type, then it is more or less clear. But what if all unifications failed,
+  then the dynamic and its type but not its value will have been built. 
+  This is still a copied dynamic.
+
+13th of June, Wednesday, Marco Pil
+
+* g (f :: a -> a) = dynamic (f o f) :: a -> a
+
+  The type variable a above is a *type pattern* variable.
+
+  Examples:
+  dynamic fac :: Int -> Int
+  dynamic mapneg :: [Bool] -> [Bool]
+  dynamic reverse :: A.a [a] -> [a] 
+
+  The 'reverse' object is a polymorphic dynamic because its static type
+  is universally quantified over the *type* variable a.
+
+* g (f :: A.a -> a) = ...
+  
+  The type variable a above is a *fixed type pattern* variable. The dynamic
+  pattern *requires* a polymorphic dynamic e.g. the polymorphic reverse 
+  dynamic from above. The other two examples make the pattern fail.
+
+* g :: Dynamic (a -> a) -> (a -> a) | TC a
+  g (f :: a^ -> a^) h = f o h
+
+  with application g _ id (_ means some correctly typed expression)
+
+  id has type A.a a -> a
+   
+  The dynamic pattern (f :: a^ -> a^) has then the semantics of the following
+  dynamic pattern (f :: A.a a -> a). Here an implicit universal quantifier has
+  been introduced.
+
+19th of June, Tuesday, Rinus
+* evaluation of a dynamic coming from readDynamic:
+
+  The value_closure is a reference to the as a string encoded graph which also
+  applies to the type_closure
+
+  a_dynamic=:(DynamicTemp value_closure, type_closure)
+
+  if type_closure_still_exists then
+     a_dynamic
+  else
+     if a_dynamic_does_not_match_against_dynamic_pattern then
+        (DynamicTemp value_closure, type_partially_evaluated)
+     else
+        if value_closure_still_exists then
+	   (DynamicTemp value_closure, type_partially_evaluated)
+	else	      
+           (DynamicTemp value_partially_evaluated, type_partially_evaluated)
+
+  The value_partially_evaluated contains the following kind of references:
+  - it may still contain references to the as a string encoded graph. The user
+    should be able to choose.
+  - it may contain references to *linked* objects e.g. if you wrap a_dynamic
+    into another dynamic. 
+
+13th of August, Monday, Marco Pil
+* the module name which defines a type is sufficient instead of the module name
+  in which a dynamic is created. Advantage: no scope searching necessary.
+* type equivalence
+  - syntaxical equivalence (modulo alpha conversion)
+  - intentional equivalence in addition to above mentioned equivalence
+  	1) explicitly stated equivalence by the programmer
+           e.g. properties
+	2) implicitly
+	   more restictive: defining module name is also taken into account but
+	   does not guarantee intentional equivalence (completely).
+* laziness
+  - space leaks caused by discarded partitions (when not all partitions have
+    been constructed)
+  - when entries in the boxed array can be erased
+  - unity of laziness e.g. per node by Marco Pil, per partition by me
+
+Artem and Nicolas
+* dynamic to any
+  - (sharing) closures (in non-data dynamics)
+
+24th of August, Sjaak
+* unwrap (x :: a^) = undef OR
+  f i = dynamic i :: a^
+
+  are non_sense because is a *reference* to a global type variable without corresponding
+  definition. A future solution is to replace a^ by an underscore and let it infer by the
+  type-checker.
+* TC-class context restrictions are *not* allowed when defining another class.
+* universal and existential kwantors are permitted in dynamic patters and dynamics.
+  Example:
+	dynamic (i i) :: A.a -> a OR
+        unwrap (A.a -> a.a)
+
+  When a polymorphic function is put in a dynamic, an additional check is made to ensure
+  that the injected object is truely polymorphic.
+
+4th of October, Rinus
+* encode of an unevaluated dynamic i.e. reference to unbuilt block
+  - per reference
+    preservation of sharing(+), easy (++), efficient (?)
+	
+  - per copy
+    - directly from the dynamic representation
+      technical (--), efficient (++)
+    - via heap
+      no, dynamic may not be constructible i.e. data dynamic (--), inefficient both in
+      space and time (--)
+
+24th of October, Rinus
+* overloaded dynamics
+  Two applications, a sender and a receiver of an overloaded dynamic:
+  - instances from sender
+    The pattern match is (f :: a -> a | + a). But it requires 'a' plus from the
+    receiver which is artificial because the plus comes from the receiver. In order to
+    use the dynamic you need to have unused + in your application.
+
+    There's a second variant: (f :: a -> a) with 'a' a concrete type. So pattern matches
+    succeed iff the sender provides an implementation of the type.
+  - instances from receiver
+    Intention problem. The function f applies the '+'. Do any of the applications of '+'
+    within f use the intention of +. Probably yes. Does the sender contain the same
+    intention of f?
+
+  - what about polymorphic functions with class restrictions?
+
+28th of November, Rinus
+* lazy dynamic references can depend on the dynamic in which they are contained i.e. if a 
+  graph which contains subgraphs of a dynamic, at least one reference (not yet built
+  part of the graph) and there is a type equation with types used by both the subgraph
+  and the lazy dynamic reference which are saved on disk, then at load-time the lazy graph
+  reference *must* get the same library instance as the one already allocated. Otherwise
+  type equations are lost.
+ 
+24th/25th of January, Rinus and Arjen
+* polymorphic dynamics
+  implementation assumes equal type variables to be shared in memory i.e. have the same 
+  address. The type component of a dynamic, could not contained type variables. As a 
+  consequence two type pattern variables were never unified which made the algorithm 
+  simpler.
+
+  But universal type variables can occur in the type component of a dynamic but now the
+  property that the same type variables share a common address is not guaranteed anymore
+  because during unification type variables can become shared.
+
+  The algorithm has been worked out on a separate paper.
+
+  The following problems must taken care of:
+  - the external type of a dynamic must be dynamically reconstructed replacing type variables
+    according to the type established by previous unifies.
+  - the type-object must be threaded as if it were unique throughout the function in order to
+    guarantee that the constructed dynamics get not too specific types.
+
+15th of Febuary, Diederik and John
+* creation of build_block-closures
+  The build_block-closures are created for each reference to a block. In particular for strict
+  arguments/fields where the run-time system expects a hnf. A block reference in a strict-position
+  *must* be constructed.
+
+  The strictness of a boxed argument can only be determined using type information. As type
+  information is unaccessible during conversion, the encoded dynamic must be patched to indicate
+  what block references must be built immediately.
+
+  For the time-being a block being referenced is constructed immediately until a dynamic is
+  encountered. This solutions risks doing too much work. But it is correct.
+
+  An optimization would be to analyze all block references. 
+
+
+21th of Febuary, Rinus
+* type equivalent equations
+  if type T1 is equivalent to type T2, then they *must* be contained in the same type equation
+  class. For example:
+  f (dynamic v1 :: T -> T) (dynamic v2 :: T)	// Tuple v12
+
+  f (v1 :: a -> a) (v2 :: a)
+	= dynamic (v1,v2) :: (a -> a,a)   
+
+  f (dynamic v3 :: T -> T) (dynamic v4 :: T)	// Tuple v34
+
+  Currently unification creates two different type equivalence classes:
+  1) T(v1) == T(v2)
+  2) T(v3) == T(v4)
+
+  Suppose a type implementation is determined for both type equivalent classes as a consequence
+  of evaluation of both tuples.
+
+  Now v3 of tuple v34 is applied with as argument v2 of tuple v12. But type T now has two 
+  implementations.
+
+  The solution is to prevent the creation of different type equivalent classes for the same type
+  T which ensures the sharing of T implementation.
+
+  It most probably will also solve the problem of nested dynamics.
+
+22th of April, Rinus
+* type equivalent equations
+  Example:
+  foo
+	= dynamic [d1,d2]
+
+  d1 	= dynamic t :: Tree Int
+  d2	= dynamic s :: Int
+
+  s	= size t
+
+  t 	= ... (some tree)
+
+  And dynamics d1 and d2 come are encoded. Note that tree t is being shared. If the graph for d2
+  and d1 (in that order) is built completely, then they will *not* share the same Tree-implementation.
+
+  Needs to be investigated.
+
+8th of May, Rinus
+* paper
+  - unification based
+	+ only needed type definition checks, if necessary	| more efficient
+	- less type equations			|
+
+	- implementation more difficult
+	- same functions could be linker more than once
+	+ code garbage collection easier (per dynamic) (?)
+
+  - non-unification based
+	- all equally named type definition checks, always
+        + lots of type equations
+
+	- implementation easier
+
+8th of May, Rinus
+* preservation of internal sharing
+
+  Situation:
+  A dynamic in an application which builts some of the blocks provided by an encoded dynamic but also 
+  has references to not yet built block provided by that same encoded dynamic. The dynamic is being
+  encoded. If these unbuilt blocks depend upon already built blocks contained in the dynamic then in
+  the current implementation internal sharing is lost.
+
+  Solution:
+  Each lazy reference should determine the set of built block which will make into the dynamic being
+  encoded. This set should be stored as an additional argument to build_lazy_block. If the dynamic is
+  read later by build_lazy_block, then it still knows what blocks have already been built and the
+  their pointers into the graph.
+
+  Implementation:
+  For each build_block (which appears as a build_lazy_block in the dynamic being encoded) the set of
+  dependent and *used* blocks must be determined i.e. the set of pointers to blocks. This set must
+  also be encoded.
+
+  As there can be multiple build_blocks within a dynamic and the set of *all* used dependent blocks 
+  must be shared to prevent loss of internal sharing. This set is computed by taking the union of the
+  sets of dependent and used blocks associated with each build_lazy_block of a dynamic.
+
+  The current implementation does *not* allow the block dependency to be determined easily. This can
+  be solved by creating that dependency graph. This block dependency graph either be created at 
+  conversion-time but it could also be created if the encoded graph could be traversed at the Clean-
+  level. This could also benefit of strict external block references which are yet not detected.
+
+  The meaning of the used dependent blocks-set is to permit lazy blocks constructed during decoding
+  the dynamic being written, to share blocks which have already been built before encoding that 
+  dynamic.
+
+  In general it cannot be predicted if a block will be built because that entirely depends on the
+  application. Hence too much of run-time graph can be encoded in the dynamic.
+
+13th of June, Rinus, Ronny and Arjen
+* abstract types
+  - intention expressed by operations must be preserved
+  - concrete implementation only visible within defining module
+* synonym types
+  - expansion time: 
+	* compile (fast solution) 
+	* run-time (only if needed (laziness,more efficient, dlink caching),less space(oio))
+  

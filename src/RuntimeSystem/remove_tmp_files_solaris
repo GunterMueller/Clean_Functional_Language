@@ -1,0 +1,2 @@
+rm smark.a scopy.a scompact.a sstartup.a sfileIO2.a sreals.a
+rm scon.o sstartup.o sfileIO2.o ufileIO2.o

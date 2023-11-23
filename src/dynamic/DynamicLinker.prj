@@ -1,0 +1,73 @@
+Version: 1.4
+Global
+	ProjectRoot:	.
+	Built:	True
+	Target:	Everything
+	Exec:	{Project}\DynamicLinker.exe
+	CodeGen
+		CheckStacks:	False
+		CheckIndexes:	True
+	Application
+		HeapSize:	67108864
+		StackSize:	1048576
+		ExtraMemory:	81920
+		IntialHeapSize:	1048576
+		HeapSizeMultiplier:	1024
+		ShowExecutionTime:	False
+		ShowGC:	False
+		ShowStackSize:	False
+		MarkingCollector:	False
+		StandardRuntimeEnv:	True
+		Profile
+			Memory:	False
+			MemoryMinimumHeapSize:	0
+			Time:	False
+			Stack:	False
+		Output
+			Output:	NoConsole
+			Font:	Courier
+			FontSize:	9
+			WriteStdErr:	False
+	Link
+		LinkMethod:	Static
+		GenerateRelocations:	False
+		GenerateLinkMap:	False
+		LinkResources:	False
+		ResourceSource:	
+		GenerateDLL:	False
+		ExportedNames:	
+	Paths
+		Path:	{Project}\linkers\static\pc
+		Path:	{Project}\linkers\dynamic
+		Path:	{Project}\linkers\dynamic\pc
+		Path:	{Project}\linkers\clean 2.0 interface
+		Path:	{Project}\linkers\shared
+		Path:	{Project}\linkers\static\pc
+		Path:	{Project}\linkers\release
+		Path:	{Project}\dynamics\StdDynamicEnv\extension
+		Path:	{Project}\dynamics\StdDynamicEnv\implementation\windows
+		Path:	{Project}\dynamics\StdDynamicEnv\implementation
+		Path:	{Project}\dynamics\StdDynamicEnv\general
+		Path:	{Project}\linkers\directory_structure
+		Path:	{Project}\dynamics\non-standard libraries\IDE stuff
+		Path:	{Project}\linkers\cg_interface
+		Path:	{Project}\linkers\library\pc
+		Path:	{Project}\linkers\dynamic\pc\Sharing
+		Path:	{Project}\dynamics\non-standard libraries\stripped compiler
+		Path:	{Project}\linkers\pc32bits
+	Precompile:	
+	Postlink:	
+MainModule
+	Name:	DynamicLinker
+	Dir:	{Project}\linkers\dynamic\pc
+	Compiler
+		NeverMemoryProfile:	False
+		NeverTimeProfile:	False
+		StrictnessAnalysis:	True
+		ListTypes:	StrictExportTypes
+		ListAttributes:	True
+		Warnings:	True
+		Verbose:	True
+		ReadableABC:	False
+		ReuseUniqueNodes:	True
+		Fusion:	False

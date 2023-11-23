@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
+<plist version="0.9">
+<dict>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
+    <key>CFBundleIdentifier</key>
+    <string>nl.hilt.CleanIde</string>
+    <key>CFBundleName</key>
+    <string>CleanIde</string>
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+    <key>CFBundleSignature</key>
+    <string>3PRM</string>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>English</string>
+    <key>LSPrefersCarbon</key>
+    <true/>
+    <key>CFBundleVersion</key>
+    <string>2.1</string>
+    <key>CFBundleShortVersionString</key>
+    <string>2.1</string>
+    <key>CFBundleLongVersionString</key>
+    <string>2.1, © 1987-2003 University of Nijmegen</string>
+    <key>CFBundleIconFile</key>
+    <string>128</string>
+    <key>NSAppleScriptEnabled</key>
+    <string>No</string>
+    <key>NSHumanReadableCopyright</key>
+    <string>Copyright (c) 1987-2003 University of Nijmegen</string>
+    <key>CFBundleDocumentTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>TEXT</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>129</string>
+            <key>CFBundleTypeName</key>
+            <string>Clean text document</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>txt</string>
+                <string>text</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>TEXT</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>129</string>
+            <key>CFBundleTypeName</key>
+            <string>Clean project document</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>prj</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>TEXT</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>129</string>
+            <key>CFBundleTypeName</key>
+            <string>Clean implementation module</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>icl</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>TEXT</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>129</string>
+            <key>CFBundleTypeName</key>
+            <string>Clean definition module</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>dcl</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>TEXT</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>129</string>
+            <key>CFBundleTypeName</key>
+            <string>Clean Foreign module</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>fcl</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>TEXT</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>129</string>
+            <key>CFBundleTypeName</key>
+            <string>Clean ABC module</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>abc</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+        </dict>
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>CgOb</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>130</string>
+            <key>CFBundleTypeName</key>
+            <string>Clean code object</string>
+            <key>CFBundleTypeRole</key>
+            <string>Viewer</string>
+        </dict>
+        <dict>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>****</string>
+            </array>
+            <key>CFBundleTypeIconFile</key>
+            <string>131</string>
+            <key>CFBundleTypeName</key>
+            <string>Clean document</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <string>pict</string>
+            </array>
+            <key>CFBundleTypeRole</key>
+            <string>Viewer</string>
+        </dict>
+    </array>
+</dict>
+</plist> 
+
+

@@ -1,0 +1,7 @@
+*.result
+
+bool
+char
+int
+tree
+with_options

@@ -1,0 +1,15 @@
+NO_CYGWIN = 1
+CC = gcc
+CFLAGS = -mno-cygwin -DI486 -DGNU_C -D_WINDOWS_ -DTHREAD32 -O -fomit-frame-pointer
+
+OBJECTS = cg.o cgcalc.o cgcode.o cginput.o cginstructions.o \
+	cglin.o cgopt.o cgias.o cgiwas.o cgstack.o
+
+cgts.exe: $(OBJECTS)
+	gcc -mno-cygwin -s $(OBJECTS) -o $@ 
+#	gcc -mno-cygwin $(OBJECTS) -o $@ 
+
+clean:
+	rm $(OBJECTS)
+
+# DO NOT DELETE

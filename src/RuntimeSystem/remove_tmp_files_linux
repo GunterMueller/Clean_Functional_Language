@@ -1,0 +1,3 @@
+rm scon.s scon.s.copy istartup.cpp istartup.t istartup.a
+rm ifileIO3.cpp ifileIO3.t ifileIO3.a iprofile.t iprofile.cpp iprofile.a
+rm scon.o ufileIO2.o ifileIO3.o istartup.o iprofile.o uwrite_heap.o

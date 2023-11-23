@@ -1,0 +1,46 @@
+
+ODIR = o/
+
+OBJECTS = $(ODIR)cg.o $(ODIR)cginput.o $(ODIR)cgcode.o $(ODIR)cginstructions.o $(ODIR)cgstack.o $(ODIR)cgcalc.o $(ODIR)cglin.o $(ODIR)cgopt.o $(ODIR)cgptoc.o $(ODIR)cgpas.o $(ODIR)cgpwas.o
+
+GCC_OPTIONS = -I /Developer/Headers/FlatCarbon/ -c -fpascal-strings -DPROJECT_BUILDER -DPOWER -DG_POWER -DGNU_C -DMACH_O
+
+cg: $(OBJECTS)
+	gcc $(OBJECTS) -framework Carbon -o cg
+
+remove_objects:
+	$(RM) $(OBJECTS)
+
+$(ODIR)cg.o : cg.c
+	gcc -c $(GCC_OPTIONS) cg.c -o $(ODIR)cg.o
+
+$(ODIR)cginput.o : cginput.c
+	gcc -c $(GCC_OPTIONS) cginput.c -o $(ODIR)cginput.o
+
+$(ODIR)cgcode.o : cgcode.c
+	gcc -c $(GCC_OPTIONS) cgcode.c -o $(ODIR)cgcode.o
+
+$(ODIR)cginstructions.o : cginstructions.c
+	gcc -c $(GCC_OPTIONS) cginstructions.c -o $(ODIR)cginstructions.o
+
+$(ODIR)cgstack.o : cgstack.c
+	gcc -c $(GCC_OPTIONS) cgstack.c -o $(ODIR)cgstack.o
+
+$(ODIR)cgcalc.o : cgcalc.c
+	gcc -c $(GCC_OPTIONS) cgcalc.c -o $(ODIR)cgcalc.o
+
+$(ODIR)cglin.o : cglin.c
+	gcc -c $(GCC_OPTIONS) cglin.c -o $(ODIR)cglin.o
+
+$(ODIR)cgopt.o : cgopt.c
+	gcc -c $(GCC_OPTIONS) cgopt.c -o $(ODIR)cgopt.o
+
+$(ODIR)cgptoc.o : cgptoc.c
+	gcc -c $(GCC_OPTIONS) cgptoc.c -o $(ODIR)cgptoc.o
+
+$(ODIR)cgpas.o : cgpas.c
+	gcc -c $(GCC_OPTIONS) cgpas.c -o $(ODIR)cgpas.o
+
+$(ODIR)cgpwas.o : cgpwas.c
+	gcc -c $(GCC_OPTIONS) cgpwas.c -o $(ODIR)cgpwas.o
+

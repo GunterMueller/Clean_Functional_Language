@@ -1,0 +1,13 @@
+kernel32.dll
+InterlockedIncrement
+GetShortPathNameA@12
+CreateFileMappingA@24
+MapViewOfFile@20
+DuplicateHandle@28
+GetCurrentProcess@0
+CreateFileA@28
+UnmapViewOfFile@8
+GetShortPathNameA@12
+GetCurrentDirectoryA@8
+OpenProcess@12
+

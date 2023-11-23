@@ -1,0 +1,68 @@
+Overview/Wishlist dynamics
+
+Problems to be solved:
+(pc/mac):
+- inefficiency due to compiler limitations and linker design. The compiler does *not*
+  instantiate an overloaded function efficiently.
+
+(pc):
+- efficiency due to linker design. single pass linking and removing garbage from the
+  linker table is not yet implemented. Perhaps also a buffer could be allocated to
+  contain the pieces of object code to be read in. This probably saves a lot of
+  garbage collection time.
+  
+(pc/mac):
+- a more portable representation of the datagraph. The byte order is processor specific
+  and thus platform dependent. A possible solution might 'convert' the graph in the
+  required byte order. This may be done on the fly or as a seperate pass by the graph
+  conversion functions.
+
+(pc/mac):
+- time & heap profiling support for lazily linked applications. In the case of a
+  statically linked application, all goes well (if you link profile enabled code).
+
+Essential problems:
+(pc/mac):
+- throughout the application modules names *must* be unqiue. Suppose you have a module m has
+  already been loaded. If you then load a dynamic which uses an equally named but different
+  module m, the linker *cannot* correctly resolve the references. This problem is due to 
+  generation of non-unique module names.
+- modules containing Clean objects having at least one underscore in their names *cannot* be
+  linked. This problem is due to the compiler/code generator which produce symbol names from
+  which the module name cannot be extracted.
+
+(mac):
+- Table Of Contents (TOC) is currently limited to 64K. The code generator/{static,dynamic}
+  linker should be adapted to support more TOCs in one application. For now a TOC overflow
+  should be reported to the user.
+- Check if common subsexpression elimination is done in mac. If not, introduce it.
+
+
+Conversion functions:
+(pc/mac):
+- compiler generated functions are *not* supported e.g. closures in lazy contexts. This problem
+  is due to the fact that the compiler generates, from the dynamic linkers view, random names
+  for those functions.
+- lazy reading/writing is unimplemented.
+- updating unique Clean objects is unimplemented.
+- reading/writing complete *datastructures* at one is not implemented.
+
+(mac):
+- conversion functions still have to be written.
+
+Wishlist:
+- IDE 2.0; two *new* options:
+  1) Verbose-mode for the dynamic linker.
+     In this mode the programmer gets feedback of what the dynamic linker is actually linking.
+  2) Search-procedures (with- or without GUI feedback)
+     The programmer should be able to use the dynamic linker as a stupid application i.e. the
+     dynamic linker takes no efforts to search missing objects (like the static linker). Or the
+     active variant which uses search-procedures to locate missing objects. If this fails the
+     programmer should specify if a dialogue should pop-up to let the user point to the missing
+     object. 
+- abstract datatypes cannot be packed into a dynamic. Probably some language construct is
+  necessary to express the intention that the abstract datatype can be contained in a dynamic
+- overloaded functions in dynamics
+- name generation problems (solved by John/Ronny)
+- type storage and type equivalence checking
+- coercions 

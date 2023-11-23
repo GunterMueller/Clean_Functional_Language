@@ -1,0 +1,58 @@
+Dynamic Linker buglist
+
+(pc):
+- lazy linking the Clean 2.0 compiler crashes only the first time or all the time but the
+  first time. A temporarily hack is to increase the stack space of the dynamic linker to
+  200K.
+- the dropping of a project not yet implemented.
+- dll's are thrown out after one link.
+  
+(mac):
+- lazy link; InitialLink2
+  it should make a copy of the C dummy client application having the resources of a Clean
+  program. This means adding the proper resources.
+  
+  Close
+  on closing, the C dummy client should be destroyed and the memory allocated by the 
+  dynamic linker for the client should be released. The latter is also valid for
+  eager linking.
+  
+  C dummy client:
+  react on application died event of the dynamic linker: the client application 
+  should also die if it waits for the response of the linker because it will never
+  come.
+  
+  It is important to allocate enough extra memory for the dummy client because
+  otherwise the Clean run-time system will abort.
+  
+  _qd.c
+  the linker cannot handle object files having no .text or .data section. 
+  
+- eager link; not yet possible.
+
+  The module name not only the file name (which may be a library) should be 
+  written in the complement. The module name serves for identification of the
+  module. The file name is used to access the object in the file system.
+  
+- module names and MW objects; here is some problem; should be investigated.
+
+- making the complement takes long. I suspect the overloaded function to write
+  it to disk and the changements made in the relocation form the bottle neck.
+  
+- one_pass_link for dynamic linking unimplemented.
+
+- detect the overflow of the toc table
+
+- AddDescriptors unimplemented.
+
+IDE changements:
+- choice if GUI interaction by the dynamic linker is allowed.
+- more control of the search process (e.g. sending of own search paths to linker)
+
+
+
+
+  
+  
+  
+

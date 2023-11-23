@@ -1,0 +1,7336 @@
+Version: 1.4
+Global
+	Built:	False
+	Target:	Object IO 1.2 (30 november 1999)
+	Exec:	{Application}\Object IO Libraries\Object IO 1.2\StatusDialog v2.0\StatusDialog.exe
+	CodeGen
+		CheckStacks:	False
+		CheckIndexes:	False
+		TargetProcessor:	CurrentProcessor
+	Application
+		HeapSize:	4096000
+		StackSize:	1024000
+		ExtraMemory:	81920
+		IntialHeapSize:	204800
+		HeapSizeMultiplier:	4096
+		ShowExecutionTime:	False
+		ShowGC:	False
+		ShowStackSize:	False
+		MarkingCollector:	False
+		StandardRuntimeEnv:	True
+		Profile
+			Memory:	False
+			MemoryMinimumHeapSize:	0
+			Time601:	False
+			Time:	True
+		Output
+			Output:	NoConsole
+			Font:	Courier
+			FontSize:	9
+			WriteStdErr:	False
+	Project
+		Verbose:	False
+	Link
+		LinkMethod:	Static
+		GenerateRelocations:	False
+	Paths
+		Path:	{Project}
+		Path:	{Application}\Object IO Libraries\Object IO 1.2\BalancedText
+		Path:	{Application}\Object IO Libraries\Object IO 1.2\MarkUpText v2.0
+		Path:	{Application}\Object IO Libraries\Object IO 1.2\MdM_IOlib
+MainModule
+	Name:	Example
+	Dir:	{Project}
+	IclOpen:	False
+	Compiler
+		NeverTimeProfile:	False
+		StrictnessAnalysis:	True
+		ListTypes:	NoTypes
+		ListAttributes:	False
+		Warnings:	False
+		Verbose:	False
+		ReadableABC:	False
+		ReuseUniqueNodes:	False
+	Dcl
+		Editor
+			TabSize:	4
+			Font:	Courier New
+			FontSize:	7
+			AutoIndent:	True
+			ShowTabs:	True
+			ShowLins:	True
+		WindowPosition
+			X:	227
+			Y:	260
+			SizeX:	800
+			SizeY:	560
+	DclOpen:	False
+	Icl
+		Editor
+			TabSize:	4
+			Font:	Courier New
+			FontSize:	7
+			AutoIndent:	True
+			ShowTabs:	True
+			ShowLins:	True
+		WindowPosition
+			X:	252
+			Y:	236
+			SizeX:	800
+			SizeY:	562
+	IclOpen:	False
+	LastModified:	No 0 0 0 0 0 0
+OtherModules
+	Module
+		Name:	timerdevice
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	timerdefaccess
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	timeraccess
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receiverdefaccess
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menuitems
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menuinternal
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menudevice
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menucreate
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menuevent
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menuaccess
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	mstate
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menudefaccess
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	wstateaccess
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlaccess
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receiveraccess
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowvalidate
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowupdate
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowdraw
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowdispose
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowclipstate
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlvalidate
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	relayout
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlrelayout
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controllayout
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlinternal
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	wstate
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowdevice
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowcreate
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowcontrols
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlpos
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osclipboard
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	toolbar
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	processdevice
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receiverdevice
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receiverid
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osfileselect
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osbeep
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ossystem
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowCrossCall_12
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osmouse
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	world
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdWindowAttribute
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTimer
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTimerReceiver
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTimerElementClass
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTimerAttribute
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdReceiver
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdReceiverAttribute
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMenu
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMenuElement
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMenuReceiver
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMenuElementClass
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMenuAttribute
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdControl
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	1031
+				SizeY:	814
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdReceiverDef
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdControlReceiver
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdControlAttribute
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdPrintText
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdControlClass
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdWindow
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	853
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	scheduler
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osprint
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdPrint
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdClipboard
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdProcess
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdProcessAttribute
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdProcessDef
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdSystem
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ostick
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTime
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdSound
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdFileSelect
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdPSt
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	roundrobin
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	processstack
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	keyfocus
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdControlDef
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	714
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdWindowDef
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowhandle
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	timerhandle
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	processhandle
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osmenu
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receiverhandle
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMenuDef
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menuhandle
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	devicesystemstate
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowaccess
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTimerDef
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	timertable
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	commondef
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	cast
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	semidynamic
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receivertable
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receivermessage
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	deviceevents
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	devicefunctions
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ostime
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	oswindow
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osactivaterequests
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osguishare
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osevent
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	key
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdKey
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdPicture
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdBitmap
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdIOCommon
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	693
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdPictureDef
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osrgn
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osfont
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	rgnCCall_12
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	pictCCall_12
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ospicture
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osbitmap
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ostoolbar
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	clCCall_12
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	clCrossCall_12
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+		NeededObjFiles
+			ObjectFile:	Dsutil.obj
+			ObjectFile:	ddutil.obj
+			ObjectFile:	cOSGameLib_12.obj
+			ObjectFile:	cGameLib_12.obj
+			ObjectFile:	cTCP.obj
+			ObjectFile:	cprinter_12.obj
+			ObjectFile:	util_12.obj
+			ObjectFile:	htmlhelp.obj
+			ObjectFile:	cpicture_12.obj
+			ObjectFile:	cdebug_12.obj
+			ObjectFile:	cCrossCall_12.obj
+		NeededLibraries
+			Library:	dsound_library
+			Library:	ddraw_library
+			Library:	userExt_library
+			Library:	gdiExt_library
+			Library:	kernelExt_library
+			Library:	wsock_library
+			Library:	winspool_library
+			Library:	winmm_library
+			Library:	shell32_library
+			Library:	ole32_library
+			Library:	kernel32_library
+			Library:	comctl32_library
+			Library:	advapi32_library
+	Module
+		Name:	ostypes
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ostoolbox
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menuCrossCall_12
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osdocumentinterface
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	iostate
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	systemid
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	device
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	id
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdIOBasic
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	9
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	9
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	302
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMaybe
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdId
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdIO
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	_SystemEnum
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdEnum
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMisc
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdFunc
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdCharList
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTuple
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdOrdList
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdList
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdClass
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdFile
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdString
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	_SystemArray
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdArray
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdChar
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdReal
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdInt
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdOverloaded
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdBool
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdEnv
+		Dir:	{Application}\StdEnv
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StatusDialog
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	9
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	154
+				Y:	0
+				SizeX:	953
+				SizeY:	202
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	9
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	154
+				Y:	242
+				SizeX:	940
+				SizeY:	665
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	BalancedText
+		Dir:	{Application}\Object IO Libraries\Object IO 1.2\BalancedText
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	MdM_IOlib
+		Dir:	{Application}\Object IO Libraries\Object IO 1.2\MdM_IOlib
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	MarkUpText
+		Dir:	{Application}\Object IO Libraries\Object IO 1.2\MarkUpText v2.0
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	173
+				Y:	229
+				SizeX:	921
+				SizeY:	674
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receiverevent
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	processevent
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	sdisize
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	clipboardCrossCall_12
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlcreate
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controldraw
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlresize
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowevent
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ostooltip
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	layout
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	timerevent
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)\OS Windows
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdPStClass
+		Dir:	{Application}\ObjectIO 1.2 (16 december 1999)
+		IclOpen:	False
+		Compiler
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	9
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	9
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+Static
+	Mods
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\StatusDialog v2.0\Example.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\timerdevice.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\timerdefaccess.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\timeraccess.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\receiverdefaccess.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\menuitems.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\menuinternal.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\menudevice.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\menucreate.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\menuevent.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\menuaccess.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\mstate.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\menudefaccess.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\wstateaccess.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\controlaccess.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\receiveraccess.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\windowvalidate.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\windowupdate.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\windowdraw.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\windowdispose.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\windowclipstate.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\controlvalidate.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\relayout.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\controlrelayout.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\controllayout.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\controlinternal.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\wstate.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\windowdevice.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\windowcreate.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\windowcontrols.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\controlpos.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\osclipboard.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\toolbar.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\processdevice.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\receiverdevice.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\receiverid.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\osfileselect.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\osbeep.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\ossystem.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\windowCrossCall_12.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\osmouse.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\world.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdWindowAttribute.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdTimer.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdTimerReceiver.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdTimerElementClass.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdTimerAttribute.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdReceiver.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdReceiverAttribute.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdMenu.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdMenuElement.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdMenuReceiver.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdMenuElementClass.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdMenuAttribute.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdControl.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdReceiverDef.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdControlReceiver.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdControlAttribute.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdPrintText.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdControlClass.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdWindow.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\scheduler.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\osprint.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdPrint.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdClipboard.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdProcess.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdProcessAttribute.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdProcessDef.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdSystem.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\ostick.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdTime.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdSound.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdFileSelect.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdPSt.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\roundrobin.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\processstack.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\keyfocus.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdControlDef.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdWindowDef.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\windowhandle.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\timerhandle.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\processhandle.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\osmenu.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\receiverhandle.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdMenuDef.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\menuhandle.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\devicesystemstate.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\windowaccess.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdTimerDef.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\timertable.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\commondef.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\cast.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\semidynamic.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\receivertable.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\receivermessage.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\deviceevents.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\devicefunctions.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\ostime.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\oswindow.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\osactivaterequests.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\osguishare.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\osevent.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\key.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdKey.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdPicture.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdBitmap.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdIOCommon.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdPictureDef.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\osrgn.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\osfont.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\rgnCCall_12.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\pictCCall_12.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\ospicture.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\osbitmap.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\ostoolbar.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\clCCall_12.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\clCrossCall_12.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\ostypes.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\ostoolbox.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\menuCrossCall_12.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\osdocumentinterface.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\iostate.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\systemid.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\device.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\id.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdIOBasic.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdMaybe.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdId.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdIO.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\_SystemEnum.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdEnum.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdMisc.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdFunc.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdCharList.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdTuple.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdOrdList.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdList.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdClass.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdFile.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdString.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\_SystemArray.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdArray.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdChar.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdReal.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdInt.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdOverloaded.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdBool.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\StdEnv.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\StatusDialog v2.0\StatusDialog.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\BalancedText\BalancedText.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\MdM_IOlib\MdM_IOlib.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\MarkUpText v2.0\MarkUpText.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\receiverevent.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\processevent.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\sdisize.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\clipboardCrossCall_12.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\controlcreate.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\controldraw.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\controlresize.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\windowevent.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\ostooltip.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\layout.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\timerevent.icl
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\StdPStClass.icl
+	Objs
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\_startup0.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\_startup1profile.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\_startup2.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\_system.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\ddutil.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\cGameLib_12.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\cOSGameLib_12.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\Dsutil.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\StatusDialog v2.0\Clean System Files\StatusDialog.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdWindow.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdWindowAttribute.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdTimer.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdTimerReceiver.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdTimerElementClass.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdTimerAttribute.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdReceiver.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdReceiverAttribute.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdMenu.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdMenuElement.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdMenuReceiver.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdMenuElementClass.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdMenuAttribute.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdControl.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdReceiverDef.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdControlReceiver.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdControlClass.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdControlAttribute.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdPrintText.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\osprint.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdPrint.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdClipboard.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdProcess.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdProcessAttribute.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdProcessDef.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdSystem.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\ostick.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdTime.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdSound.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdFileSelect.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdPStClass.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdPSt.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\roundrobin.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\processstack.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\timerhandle.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\processhandle.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\osmenu.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdMenuDef.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\menuhandle.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\devicesystemstate.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\keyfocus.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\commondef.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\receiverhandle.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdWindowDef.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdControlDef.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\windowhandle.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdTimerDef.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\timertable.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\semidynamic.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\receivertable.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\receivermessage.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\deviceevents.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\devicefunctions.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\ostime.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\ossystem.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\osactivaterequests.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\osguishare.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\clCrossCall_12.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\osevent.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\key.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdKey.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdPicture.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdBitmap.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdIOCommon.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdPictureDef.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\osrgn.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\osfont.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\rgnCCall_12.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\pictCCall_12.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\ospicture.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\osbitmap.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\ostoolbar.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\ostypes.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\ostoolbox.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\menuCrossCall_12.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\osdocumentinterface.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\iostate.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\systemid.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\device.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\id.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdIOBasic.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdMaybe.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdId.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\StdIO.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\_SystemEnum.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdEnum.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdMisc.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdFunc.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdCharList.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdTuple.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdOrdList.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdList.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdClass.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdFile.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdString.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\_SystemArray.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdArray.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdChar.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdReal.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdInt.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdOverloaded.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdBool.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\StdEnv.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\StatusDialog v2.0\Clean System Files\Example.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\BalancedText\Clean System Files\BalancedText.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\MarkUpText v2.0\Clean System Files\MarkUpText.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\world.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\osmouse.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\clCCall_12.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\windowCrossCall_12.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\cast.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\osbeep.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\scheduler.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\osfileselect.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\processdevice.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\osclipboard.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\controlvalidate.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\wstate.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\windowvalidate.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\oswindow.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\receiveraccess.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\controlaccess.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\controlinternal.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\windowaccess.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\windowcontrols.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\controllayout.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\receiverid.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\windowclipstate.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\wstateaccess.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\menudefaccess.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\mstate.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\menuaccess.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\menuevent.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\menucreate.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\menudevice.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\menuinternal.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\menuitems.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\receiverdefaccess.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\receiverdevice.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\timeraccess.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\timerdefaccess.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\timerdevice.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\controlpos.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\windowcreate.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\windowdevice.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\windowupdate.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\controlrelayout.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\relayout.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\windowdispose.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\windowdraw.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\MdM_IOlib\Clean System Files\MdM_IOlib.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\processevent.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\toolbar.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\clipboardCrossCall_12.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\ostooltip.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\controldraw.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\controlcreate.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\layout.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\sdisize.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\receiverevent.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\timerevent.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\Clean System Files\controlresize.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\windowevent.o
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\Dsutil.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\ddutil.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\cOSGameLib_12.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\cGameLib_12.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\cTCP.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\cprinter_12.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\util_12.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\htmlhelp.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\cpicture_12.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\cdebug_12.obj
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\cCrossCall_12.obj
+	Dlib
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\kernel_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\comdlg_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\GameLib\Clean System Files\ddraw_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\GameLib\Clean System Files\dsound_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\gdi_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\user_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\winmm_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\dsound_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\ddraw_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\userExt_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\gdiExt_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\kernelExt_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\wsock_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\winspool_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\winmm_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\shell32_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows\Clean System Files\ole32_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\kernel32_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\comctl32_library
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv\Clean System Files\advapi32_library
+	Pths
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\StatusDialog v2.0
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\BalancedText
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\MarkUpText v2.0
+		Path:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\MdM_IOlib
+		Path:	C:\Applications\Programming Languages\Clean 1.3\StdEnv
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)\OS Windows
+		Path:	C:\Applications\Programming Languages\Clean 1.3\ObjectIO 1.2 (16 december 1999)
+	AppP:	C:\Applications\Programming Languages\Clean 1.3
+	PrjP:	C:\Applications\Programming Languages\Clean 1.3\Object IO Libraries\Object IO 1.2\StatusDialog v2.0

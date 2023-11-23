@@ -1,0 +1,1490 @@
+
+.macro	lea_	&r,&a
+	lis	$0,ha16($1)
+	addi	$0,$0,lo16($1)
+.endmacro
+
+MACOSX		=	1
+POWER601		=	0
+ALLOCATION_PROFILE	=	1
+USE_TEMPORARY_MEMORY	=	1
+CHECK_STACK_OVERFLOWS	=	0
+MODULE_NAMES	=	1
+
+ .if POWER601
+	.macro	time_hi
+	dialect	Power
+	mfrtcu	$0
+	dialect	PowerPC
+	.endmacro
+
+	.macro	time_lo
+	dialect	Power
+	mfrtcl	$0
+	dialect	PowerPC
+	.endmacro
+ .else
+	.macro	time_hi
+	mftbu	$0
+	.endmacro
+
+	.macro	time_lo
+	mftb	$0
+	.endmacro
+ .endif
+
+#define sp r1
+
+#define d0 r24
+#define d1 r25
+#define d2 r26
+#define d3 r27
+#define d4 r28
+#define d5 r29
+#define d6 r30
+#define d7 r31
+
+#define a0 r23
+#define a1 r22
+#define a2 r21
+#define a3 r20
+#define a4 r19
+#define a5 r18
+#define a6 r17
+
+#define o0 r3
+#define o1 r4
+#define o2 r5
+#define o3 r6
+#define o4 r7
+#define o5 r8
+
+#define g2 r9
+#define g3 r10
+
+#define g0 r11
+#define g1 r12
+
+#define int_reg r16
+#define char_reg r15
+#define real_reg r14
+#define bool_reg r13
+
+ .if POWER601
+lo1e9	=	1000000000 % 65536
+hi1e9	=	(1000000000 / 65536)+1
+ .endif
+
+	.globl	init_profiler
+	.globl	profile_r
+	.globl 	profile_l
+	.globl 	profile_l2
+	.globl 	profile_n
+	.globl 	profile_n2
+	.globl 	profile_s
+	.globl 	profile_s2
+	.globl 	profile_t
+	.globl	profile_ti
+	.globl	write_profile_information
+	.globl	write_profile_stack
+
+ .if USE_TEMPORARY_MEMORY
+	.globl	_TempNewHandle
+	.globl	_TempHLock
+	.globl	_TempHUnlock
+	.globl	_TempDisposeHandle
+ .else
+	.globl	_NewPtr
+ .endif
+	.globl	_Gestalt
+	.globl	__STRING__
+	.globl	openF
+	.globl	closeF
+	.globl	writeFC
+	.globl	writeFI
+	.globl	print_error
+	.globl	_new_file_creator
+	.globl	_stack_size
+	.globl	_er_print_string
+	.globl	_er_print_char
+	.globl	_create_profile_file_name
+ .if CHECK_STACK_OVERFLOWS
+	.globl	_Debugger
+ .endif
+
+#define FunctionProfile_next 0
+#define FunctionProfile_time_hi 4
+#define FunctionProfile_time_lo 8
+#define FunctionProfile_n_profiler_calls 12
+#define FunctionProfile_n_strict_calls 16
+#define FunctionProfile_n_lazy_calls 20
+#define FunctionProfile_n_curried_calls 24
+#define FunctionProfile_n_words_allocated 28
+#define FunctionProfile_name 32
+
+#define FunctionProfile	36
+
+#define Globals_n_free_records_in_block 	0
+				# comment 0 n free records in block
+#define Globals_last_allocated_block	4
+				# comment 4 latest allocated block
+#define Globals_profile_records		8
+				# comment 8 profile record list
+#define Globals_time_hi  		12
+				# comment 12 clock
+#define Globals_time_lo			16
+#define Globals_stack_pointer      		20
+				# comment 20 stack pointer
+#define Globals_last_tail_call		24
+				# comment 24 last tail calling function
+#define Globals_n_words_free		28
+ .if USE_TEMPORARY_MEMORY
+#define Globals_temp_handle_list		32
+#define Globals_profile_stack_handle	36
+  .if CHECK_STACK_OVERFLOWS
+Globals_end_profile_stack =		40
+Globals =				44
+ .else
+Globals =				40
+  .endif
+ .else
+  .if CHECK_STACK_OVERFLOWS
+Globals_end_profile_stack =		32
+Globals =				36
+  .else
+Globals =				32
+  .endif
+ .endif
+
+	.text
+profile_ti:
+read_clock_0:
+	time_hi	r9
+	time_lo	r10
+	time_hi	r4
+	cmpw	0,r4,r9
+	bne-	read_clock_0
+
+	lea_	r5,profile_globals
+	b	profile_t_
+
+profile_t:
+read_clock_1:
+	time_hi	r9
+	time_lo	r10
+	time_hi	r4
+	cmpw	0,r4,r9
+	bne-	read_clock_1
+
+	mflr	r12
+	lea_	r5,profile_globals
+	mtctr	r12
+	mtlr	r0
+profile_t_:
+	lwz	r6,Globals_stack_pointer(r5)
+
+	lwz	r7,Globals_time_hi(r5)
+	lwz	r8,Globals_time_lo(r5)
+
+	lwzu	r4,-4(r6)
+	stw	r6,Globals_stack_pointer(r5)
+	stw	r4,Globals_last_tail_call(r5)
+
+ .if POWER601	
+	sub.	r10,r10,r8
+	sub	r9,r9,r7
+	bge+	@no_borrow
+	addis	r10,r10,hi1e9
+	addi	r10,r10,lo1e9
+	subi	r9,r9,1
+@no_borrow:
+ .else
+	subc	r10,r10,r8
+	subfe	r9,r7,r9
+ .endif
+	lwz	r8,FunctionProfile_time_lo(r4)
+	lwz	r7,FunctionProfile_time_hi(r4)
+
+ .if POWER601
+	add	r8,r8,r10
+	add	r7,r7,r9
+
+	subis	r9,r8,hi1e9
+	cmpwi	0,r9,lo1e9
+
+	lwz	r6,FunctionProfile_n_profiler_calls(r4)
+
+	blt+	@no_carry
+
+	subi	r8,r9,lo1e9
+	addi	r7,r7,1
+
+@no_carry:
+ .else
+	addc	r8,r8,r10
+	lwz	r6,FunctionProfile_n_profiler_calls(r4)
+	adde	r7,r7,r9
+ .endif
+	addi	r6,r6,1
+	stw	r7,FunctionProfile_time_hi(r4)
+	stw	r8,FunctionProfile_time_lo(r4)
+	stw	r6,FunctionProfile_n_profiler_calls(r4)
+
+ .if ALLOCATION_PROFILE
+	lwz	r11,Globals_n_words_free(r5)
+	stw	d7,Globals_n_words_free(r5)
+	lwz	r12,FunctionProfile_n_words_allocated(r4)
+	sub	r11,r11,d7
+	add	r12,r12,r11	
+	stw	r12,FunctionProfile_n_words_allocated(r4)
+ .endif
+
+store_clock_0:
+	time_hi	r9
+	stw	r9,Globals_time_hi(r5)
+	time_lo	r10
+	time_hi	r4
+	stw	r10,Globals_time_lo(r5)
+	cmpw	0,r4,r9
+
+;	beqctr+
+	bcctr	13,2
+
+	b	store_clock_0
+
+profile_r:
+read_clock_2:
+	time_hi	r9
+	time_lo	r10
+	time_hi	r4
+	cmpw	0,r4,r9
+	bne-	read_clock_2
+
+	lea_	r5,profile_globals
+
+	lwz	r6,Globals_stack_pointer(r5)
+
+	lwz	r7,Globals_time_hi(r5)
+	lwz	r8,Globals_time_lo(r5)
+
+	lwzu	r4,-4(r6)
+	li	r3,0
+	stw	r6,Globals_stack_pointer(r5)
+	stw	r3,Globals_last_tail_call(r5)
+	
+ .if POWER601	
+	sub.	r10,r10,r8
+	sub	r9,r9,r7
+	bge+	@no_borrow
+	addis	r10,r10,hi1e9
+	addi	r10,r10,lo1e9
+	subi	r9,r9,1
+@no_borrow:
+ .else
+	subc	r10,r10,r8
+	subfe	r9,r7,r9
+ .endif
+
+	lwz	r8,FunctionProfile_time_lo(r4)
+	lwz	r7,FunctionProfile_time_hi(r4)
+
+ .if POWER601	
+	add	r8,r8,r10
+	add	r7,r7,r9
+
+	subis	r9,r8,hi1e9
+	cmpwi	0,r9,lo1e9
+
+	lwz	r6,FunctionProfile_n_profiler_calls(r4)
+
+	blt+	@no_carry
+
+	subi	r8,r9,lo1e9
+	addi	r7,r7,1
+
+@no_carry:
+ .else
+	addc	r8,r8,r10
+	lwz	r6,FunctionProfile_n_profiler_calls(r4)
+	adde	r7,r7,r9
+ .endif
+
+	addi	r6,r6,1
+	stw	r7,FunctionProfile_time_hi(r4)
+	stw	r8,FunctionProfile_time_lo(r4)
+	stw	r6,FunctionProfile_n_profiler_calls(r4)
+
+ .if ALLOCATION_PROFILE
+	lwz	r11,Globals_n_words_free(r5)
+	stw	d7,Globals_n_words_free(r5)
+	lwz	r12,FunctionProfile_n_words_allocated(r4)
+	sub	r11,r11,d7
+	add	r12,r12,r11	
+	stw	r12,FunctionProfile_n_words_allocated(r4)
+ .endif
+
+store_clock_1:
+	time_hi	r9
+	stw	r9,Globals_time_hi(r5)
+	time_lo	r10
+	time_hi	r4
+	stw	r10,Globals_time_lo(r5)
+	cmpw	0,r4,r9
+	beqlr+
+
+	b	store_clock_1
+
+profile_l:
+read_clock_3:
+	time_hi	r9
+	time_lo	r10
+	time_hi	r4
+	cmpw	0,r4,r9
+	bne-	read_clock_3
+
+	mflr	r12
+	lea_	r5,profile_globals
+	lwz	r4,0(r3)
+	mtctr	r12
+		
+	cmpwi	0,r4,0
+	beql	allocate_function_profile_record
+
+	lwz	r3,Globals_last_tail_call(r5)
+	lwz	r6,Globals_stack_pointer(r5)
+	cmpwi	0,r3,0
+	
+	lwz	r7,Globals_time_hi(r5)
+	lwz	r8,Globals_time_lo(r5)
+
+	bne	use_tail_calling_function_0
+
+	lwz	r3,-4(r6)
+c_use_tail_calling_function_0:
+
+	stw	r4,0(r6)
+	addi	r6,r6,4
+ .if CHECK_STACK_OVERFLOWS
+	lwz	r12,Globals_end_profile_stack(r5)
+ .endif
+	stw	r6,Globals_stack_pointer(r5)
+ .if CHECK_STACK_OVERFLOWS
+	cmpw	r6,r12
+	bge	profile_stack_overflow
+ .endif
+	lwz	r6,FunctionProfile_n_curried_calls(r4)
+	mtlr	r0
+	addi	r6,r6,1
+	stw	r6,FunctionProfile_n_curried_calls(r4)
+	b	profile_n_
+
+use_tail_calling_function_0:
+	li	r12,0
+	stw	r12,Globals_last_tail_call(r5)
+	b	c_use_tail_calling_function_0
+
+profile_l2:
+read_clock_4:
+	time_hi	r9
+	time_lo	r10
+	time_hi	r4
+	cmpw	0,r4,r9
+	bne-	read_clock_4
+
+	mflr	r12
+	lea_	r5,profile_globals
+	lwz	r4,0(r3)
+	mtctr	r12
+		
+	cmpwi	0,r4,0
+	beql	allocate_function_profile_record
+
+	lwz	r3,Globals_last_tail_call(r5)
+	lwz	r6,Globals_stack_pointer(r5)
+	cmpwi	0,r3,0
+	
+	lwz	r7,Globals_time_hi(r5)
+	lwz	r8,Globals_time_lo(r5)
+
+	bne	use_tail_calling_function_1
+
+	lwz	r3,-4(r6)
+c_use_tail_calling_function_1:
+
+	stw	r4,0(r6)
+	stw	r4,4(r6)
+	addi	r6,r6,8
+ .if CHECK_STACK_OVERFLOWS
+	lwz	r12,Globals_end_profile_stack(r5)
+ .endif
+	stw	r6,Globals_stack_pointer(r5)
+ .if CHECK_STACK_OVERFLOWS 
+	cmpw	r6,r12
+	bge	profile_stack_overflow
+ .endif
+
+	lwz	r6,FunctionProfile_n_curried_calls(r4)
+	mtlr	r0
+	addi	r6,r6,1
+	stw	r6,FunctionProfile_n_curried_calls(r4)	
+	b	profile_n_
+
+use_tail_calling_function_1:
+	li	r12,0
+	stw	r12,Globals_last_tail_call(r5)
+	b	c_use_tail_calling_function_1
+
+profile_n:
+read_clock_5:
+	time_hi	r9
+	time_lo	r10
+	time_hi	r4
+	cmpw	0,r4,r9
+	bne-	read_clock_5
+
+	mflr	r12
+	lea_	r5,profile_globals
+	lwz	r4,0(r3)
+	mtctr	r12
+		
+	cmpwi	0,r4,0
+	beql	allocate_function_profile_record
+
+	lwz	r3,Globals_last_tail_call(r5)
+	lwz	r6,Globals_stack_pointer(r5)
+	cmpwi	0,r3,0
+	
+	lwz	r7,Globals_time_hi(r5)
+	lwz	r8,Globals_time_lo(r5)
+
+	bne	use_tail_calling_function_2
+
+	lwz	r3,-4(r6)
+c_use_tail_calling_function_2:
+
+	stw	r4,0(r6)
+	addi	r6,r6,4
+ .if CHECK_STACK_OVERFLOWS
+	lwz	r12,Globals_end_profile_stack(r5)
+ .endif
+	stw	r6,Globals_stack_pointer(r5)
+ .if CHECK_STACK_OVERFLOWS 
+	cmpw	r6,r12
+	bge	profile_stack_overflow
+ .endif
+
+	lwz	r6,FunctionProfile_n_lazy_calls(r4)
+	mtlr	r0
+	addi	r6,r6,1
+	stw	r6,FunctionProfile_n_lazy_calls(r4)
+	b	profile_n_
+
+use_tail_calling_function_2:
+	li	r12,0
+	stw	r12,Globals_last_tail_call(r5)
+	b	c_use_tail_calling_function_2
+
+profile_n2:
+read_clock_6:
+	time_hi	r9
+	time_lo	r10
+	time_hi	r4
+	cmpw	0,r4,r9
+	bne-	read_clock_6
+
+	mflr	r12
+	lea_	r5,profile_globals
+	lwz	r4,0(r3)
+	mtctr	r12
+		
+	cmpwi	0,r4,0
+	beql	allocate_function_profile_record
+
+	lwz	r3,Globals_last_tail_call(r5)
+	lwz	r6,Globals_stack_pointer(r5)
+	cmpwi	0,r3,0
+	
+	lwz	r7,Globals_time_hi(r5)
+	lwz	r8,Globals_time_lo(r5)
+
+	bne	use_tail_calling_function_3
+
+	lwz	r3,-4(r6)
+c_use_tail_calling_function_3:
+
+	stw	r4,0(r6)
+	stw	r4,4(r6)
+	addi	r6,r6,8
+ .if CHECK_STACK_OVERFLOWS
+	lwz	r12,Globals_end_profile_stack(r5)
+ .endif
+	stw	r6,Globals_stack_pointer(r5)
+ .if CHECK_STACK_OVERFLOWS 
+	cmpw	r6,r12
+	bge	profile_stack_overflow
+ .endif
+
+	lwz	r6,FunctionProfile_n_lazy_calls(r4)
+	mtlr	r0
+	addi	r6,r6,1
+	stw	r6,FunctionProfile_n_lazy_calls(r4)	
+	b	profile_n_
+
+use_tail_calling_function_3:
+	li	r12,0
+	stw	r12,Globals_last_tail_call(r5)
+	b	c_use_tail_calling_function_3
+
+profile_s2:
+read_clock_7:
+	time_hi	r9
+	time_lo	r10
+	time_hi	r4
+	cmpw	0,r4,r9
+	bne-	read_clock_7
+
+	mflr	r12
+	lea_	r5,profile_globals
+	lwz	r4,0(r3)
+	mtctr	r12
+		
+	cmpwi	0,r4,0
+	beql	allocate_function_profile_record
+
+	lwz	r3,Globals_last_tail_call(r5)
+	lwz	r6,Globals_stack_pointer(r5)
+	cmpwi	0,r3,0
+	
+	lwz	r7,Globals_time_hi(r5)
+	lwz	r8,Globals_time_lo(r5)
+
+	bne	use_tail_calling_function_4
+
+	lwz	r3,-4(r6)
+c_use_tail_calling_function_4:
+
+	stw	r4,0(r6)
+	stw	r4,4(r6)
+	addi	r6,r6,8
+ .if CHECK_STACK_OVERFLOWS
+	lwz	r12,Globals_end_profile_stack(r5)
+ .endif
+	stw	r6,Globals_stack_pointer(r5)
+ .if CHECK_STACK_OVERFLOWS 
+	cmpw	r6,r12
+	bge	profile_stack_overflow
+ .endif
+	b	profile_s_
+
+use_tail_calling_function_4:
+	li	r12,0
+	stw	r12,Globals_last_tail_call(r5)
+	b	c_use_tail_calling_function_4
+
+profile_s:
+read_clock_8:
+	time_hi	r9
+	time_lo	r10
+	time_hi	r4
+	cmpw	0,r4,r9
+	bne-	read_clock_8
+
+	mflr	r12
+	lea_	r5,profile_globals
+	lwz	r4,0(r3)
+	mtctr	r12
+		
+	cmpwi	0,r4,0
+	beql	allocate_function_profile_record
+
+	lwz	r3,Globals_last_tail_call(r5)
+	lwz	r6,Globals_stack_pointer(r5)
+	cmpwi	0,r3,0
+	
+	lwz	r7,Globals_time_hi(r5)
+	lwz	r8,Globals_time_lo(r5)
+
+	bne	use_tail_calling_function_5
+
+	lwz	r3,-4(r6)
+c_use_tail_calling_function_5:
+
+	stw	r4,0(r6)
+	addi	r6,r6,4
+ .if CHECK_STACK_OVERFLOWS
+	lwz	r12,Globals_end_profile_stack(r5)
+ .endif
+	stw	r6,Globals_stack_pointer(r5)
+ .if CHECK_STACK_OVERFLOWS 
+	cmpw	r6,r12
+	bge	profile_stack_overflow
+ .endif
+
+profile_s_:
+	lwz	r6,FunctionProfile_n_strict_calls(r4)
+	mtlr	r0
+	addi	r6,r6,1
+	stw	r6,FunctionProfile_n_strict_calls(r4)
+
+profile_n_:
+ .if POWER601	
+	sub.	r10,r10,r8
+	sub	r9,r9,r7
+	bge+	@no_borrow
+	addis	r10,r10,hi1e9
+	addi	r10,r10,lo1e9
+	subi	r9,r9,1
+@no_borrow:
+ .else
+	subc	r10,r10,r8
+	subfe	r9,r7,r9
+ .endif
+
+	lwz	r8,FunctionProfile_time_lo(r3)
+	lwz	r7,FunctionProfile_time_hi(r3)
+	
+ .if POWER601	
+	add	r8,r8,r10
+	add	r7,r7,r9
+
+	subis	r9,r8,hi1e9
+	cmpwi	0,r9,lo1e9
+
+	lwz	r6,FunctionProfile_n_profiler_calls(r3)
+
+	blt+	@no_carry
+
+	subi	r8,r9,lo1e9
+	addi	r7,r7,1
+
+@no_carry:
+ .else
+	addc	r8,r8,r10
+	lwz	r6,FunctionProfile_n_profiler_calls(r3)
+	adde	r7,r7,r9
+ .endif
+	addi	r6,r6,1
+	stw	r7,FunctionProfile_time_hi(r3)
+	stw	r8,FunctionProfile_time_lo(r3)
+	stw	r6,FunctionProfile_n_profiler_calls(r3)
+
+ .if ALLOCATION_PROFILE
+	lwz	r11,Globals_n_words_free(r5)
+	stw	d7,Globals_n_words_free(r5)
+	lwz	r12,FunctionProfile_n_words_allocated(r3)
+	sub	r11,r11,d7
+	add	r12,r12,r11	
+	stw	r12,FunctionProfile_n_words_allocated(r3)
+ .endif
+
+store_clock_2:
+	time_hi	r9
+	stw	r9,Globals_time_hi(r5)
+	time_lo	r10
+	time_hi	r4
+	stw	r10,Globals_time_lo(r5)
+	cmpw	0,r4,r9
+
+;	beqctr+
+	bcctr	13,2
+ 	
+	b	store_clock_2
+
+use_tail_calling_function_5:
+	li	r12,0
+	stw	r12,Globals_last_tail_call(r5)
+	b	c_use_tail_calling_function_5
+
+allocate_function_profile_record:
+	lwz	r6,Globals_n_free_records_in_block(r5)
+	lwz	r4,Globals_last_allocated_block(r5)
+	cmpwi	0,r6,0
+	bne+	no_alloc
+
+	stw	r0,-4(sp)
+	stw	r3,-8(sp)
+	stw	r9,-12(sp)
+	stw	r10,-16(sp)
+	mfctr	r11
+	stw	r11,-20(sp)
+	mflr	r12
+	stw	r12,-24(sp)
+	
+ .if USE_TEMPORARY_MEMORY
+	li	r3,(128*FunctionProfile)+4
+ .else
+	li	r3,128*FunctionProfile
+ .endif
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+32+28)(sp)
+ .else
+	stwu	sp,-(64+32)(sp)
+ .endif
+ .if USE_TEMPORARY_MEMORY
+ 	bl	allocate_temp_memory_handle
+ .else
+	bl	_NewPtr
+	nop
+ .endif
+ .if MACOSX
+	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64+32
+ .endif
+	and.	r4,r3,r3
+	
+	lwz	r12,-24(sp)
+	lwz	r11,-20(sp)
+	mtlr	r12
+	lwz	r10,-16(sp)
+	mtctr	r11
+	lwz	r9,-12(sp)
+	lwz	r3,-8(sp)
+	lwz	r0,-4(sp)
+
+	lea_	r5,profile_globals
+
+	beq	profiler_memory_error
+
+ .if USE_TEMPORARY_MEMORY
+	lwz	r6,Globals_temp_handle_list(r5)
+	stw	r4,Globals_temp_handle_list(r5)
+	lwz	r4,0(r4)
+	stw	r6,0(r4)
+	addi	r4,r4,4
+ .endif
+	li	r6,128
+	stw	r4,Globals_last_allocated_block(r5)	
+
+no_alloc:	
+	subi	r6,r6,1
+	stw	r6,Globals_n_free_records_in_block(r5)
+	addi	r7,r4,FunctionProfile
+	stw	r7,Globals_last_allocated_block(r5)
+
+	lwz	r6,Globals_profile_records(r5)
+	li	r8,0
+	stw	r8,FunctionProfile_time_hi(r4)
+	stw	r8,FunctionProfile_time_lo(r4)
+	stw	r8,FunctionProfile_n_profiler_calls(r4)
+	stw	r8,FunctionProfile_n_strict_calls(r4)
+	stw	r8,FunctionProfile_n_lazy_calls(r4)
+	stw	r8,FunctionProfile_n_curried_calls(r4)
+	stw	r8,FunctionProfile_n_words_allocated(r4)
+	stw	r6,FunctionProfile_next(r4)
+	stw	r4,Globals_profile_records(r5)
+	stw	r3,FunctionProfile_name(r4)
+	
+	stw	r4,0(r3)
+	blr
+
+write_profile_information:
+	lea_	o0,profile_file_name
+
+	mflr	r0
+	stwu	r0,-4(sp)
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ .else
+	stwu	sp,-64(sp)
+ .endif
+	bl	_create_profile_file_name
+	nop
+ .if MACOSX
+ 	lwz	sp,0(sp)
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+ .else
+	lwz	r0,64(sp)
+	addi	sp,sp,68
+ .endif
+	mtlr	r0
+
+	lea_	d3,_new_file_creator
+	li	d5,'T*256+'I
+	lwz	d4,0(d3)
+	addis	d5,d5,'P*256+'R
+	stw	d5,0(d3)
+
+	li	d0,1
+	lea_	a0,profile_file_name
+
+	mflr	r0
+	stwu	r0,-4(sp)	
+	bl	openF
+	mtlr	r0
+
+	stw	d4,0(d3)
+
+	cmpwi	0,d2,0
+	beq	cannot_open
+	
+	mflr	r0
+	li	d3,0
+	stw	r0,-4(sp)
+	stwu	d3,-8(sp)
+	
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ .else
+	stwu	sp,-64(sp)
+ .endif
+	stw	d3,64(sp)
+	li	r3,'u*256+'t
+	addi	r4,sp,64
+	addis	r3,r3,'c*256+'p
+	bl	L_Gestalt$stub
+	nop
+
+	lwz	d2,64(sp)
+	stwu	r0,-4(sp)	
+	bl	writeFI_space
+	mtlr	r0
+
+	stw	d3,64(sp)
+	li	r3,'l*256+'k
+	addi	r4,sp,64
+	addis	r3,r3,'p*256+'c
+	bl	L_Gestalt$stub
+	nop
+	
+	lwz	d2,64(sp)
+	stwu	r0,-4(sp)	
+	bl	writeFI_space
+	mtlr	r0
+
+	stw	d3,64(sp)
+	li	r3,'l*256+'k
+	addi	r4,sp,64
+	addis	r3,r3,'b*256+'c
+	bl	L_Gestalt$stub
+	nop
+
+	lwz	d2,64(sp)
+	stwu	r0,-4(sp)	
+	bl	writeFI
+	mtlr	r0
+	
+	li	d2,13
+	stwu	r0,-4(sp)	
+	bl	writeFC
+	mtlr	r0
+
+ .if MACOSX
+ 	lwz	sp,0(sp)
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ .else
+	lwz	r0,68(sp)
+	addi	sp,sp,72
+ .endif
+	mtlr	r0
+
+	lea_	d2,profile_globals
+	lwz	d2,Globals_profile_records(d2)
+
+write_profile_lp:	
+	cmpwi	0,d2,0
+	beq	end_list
+
+	lwz	d3,FunctionProfile_name(d2)
+	stwu	d2,-4(sp)
+	
+ .if MODULE_NAMES
+	stwu	d3,-4(sp)
+
+	lwz	d3,-4(d3)
+ 	lwz	d2,0(d3)
+	addi	d3,d3,3
+
+write_module_name_lp:
+	subic.	d2,d2,1
+	blt	end_module_name
+	
+	stw	d2,-4(sp)
+	lbzu	d2,1(d3)
+
+	mflr	r0
+
+	stw	d3,-8(sp)
+
+	stwu	r0,-12(sp)	
+	bl	writeFC
+	mtlr	r0
+
+	lwz	d2,4(sp)
+	lwz	d3,0(sp)
+	addi	sp,sp,8
+	b	write_module_name_lp
+
+end_module_name:
+	li	d2,' 
+
+	mflr	r0
+	stwu	r0,-4(sp)	
+	bl	writeFC
+	mtlr	r0	
+
+	lwz	d3,0(sp)
+	addi	sp,sp,4
+ .endif
+
+	addi	d3,d3,3
+	
+write_function_name_lp:
+	lbzu	d2,1(d3)
+	cmpwi	0,d2,0
+	beq	end_function_name
+
+	stw	d3,-4(sp)
+
+	mflr	r0
+	stwu	r0,-8(sp)	
+	bl	writeFC
+	mtlr	r0	
+
+	lwz	d3,0(sp)
+	addi	sp,sp,4
+	b	write_function_name_lp
+
+end_function_name:
+	li	d2,' 
+
+	mflr	r0
+	stwu	r0,-4(sp)	
+	bl	writeFC
+
+	lwz	d2,0(sp)	
+	lwz	d2,FunctionProfile_n_strict_calls(d2)
+	stwu	r0,-4(sp)	
+	bl	writeFI_space
+
+	lwz	d2,0(sp)	
+	lwz	d2,FunctionProfile_n_lazy_calls(d2)
+	stwu	r0,-4(sp)	
+	bl	writeFI_space
+
+	lwz	d2,0(sp)	
+	lwz	d2,FunctionProfile_n_curried_calls(d2)
+	stwu	r0,-4(sp)
+	bl	writeFI_space
+
+	lwz	d2,0(sp)	
+	lwz	d2,FunctionProfile_n_profiler_calls(d2)
+	stwu	r0,-4(sp)
+	bl	writeFI_space
+
+	lwz	d2,0(sp)
+	lwz	d2,FunctionProfile_n_words_allocated(d2)
+	stwu	r0,-4(sp)	
+	bl	writeFI_space
+
+	lwz	d2,0(sp)
+	lwz	d2,FunctionProfile_time_hi(d2)
+	stwu	r0,-4(sp)	
+	bl	writeFI_space
+
+	lwz	d2,0(sp)	
+	lwz	d2,FunctionProfile_time_lo(d2)
+	stwu	r0,-4(sp)	
+	bl	writeFI
+
+	li	d2,13
+	stwu	r0,-4(sp)	
+	bl	writeFC
+	mtlr	r0
+
+	lwz	d2,0(sp)
+	addi	sp,sp,4
+	lwz	d2,FunctionProfile_next(d2)
+	b	write_profile_lp
+
+writeFI_space:
+	mflr	r0
+	stwu	r0,-4(sp)	
+	bl	writeFI
+	mtlr	r0
+
+	li	d2,' 
+	b	writeFC
+
+end_list:
+	mflr	r0
+	stwu	r0,-4(sp)	
+	bl	closeF
+	mtlr	r0	
+
+cannot_open:
+
+ .if USE_TEMPORARY_MEMORY
+ 	mflr	r0
+  .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(96+28)(sp)
+  .else
+	stwu	sp,-96(sp)
+  .endif
+	stw	r0,96-4(sp)
+	lea_	r5,profile_globals
+	lwz	r3,Globals_profile_stack_handle(r5)
+ 	bl	free_temp_memory_handle
+
+	lea_	r5,profile_globals
+
+	stw	r31,96-8(sp)
+	
+	lwz	r31,Globals_temp_handle_list(r5)
+	b	free_temp_handles
+	
+free_temp_handles_lp:
+	mr	r3,r31
+	lwz	r31,0(r31)
+	lwz	r31,0(r31)
+	bl	free_temp_memory_handle
+
+free_temp_handles:
+	cmpwi	0,r31,0
+	bne	free_temp_handles_lp
+
+	lwz	r31,96-8(sp)
+	
+	lwz	r0,96-4(sp)
+  .if MACOSX
+	lwz	sp,0(sp)
+  .else
+	addi	sp,sp,96
+  .endif
+ 	mtlr	r0
+ .endif
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr
+
+write_profile_stack:
+	mflr	r0
+	lea_	d0,profile_globals
+	stwu	r0,-4(sp)
+	lwz	d0,Globals_stack_pointer(d0)
+
+	cmpwi	0,d0,0
+	beq	stack_not_initialised
+
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ .else
+	stwu	sp,-64(sp)
+ .endif
+	lea_	o0,stack_trace_string
+	bl	_er_print_string
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+
+ .if 1
+	li	d2,12
+ .else
+	li	d2,24
+ .endif
+write_functions_on_stack:
+	lwzu	d1,-4(d0)
+	cmpwi	0,d1,0
+	beq	end_profile_stack
+		
+	lwz	o0,FunctionProfile_name(d1)
+
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ .else
+	stwu	sp,-64(sp)
+ .endif
+	addi	o0,o0,4
+	bl	_er_print_string
+	li	o0,13
+	bl	_er_print_char
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+
+	subic.	d2,d2,1
+ .if 0
+	b	write_functions_on_stack
+ .else
+	bne	write_functions_on_stack
+ .endif
+
+end_profile_stack:
+stack_not_initialised:
+	lwz	r0,0(sp)
+	mtlr	r0
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+	blr
+
+init_profiler:
+ .if 0
+	mflr	r0
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+
+	bl	.Debugger
+	nop
+	
+	lwz	r0,64-4(sp)
+	addi	sp,sp,64
+	mtlr	r0
+ .endif
+
+	mflr	r0
+	stwu	r0,-4(sp)
+
+ .if MACOSX
+ 	subi	sp,sp,8
+	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ .else
+	stwu	sp,-72(sp)
+ .endif
+	li	r3,0
+	addi	r4,sp,64
+	stw	r3,64(sp)
+	li	r3,'u*256+'t
+	addis	r3,r3,'c*256+'p
+	bl	L_Gestalt$stub
+	nop
+	lwz	r3,64(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+	addi	sp,sp,8
+ .else
+	addi	sp,sp,72
+ .endif
+
+	cmpwi	0,r3,257
+ .if POWER601
+	bne	init_profiler_error1
+ .else
+	beq	init_profiler_error1
+ .endif
+
+ .if 1
+	lea_	r3,_stack_size
+	lwz	r3,0(r3)
+	addi	r3,r3,4095
+	rlwinm	r3,r3,0,0,31-12
+ .else
+	li	r3,   (512*1024) % 65536
+	addis	r3,r3,(512*1024) / 65536
+ .endif
+
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ .else
+	stwu	sp,-64(sp)
+ .endif
+ .if USE_TEMPORARY_MEMORY
+ 	bl	allocate_temp_memory_handle
+ .else
+	bl	_NewPtr
+	nop
+ .endif
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	lea_	r5,profile_globals
+
+	and.	r9,r3,r3
+	beq	init_profiler_error
+
+ .if USE_TEMPORARY_MEMORY
+	stw	r9,Globals_profile_stack_handle(r5)
+ 	lwz	r9,0(r9)
+	li	r0,0
+	stw	r0,Globals_temp_handle_list(r5)
+ .endif
+ .if CHECK_STACK_OVERFLOWS
+  .if 1
+	lea_	r3,_stack_size
+	lwz	r3,0(r3)
+  .else
+	li	r3,   (512*1024) % 65536
+	addis	r3,r3,(512*1024) / 65536
+  .endif
+	add	r3,r3,r9
+	stw	r3,Globals_end_profile_stack(r5)
+ .endif
+	lea_	r3,start_string
+	bl	allocate_function_profile_record
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	mtlr	r0
+
+	li	r0,0
+	stw	r4,4(r9)
+	stw	r0,0(r9)
+	addi	r9,r9,8
+	stw	r9,Globals_stack_pointer(r5)
+	stw	r0,Globals_last_tail_call(r5)
+	stw	d7,Globals_n_words_free(r5)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+
+store_clock_3:
+	time_hi	r9
+	stw	r9,Globals_time_hi(r5)
+	time_lo	r10
+	time_hi	r4
+	stw	r10,Globals_time_lo(r5)
+	cmpw	0,r4,r9
+	beqlr+
+
+	b	store_clock_3
+
+ .if USE_TEMPORARY_MEMORY
+allocate_temp_memory_handle:
+	mflr	r0
+	stw	r31,-4(sp)
+	stw	r0,8(sp)
+	stwu	sp,-96(sp)
+
+	addi	r4,sp,56
+	bl	L_TempNewHandle$stub
+	nop
+
+	mr.	r31,r3
+	beq	return_r31
+
+	addi	r4,sp,56
+	bl	L_TempHLock$stub
+	nop
+
+	lha	r0,56(sp)
+	cmpwi	r0,0
+	beq+	return_r31
+
+	mr	r3,r31
+	addi	r4,sp,56
+	bl	L_TempDisposeHandle$stub
+	nop
+
+	li	r31,0
+return_r31:
+	lwz	r0,104(sp)
+	mr	r3,r31
+	mtlr	r0
+	addi	sp,sp,96
+	lwz	r31,-4(sp)
+	blr
+
+free_temp_memory_handle:
+	mflr	r0
+	stw	r3,-4(sp)
+	stw	r0,8(sp)
+	stwu	sp,-96(sp)
+
+	addi	r4,sp,56
+	bl	L_TempHUnlock$stub
+	nop
+
+	lwz	r3,96-4(sp)
+	addi	r4,sp,56
+	bl	L_TempDisposeHandle$stub
+	nop
+
+	lwz	r0,104(sp)
+	addi	sp,sp,96
+	mtlr	r0
+	blr
+ .endif
+
+init_profiler_error1:
+	lea_	o0,wrong_processor
+	lea_	r5,profile_globals
+	li	r4,0
+	stw	r4,Globals_stack_pointer(r5)
+	b	print_error
+init_profiler_error:
+	lea_	o0,not_enough_memory_for_profile_stack
+	lea_	r5,profile_globals
+	li	r4,0
+	stw	r4,Globals_stack_pointer(r5)
+	b	print_error
+profiler_memory_error:
+	lea_	o0,not_enough_memory_for_profiler
+	b	print_error
+ .if CHECK_STACK_OVERFLOWS 
+profile_stack_overflow:
+	mflr	r0
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+
+	bl	.Debugger
+	nop
+	
+	lwz	r0,64-4(sp)
+	addi	sp,sp,64
+	mtlr	r0
+	b	profile_stack_overflow
+ .endif
+
+	.data
+	.align	2
+	.comm	profile_globals,Globals
+
+profile_file_name:
+	.long	__STRING__+2
+	.long	0
+	.long	0,0,0,0,0,0,0,0
+	.align	2
+ .if MODULE_NAMES
+m_system_:
+	.long	6
+	.ascii	"System"
+	.byte	0,0
+	.long	m_system_
+ .endif
+start_string:
+	.long	0
+	.ascii	"start"
+	.byte	0
+	.align	2
+not_enough_memory_for_profile_stack:
+	.ascii	"not enough memory for profile stack"
+	.byte	13
+	.byte	0
+not_enough_memory_for_profiler:
+	.ascii	"not enough memory for profiler"
+	.byte	13
+	.byte	0
+wrong_processor:
+ .if POWER601
+	.ascii	"Not a PowerPC601 processor (don't use profiling option for 601)"
+ .else
+ 	.ascii	"This is a PowerPC601 processor (use profiling option for 601)"
+ .endif
+	.byte	13
+	.byte	0
+stack_trace_string:
+	.ascii	"Stack trace:"
+	.byte	13
+	.byte	0
+	.align	2
+
+
+.picsymbol_stub
+L_Gestalt$stub:
+	.indirect_symbol _Gestalt
+	mflr r0
+	bcl 20,31,L20$pb
+L20$pb:
+	mflr r11
+	addis r11,r11,ha16(L20$lz-L20$pb)
+	mtlr r0
+	lwz r12,lo16(L20$lz-L20$pb)(r11)
+	mtctr r12
+	addi r11,r11,lo16(L20$lz-L20$pb )
+	bctr
+.lazy_symbol_pointer
+L20$lz:
+	.indirect_symbol _Gestalt
+	.long dyld_stub_binding_helper
+
+
+.picsymbol_stub
+L_TempDisposeHandle$stub:
+	.indirect_symbol _TempDisposeHandle
+	mflr r0
+	bcl 20,31,L21$pb
+L21$pb:
+	mflr r11
+	addis r11,r11,ha16(L21$lz-L21$pb)
+	mtlr r0
+	lwz r12,lo16(L21$lz-L21$pb)(r11)
+	mtctr r12
+	addi r11,r11,lo16(L21$lz-L21$pb )
+	bctr
+.lazy_symbol_pointer
+L21$lz:
+	.indirect_symbol _TempDisposeHandle
+	.long dyld_stub_binding_helper
+
+
+.picsymbol_stub
+L_TempHLock$stub:
+	.indirect_symbol _TempHLock
+	mflr r0
+	bcl 20,31,L22$pb
+L22$pb:
+	mflr r11
+	addis r11,r11,ha16(L22$lz-L22$pb)
+	mtlr r0
+	lwz r12,lo16(L22$lz-L22$pb)(r11)
+	mtctr r12
+	addi r11,r11,lo16(L22$lz-L22$pb )
+	bctr
+.lazy_symbol_pointer
+L22$lz:
+	.indirect_symbol _TempHLock
+	.long dyld_stub_binding_helper
+
+
+
+.picsymbol_stub
+L_TempHUnlock$stub:
+	.indirect_symbol _TempHUnlock
+	mflr r0
+	bcl 20,31,L23$pb
+L23$pb:
+	mflr r11
+	addis r11,r11,ha16(L23$lz-L23$pb)
+	mtlr r0
+	lwz r12,lo16(L23$lz-L23$pb)(r11)
+	mtctr r12
+	addi r11,r11,lo16(L23$lz-L23$pb )
+	bctr
+.lazy_symbol_pointer
+L23$lz:
+	.indirect_symbol _TempHUnlock
+	.long dyld_stub_binding_helper
+
+
+
+.picsymbol_stub
+L_TempNewHandle$stub:
+	.indirect_symbol _TempNewHandle
+	mflr r0
+	bcl 20,31,L24$pb
+L24$pb:
+	mflr r11
+	addis r11,r11,ha16(L24$lz-L24$pb)
+	mtlr r0
+	lwz r12,lo16(L24$lz-L24$pb)(r11)
+	mtctr r12
+	addi r11,r11,lo16(L24$lz-L24$pb )
+	bctr
+.lazy_symbol_pointer
+L24$lz:
+	.indirect_symbol _TempNewHandle
+	.long dyld_stub_binding_helper
+

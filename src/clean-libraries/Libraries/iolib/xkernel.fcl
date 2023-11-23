@@ -1,0 +1,10 @@
+foreign module xkernel;
+
+int init_toplevelx(int)				'InitToplevelX';
+int set_toplevelname(CLEAN_STRING)		'SetToplevelNameX';
+int close_toplevelx(int)			'CloseToplevelX';
+int open_toplevelx(int)				'OpenToplevelX';
+int show_toplevelx(int)				'ShowToplevelX';
+int hide_toplevelx(int)				'HideToplevelX';
+void single_event_catch(int,int *,int *)	'CatchXWidget';
+int destroy_widget(int) 			'DestroyWidget';

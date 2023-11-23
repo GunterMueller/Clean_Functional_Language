@@ -1,0 +1,6667 @@
+;
+;	File:	pstartup.a
+;	Author:	John van Groningen
+;	Machine:	power macintosh
+
+	string	asis
+
+	macro
+	setmbit	&vector,&bit_n,&byte_offset,&bit,&byte,&scratch,&shift
+	rlwinm	&byte_offset,&bit_n,32-&shift-3,3+&shift,31
+	lbzx	&byte,&vector,&byte_offset
+	rlwinm	&scratch,&bit_n,(32-&shift) & 31,29,31
+	srw	&bit,g3,&scratch
+	or	&byte,&byte,&bit
+	stbx	&byte,&vector,&byte_offset
+	endm
+
+	macro
+	tstmbit	&vector,&bit_n,&byte_offset,&bit,&byte,&bit_n_in_byte,&shift
+	rlwinm	&byte_offset,&bit_n,32-&shift-3,3+&shift,31
+	lbzx	&byte,&vector,&byte_offset
+	rlwinm	&bit_n_in_byte,&bit_n,32-&shift,29,31
+	rlwnm.	&bit,&byte,&bit_n_in_byte,24,24	
+	endm
+
+; same as tstmbit, but modifies bit_n register
+	macro
+	tstmbit_ &vector,&bit_n,&byte_offset,&bit,&byte,&shift
+	rlwinm	&byte_offset,&bit_n,32-&shift-3,3+&shift,31
+	lbzx	&byte,&vector,&byte_offset
+	rlwinm	&bit_n,&bit_n,32-&shift,29,31
+	rlwnm.	&bit,&byte,&bit_n,24,24	
+	endm
+
+	macro
+	clrmbit	&vector,&bit_n,&byte_offset,&bit,&byte,&scratch,&shift
+	rlwinm	&byte_offset,&bit_n,32-&shift-3,3+&shift,31
+	lbzx	&byte,&vector,&byte_offset
+	rlwinm	&scratch,&bit_n,32-&shift,29,31
+	srw	&bit,g3,&scratch
+	andc	&byte,&byte,&bit
+	stbx	&byte,&vector,&byte_offset
+	endm
+
+	include	'pmacros.a'
+
+d0:	set	r24
+d1:	set	r25
+d2:	set	r26
+d3:	set	r27
+d4:	set	r28
+d5:	set	r29
+d6:	set	r30
+d7:	set	r31
+
+a0:	set	r23
+a1:	set	r22
+a2:	set	r21
+a3:	set	r20
+a4:	set	r19
+a5:	set	r18
+a6:	set	r17
+
+o0:	set	r3
+o1:	set	r4
+o2:	set	r5
+o3:	set	r6
+o4:	set	r7
+o5:	set	r8
+
+g2:	set	r9
+g3:	set	r10
+
+g0:	set	r11
+g1:	set	r12
+
+int_reg	set	r16
+char_reg	set	r15
+real_reg	set	r14
+bool_reg	set	r13
+
+; MACOSX		set	1
+
+SHARE_CHAR_INT	set	1
+MY_ITOS	set	1
+FINALIZERS	set	1
+STACK_OVERFLOW_EXCEPTION_HANDLER set	MACOSX
+MEASURE_GC	set	0
+
+COPIED_VECTOR	set	1
+USE_DCBZ	set	0
+COMPACT_GC_ONLY	set	0
+
+ADJUST_HEAP_SIZE	set	1
+MARK_GC	set	1
+MARK_AND_COPY_GC	set	1
+
+ if LINUX
+STDERR_TO_FILE	set	0
+WRITE_HEAP	set	0
+ else
+WRITE_HEAP	set	1
+STDERR_TO_FILE	set	1
+ endif
+NEW_DESCRIPTORS	set	1
+;PROFILE		set	1
+PREFETCH		set	0
+MARK_WITH_STACK		set	1
+
+MODULE_NAMES_IN_TIME_PROFILER	set	1
+
+EXCEPTIONS	set	0
+
+MINIMUM_HEAP_SIZE	set	8000
+
+ if 1
+DESCRIPTOR_ARITY_OFFSET	set	(-2)
+  if NEW_DESCRIPTORS
+ZERO_ARITY_DESCRIPTOR_OFFSET	set	(-4)
+  else
+ZERO_ARITY_DESCRIPTOR_OFFSET	set	(-8)
+  endif
+ else
+DESCRIPTOR_ARITY_OFFSET	set	(-8)
+ZERO_ARITY_DESCRIPTOR_OFFSET	set	(-12)
+ endif
+
+NO_PREFETCH_MASK	set	4096
+
+	export	r_to_i_buffer
+	comm	r_to_i_buffer,8
+	comm	heap_mbp,4
+	comm	heap_p,4
+	comm	heap_p1,4
+	comm	heap_p2,4
+	comm	heap_size_33,4
+ if COPIED_VECTOR
+	comm	heap_size_129,4
+	comm	heap_copied_vector,4
+	comm	heap_copied_vector_size,4
+	comm	heap_end_after_copy_gc,4
+ endif
+	comm	extra_heap,4
+	comm	extra_heap_size,4
+	comm	stack_p,4
+ if MACOSX
+	comm	end_a_stack,4
+	comm	end_b_stack,4
+ endif
+	comm	halt_sp,4
+; number of long words requested from the garbage collector
+	comm	alloc_size,4
+	comm	basic_only,4
+	comm	last_time,4
+	comm	execute_time,4
+	comm	garbage_collect_time,4
+	comm	IO_time,4
+ if MEASURE_GC
+	comm	compact_garbage_collect_time,4
+	comm	mark_compact_garbage_collect_time,4
+	comm	total_gc_bytes_lo,4
+	comm	total_gc_bytes_hi,4
+	comm	total_compact_gc_bytes_lo,4
+	comm	total_compact_gc_bytes_hi,4
+ endif
+	export	saved_heap_p
+	comm	saved_heap_p,8
+	
+	export	saved_a_stack_p
+	comm	saved_a_stack_p,4
+	
+	comm	sprintf_buffer,32
+	comm	sprintf_time_buffer,20
+
+	export	small_integers
+	comm	small_integers,33*8
+	export	static_characters
+	comm	static_characters,256*8
+
+ if EXCEPTIONS
+	comm	exception_info,12
+ endif
+
+	comm	caf_list,4
+	export	caf_listp
+	comm	caf_listp,4
+
+	csect	data{RW}
+
+heap_p3:	dc.l	0
+heap_vector:dc.l	0
+heap_end_after_gc:	dc.l	0
+
+ if MARK_GC
+bit_counter:
+	dc.l	0
+bit_vector_p:
+	dc.l	0
+zero_bits_before_mark:
+	dc.l	1
+free_after_mark:
+	dc.l	1000
+last_heap_free:
+	dc.l	0
+lazy_array_list:
+	dc.l	0
+  if ADJUST_HEAP_SIZE
+bit_vector_size:
+	dc.l	0	; in bits
+  endif
+ endif
+
+	align	2
+zero_length_string:
+	dc.l	__STRING__+2
+	dc.l	0
+true_string:
+	dc.l	__STRING__+2
+	dc.l	4
+true_c_string:
+	dc.b	'True'
+	dc.b	0,0,0,0
+false_string:
+	dc.l	__STRING__+2
+	dc.l	5
+false_c_string:
+	dc.b	'False'
+	dc.b	0,0,0
+file_c_string:
+	dc.b	'File'
+	dc.b	0,0,0,0
+
+; -1: compact or mark, no extra heap
+;  0: copy, no extra heap
+;  1: compact, extra heap
+;  2: copy, extra heap
+garbage_collect_flag:
+	dc.b	0
+	dc.b	0,0,0
+
+out_of_memory_string_1:
+	dc.b	'Not enough memory to allocate heap and stack'
+	dc.b	13,0
+printf_int_string:
+	dc.b	'%d'
+	dc.b	0
+printf_real_string:
+	dc.b	'%g'
+	dc.b	0
+printf_string_string:
+	dc.b	'%s'
+	dc.b	0
+printf_char_string:
+	dc.b	'%c'
+	dc.b	0
+garbage_collect_string_1:
+	dc.b	'A stack: '
+	dc.b	0
+garbage_collect_string_2:
+	dc.b	' bytes. BC stack: '
+	dc.b	0
+garbage_collect_string_3:
+	dc.b	' bytes.'
+	dc.b	13,0
+heap_use_after_gc_string_1:
+	dc.b	'Heap use after garbage collection: '
+	dc.b	0
+heap_use_after_gc_string_2:
+	dc.b	' Bytes.'
+	dc.b	13,0
+stack_overflow_string:
+	dc.b	'Stack overflow.'
+	dc.b	13,0
+out_of_memory_string_4:
+	dc.b	'Heap full.'
+	dc.b	13,0
+time_string_1:
+	dc.b	'Execution: '
+	dc.b	0
+time_string_2:
+	dc.b	'  Garbage collection: '
+	dc.b	0
+ if MEASURE_GC
+time_string_2a:
+	dc.b	' '
+	dc.b	0
+ endif
+time_string_3:
+	dc.b	'  IO: '
+	dc.b	0
+time_string_4:
+	dc.b	'  Total: '
+	dc.b	0
+high_index_string:
+	dc.b	'Index too high in UPDATE string.'
+	dc.b	13,0
+low_index_string:
+	dc.b	'Index negative in UPDATE string.'
+	dc.b	13,0
+IO_error_string:
+	dc.b	'IO error: '
+	dc.b	0
+new_line_string:
+	dc.b	13,0
+		
+sprintf_time_string:
+	dc.b	'%d.%02d'
+	dc.b	0
+
+ if MARK_GC
+marked_gc_string_1:
+	dc.b	'Marked: '
+	dc.b	0
+ endif
+ if PROFILE
+ 	align	2
+  if MODULE_NAMES_IN_TIME_PROFILER
+m_system:
+	dc.l	6
+	dc.b	'System'
+	dc.b	0,0
+	dc.l	m_system
+  endif
+garbage_collector_name:
+	dc.l	0
+	dc.b	'garbage_collector'
+	dc.b	0
+	align	2
+ endif
+	align	3
+entier_constants_and_buffers:
+	dc.d	"0.0"
+	dc.d	"0.0"
+	dc.l	0x43300000
+	dc.l	0x00000000
+	dc.l	0x43300000
+	dc.l	0x80000000
+ if MEASURE_GC
+f_power2_52:
+	dc.l	0x43300000
+	dc.l	0x00000000
+f_60:
+	dc.d	"60"
+f_1000000:
+	dc.d	"1000000"
+ endif
+ if WRITE_HEAP
+	comm	heap2_begin_and_end,8
+ endif
+ if FINALIZERS
+	import	__Nil
+	import	e____system__kFinalizer
+	import	e____system__kFinalizerGCTemp
+	export	finalizer_list
+	comm	finalizer_list,4
+	export	free_finalizer_list
+	comm	free_finalizer_list,4
+ endif
+ if STACK_OVERFLOW_EXCEPTION_HANDLER
+	import	.allocate_a_stack
+ endif
+	align	1
+
+	csect	text{PR}
+ if LINUX
+	export	abc_main
+ else
+	export	.abc_main
+ endif
+	export	print_
+	export	print_char
+	export	print_int
+	export	print_real
+	export	print_sc
+	export	print_symbol
+	export	print_symbol_sc
+	export	print__string__
+	export	print__chars__sc
+	export	printD
+
+	export	eprint__
+	export	eprint__string__
+	export	eprintD
+
+	export	push_t_r_args
+	export	push_a_r_args
+	export	halt
+		
+	export	catAC
+	export	sliceAC
+	export	updateAC
+	export	eqAC
+	export	cmpAC
+
+	export	string_to_string_node
+
+	export	create_array
+	export	create_arrayB
+	export	create_arrayC
+	export	create_arrayI
+	export	create_arrayR
+	export	create_R_array
+
+	export	_create_arrayB
+	export	_create_arrayC
+	export	_create_arrayI
+	export	_create_arrayR
+	export	_create_r_array
+
+	export	BtoAC
+	export	DtoAC
+	export	ItoAC
+	export	RtoAC
+	export	eqD
+
+	export	collect_0,collect_1,collect_2,collect_3
+	export	collect_00,collect_01,collect_02,collect_03
+
+	export	eval_01,eval_11,eval_02,eval_12,eval_22
+
+	import	e__system__AP
+
+	export	e__system__sAP
+	export	yet_args_needed,yet_args_needed_0,yet_args_needed_1
+	export	yet_args_needed_2,yet_args_needed_3,yet_args_needed_4
+
+	export	_c3,_c4,_c5,_c6,_c7,_c8,_c9,_c10,_c11,_c12
+	export	_c13,_c14,_c15,_c16,_c17,_c18,_c19,_c20,_c21,_c22
+	export	_c23,_c24,_c25,_c26,_c27,_c28,_c29,_c30,_c31,_c32
+
+	export	e__system__nind
+	export	e__system__eaind
+; old names of the previous two labels for compatibility, remove later
+	export	__indirection,__eaind
+
+	export	eval_fill
+	export	eval_upd_0,eval_upd_1,eval_upd_2,eval_upd_3,eval_upd_4
+	export	eval_upd_5,eval_upd_6,eval_upd_7,eval_upd_8,eval_upd_9
+	export	eval_upd_10,eval_upd_11,eval_upd_12,eval_upd_13,eval_upd_14
+	export	eval_upd_15,eval_upd_16,eval_upd_17,eval_upd_18,eval_upd_19
+	export	eval_upd_20,eval_upd_21,eval_upd_22,eval_upd_23,eval_upd_24
+	export	eval_upd_25,eval_upd_26,eval_upd_27,eval_upd_28,eval_upd_29
+	export	eval_upd_30,eval_upd_31,eval_upd_32
+		
+	export	repl_args_b
+	export	push_arg_b
+	export	del_args
+ if 0
+	export	o__S_P2
+	export	ea__S_P2
+ endif
+	export	.add_IO_time
+	export	.add_execute_time
+		
+	export	.IO_error
+	export	print_error
+	export	stack_overflow
+
+	export	out_of_memory_4
+
+	export	acos_real
+	export	asin_real
+	export	atan_real
+	export	cos_real
+	export	sin_real
+	export	tan_real
+	export	ln_real
+	export	log10_real
+	export	exp_real
+	export	sqrt_real
+	export	pow_real
+	export	entier_real
+ if LINUX
+ else
+	export	.my_pointer_glue{PR}
+ endif
+ if EXCEPTIONS
+	export	e__Exceptions__scatch__exception
+	export	e__Exceptions__sraise__exception
+ endif
+ if LINUX
+	import	__start
+ else
+ 	import	_start
+ endif
+	export	__driver
+
+	export	.print_execution_time{PR}
+		
+; from system.abc:	
+	import	INT
+	import	CHAR
+	import	BOOL
+	import	REAL
+	import	__STRING<='STRING'
+	import	FILE
+	import	__STRING__
+	import	__ARRAY__
+	import	__cycle__in__spine
+	import	__print__graph
+	import	__eval__to__nf
+
+ if STDERR_TO_FILE
+	import	.close_stderr_file
+ endif
+
+; from cgcon.c:
+	import	.w_print_char
+	import	.w_print_text
+	import	.w_print_int
+	import	.w_print_real
+	import	.w_print_string
+
+ if STDERR_TO_FILE
+	import	.er_print_char
+	import	.er_print_string
+	import	.er_print_int
+	import	.er_print_text
+	import	.er_print_real
+ else
+	import	.ew_print_char
+	import	.ew_print_string
+	import	.ew_print_int
+	import	.ew_print_real
+ endif
+ if 0
+
+	import	.wait_for_key_press
+ else
+ 	import	execution_aborted
+ endif
+	import	stack_size
+	import	heap_size
+	import	flags
+ if ADJUST_HEAP_SIZE
+	import	heap_size_multiple
+	import	initial_heap_size
+ endif
+ 
+; from standard c library:
+	import	.sprintf
+ if LINUX
+	import	malloc
+	import	free
+ else
+	import	.NewPtr
+	import	.DisposePtr
+	import	.TickCount
+  if 0
+	import	.Debugger
+  endif
+ endif
+	import	.acos
+	import	.asin
+	import	.atan
+	import	.cos
+	import	.sin
+	import	.tan
+	import	.log
+	import	.log10
+	import	.exp
+	import	.sqrt
+	import	.pow
+
+ if PROFILE
+	import	init_profiler
+	import	profile_s,profile_n,profile_r,profile_ti
+	import	write_profile_information,write_profile_stack
+ endif
+
+ if LINUX
+abc_main:
+ else
+.abc_main:
+ endif
+ 	mflr	r0
+	stwu	r0,-4(sp)
+	stmw	r13,-76(sp)
+	subi	sp,sp,76
+
+	lea	o0,flags
+	lwz	d0,0(o0)
+	lea	o0,basic_only
+	andi.	d0,d0,1
+	stw	d0,0(o0)
+
+	lea	o0,heap_size
+	lwz	d0,0(o0)
+	subi	o0,d0,3
+	li	o1,33
+	divwu	o0,o0,o1
+	lea	o1,heap_size_33
+	stw	o0,0(o1)
+
+ if COPIED_VECTOR
+	lea	o0,heap_size
+	li	o1,129
+	lwz	d0,0(o0)
+	subi	o0,d0,7
+	divwu	o0,o0,o1
+	lea	o1,heap_size_129
+	stw	o0,0(o1)
+	addi	o0,o0,3
+	lea	o1,heap_copied_vector_size
+	clrrwi	o0,o0,2
+	stw	o0,0(o1)
+	
+	lea	o1,heap_end_after_copy_gc
+	li	g0,0
+	stw	g0,0(o1)
+ endif
+
+	lea	o1,heap_size
+	lwz	o0,0(o1)
+	addi	o0,o0,7
+	clrrwi	o0,o0,3
+	stw	o0,0(o1)
+	addi	o0,o0,3+4
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+
+ if LINUX
+	bl	malloc
+ else
+	bl	.NewPtr
+ endif
+	nop
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,64
+ endif
+	cmpwi	0,o0,0
+	beq	no_memory_1
+
+	lea	o1,heap_mbp
+	stw	o0,0(o1)
+
+	addi	o0,o0,3
+	clrrwi	a6,o0,2
+
+	lea	o0,heap_p
+	lea	o1,heap_p1
+	stw	a6,0(o0)
+	stw	a6,0(o1)
+ if MACOSX
+	lea	o0,stack_size
+	lwz	o0,0(o0)
+	
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+
+  if STACK_OVERFLOW_EXCEPTION_HANDLER
+	bl	.allocate_a_stack
+  else
+	bl	.NewPtr
+  endif
+	nop
+
+ 	lwz	sp,0(sp)
+
+	cmpwi	0,o0,0
+	beq	no_memory_1
+
+	mr	a4,o0
+	lea	o0,stack_p
+	stw	a4,0(o0)
+
+	lea	o0,stack_size
+	addi	d0,sp,128
+	lwz	d1,0(o0)
+
+	lea	o0,end_a_stack
+ 	sub	d0,d0,d1
+	add	d1,a4,d1
+	stw	d1,0(o0)
+
+	lea	o0,end_b_stack
+	stw	d0,0(o0)
+ else
+	lea	o0,stack_size
+	addi	d0,sp,-128
+	lwz	o0,0(o0)
+ 	sub	a4,d0,o0
+
+	lea	o0,stack_p
+	stw	a4,0(o0)
+ endif
+	lea	a0,small_integers
+	li	d0,0
+	lea	d1,INT2
+make_small_integers_lp:
+	stw	d1,0(a0)
+	stw	d0,4(a0)
+	addi	d0,d0,1
+	cmpwi	0,d0,33
+	addi	a0,a0,8
+	bne	make_small_integers_lp
+
+	lea	a0,static_characters
+	li	d0,0
+	lea	d1,CHAR2
+make_static_characters_lp:
+	stw	d1,0(a0)
+	stw	d0,4(a0)
+	addi	d0,d0,1
+	cmpwi	0,d0,256
+	addi	a0,a0,8
+	bne	make_static_characters_lp
+
+	lea	o0,caf_listp
+ if LINUX
+ 	lea	a0,caf_list+4
+ else
+	lea	a0,caf_list4
+ endif
+	stw	a0,0(o0)
+	li	g0,0
+	stw	g0,-4(a0)
+
+ if FINALIZERS
+ 	lea	o0,finalizer_list
+ 	lea	o1,free_finalizer_list
+ 	lea	a0,__Nil_m8
+ 	stw	a0,0(o0)
+ 	stw	a0,0(o1)
+ endif
+
+ if COPIED_VECTOR
+	lea	o0,heap_size_129
+	lwz	d1,0(o0)
+	slwi	d7,d1,6-2
+	slwi	d1,d1,6
+	lea	o0,heap_copied_vector
+	add	d0,a6,d1
+	lea	o1,heap_copied_vector_size
+	stw	d0,0(o0)
+	lwz	o1,0(o1)
+	lea	o0,heap_p2
+	add	d0,d0,o1
+	stw	d0,0(o0)
+ else
+	lea	o0,heap_size
+	lwz	d1,0(o0)
+	lea	o0,heap_p2
+	srwi	d1,d1,1
+	add	d0,a6,d1
+	srwi	d7,d1,2
+	stw	d0,0(o0)
+ endif
+
+	lea	o0,garbage_collect_flag
+	li	g0,0
+	stb	g0,0(o0)
+
+ if MARK_AND_COPY_GC
+ 	lea	o0,flags
+	lwz	o0,0(o0)
+	andi.	r0,o0,64
+	beq	no_mark1
+ endif
+
+ if MARK_GC || COMPACT_GC_ONLY
+	lea	o0,heap_size_33
+	lea	o1,heap_vector
+	lwz	d0,0(o0)
+	stw	a6,0(o1)
+	slwi	d7,d0,3
+	add	a6,a6,d0
+	addi	a6,a6,3
+	lea	o0,heap_p3
+	clrrwi	a6,a6,2
+	stw	a6,0(o0)
+	lea	o0,garbage_collect_flag
+	li	d0,-1
+	stb	d0,0(o0)
+ endif
+
+ if MARK_AND_COPY_GC
+no_mark1:
+ endif
+
+ if ADJUST_HEAP_SIZE
+ 	lea	d0,initial_heap_size
+ 	lea	o0,flags
+	lwz	d0,0(d0)
+  if MARK_AND_COPY_GC
+	lwz	o0,0(o0)
+	li	d1,MINIMUM_HEAP_SIZE/2
+	andi.	r0,o0,64
+	bne	no_mark9
+	add	d1,d1,d1
+no_mark9:
+  else
+   if MARK_GC || COMPACT_GC_ONLY
+ 	li	d1,MINIMUM_HEAP_SIZE
+   else
+ 	li	d1,MINIMUM_HEAP_SIZE/2
+   endif
+  endif
+	cmpw	d0,d1
+	ble	too_large_or_too_small
+	srwi	d0,d0,2
+ 	cmpw	d0,d7
+	bge	too_large_or_too_small
+	mr	d7,d0
+too_large_or_too_small:
+ endif
+
+ if MARK_AND_COPY_GC
+ 	lea	o0,flags
+	lwz	o0,0(o0)
+	andi.	r0,o0,64
+	beq	no_mark2
+ endif
+
+ if MARK_GC && ADJUST_HEAP_SIZE
+	lea	o0,bit_vector_size
+	stw	d7,0(o0)
+ endif
+
+ if MARK_AND_COPY_GC
+no_mark2:
+ endif
+
+ 	lea	o0,heap_end_after_gc
+	slwi	d0,d7,2
+	add	d0,a6,d0
+	stw	d0,0(o0)
+
+	lea	o0,halt_sp
+	stw	sp,0(o0)
+
+ if EXCEPTIONS
+	lea	o0,exception_info
+	li	o1,0
+	stw	o1,0(o0)
+ endif
+	bl	_init_timer
+
+
+	lea	a5,__cycle__in__spine
+	lea	int_reg,INT2
+	lea	char_reg,CHAR2
+	lea	real_reg,REAL2
+	lea	bool_reg,BOOL2
+
+ if USE_DCBZ
+ 	subi	d7,d7,15
+	li	g2,32
+ endif
+
+	li	r0,-1
+ if PROFILE
+	stwu	r0,-4(sp)
+	bl	init_profiler
+ endif
+	stwu	r0,-4(sp)
+
+ if 0
+	stwu	sp,-64(sp)
+	bl	.Debugger
+	nop
+	addi	sp,sp,64
+ endif
+
+	subi	a6,a6,4
+
+ if LINUX
+ 	bl	__start
+ else
+	bl	_start
+ endif
+	nop
+
+exit:
+	bl	.add_execute_time
+
+	lea	o0,flags
+	lwz	d0,0(o0)
+	andi.	g0,d0,8
+	beq	no_print_execution_time
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+
+	bl	.print_execution_time
+
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,64
+ endif
+no_print_execution_time:
+
+exit_3:
+exit_2:
+	lea	o0,heap_mbp
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	lwz	o0,0(o0)
+ if LINUX
+	bl	free
+ else
+	bl	.DisposePtr
+ endif
+	nop
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,64
+ endif
+
+exit_1:
+ if STDERR_TO_FILE
+	lea	o0,flags
+	lwz	d0,0(o0)
+	andi.	g0,d0,128
+	beq	no_close_stderr_file
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.close_stderr_file
+	nop	
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,64
+ endif
+
+no_close_stderr_file:
+ endif
+ if PROFILE
+	mflr	r0
+	stwu	r0,-4(sp)
+	bl	write_profile_information
+ endif
+
+	lwz	r0,76(sp)
+	mtlr	r0
+	lmw	r13,0(sp)
+	addi	sp,sp,80
+	blr
+
+
+	csect	.print_execution_time{PR}
+.print_execution_time:
+	mflr	r0
+	stw	r0,8(sp)
+	stwu	sp,-64(sp)
+
+	bl	.add_execute_time
+
+	lea	o0,time_string_1
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+	nop
+
+	lea	a0,execute_time
+	lwz	d0,0(a0)
+	bl	_print_time
+
+	lea	o0,time_string_2
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+
+	lea	a0,garbage_collect_time
+	lwz	d0,0(a0)
+	bl	_print_time
+
+ if MEASURE_GC
+	lea	o0,time_string_2a
+  if STDERR_TO_FILE
+	bl	.er_print_string
+  else
+	bl	.ew_print_string
+  endif
+	lea	a0,mark_compact_garbage_collect_time
+	lwz	d0,0(a0)
+	bl	_print_time
+
+	lea	o0,time_string_2a
+  if STDERR_TO_FILE
+	bl	.er_print_string
+  else
+	bl	.ew_print_string
+  endif
+	lea	a0,compact_garbage_collect_time
+	lwz	d0,0(a0)
+	bl	_print_time
+ endif
+
+	lea	o0,time_string_3
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+
+	lea	a0,IO_time
+	lwz	d0,0(a0)
+	bl	_print_time
+
+	lea	o0,time_string_4
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+
+	lea	a0,execute_time
+	lwz	d0,0(a0)
+	lea	a0,garbage_collect_time
+	lwz	d2,0(a0)
+	add	d0,d0,d2
+ if MEASURE_GC
+	lea	a0,mark_compact_garbage_collect_time
+	lwz	d2,0(a0)
+	add	d0,d0,d2
+	lea	a0,compact_garbage_collect_time
+	lwz	d2,0(a0)
+	add	d0,d0,d2
+ endif
+	lea	a0,IO_time
+	lwz	d2,0(a0)
+	add	d0,d0,d2
+
+	bl	_print_time
+
+ if MEASURE_GC
+	li	o0,13
+  if STDERR_TO_FILE
+	bl	.er_print_char
+  else
+	bl	.ew_print_char
+  endif
+	nop
+
+	lea	o0,total_gc_bytes_hi
+	lwz	o0,0(o0)
+  if STDERR_TO_FILE
+	bl	.er_print_int
+  else
+	bl	.ew_print_int
+  endif
+  	nop
+
+	li	o0,':'
+  if STDERR_TO_FILE
+	bl	.er_print_char
+  else
+	bl	.ew_print_char
+  endif
+	nop
+
+	lea	o0,total_gc_bytes_lo
+	lwz	o0,0(o0)
+  if STDERR_TO_FILE
+	bl	.er_print_int
+  else
+	bl	.ew_print_int
+  endif
+  	nop
+
+	li	o0,32
+  if STDERR_TO_FILE
+	bl	.er_print_char
+  else
+	bl	.ew_print_char
+  endif
+	nop
+	
+	lea	o0,total_compact_gc_bytes_hi
+	lwz	o0,0(o0)
+  if STDERR_TO_FILE
+	bl	.er_print_int
+  else
+	bl	.ew_print_int
+  endif
+  	nop
+
+	li	o0,':'
+  if STDERR_TO_FILE
+	bl	.er_print_char
+  else
+	bl	.ew_print_char
+  endif
+	nop
+
+	lea	o0,total_compact_gc_bytes_lo
+	lwz	o0,0(o0)
+  if STDERR_TO_FILE
+	bl	.er_print_int
+  else
+	bl	.ew_print_int
+  endif
+  	nop
+ endif
+
+	li	o0,13
+ if STDERR_TO_FILE
+	bl	.er_print_char
+ else
+	bl	.ew_print_char
+ endif
+	nop
+
+ if MEASURE_GC
+	lea	g0,total_gc_bytes_hi
+	lea	g1,total_gc_bytes_lo
+	bl	fload_52_bit_int
+  if STDERR_TO_FILE
+	bl	.er_print_real
+  else
+	bl	.ew_print_real
+  endif
+	nop
+
+	li	o0,' '
+	bl	.er_print_char
+	nop
+
+	lea	g0,total_compact_gc_bytes_hi
+	lea	g1,total_compact_gc_bytes_lo
+	bl	fload_52_bit_int
+  if STDERR_TO_FILE
+	bl	.er_print_real
+  else
+	bl	.ew_print_real
+  endif
+	nop
+
+	li	o0,' '
+	bl	.er_print_char
+	nop
+
+	lea	g1,garbage_collect_time
+	lea	o1,f_power2_52
+	lwz	g1,0(g1)
+	lis	o0,0x4330
+	stw	g1,-4(sp)
+	stw	o0,-8(sp)
+	lfd	f2,0(o1)
+	lfd	f1,-8(sp)
+	fsub	f1,f1,f2
+ if STDERR_TO_FILE
+	bl	.er_print_real
+ else
+	bl	.ew_print_real
+ endif
+	nop
+
+	li	o0,' '
+	bl	.er_print_char
+	nop
+
+	lea	g1,mark_compact_garbage_collect_time
+	lea	o1,f_power2_52
+	lwz	g1,0(g1)
+	lis	o0,0x4330
+	stw	g1,-4(sp)
+	stw	o0,-8(sp)
+	lfd	f2,0(o1)
+	lfd	f1,-8(sp)
+	fsub	f1,f1,f2
+  if STDERR_TO_FILE
+	bl	.er_print_real
+  else
+	bl	.ew_print_real
+  endif
+	nop
+
+	li	o0,' '
+	bl	.er_print_char
+	nop
+
+	lea	g1,compact_garbage_collect_time
+	lea	o1,f_power2_52
+	lwz	g1,0(g1)
+	lis	o0,0x4330
+	stw	g1,-4(sp)
+	stw	o0,-8(sp)
+	lfd	f2,0(o1)
+	lfd	f1,-8(sp)
+	fsub	f1,f1,f2
+  if STDERR_TO_FILE
+	bl	.er_print_real
+  else
+	bl	.ew_print_real
+  endif
+	nop
+
+	li	o0,' '
+	bl	.er_print_char
+	nop
+
+	lea	g0,total_gc_bytes_hi
+	lea	g1,total_gc_bytes_lo
+	bl	fload_52_bit_int
+	lea	g1,garbage_collect_time
+	bl	compute_mb_per_second
+  if STDERR_TO_FILE
+	bl	.er_print_real
+  else
+	bl	.ew_print_real
+  endif
+	nop
+
+	li	o0,' '
+	bl	.er_print_char
+	nop
+
+	lea	g0,total_compact_gc_bytes_hi
+	lea	g1,total_compact_gc_bytes_lo
+	bl	fload_52_bit_int
+	lea	g1,mark_compact_garbage_collect_time
+	bl	compute_mb_per_second
+  if STDERR_TO_FILE
+	bl	.er_print_real
+  else
+	bl	.ew_print_real
+  endif
+	nop
+
+	li	o0,' '
+	bl	.er_print_char
+	nop
+
+	lea	g0,total_compact_gc_bytes_hi
+	lea	g1,total_compact_gc_bytes_lo
+	bl	fload_52_bit_int
+	lea	g1,compact_garbage_collect_time
+	bl	compute_mb_per_second
+  if STDERR_TO_FILE
+	bl	.er_print_real
+  else
+	bl	.ew_print_real
+  endif
+	nop
+
+	li	o0,' '
+	bl	.er_print_char
+	nop
+
+	lea	g0,total_compact_gc_bytes_hi
+	lea	g1,total_compact_gc_bytes_lo
+	bl	fload_52_bit_int
+	lea	g0,mark_compact_garbage_collect_time
+	lea	g1,compact_garbage_collect_time
+	lwz	g0,0(g0)
+	lwz	g1,0(g1)
+	lis	o0,0x4330
+	add	g1,g1,g0
+	stw	g1,-4(sp)
+	stw	o0,-8(sp)
+	lfd	f3,0(o1)
+	lfd	f2,-8(sp)
+	lea	o1,f_60
+	lea	o0,f_1000000
+	fsub	f2,f2,f3
+	lfd	f4,0(o1)
+	lfd	f3,0(o0)
+	fmul	f1,f1,f4
+	fmul	f2,f2,f3
+	fdiv	f1,f1,f2
+  if STDERR_TO_FILE
+	bl	.er_print_real
+  else
+	bl	.ew_print_real
+  endif
+	nop
+
+	li	o0,13
+	bl	.er_print_char
+	nop
+ endif
+
+	lea	o1,execute_time
+	li	o0,0
+	stw	o0,0(o1)
+
+	lea	o1,garbage_collect_time
+	stw	o0,0(o1)
+ if MEASURE_GC
+	lea	o1,mark_compact_garbage_collect_time
+	stw	o0,0(o1)
+
+	lea	o1,compact_garbage_collect_time
+	stw	o0,0(o1)
+ endif
+	lea	o1,IO_time
+	stw	o0,0(o1)
+
+ if MEASURE_GC
+	lea	o1,total_gc_bytes_hi
+	stw	o0,0(o1)
+	lea	o1,total_gc_bytes_lo
+	stw	o0,0(o1)
+	lea	o1,total_compact_gc_bytes_hi
+	stw	o0,0(o1)
+	lea	o1,total_compact_gc_bytes_lo
+	stw	o0,0(o1)
+ endif
+
+	lwz	r0,64+8(sp)
+	addi	sp,sp,64
+	mtlr	r0
+	blr
+
+ if MEASURE_GC
+fload_52_bit_int:
+	lea	o1,f_power2_52
+	lwz	g0,0(g0)
+	lwz	g1,0(g1)
+	lis	o0,0x4330
+	andc	g0,g0,o0
+	or	g0,g0,o0
+	stw	g1,-4(sp)
+	stw	g0,-8(sp)
+	lfd	f2,0(o1)
+	lfd	f1,-8(sp)
+	fsub	f1,f1,f2
+	blr
+
+compute_mb_per_second:
+	lwz	g1,0(g1)
+	lis	o0,0x4330
+	stw	g1,-4(sp)
+	stw	o0,-8(sp)
+	lfd	f3,0(o1)
+	lfd	f2,-8(sp)
+	lea	o1,f_60
+	lea	o0,f_1000000
+	fsub	f2,f2,f3
+	lfd	f4,0(o1)
+	lfd	f3,0(o0)
+	fmul	f1,f1,f4
+	fmul	f2,f2,f3
+	fdiv	f1,f1,f2
+	blr
+ endif
+
+	csect	text{PR}
+
+__driver:
+	lea	o1,flags
+	lwz	o0,0(o1)
+	andi.	r0,o0,16
+	bne	_eval__to__nf
+	b	__print__graph
+_eval__to__nf:
+	b	__eval__to__nf
+
+_print_time:
+	mflr	r0
+	stwu	r0,-4(sp)
+
+ if LINUX
+	li	o1,100
+ else
+	li	o1,60
+ endif
+	divwu	o2,d0,o1
+
+ if LINUX
+	mulli	o3,o2,100
+ 	sub	o3,d0,o3
+ else
+	mulli	o3,o2,60
+	sub	o3,d0,o3
+	mulli	o3,o3,5
+	li	o1,3
+	divwu	o3,o3,o1
+ endif		
+	lea	o1,sprintf_time_string
+	lea	o0,sprintf_time_buffer
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.sprintf
+	nop
+
+	lea	o0,sprintf_time_buffer
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+	nop
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,64
+ endif
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	mtlr	r0
+
+	blr	
+
+no_memory_1:
+	lea	o0,out_of_memory_string_1
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+	nop
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,64
+ endif
+	b	exit_1
+
+print_sc:
+	lea	o0,basic_only
+	lwz	o1,0(o0)
+	cmpwi	0,o1,0
+	bne	end_print
+print_:
+	mr	o0,d0
+
+print_string_o0_and_return:
+	mflr	r0
+	stwu	r0,-4(sp)
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.w_print_string
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+	lwz	r0,0(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,64(sp)
+	addi	sp,sp,72
+ endif
+	mtlr	r0
+	lwz	r0,-4(sp)
+	blr	
+
+end_print:
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr
+
+printD:	andi.	r0,d0,2
+	bne	printD_
+
+	mr	a2,d0
+	b	print_string_a2
+
+print_symbol:
+	li	d1,0
+	b	print_symbol_2
+
+print_symbol_sc:
+	lea	o0,basic_only
+	lwz	d1,0(o0)
+print_symbol_2:
+	lwz	d0,0(a0)
+		
+	cmpw	0,int_reg,d0
+	beq	print_int_node
+
+	cmpw	0,char_reg,d0
+	beq	print_char_node
+
+	cmpw	0,bool_reg,d0
+	beq	print_bool
+
+	cmpw	0,real_reg,d0
+	beq	print_real_node
+
+	cmpwi	0,d1,0
+	bne	end_print_symbol
+
+printD_:
+	lha	d1,-2(d0)
+ if NEW_DESCRIPTORS
+	cmplwi	0,d1,256
+	bge	print_record
+
+	lhz	d1,0(d0)
+	addi	a2,d0,10
+	add	a2,a2,d1
+	b	print_string_a2
+
+print_record:
+	lwz	a2,-6(d0)
+	b	print_string_a2
+ else
+	addi	a2,d0,-2
+
+	cmplwi	0,d1,256
+	bge	print_record
+
+	slwi	d1,d1,3
+	sub	a2,a2,d1
+
+ 	lhz	d1,DESCRIPTOR_ARITY_OFFSET(a2)
+	addi	a2,a2,4
+	slwi	d1,d1,3
+	add	a2,a2,d1
+	b	print_string_a2
+
+print_record:
+	lwz	a2,-4(a2)
+	b	print_string_a2
+ endif
+
+end_print_symbol:
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+print_int_node:
+	lwz	o0,4(a0)
+print_int2:
+	mflr	r0
+	stwu	r0,-4(sp)
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.w_print_int
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+	lwz	r0,0(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,64(sp)
+	addi	sp,sp,72
+ endif
+	mtlr	r0
+	lwz	r0,-4(sp)
+	blr	
+
+print_int:
+	mr	o0,d0
+	b	print_int2
+
+print_char:
+	lea	o0,basic_only
+	lwz	d1,0(o0)
+	cmpwi	0,d1,0
+	bne	print_char_node_bo
+
+	b	print_char_node_sc
+		
+print_char_node:
+	cmpwi	0,d1,0
+	lwz	d0,4(a0)
+	bne	print_char_node_sc
+print_char_node_bo:
+	mflr	r0
+	stwu	r0,-4(sp)
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	li	o0,0x27
+	bl	.w_print_char
+		
+	mr	o0,d0
+	bl	.w_print_char
+
+	li	o0,0x27
+	bl	.w_print_char
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+	lwz	r0,0(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,64(sp)
+	addi	sp,sp,72
+ endif
+	mtlr	r0
+	lwz	r0,-4(sp)
+	blr	
+
+print_char_node_sc:
+	mr	o0,d0
+
+	mflr	r0
+	stwu	r0,-4(sp)
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.w_print_char
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+	lwz	r0,0(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,64(sp)
+	addi	sp,sp,72
+ endif
+	mtlr	r0
+	lwz	r0,-4(sp)
+	blr	
+		
+print_bool:
+	lbz	o0,7(a0)
+	cmpwi	0,o0,0
+	beq	print_false
+
+print_true:
+	lea	o0,true_c_string
+	b	print_string_o0_and_return
+
+print_false:
+	lea	o0,false_c_string
+	b	print_string_o0_and_return
+
+print_real:
+	fmr	f1,f14
+	b	print_real_
+print_real_node:
+	lfd	f1,4(a0)
+print_real_:
+	mflr	r0
+	stwu	r0,-4(sp)
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.w_print_real
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+	lwz	r0,0(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,64(sp)
+	addi	sp,sp,72
+ endif
+	mtlr	r0
+	lwz	r0,-4(sp)
+	blr	
+
+print_string_a2:
+	lwz	o1,0(a2)
+	addi	o0,a2,4
+
+	mflr	r0
+	stwu	r0,-4(sp)
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.w_print_text
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+	lwz	r0,0(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,64(sp)
+	addi	sp,sp,72
+ endif
+	mtlr	r0
+	lwz	r0,-4(sp)
+	blr	
+
+print__chars__sc:
+	lea	o0,basic_only
+	lwz	d1,0(o0)
+	cmpwi	0,d1,0
+	bne	no_print_chars
+
+print__string__:
+	lwz	o1,4(a0)
+	addi	o0,a0,8
+
+	mflr	r0
+	stwu	r0,-4(sp)
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.w_print_text
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+	lwz	r0,0(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,64(sp)
+	addi	sp,sp,72
+ endif
+	mtlr	r0
+	lwz	r0,-4(sp)
+	blr
+
+no_print_chars:
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr
+
+	csect	.eprint__
+eprint__:
+	mr	o0,d0
+
+	mflr	r0
+	stwu	r0,-4(sp)
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+	lwz	r0,0(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,64(sp)
+	addi	sp,sp,72
+ endif
+	mtlr	r0
+	lwz	r0,-4(sp)
+	blr
+
+	csect	.eprint__string__
+eprint__string__:
+	lwz	o1,4(a0)
+	addi	o0,a0,8
+
+	mflr	r0
+	stwu	r0,-4(sp)
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+ if STDERR_TO_FILE
+	bl	.er_print_text
+ else
+	bl	.ew_print_text
+ endif
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+	lwz	r0,0(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,64(sp)
+	addi	sp,sp,72
+ endif
+	mtlr	r0
+	lwz	r0,-4(sp)
+	blr	
+
+	csect	.eprintD
+eprintD:
+	andi.	r0,d0,2
+	bne	eprintD_
+
+	mr	a2,d0
+	b	eprint_string_a2
+
+eprintD_:
+	lha	d1,-2(d0)
+ if NEW_DESCRIPTORS
+	cmplwi	0,d1,256
+	bge	eprint_record
+
+	lhz	d1,0(d0)
+	addi	a2,d0,10
+	add	a2,a2,d1
+ else
+	addi	a2,d0,-2
+
+	cmplwi	0,d1,256
+	bge	eprint_record
+
+	slwi	d1,d1,3
+	sub	a2,a2,d1
+
+ 	lhz	d1,DESCRIPTOR_ARITY_OFFSET(a2)
+	addi	a2,a2,4
+	slwi	d1,d1,3
+	add	a2,a2,d1
+ endif
+	b	eprint_string_a2
+
+eprint_record:
+ if NEW_DESCRIPTORS
+	lwz	a2,-6(d0)
+ else
+	lwz	a2,-4(a2)
+ endif
+
+eprint_string_a2:
+	lwz	o1,0(a2)
+	addi	o0,a2,4
+
+	mflr	r0
+	stwu	r0,-4(sp)
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+ if STDERR_TO_FILE
+	bl	.er_print_text
+ else
+	bl	.ew_print_text
+ endif
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+	lwz	r0,0(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,64(sp)
+	addi	sp,sp,72
+ endif
+	mtlr	r0
+	lwz	r0,-4(sp)
+	blr	
+
+	csect	.DtoAC
+
+DtoAC:
+	lha	d1,-2(d0)
+ if NEW_DESCRIPTORS
+	cmplwi	0,d1,256
+	bge	DtoAC_record
+
+	lhz	d1,0(d0)
+	addi	a0,d0,10
+	add	a0,a0,d1
+ else
+	addi	a0,d0,-2
+
+	cmplwi	0,d1,256
+	bge	DtoAC_record
+
+	slwi	d1,d1,3
+	bsub	a0,d1
+
+	lhz	d1,DESCRIPTOR_ARITY_OFFSET(a0)
+	baddi	a0,4
+	slwi	d1,d1,3
+	badd	a0,d1
+ endif
+
+DtoAC_a0:
+	lwz	d2,0(a0)
+	mr	a2,a0
+
+	addi	d3,d2,3
+	bsubi	d7,2
+
+	srwi	d3,d3,2		
+	sub.	d7,d7,d3
+	blt	DtoAC_gc
+DtoAC_r_gc:
+	lea	o1,__STRING__2
+
+	subic.	d3,d3,1
+
+	addi	a0,a6,4
+	stw	o1,4(a6)
+	stwu	d2,8(a6)
+	blt	DtoAC_copy
+
+DtoAC_copy_lp:
+	lwzu	o0,4(a2)
+	subic.	d3,d3,1
+	stwu	o0,4(a6)
+	bge	DtoAC_copy_lp
+DtoAC_copy:
+
+	lwz	r0,0(sp)
+	baddi	sp,4
+	blr	
+
+DtoAC_gc:	mflr	r0
+	mr	d0,a0
+	bl	collect_0
+	mr	a2,d0
+	b	DtoAC_r_gc
+
+DtoAC_record:
+ if NEW_DESCRIPTORS
+	lwz	a0,-6(d0)
+ else
+	lwz	a0,-4(a0)
+ endif
+	b	DtoAC_a0
+
+	csect	.push_a_r_args
+push_a_r_args:
+	lwz	a1,8(a0)
+	subi	a1,a1,2
+	lhz	d3,0(a1)
+	subi	d3,d3,256
+	lhz	d1,2(a1)
+	addi	a1,a1,4
+	sub	d2,d3,d1
+	slwi	d0,d0,2
+
+	mullw	d4,d0,d3
+	addi	a0,a0,12
+	add	a0,a0,d4
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+
+	slwi	o0,d1,2
+	add	a0,a0,o0
+	mr	a3,a0
+	b	push_a_elements
+
+push_a_elements_lp:
+	lwzu	o0,-4(a3)
+	addi	a4,a4,4
+	stw	o0,-4(a4)
+push_a_elements:
+	subic.	d1,d1,1
+	bge	push_a_elements_lp
+
+	slwi	o0,d2,2
+	add	a0,a0,o0
+	b	push_b_elements
+
+push_b_elements_lp:
+	lwzu	o0,-4(a0)
+	stwu	o0,-4(sp)
+push_b_elements:
+	subic.	d2,d2,1
+	bge	push_b_elements_lp
+
+	mr	d0,a1
+	blr	
+
+push_t_r_args:
+	lwz	a1,0(a0)
+	addi	a0,a0,4
+	subi	a1,a1,2
+	lhz	d3,0(a1)
+	lhz	d1,2(a1)
+	subi	d3,d3,256
+	addi	d0,a1,4
+	sub	d2,d3,d1
+
+	slwi	d4,d3,2
+	cmplwi	0,d3,2
+	add	a1,a0,d4
+	ble	small_record
+		
+	lwz	a1,4(a0)
+	subi	a1,a1,4
+	add	a1,a1,d4
+small_record:
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	push_r_b_elements
+
+push_r_b_elements_lp:
+	subic.	d3,d3,1
+	bne	not_first_arg_b
+		
+	lwz	o0,0(a0)
+	stwu	o0,-4(sp)
+	b	push_r_b_elements
+not_first_arg_b:
+	lwzu	o0,-4(a1)
+	stwu	o0,-4(sp)
+push_r_b_elements:
+	subic.	d2,d2,1
+	bge	push_r_b_elements_lp
+
+	b	push_r_a_elements
+
+push_r_a_elements_lp:
+	subic.	d3,d3,1
+	addi	a4,a4,4
+	bne	not_first_arg_a
+
+	lwz	o0,0(a0)
+	stw	o0,-4(a4)
+	b	push_r_a_elements
+
+not_first_arg_a:
+	lwzu	o0,-4(a1)
+	stw	o0,-4(a4)
+push_r_a_elements:
+	subic.	d1,d1,1
+	bge	push_r_a_elements_lp
+
+	blr	
+
+	csect	.BtoAC
+BtoAC:
+	andi.	d0,d0,255
+	beq	BtoAC_false
+BtoAC_true:
+	lea	a0,true_string
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr
+BtoAC_false:
+	lea	a0,false_string
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	csect	.RtoAC
+RtoAC:
+ if LINUX
+ 	fmr	f1,f14
+ else
+	stfd	f14,-8(sp)
+ endif
+	lea	o1,printf_real_string
+	lea	o0,sprintf_buffer
+ if LINUX
+	creqv	6,6,6
+ else
+	lwz	o2,-8(sp)
+	lwz	o3,-4(sp)
+ endif
+	mflr	r0
+ if MACOSX
+	stwu	r0,-4(sp)
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ endif
+	bl	.sprintf
+	nop
+ if MACOSX
+ 	lwz	sp,0(sp)
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+ else
+	lwz	r0,60(sp)
+	addi	sp,sp,64
+ endif
+	mtlr	r0
+
+	b	return_sprintf_buffer_string
+		
+	csect	.ItoAC
+ItoAC:
+ if MY_ITOS
+	lea	a0,sprintf_buffer
+	cmpwi	0,d0,0
+	bge	no_minus
+
+	li	o0,45
+	stb	o0,0(a0)
+	addi	a0,a0,1
+	li	g0,0
+	sub	d0,g0,d0
+no_minus:
+	addi	a2,a0,12
+	beq	zero_digit
+
+calculate_digits:
+	cmplwi	0,d0,10
+	blt	last_digit
+
+ if 1
+	lis	o0,-13107
+	subi	o0,o0,13107
+	mulhwu	o0,o0,d0
+
+	rlwinm	o1,o0,0,0,31-3
+	srwi	o0,o0,3
+
+	sub	a1,d0,o1
+	slwi	o1,o0,1
+
+	sub	a1,a1,o1
+ else
+	li	o1,10
+	divwu	o0,d0,o1
+
+	mullw	a1,o0,o1
+	sub	a1,d0,a1
+ endif
+	addi	a1,a1,48
+	mr	d0,o0
+
+	stb	a1,0(a2)
+	addi	a2,a2,1		
+	b	calculate_digits
+
+last_digit:
+	cmpwi	0,d0,0
+	beq	no_zero
+zero_digit:
+	addi	d0,d0,48
+	stb	d0,0(a2)
+	addi	a2,a2,1
+no_zero:
+	addi	a1,a0,12
+
+reverse_digits:
+	lbzu	d1,-1(a2)
+	cmpw	0,a2,a1
+	stb	d1,0(a0)
+	addi	a0,a0,1
+	bne	reverse_digits
+
+	li	g0,0
+	lea	d0,sprintf_buffer
+
+	stb	g0,0(a0)
+	sub	d0,a0,d0
+	b	sprintf_buffer_to_string
+
+ else	
+	mr	o2,d0
+	lea	o1,printf_int_string
+	lea	o0,sprintf_buffer
+	
+  if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+  else
+	stwu	sp,-64(sp)
+  endif
+	bl	.sprintf
+	nop
+  if MACOSX
+ 	lwz	sp,0(sp)
+  else
+	addi	sp,sp,64
+  endif
+ endif
+
+return_sprintf_buffer_string:
+	lea	o0,sprintf_buffer
+	li	d0,-1
+	subi	o0,o0,1
+	
+count_chars_in_c_string:
+	lbzu	d1,1(o0)
+	addi	d0,d0,1
+	cmpwi	d1,0
+	bne	count_chars_in_c_string
+
+ if MY_ITOS
+sprintf_buffer_to_string:
+ endif
+	addi	d1,d0,3
+	srwi	d1,d1,2
+	subi	d7,d7,2
+	sub.	d7,d7,d1
+	bge+	D_to_S_no_gc
+
+	mflr	r0
+	bl	collect_0
+
+D_to_S_no_gc:
+	lea	a0,sprintf_buffer
+	lea	o0,__STRING__2
+	addi	d2,a6,4
+	stw	o0,4(a6)
+	stwu	d0,8(a6)
+	b	D_to_S_cp_str_2
+
+D_to_S_cp_str_1:
+	lwz	o0,0(a0)
+	addi	a0,a0,4
+	stwu	o0,4(a6)
+D_to_S_cp_str_2:
+	subic.	d1,d1,1
+	bge	D_to_S_cp_str_1
+
+	mr	a0,d2		
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+	blr	
+
+	csect	.eqD
+eqD:	lwz	d0,0(a0)
+	lwz	o0,0(a1)
+	cmpw	0,d0,o0
+	bne	eqD_false
+
+	cmpw	0,d0,int_reg
+	beq	eqD_INT
+
+	cmpw	0,d0,char_reg
+	beq	eqD_CHAR
+
+	cmpw	0,d0,bool_reg
+	beq	eqD_BOOL
+
+	cmpw	0,d0,real_reg
+	beq	eqD_REAL
+
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+eqD_CHAR:
+eqD_INT:	lwz	d1,4(a0)
+	lwz	o0,4(a1)
+	li	d0,0
+	cmpw	0,d1,o0
+
+	mfcr	d0
+	srwi	d0,d0,31-2
+	andi.	d0,d0,1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+eqD_BOOL:	lbz	d1,7(a0)
+	lbz	o0,7(a1)
+	li	d0,0
+	cmpw	0,d1,o0
+
+	mfcr	d0
+	srwi	d0,d0,31-2
+	andi.	d0,d0,1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+eqD_REAL:	lfd	f0,4(a0)
+	lfd	f1,4(a1)
+
+	fcmpo	0,f0,f1
+
+	mfcr	d0
+	srwi	d0,d0,31-2
+	andi.	d0,d0,1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+eqD_false:
+	li	d0,0
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+;
+;	the timer
+;
+
+_init_timer:
+	mflr	r0
+	stwu	r0,-4(sp)
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+ if LINUX
+	addi	o0,sp,8
+	bl	times
+	lwz	o0,8(sp)
+ else
+	bl	.TickCount
+	nop
+ endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,64
+ endif
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	mtlr	r0
+
+	lea	o1,last_time
+	stw	o0,0(o1)
+		
+	lea	o1,execute_time
+	li	o0,0
+	stw	o0,0(o1)
+
+	lea	o1,garbage_collect_time
+	stw	o0,0(o1)
+ if MEASURE_GC
+	lea	o1,mark_compact_garbage_collect_time
+	stw	o0,0(o1)
+
+	lea	o1,compact_garbage_collect_time
+	stw	o0,0(o1)
+ endif
+	lea	o1,IO_time
+	stw	o0,0(o1)
+
+	blr	
+
+_get_time_diff:
+	mflr	r0
+	stwu	r0,-4(sp)
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+ if LINUX
+	addi	o0,sp,8
+	bl	times
+	lwz	o0,8(sp)
+ else
+	bl	.TickCount
+	nop
+ endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,64
+ endif
+	lea	o2,last_time
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	mtlr	r0
+
+	lwz	o1,0(o2)
+	stw	o0,0(o2)
+	sub	o0,o0,o1
+
+	blr	
+		
+.add_execute_time:
+	mflr	r0
+	stwu	r0,-4(sp)
+
+	bl	_get_time_diff
+
+	lea	o2,execute_time
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	mtlr	r0
+
+	lwz	o1,0(o2)
+	add	o1,o1,o0
+	stw	o1,0(o2)
+
+	blr	
+
+.add_garbage_collect_time:
+	mflr	r0
+	stwu	r0,-4(sp)
+
+	bl	_get_time_diff
+
+	lea	o2,garbage_collect_time
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	mtlr	r0
+
+	lwz	o1,0(o2)
+	add	o1,o1,o0
+	stw	o1,0(o2)
+
+	blr	
+
+.add_IO_time:
+	mflr	r0
+	stwu	r0,-4(sp)
+
+	bl	_get_time_diff
+
+	lea	o2,IO_time
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	mtlr	r0
+
+	lwz	o1,0(o2)
+	add	o1,o1,o0
+	stw	o1,0(o2)
+
+	blr	
+
+ if MEASURE_GC
+.add_mark_compact_garbage_collect_time:
+	mflr	r0
+	stwu	r0,-4(sp)
+
+	bl	_get_time_diff
+
+	lea	o2,mark_compact_garbage_collect_time
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	mtlr	r0
+
+	lwz	o1,0(o2)
+	add	o1,o1,o0
+	stw	o1,0(o2)
+
+	blr	
+
+.add_compact_garbage_collect_time:
+	mflr	r0
+	stwu	r0,-4(sp)
+
+	bl	_get_time_diff
+
+	lea	o2,compact_garbage_collect_time
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	mtlr	r0
+
+	lwz	o1,0(o2)
+	add	o1,o1,o0
+	stw	o1,0(o2)
+
+	blr	
+ endif
+;
+;	the garbage collector
+;
+
+	csect	.collect_3
+collect_3:
+	stwu	r0,-4(sp)
+ if PROFILE
+	lea	r3,garbage_collector_name
+	mflr	r0
+	bl	profile_s
+ endif
+	stw	a0,0(a4)
+	stw	a1,4(a4)
+	stw	a2,8(a4)
+	addi	a4,a4,12
+
+	mflr	r0
+	bl	collect_
+
+	lwz	a2,-4(a4)
+	lwz	a1,-8(a4)
+	lwzu	a0,-12(a4)
+
+	lwz	r0,0(sp)
+	mtctr	r0
+	lwz	r0,4(sp)
+	mtlr	r0
+	addi	sp,sp,8
+ if PROFILE
+	b	profile_ti
+ else
+	bctr
+ endif
+
+	csect	.collect_2
+collect_2:
+	stwu	r0,-4(sp)
+ if PROFILE
+	lea	r3,garbage_collector_name
+	mflr	r0
+	bl	profile_s
+ endif
+	stw	a0,0(a4)
+	stw	a1,4(a4)
+	addi	a4,a4,8
+
+	mflr	r0
+	bl	collect_
+
+	lwz	a1,-4(a4)
+	lwzu	a0,-8(a4)
+
+	lwz	r0,0(sp)
+	mtctr	r0
+	lwz	r0,4(sp)
+	mtlr	r0
+	addi	sp,sp,8
+ if PROFILE
+	b	profile_ti
+ else
+	bctr
+ endif
+
+	csect	.collect_1
+collect_1:
+	stwu	r0,-4(sp)
+ if PROFILE
+	lea	r3,garbage_collector_name
+	mflr	r0
+	bl	profile_s
+ endif
+	stw	a0,0(a4)
+	addi	a4,a4,4
+
+	mflr	r0
+	bl	collect_
+
+	lwzu	a0,-4(a4)
+
+	lwz	r0,0(sp)
+	mtctr	r0
+	lwz	r0,4(sp)
+	mtlr	r0
+	addi	sp,sp,8
+ if PROFILE
+	b	profile_ti
+ else
+	bctr
+ endif
+
+	csect	.collect_0
+collect_0:
+	stwu	r0,-4(sp)
+ if PROFILE
+	lea	r3,garbage_collector_name
+	mflr	r0
+	bl	profile_s
+ endif
+	mflr	r0
+	bl	collect_
+
+	lwz	r0,0(sp)
+	mtctr	r0
+	lwz	r0,4(sp)
+	mtlr	r0
+	addi	sp,sp,8
+ if PROFILE
+	b	profile_ti
+ else
+	bctr
+ endif
+
+	csect	.collect_03
+collect_03:
+	stwu	r0,-4(sp)
+ if PROFILE
+	lea	r3,garbage_collector_name
+	mflr	r0
+	bl	profile_s
+ endif
+	stw	a0,0(a4)
+	stw	a1,4(a4)
+	stw	a2,8(a4)
+	addi	a4,a4,12
+
+	mflr	r0
+	bl	collect_
+
+	lwz	a2,-4(a4)
+	lwz	a1,-8(a4)
+	lwzu	a0,-12(a4)
+
+	lwz	r0,0(sp)
+	mtctr	r0
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ if PROFILE
+	b	profile_ti
+ else
+	bctr
+ endif
+
+	csect	.collect_02
+collect_02:
+	stwu	r0,-4(sp)
+ if PROFILE
+	lea	r3,garbage_collector_name
+	mflr	r0
+	bl	profile_s
+ endif
+	stw	a0,0(a4)
+	stw	a1,4(a4)
+	addi	a4,a4,8
+
+	mflr	r0
+	bl	collect_
+
+	lwz	a1,-4(a4)
+	lwzu	a0,-8(a4)
+
+	lwz	r0,0(sp)
+	mtctr	r0
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ if PROFILE
+	b	profile_ti
+ else
+	bctr
+ endif
+
+	csect	.collect_01
+collect_01:
+	stwu	r0,-4(sp)
+ if PROFILE
+	lea	r3,garbage_collector_name
+	mflr	r0
+	bl	profile_s
+ endif
+	stw	a0,0(a4)
+	addi	a4,a4,4
+
+	mflr	r0
+	bl	collect_
+
+	lwzu	a0,-4(a4)
+
+	lwz	r0,0(sp)
+	mtctr	r0
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ if PROFILE
+	b	profile_ti
+ else
+	bctr
+ endif
+
+	csect	.collect_00
+collect_00:
+	stwu	r0,-4(sp)
+ if PROFILE
+	lea	r3,garbage_collector_name
+	mflr	r0
+	bl	profile_s
+ endif
+	mflr	r0
+	bl	collect_
+
+	lwz	r0,0(sp)
+	mtctr	r0
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ if PROFILE
+	b	profile_ti
+ else
+	bctr
+ endif
+
+
+	csect	._collect_
+collect_:
+	stwu	r0,-4(sp)
+
+	addi	a6,a6,4
+ if USE_DCBZ
+ 	addi	d7,d7,15
+ endif
+
+ if MARK_AND_COPY_GC
+ 	lea	o0,flags
+	lwz	o0,0(o0)
+	andi.	r0,o0,64
+	beq	no_mark3
+ endif
+
+ if MARK_GC
+	lea	g1,bit_counter
+	lwz	o2,0(g1)
+	li	g0,0
+
+	tst	o2
+	beq	no_scan
+
+	mtctr	o2
+
+	lea	o4,heap_end_after_gc
+	lea	a0,bit_vector_p
+	lwz	o4,0(o4)
+	lwz	a0,0(a0)
+	sub	o4,o4,a6
+	srwi	o4,o4,2
+	sub	o4,o4,d7
+
+scan_bits:
+	lwz	o0,0(a0)
+	addi	a0,a0,4
+	cmpwi	o0,0
+	beq	zero_bits
+	stw	g0,-4(a0)
+	bdnz	scan_bits
+
+	b	end_scan
+
+zero_bits:
+	mr	a1,a0
+	bdnz	skip_zero_bits_lp+4
+	b	end_bits
+
+skip_zero_bits_lp:
+	bne	end_zero_bits
+	lwz	o3,0(a0)
+	addi	a0,a0,4
+	tst	o3
+	bdnz	skip_zero_bits_lp
+
+	beq	end_bits
+	stw	g0,-4(a0)
+	sub	o3,a0,a1
+	b	end_bits2
+
+end_zero_bits:
+	lea	g1,free_after_mark
+
+	sub	o3,a0,a1
+	slwi	o3,o3,3
+
+	cmplw	0,o3,o4
+
+	lwz	o1,0(g1)
+	stw	g0,-4(a0)
+
+	add	o1,o1,o3
+	stw	o1,0(g1)
+	blt	scan_bits
+
+found_free_memory:
+	mfctr	o2
+	lea	o1,bit_counter
+	lea	g1,bit_vector_p
+	stw	o2,0(o1)
+	stw	a0,0(g1)
+
+	lea	o1,heap_vector
+	sub	d7,o3,o4
+
+	lwz	o1,0(o1)
+	subi	o2,a1,4
+	lea	g1,heap_p3
+	sub	o2,o2,o1
+	lwz	o1,0(g1)
+	slwi	o2,o2,5
+
+	add	a6,o2,o1
+
+	slwi	o3,o3,2
+	lea	g1,heap_end_after_gc
+	add	o2,a6,o3
+	stw	o2,0(g1)
+
+ if USE_DCBZ
+ 	subi	d7,d7,15
+	li	g2,32
+ endif
+	subi	a6,a6,4
+	blr	
+
+end_bits:
+	sub	o3,a0,a1
+	addi	o3,o3,4
+end_bits2:
+	lea	g1,free_after_mark
+
+	slwi	o3,o3,3
+
+	lwz	o1,0(g1)
+	cmplw	0,o3,o4
+	add	o1,o1,o3
+	stw	o1,0(g1)
+	bge	found_free_memory
+
+end_scan:
+	mfctr	o2
+	lea	g1,bit_counter
+	stw	o2,0(g1)
+no_scan:
+ endif
+
+ if MARK_AND_COPY_GC
+no_mark3:
+ endif
+	mflr	r0
+	stwu	r0,-4(sp)
+
+	subi	sp,sp,28
+	stw	d0,0(sp)
+	stw	d1,4(sp)
+	stw	d2,8(sp)
+	stw	d3,12(sp)
+	stw	d4,16(sp)
+
+	lea	g1,garbage_collect_flag
+
+	stw	d5,20(sp)
+
+	lbz	o0,0(g1)
+
+	stw	d6,24(sp)
+
+	extsb	o0,o0
+	cmpwi	0,o0,0
+	ble	collect
+
+	subi	o0,o0,2
+	stb	o0,0(g1)
+
+	lea	o0,heap_end_after_gc
+	lwz	d0,0(o0)
+	sub	d0,d0,a6
+	srwi	d0,d0,2
+	lea	o0,extra_heap_size
+	sub	d0,d0,d7
+	lwz	d1,0(o0)
+	cmplw	0,d0,d1
+	bgt	collect
+
+	lea	o0,extra_heap_size
+	lwz	d1,0(o0)
+
+	lea	o0,extra_heap
+
+	sub	d7,d1,d0
+
+	lwz	a6,0(o0)
+	slwi	d1,d1,2
+	lea	o0,heap_end_after_gc
+	add	d1,d1,a6
+	stw	d1,0(o0)
+
+	lwz	d0,0(sp)
+	lwz	d1,4(sp)
+	lwz	d2,8(sp)
+	lwz	d3,12(sp)
+	lwz	d4,16(sp)
+	lwz	d5,20(sp)
+	lwz	d6,24(sp)
+
+	lwz	r0,28(sp)
+	mtlr	r0
+
+ if USE_DCBZ
+ 	subi	d7,d7,15
+	li	g2,32
+ endif
+	subi	a6,a6,4
+
+	addi	sp,sp,32
+	blr	
+
+collect:
+	bl	.add_execute_time
+
+	lea	o1,flags
+	lwz	o0,0(o1)
+	andi.	r0,o0,4
+	beq	no_print_stack_sizes
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	lea	o0,garbage_collect_string_1
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+	nop
+
+	lea	o0,stack_p
+	lwz	a0,0(o0)
+	sub	o0,a4,a0
+ if MACOSX
+	lea	o1,halt_sp
+	lwz	d0,0(o1)
+ else
+	lea	o1,stack_size
+	lwz	o2,0(o1)
+	add	d0,a0,o2
+ endif
+	sub	d0,d0,sp
+ if STDERR_TO_FILE
+	bl	.er_print_int
+ else
+	bl	.ew_print_int
+ endif
+	nop
+
+	lea	o0,garbage_collect_string_2
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+	nop
+
+	mr	o0,d0
+ if STDERR_TO_FILE
+	bl	.er_print_int
+ else
+	bl	.ew_print_int
+ endif
+	nop
+
+	lea	o0,garbage_collect_string_3
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+	nop
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,64
+ endif
+no_print_stack_sizes:
+	cmplw	0,a4,sp
+	bgt	stack_overflow
+
+ if MARK_AND_COPY_GC
+ 	lea	o0,flags
+	lwz	o0,0(o0)
+	andi.	r0,o0,64
+	bne	compacting_collector
+ else
+  if MARK_GC
+	b	compacting_collector
+  endif
+ endif
+
+ if MARK_AND_COPY_GC || !MARK_GC
+	lea	o0,garbage_collect_flag
+	lbz	o1,0(o0)
+	extsb.	o1,o1
+	bne	compacting_collector
+
+ if COPIED_VECTOR
+	lea	o1,heap_end_after_copy_gc
+	li	g0,0
+	lwz	a1,0(o1)
+	lea	a2,heap_copied_vector
+	tst	a1
+
+	lea	o0,heap_copied_vector_size
+	lwz	a2,0(a2)
+	lwz	d1,0(o0)
+
+	beq	zero_all
+
+	lea	o0,heap_p1
+	stw	g0,0(o1)
+	lwz	a0,0(o0)
+	sub	d0,a6,a0
+	addi	d0,d0,63*4
+	srwi	d0,d0,8
+	bl	zero_bit_vector
+
+	sub	d2,a1,a0
+	lea	a2,heap_copied_vector
+	clrrwi	d2,d2,8
+	lwz	a2,0(a2)
+	srwi	d2,d2,6
+	add	a2,a2,d2
+
+	sub	d0,d1,d2
+	srwi	d0,d0,2
+	bl	zero_bit_vector
+
+	b	end_zero_bit_vector
+
+zero_all:
+	srwi	d0,d1,2 
+	bl	zero_bit_vector
+
+end_zero_bit_vector:
+ endif
+
+; calculate alloc_size
+	lea	o0,heap_end_after_gc
+	lwz	d0,0(o0)
+	lea	o1,alloc_size
+	sub	d0,d0,a6
+	srwi	d0,d0,2
+	sub	d0,d0,d7
+	stw	d0,0(o1)
+
+	include	'pcopy.a'
+
+ if WRITE_HEAP
+	lea	o0,heap2_begin_and_end
+	stw	o4,0(o0)
+ endif
+
+	lea	o0,heap_end_after_gc
+	stw	o4,0(o0)
+
+	sub	d7,o4,a6
+
+ if MEASURE_GC
+	lea	o1,heap_size_129
+	lea	o0,total_gc_bytes_lo
+	lwz	d0,0(o1)
+	lwz	o1,0(o0)
+	slwi	d0,d0,6
+	sub	d0,d0,d7
+	addc	o1,o1,d0
+	stw	o1,0(o0)
+	lea	o0,total_gc_bytes_hi
+ 	lwz	o1,0(o0)
+ 	addze	o1,o1
+ 	stw	o1,0(o0)	
+ endif
+
+	srwi	d7,d7,2
+
+	bl	.add_garbage_collect_time
+
+	lea	o0,alloc_size
+	lwz	o1,0(o0)
+	sub.	d7,d7,o1
+	blt	switch_to_mark_scan
+;	bneg	out_of_memory_4
+
+	slwi	d0,d7,2
+	add	d0,d0,d7
+	slwi	d0,d0,5
+	lea	o0,heap_size
+	lwz	d2,0(o0)
+	slwi	d1,d2,2
+	add	d1,d1,d2
+	slwi	d1,d1,1
+	add	d1,d1,d2
+	cmplw	0,d0,d1
+	bge	no_mark_scan
+;	b	no_mark_scan
+
+switch_to_mark_scan:
+	lea	o0,heap_size_33
+	lwz	d0,0(o0)
+	slwi	d0,d0,5
+	lea	o0,heap_p
+	lwz	d1,0(o0)
+
+	lea	o0,heap_p1
+	lwz	d2,0(o0)
+	lea	o0,heap_p2
+	lwz	o1,0(o0)
+	cmplw	0,d2,o1
+	blt	vector_at_begin
+		
+vector_at_end:
+	lea	o0,heap_p3
+	stw	d1,0(o0)
+	add	d1,d1,d0
+	lea	o0,heap_vector
+	stw	d1,0(o0)
+		
+	lea	o0,heap_p1
+	lwz	d0,0(o0)
+	lea	o0,extra_heap
+	stw	d0,0(o0)
+	sub	d1,d1,d0
+	srwi	d1,d1,2
+	lea	o0,extra_heap_size
+	stw	d1,0(o0)
+	b	switch_to_mark_scan_2
+
+vector_at_begin:
+	lea	o0,heap_vector
+	stw	d1,0(o0)
+	lea	o1,heap_size
+	lwz	o0,0(o1)
+	add	d1,d1,o0
+	sub	d1,d1,d0
+	lea	o0,heap_p3
+	stw	d1,0(o0)
+		
+	lea	o0,extra_heap
+	stw	d1,0(o0)
+	lea	o0,heap_p2
+	lwz	d2,0(o0)
+	sub	d2,d2,d1
+	srwi	d2,d2,2
+	lea	o0,extra_heap_size
+	stw	d2,0(o0)
+
+switch_to_mark_scan_2:
+	lea	o0,heap_size
+	lwz	d0,0(o0)
+	srwi	d0,d0,3
+	sub	d0,d0,d7
+	slwi	d0,d0,2
+		
+	lea	o0,garbage_collect_flag
+	li	o1,1
+	stb	o1,0(o0)
+		
+	cmpwi	0,d7,0
+	bge	end_garbage_collect
+	
+	li	o1,-1
+	stb	o1,0(o0)
+		
+	lea	o0,extra_heap_size
+	lea	o1,alloc_size
+	lwz	d1,0(o0)
+	lwz	d7,0(o1)
+	sub.	d7,d1,d7
+	blt	out_of_memory_4
+
+	lea	o0,extra_heap
+	lea	o1,heap_end_after_gc
+ if WRITE_HEAP
+	mr	d2,a6
+ endif
+	lwz	a6,0(o0)
+	slwi	d1,d1,2
+	add	d1,d1,a6
+	stw	d1,0(o1)
+ if WRITE_HEAP
+ 	li	d3,1
+	b	end_garbage_collect_
+ else
+	b	end_garbage_collect
+ endif
+
+no_mark_scan:
+; exchange the semi_spaces
+
+	lea	o0,heap_p1
+	lea	o1,heap_p2
+	lwz	d0,0(o0)
+	lwz	d1,0(o1)
+	stw	d0,0(o1)
+	stw	d1,0(o0)
+
+ if COPIED_VECTOR
+	lea	o0,heap_size_129
+	lwz	d1,0(o0)
+	slwi	d1,d1,6-2
+ else
+	lea	o0,heap_size
+	lwz	d1,0(o0)
+	srwi	d1,d1,3
+ endif
+	sub	d0,d1,d7
+
+  if ADJUST_HEAP_SIZE
+	lea	o0,heap_size_multiple
+	lwz	o0,0(o0)
+
+	mullw	d2,d0,o0
+	mulhwu	o0,d0,o0
+
+	rlwinm	d2,d2,32-9,9,31-2
+;	srwi	d2,d2,9
+
+	rlwimi	d2,o0,32-9,0,8
+	srwi.	o0,o0,9
+	bne	no_small_heap1
+
+	cmplwi	d2,MINIMUM_HEAP_SIZE/2
+	bge	not_too_small1
+	li	d2,MINIMUM_HEAP_SIZE/2
+not_too_small1:
+
+	sub.	d2,d1,d2
+	blt	no_small_heap1
+	
+	sub	d7,d7,d2
+	lea	o0,heap_end_after_gc
+	slwi	d2,d2,2
+	lwz	d1,0(o0)
+	sub	d2,d1,d2
+	lea	o1,heap_end_after_copy_gc
+	stw	d2,0(o0)
+	stw	d1,0(o1)
+
+no_small_heap1:
+  endif
+
+	slwi	d0,d0,2	
+ endif
+
+end_garbage_collect:
+ if WRITE_HEAP
+	mr	d2,a6
+	li	d3,0
+end_garbage_collect_:
+ endif
+	lea	o0,flags
+	lwz	o1,0(o0)
+	andi.	r0,o1,2
+	beq+	no_heap_use_message
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	lea	o0,heap_use_after_gc_string_1
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+
+	mr	o0,d0
+ if STDERR_TO_FILE
+	bl	.er_print_int
+ else
+	bl	.ew_print_int
+ endif
+
+	lea	o0,heap_use_after_gc_string_2
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,64
+ endif
+
+no_heap_use_message:
+ if FINALIZERS
+ 	stwu	d0,-4(sp)
+	bl	call_finalizers
+	lwz	d0,0(sp)
+	addi	sp,sp,4
+ endif
+
+ if WRITE_HEAP
+ 	import	first_function{DS}
+ 	import	.write_heap
+	import	min_write_heap_size
+
+	lea	o0,flags
+	lea	o1,min_write_heap_size
+
+	lwz	o0,0(o0)
+	lwz	o1,0(o1)
+
+	andi.	r0,o0,32
+	beq	no_write_heap
+
+	cmplw	0,d0,o1
+	blt	no_write_heap
+
+	subi	sp,sp,64
+
+	lea	r3,garbage_collect_flag
+	cmpwi	d3,0
+	
+	lea	r7,heap2_begin_and_end
+	lbz	r3,0(r3)
+	lwz	r5,0(r7)
+	bne	copy_to_compact_with_alloc_in_extra_heap
+
+	extsb.	r3,r3
+	lwz	r6,4(r7)
+
+	lea	r4,heap_p1
+	beq	gc0
+	lea	r4,heap_p2
+	bgt	gc1
+	lea	r4,heap_p3
+	li	r5,0
+	li	r6,0
+gc0:	
+gc1:
+	lwz	r4,0(r4)
+	mr	r10,sp
+	stw	r4,0(r10)
+	stw	d2,4(r10)
+	stw	r5,8(r10)
+	stw	r6,12(r10)
+
+	lea	r6,stack_p
+	lea	r8,first_function
+	lwz	r6,0(r6)
+ if LINUX
+ 	li	r9,0
+ else
+	addi	r9,rtoc,-32768
+ endif
+	lwz	r8,0(r8)
+
+	stw	r6,16(r10)
+	stw	a4,20(r10)
+	stw	r8,24(r10)
+	stw	r9,28(r10)
+
+	lea	r4,small_integers
+	lea	r5,static_characters
+	stw	r4,32(r10)
+	stw	r5,36(r10)
+
+	stw	r16,40(r10)
+	stw	r15,44(r10)
+	stw	r14,48(r10)
+	stw	r13,52(r10)
+	lea	d0,__STRING__2
+	lea	d1,__ARRAY__2
+	stw	d0,56(r10)
+	stw	d1,60(r10)
+	
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+
+	mr	r3,r10
+	bl	.write_heap
+	nop
+
+ if MACOSX
+ 	lwz	sp,0(sp)
+	addi	sp,sp,64
+ else
+	addi	sp,sp,128
+ endif
+no_write_heap:
+
+ endif
+
+	lwz	d0,0(sp)
+	lwz	d1,4(sp)
+	lwz	d2,8(sp)
+	lwz	d3,12(sp)
+	lwz	d4,16(sp)
+	lwz	d5,20(sp)
+	lwz	d6,24(sp)
+
+	lwz	r0,28(sp)
+	mtlr	r0
+
+ if USE_DCBZ
+ 	subi	d7,d7,15
+	li	g2,32
+ endif
+	subi	a6,a6,4
+
+	addi	sp,sp,32
+	blr
+
+ if FINALIZERS
+call_finalizers:
+	lea	d0,free_finalizer_list
+	lwz	d0,0(d0)
+
+call_finalizers_lp:
+	lea	o0,__Nil_m8
+	cmplw	d0,o0
+	beq	end_call_finalizers
+	
+	lwz	d1,8(d0)
+	lwz	d0,4(d0)
+	mflr	d2
+
+	lwz	r12,0(d1)
+	lwz	r3,4(d1)
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+
+	lwz	r0,0(r12)
+	stw	RTOC,20(SP)
+	mtctr	r0
+	lwz	RTOC,4(r12)
+	bctrl
+	lwz	RTOC,20(sp)
+	
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,64
+ endif
+
+	mtlr	d2
+	b	call_finalizers_lp
+end_call_finalizers:
+	lea	d0,free_finalizer_list
+	stw	o0,0(d0)
+	blr
+ endif
+
+ if WRITE_HEAP
+copy_to_compact_with_alloc_in_extra_heap:
+	lwz	r6,4(r7)
+	lea	r4,heap_p2
+	b	gc1	
+ endif
+
+out_of_memory_4:
+	bl	.add_garbage_collect_time
+
+	lea	o0,out_of_memory_string_4
+	b	print_error
+
+	csect	.zero_bit_vector
+;	d0 = n words
+;	a2 = address
+;	g0 = 0
+zero_bit_vector:
+	andi.	r0,d0,1
+	srwi	d0,d0,1
+	beq	zero_bits1_1
+
+	stw	g0,0(a2)
+	addi	a2,a2,4
+zero_bits1_1:
+	andi.	r0,d0,1
+	srwi	d0,d0,1
+	beq	zero_bits1_5
+
+	subi	a2,a2,8
+	b	zero_bits1_2
+
+zero_bits1_4:
+	stw	g0,0(a2)
+	stw	g0,4(a2)
+zero_bits1_2:
+	stw	g0,8(a2)
+	stw	g0,12(a2)
+	addi	a2,a2,16
+zero_bits1_5:
+	subic.	d0,d0,1
+	bge	zero_bits1_4
+
+	blr
+
+	csect	.reorder	
+reorder:
+	mr	d2,d0
+	mr	d3,d1
+	slwi	d4,d0,2
+	slwi	d5,d1,2
+	add	a0,a0,d5
+	sub	a1,a1,d4
+	b	st_reorder_lp
+
+reorder_lp:
+	lwzu	o0,-4(a1)
+	subic.	d2,d2,1
+
+	lwz	o1,0(a0)
+	stw	o0,0(a0)
+	addi	a0,a0,4
+
+	bne+	next_b_in_element
+	mr	d2,d0
+	add	a0,a0,d5
+next_b_in_element:
+
+	subic.	d3,d3,1
+	stw	o1,0(a1)
+
+	bne+	next_a_in_element
+	mr	d3,d1
+	sub	a1,a1,d4
+next_a_in_element:
+
+st_reorder_lp:
+	cmplw	1,a1,a0
+	bgt	1,reorder_lp
+
+	blr
+	
+;
+;	the sliding compacting garbage collector
+;
+
+	csect	text{PR}
+compacting_collector:
+
+; zero all mark bits
+
+	lea	o0,heap_p3
+	lea	o1,heap_vector
+	lwz	d6,0(o0)
+	lea	o0,heap_end_after_gc
+	lwz	o4,0(o1)
+	lwz	d5,0(o0)
+	sub	d5,d5,a6
+	srwi	d5,d5,2
+
+	lea	o0,alloc_size
+	sub	d5,d5,d7
+	stw	d5,0(o0)
+
+ if MARK_GC
+  if MARK_AND_COPY_GC
+ 	lea	o0,flags
+	lwz	o0,0(o0)
+	andi.	r0,o0,64
+	beq	no_mark4
+  endif
+
+	lea	o0,zero_bits_before_mark
+	li	g0,0
+	lwz	o1,0(o0)
+	cmpwi	0,o1,0
+	beq	no_zero_bits
+
+	stw	g0,0(o0)
+
+  if MARK_AND_COPY_GC
+no_mark4:
+  endif
+ endif
+
+	lea	o0,heap_size_33
+	mr	a2,o4
+	lwz	d0,0(o0)
+	addi	d0,d0,3
+	srwi	d0,d0,2
+
+	li	o0,0
+
+	andi.	r0,d0,1
+	srwi	d0,d0,1
+	beq	zero_bits_1
+		
+	stw	o0,0(a2)
+	addi	a2,a2,4
+zero_bits_1:
+
+	andi.	r0,d0,1
+	srwi	d0,d0,1
+	beq	zero_bits_5
+
+	subi	a2,a2,8
+	b	zero_bits_2
+
+zero_bits_4:
+	stw	o0,0(a2)
+	stw	o0,4(a2)
+zero_bits_2:
+	stw	o0,8(a2)
+	stw	o0,12(a2)
+	addi	a2,a2,16
+zero_bits_5:
+	subic.	d0,d0,1
+	bge	zero_bits_4
+
+ if MARK_GC
+  if MARK_AND_COPY_GC
+ 	lea	o0,flags
+	lwz	o0,0(o0)
+	andi.	r0,o0,64
+	beq	no_mark5
+  endif
+
+no_zero_bits:
+	lea	o0,last_heap_free
+	lea	o1,free_after_mark
+	lwz	d0,0(o0)
+	lwz	d1,0(o1)
+	slwi	d1,d1,2
+
+	slwi	d2,d1,3
+	add	d2,d2,d1
+	srwi	d2,d2,2
+
+	cmplw	d0,d2
+	bgt	compact_gc
+
+  if ADJUST_HEAP_SIZE
+	lea	o0,bit_vector_size
+	lwz	d1,0(o0)
+	lea	o0,heap_size_multiple
+	slwi	d1,d1,2
+	lwz	o0,0(o0)
+	sub	o2,d1,d0
+
+	mullw	o1,o2,o0
+	mulhwu	o2,o2,o0
+
+	rlwinm	o1,o1,32-7,7,31-2
+;	srwi	o1,o1,7
+
+	rlwimi	o1,o2,32-7,0,6
+	srwi.	o2,o2,7
+	bne	no_smaller_heap
+
+	cmplw	o1,d1
+	bge	no_smaller_heap
+
+	cmplwi	d1,MINIMUM_HEAP_SIZE
+	ble	no_smaller_heap
+
+	b	compact_gc
+
+no_smaller_heap:
+  endif
+
+ if PREFETCH
+ 	lea	o0,flags
+	lwz	o0,0(o0)
+	andi.	r0,o0,NO_PREFETCH_MASK
+ 	beq	pmark
+ endif
+	include	'pmark.a'
+ if PREFETCH
+	include	'pmark_prefetch.a'
+ endif
+
+compact_gc:
+	lea	o0,zero_bits_before_mark
+	li	d0,1
+	stw	d0,0(o0)
+	lea	o0,last_heap_free
+	li	g0,0
+	stw	g0,0(o0)
+	lea	o0,free_after_mark
+	li	o1,1000
+	stw	o1,0(o0)
+ endif
+
+   if MARK_AND_COPY_GC
+no_mark5:
+   endif
+
+	include	'pcompact.a'
+
+	lea	o0,heap_size_33
+	lwz	d7,0(o0)
+	lea	o0,heap_end_after_gc
+	slwi	d7,d7,5
+	add	d7,d7,d6
+	stw	d7,0(o0)
+
+	lea	o0,alloc_size
+	sub	d7,d7,a6
+	lwz	d1,0(o0)
+	srwi	d7,d7,2
+	sub.	d7,d7,d1
+	blt	out_of_memory_4
+
+	slwi	d0,d7,2
+	lea	o0,heap_size
+	add	d0,d0,d7
+	lwz	o1,0(o0)
+	slwi	d0,d0,3
+	cmplw	0,d0,o1
+	blt	out_of_memory_4
+
+ if MARK_GC || COMPACT_GC_ONLY
+  if MARK_GC && ADJUST_HEAP_SIZE
+   if MARK_AND_COPY_GC
+ 	lea	o0,flags
+	lwz	o0,0(o0)
+	andi.	r0,o0,64
+	beq	no_mark6
+   endif
+
+	sub	d0,a6,d6
+	lea	o0,heap_size_multiple
+	slwi	d1,d1,2
+	lwz	o0,0(o0)
+	add	o2,d0,d1
+
+	lea	d1,heap_size_33
+	lwz	d1,0(d1)
+	slwi	d1,d1,5
+
+	mullw	d0,o2,o0
+	mulhwu	o0,o2,o0
+
+	rlwinm	d0,d0,32-8,8,31-2
+;	srwi	d0,d0,8
+	rlwimi	d0,o0,32-8,0,7
+;	clrrwi	d0,d0,2
+	
+	srwi.	o0,o0,8
+	bne	no_small_heap2
+
+	cmplwi	d0,MINIMUM_HEAP_SIZE
+	bge	not_too_small2
+	li	d0,MINIMUM_HEAP_SIZE
+not_too_small2:
+
+	sub.	d2,d1,d0
+	blt	no_small_heap2
+
+	lea	o1,heap_end_after_gc
+	srwi	o0,d2,2
+	lwz	d1,0(o1)
+	sub	d7,d7,o0
+	sub	d1,d1,d2
+	stw	d1,0(o1)
+
+	mr	d1,d0
+
+no_small_heap2:
+	lea	o0,bit_vector_size
+	srwi	d1,d1,2
+	stw	d1,0(o0)
+
+   if MARK_AND_COPY_GC
+no_mark6:
+   endif
+  endif
+	b	no_copy_garbage_collection
+ else
+	lea	o0,heap_size
+	slwi	d0,d0,2
+	lwz	d1,0(o0)
+	lwz	o1,0(o0)
+	slwi	d1,d1,5
+	sub	d1,d1,o1
+	cmpw	0,d0,d1
+
+	ble	no_copy_garbage_collection
+;	b	no_copy_garbage_collection
+
+	lea	o0,heap_p
+	lwz	d0,0(o0)
+	lea	o0,heap_p1
+	stw	d0,0(o0)
+ if COPIED_VECTOR
+	lea	o0,heap_size_129
+	lwz	d1,0(o0)
+	slwi	d1,d1,6
+	add	d0,d0,d1
+	lea	o0,heap_copied_vector
+	lea	o1,heap_end_after_gc
+	stw	d0,0(o0)
+	lea	o0,heap_copied_vector_size
+	stw	d0,0(o1)
+	lwz	d1,0(o0)
+	lea	o0,heap_p2
+	add	d1,d1,d0
+	stw	d1,0(o0)
+ else
+	lea	o0,heap_size
+	lwz	d1,0(o0)
+	srwi	d1,d1,1
+	add	d0,d0,d1
+	lea	o0,heap_p2
+	stw	d0,0(o0)
+	lea	o0,heap_end_after_gc
+	stw	d0,0(o0)
+ endif
+	sub	d0,d0,a6
+	srwi	d0,d0,2
+	mr	d7,d0
+	lea	o0,alloc_size
+	lwz	o1,0(o0)
+	sub	d7,d7,o1
+		
+	lea	o0,heap_p3
+	lwz	d0,0(o0)
+	lea	o0,heap_vector
+	lwz	o1,0(o0)
+	cmpw	0,d0,o1
+	ble	vector_at_end_2
+
+	lea	o0,heap_vector
+	lwz	d1,0(o0)
+	lea	o0,extra_heap
+	stw	d1,0(o0)
+	sub	d0,d0,d1
+	srwi	d0,d0,2
+	lea	o0,extra_heap_size
+	stw	d0,0(o0)
+
+	lea	o0,garbage_collect_flag
+	li	o1,2
+	stb	o1,0(o0)
+		
+	b	no_copy_garbage_collection
+
+vector_at_end_2:
+	lea	o0,garbage_collect_flag
+	li	o1,0
+	stb	o1,0(o0)
+ endif
+
+no_copy_garbage_collection:
+ if MEASURE_GC
+ 	bl	.add_compact_garbage_collect_time
+ 
+	sub	d0,a6,d6
+	
+ 	lea	o0,total_compact_gc_bytes_lo
+ 	lwz	o1,0(o0)
+ 	addc	o1,o1,d0
+ 	stw	o1,0(o0)
+	lea	o0,total_compact_gc_bytes_hi
+ 	lwz	o1,0(o0)
+ 	addze	o1,o1
+ 	stw	o1,0(o0)	
+ else
+	bl	.add_garbage_collect_time
+ endif
+	lea	o0,alloc_size
+	sub	d0,a6,d6
+	lwz	d1,0(o0)
+	slwi	d1,d1,2
+		
+	add	d0,d0,d1
+	b	end_garbage_collect
+
+stack_overflow:
+	lea	o0,halt_sp
+	lwz	sp,0(o0)
+
+	bl	.add_execute_time
+
+	lea	o0,stack_overflow_string
+	b	print_error
+
+.IO_error:
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(128+28)(sp)
+ else
+	stwu	sp,-128(sp)
+ endif
+	stw	o0,124(sp)
+
+	lea	o0,IO_error_string
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+
+	lwz	o0,124(sp)
+
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+
+	lea	o0,new_line_string
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,128
+ endif
+	b	halt
+
+print_error:
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+ if STDERR_TO_FILE
+	bl	.er_print_string
+ else
+	bl	.ew_print_string
+ endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,64
+ endif
+halt:
+ if PROFILE
+	mflr	r0
+	stwu	r0,-4(sp)
+	bl	write_profile_stack
+	mtlr	r0
+ endif
+
+ if EXCEPTIONS
+	lea	o0,exception_info
+	lwz	o0,0(o0)
+	cmpwi	0,o0,0
+	bne	e__Exceptions__sraise__exception
+ endif
+ 
+ 	lea	o0,halt_sp
+	lwz	sp,0(o0)
+
+ if 0
+	lea	o0,flags
+	lwz	d0,0(o0)
+	andi.	r0,d0,8
+	bne	exit
+	
+	andi.	r0,d0,16
+	beq	exit
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.wait_for_key_press
+ if MACOSX
+ 	lwz	sp,0(sp)
+ else
+	addi	sp,sp,64
+ endif
+ else
+	lea	o0,execution_aborted
+	li	d0,1
+	stw	d0,0(o0)
+ endif
+	b	exit
+
+ if EXCEPTIONS
+e__Exceptions__scatch__exception:
+	lea	o0,exception_info
+	mflr	d0
+	stw	a4,0(o0)
+	stw	sp,4(o0)
+	stw	d0,8(o0)
+
+	li	d0,0
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+e__Exceptions__sraise__exception:
+	lea	o0,exception_info
+	li	d0,-1
+
+	lwz	o1,8(o0)
+	lwz	sp,4(o0)
+	mtlr	o1
+	lwz	a4,0(o0)
+
+	li	o1,0
+	stw	o1,0(o0)
+	
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+ endif
+
+	csect	.eval_01
+eval_01:
+	stw	a1,0(a4)
+	addi	a4,a4,4
+	bctr
+
+	csect	.eval_11
+eval_11:
+	stw	a0,0(a4)
+	mr	a0,a1
+	addi	a4,a4,4
+	bctr
+
+	csect	.eval_02
+eval_02:
+	stw	a2,0(a4)
+	addi	a4,a4,8
+	stw	a1,4-8(a4)
+	bctr
+
+	csect	.eval_12
+eval_12:
+	stw	a0,4(a4)
+	mr	a0,a1
+	stw	a2,0(a4)
+	addi	a4,a4,8
+	bctr
+
+	csect	.eval_22
+eval_22:
+	stw	a0,4(a4)
+	mr	a0,a2
+	stw	a1,0(a4)
+	addi	a4,a4,8
+	bctr
+
+e__system__eaind:
+__eaind:
+eval_fill:
+	stw	a0,0(a4)
+	mr	a0,a1
+	lwz	a1,0-NODE_POINTER_OFFSET(a1)
+	addi	a4,a4,4
+
+	mtctr	a1
+	mflr	r0
+	stwu	r0,-4(sp)
+	bctrl
+	mtlr	r0
+
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+	
+	lwz	g0,0-NODE_POINTER_OFFSET(a1)
+	lwz	g1,4-NODE_POINTER_OFFSET(a1)
+	stw	g0,0-NODE_POINTER_OFFSET(a0)
+	lwz	g0,8-NODE_POINTER_OFFSET(a1)
+	stw	g1,4-NODE_POINTER_OFFSET(a0)
+	stw	g0,8-NODE_POINTER_OFFSET(a0)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	b	eval_fill
+	nop	
+	nop	
+ if LINUX
+	nop
+	nop
+ endif
+	dc.l	0
+	dc.l	-2
+e__system__nind:
+__indirection:
+	lwz	a1,4(a0)
+	lwz	d0,0(a1)
+	andi.	r0,d0,2
+ if MARK_GC
+	beq	eval_fill2
+ else
+	beq	_cycle__in__spine
+ endif
+	stw	d0,0(a0)
+	lwz	g0,4(a1)
+	lwz	g1,8(a1)
+	stw	g0,4(a0)
+	stw	g1,8(a0)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+_cycle__in__spine:
+	b 	__cycle__in__spine
+
+ if MARK_GC
+ 	csect	.eval_fill2
+eval_fill2:
+   if MARK_AND_COPY_GC
+ 	lea	o0,flags
+	stw	a5,0-NODE_POINTER_OFFSET(a0)
+	lwz	o0,0(o0)
+	stw	a0,0(a4)
+	andi.	r0,o0,64
+	beq	_cycle__in__spine
+   else
+	stw	a5,0-NODE_POINTER_OFFSET(a0)
+	stw	a0,0(a4)
+   endif		
+	addi	a4,a4,4
+	mr	a0,a1
+
+	mtctr	d0
+	mflr	r0
+	stwu	r0,-4(sp)
+	bctrl
+	mtlr	r0
+
+	lwzu	a1,-4(a4)
+	lwz	o0,0-NODE_POINTER_OFFSET(a0)
+	lwz	o1,4-NODE_POINTER_OFFSET(a0)
+	stw	o0,0-NODE_POINTER_OFFSET(a1)
+	lwz	o0,8-NODE_POINTER_OFFSET(a0)
+	stw	o1,4-NODE_POINTER_OFFSET(a1)
+	stw	o0,8-NODE_POINTER_OFFSET(a1)
+	mr	a0,a1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+ endif
+
+	csect	.eval_upd_0
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_0:
+	lea	a3,__indirection
+	mtctr	a2
+	stw	a0,4-NODE_POINTER_OFFSET(a1)
+	stw	a3,0-NODE_POINTER_OFFSET(a1)
+	bctr
+
+	csect	.eval_upd_1
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_1:
+	lea	a3,__indirection
+	mtctr	a2
+	lwz	d0,4-NODE_POINTER_OFFSET(a1)
+	stw	a3,0-NODE_POINTER_OFFSET(a1)
+	stw	a0,4-NODE_POINTER_OFFSET(a1)
+	mr	a1,d0
+	bctr
+
+	csect	.eval_upd_2
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_2:
+	mtctr	a2
+	lea	a2,__indirection
+	stw	a2,0-NODE_POINTER_OFFSET(a1)
+	lwz	a2,4-NODE_POINTER_OFFSET(a1)
+	stw	a0,4-NODE_POINTER_OFFSET(a1)
+	lwz	a1,8-NODE_POINTER_OFFSET(a1)
+	bctr
+
+	csect	.eval_upd_3
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_3:
+	mtctr	a2
+	lea	a2,__indirection
+	stw	a0,0(a4)
+	stw	a2,0-NODE_POINTER_OFFSET(a1)
+	lwz	a2,4-NODE_POINTER_OFFSET(a1)
+	stw	a0,4-NODE_POINTER_OFFSET(a1)
+	addi	a4,a4,4
+	lwz	a0,12-NODE_POINTER_OFFSET(a1)
+	lwz	a1,8-NODE_POINTER_OFFSET(a1)
+	bctr
+
+	csect	.eval_upd_4
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_4:
+	mtctr	a2
+	lea	a2,__indirection
+	stw	a0,0(a4)
+	stw	a2,0-NODE_POINTER_OFFSET(a1)
+	lwz	a2,4-NODE_POINTER_OFFSET(a1)
+	stw	a0,4-NODE_POINTER_OFFSET(a1)
+	lwz	g1,16-NODE_POINTER_OFFSET(a1)
+	lwz	a0,12-NODE_POINTER_OFFSET(a1)
+	stw	g1,4(a4)
+	addi	a4,a4,8
+	lwz	a1,8-NODE_POINTER_OFFSET(a1)
+	bctr
+
+	csect	.eval_upd_5
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_5:
+	mtctr	a2
+	lea	a2,__indirection
+	stw	a0,0(a4)
+	stw	a2,0-NODE_POINTER_OFFSET(a1)
+	lwz	a2,4-NODE_POINTER_OFFSET(a1)
+	stw	a0,4-NODE_POINTER_OFFSET(a1)
+	lwz	g1,20-NODE_POINTER_OFFSET(a1)
+	lwz	a0,12-NODE_POINTER_OFFSET(a1)
+	stw	g1,4(a4)
+	lwz	g1,16-NODE_POINTER_OFFSET(a1)
+	lwz	a1,8-NODE_POINTER_OFFSET(a1)
+	stw	g1,8(a4)
+	addi	a4,a4,12
+	bctr
+
+	csect	.eval_upd_6
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_6:
+	mtctr	a2
+	lea	a2,__indirection
+	stw	a0,0(a4)
+	stw	a2,0-NODE_POINTER_OFFSET(a1)
+	lwz	a2,4-NODE_POINTER_OFFSET(a1)
+	stw	a0,4-NODE_POINTER_OFFSET(a1)
+	lwz	g1,24-NODE_POINTER_OFFSET(a1)
+	lwz	a0,12-NODE_POINTER_OFFSET(a1)
+	stw	g1,4(a4)
+	lwz	g1,20-NODE_POINTER_OFFSET(a1)
+	stw	g1,8(a4)
+	lwz	g1,16-NODE_POINTER_OFFSET(a1)
+	lwz	a1,8-NODE_POINTER_OFFSET(a1)
+	stw	g1,12(a4)
+	addi	a4,a4,16
+	bctr
+
+	csect	.eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_7:
+	li	d0,0
+	li	d1,20
+eval_upd_n:
+	mtctr	a2
+	lea	a2,__indirection
+	stw	a0,0(a4)
+	stw	a2,0-NODE_POINTER_OFFSET(a1)
+	lwz	a2,4-NODE_POINTER_OFFSET(a1)
+	stw	a0,4-NODE_POINTER_OFFSET(a1)
+	add	a1,a1,d1
+	lwz	g1,8-NODE_POINTER_OFFSET(a1)
+	stw	g1,4(a4)
+	lwz	g1,4-NODE_POINTER_OFFSET(a1)
+	stw	g1,8(a4)
+	lwz	g1,0-NODE_POINTER_OFFSET(a1)
+	stw	g1,12(a4)
+	addi	a4,a4,16
+eval_upd_n_lp:
+	lwz	g1,-4-NODE_POINTER_OFFSET(a1)
+	subi	a1,a1,4
+	stw	g1,0(a4)
+	subic.	d0,d0,1
+	addi	a4,a4,4
+	bge	eval_upd_n_lp
+
+	lwz	a0,-4-NODE_POINTER_OFFSET(a1)
+	lwz	a1,-8-NODE_POINTER_OFFSET(a1)
+	bctr
+
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_8:
+	li	d0,1
+	li	d1,24
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_9:
+	li	d0,2
+	li	d1,28
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_10:
+	li	d0,3
+	li	d1,32
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_11:
+	li	d0,4
+	li	d1,36
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_12:
+	li	d0,5
+	li	d1,40
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_13:
+	li	d0,6
+	li	d1,44
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_14:
+	li	d0,7
+	li	d1,48
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_15:
+	li	d0,8
+	li	d1,52
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_16:
+	li	d0,9
+	li	d1,56
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_17:
+	li	d0,10
+	li	d1,60
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_18:
+	li	d0,11
+	li	d1,64
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_19:
+	li	d0,12
+	li	d1,68
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_20:
+	li	d0,13
+	li	d1,72
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_21:
+	li	d0,14
+	li	d1,76
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_22:
+	li	d0,15
+	li	d1,80
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_23:
+	li	d0,16
+	li	d1,84
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_24:
+	li	d0,17
+	li	d1,88
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_25:
+	li	d0,18
+	li	d1,92
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_26:
+	li	d0,19
+	li	d1,96
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_27:
+	li	d0,20
+	li	d1,100
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_28:
+	li	d0,21
+	li	d1,104
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_29:
+	li	d0,22
+	li	d1,108
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_30:
+	li	d0,23
+	li	d1,112
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_31:
+	li	d0,24
+	li	d1,116
+	b	eval_upd_n
+ if PROFILE
+	mflr	r0
+	bl	profile_n
+ endif
+eval_upd_32:
+	li	d0,25
+	li	d1,120
+	b	eval_upd_n
+
+;
+;	STRINGS
+;
+	csect	.catAC
+catAC:
+ if NODE_POINTER_OFFSET==0
+	lwzu	d0,4(a0)
+	lwzu	d1,4(a1)
+ else
+	lwz	d0,4-NODE_POINTER_OFFSET(a0)
+	baddi	a0,4
+	lwz	d1,4-NODE_POINTER_OFFSET(a1)
+	baddi	a1,4
+ endif
+	add	d2,d0,d1
+	addi	d5,d2,3+8
+	srwi	d5,d5,2
+	sub.	d7,d7,d5
+; reserve one word extra, because 
+; word after the string may change
+	addi	d6,d2,3
+	ble	gc_3
+gc_r_3:
+
+	lea	o1,__STRING__2
+	addi	d3,a6,4+NODE_POINTER_OFFSET
+	stw	o1,4(a6)
+	stwu	d2,8(a6)
+
+; copy string 1
+
+	addi	d2,d1,3
+	srwi	d2,d2,2
+	mr	a2,a6
+
+	subic.	d2,d2,1
+	blt	cat_string_4
+cat_string_3:
+ if NODE_POINTER_OFFSET==0
+	lwzu	o0,4(a1)
+ else
+	lwz	o0,4-NODE_POINTER_OFFSET(a1)
+	baddi	a1,4
+ endif
+	subic.	d2,d2,1
+	stwu	o0,4(a2)
+	bge	cat_string_3
+cat_string_4:
+
+; copy string 2
+
+	addi	d0,d0,3
+	srwi	d0,d0,2
+	subic.	d0,d0,1
+	add	a2,a6,d1
+	blt	cat_string_1
+
+cat_string_0:
+ if NODE_POINTER_OFFSET==0
+	lwzu	o0,4(a0)
+ else
+	lwz	o0,4-NODE_POINTER_OFFSET(a0)
+	baddi	a0,4
+ endif
+	subic.	d0,d0,1
+	stwu	o0,4(a2)
+	bge	cat_string_0
+cat_string_1:
+
+	clrrwi	d6,d6,2
+	mr	a0,d3
+	add	a6,a6,d6
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+gc_3:	subi	d7,d7,1
+	subi	a0,a0,4
+	subi	a1,a1,4
+	mflr	r0
+	bl	collect_2
+	addi	a0,a0,4
+	addi	a1,a1,4
+	addi	d7,d7,1
+	b	gc_r_3
+
+	csect	.sliceAC
+empty_string:
+	lea	a0,zero_length_string
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+sliceAC:
+	lwz	d2,4-NODE_POINTER_OFFSET(a0)
+	addi	a2,a0,4-NODE_POINTER_OFFSET
+	cmpwi	0,d1,0
+	bge	slice_string_1
+
+	li	d1,0
+
+slice_string_1:
+	cmpw	0,d1,d2
+	bge	empty_string
+	cmpw	0,d0,d1
+	addi	d0,d0,1
+	blt	empty_string
+
+	cmpw	0,d0,d2
+	ble	slice_string_2
+
+	mr	d0,d2
+
+slice_string_2:
+	sub	d0,d0,d1
+
+	subi	d7,d7,2
+
+	addi	d2,d0,3
+	srwi	d2,d2,2
+
+	sub.	d7,d7,d2
+	blt	gc_4
+r_gc_4:
+	lea	o1,__STRING__2
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o1,4(a6)
+	stwu	d0,8(a6)
+
+	add	a2,a2,d1
+	subic.	d2,d2,1
+	blt	slice_string__1
+		
+slice_string__0:
+	lwzu	o0,4(a2)
+	subic.	d2,d2,1
+	stwu	o0,4(a6)
+	bge	slice_string__0
+slice_string__1:
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+gc_4:	mflr	r0
+	bl	collect_1
+	addi	a2,a0,4-NODE_POINTER_OFFSET
+	b	r_gc_4
+
+	csect	.updateAC
+updateAC:
+	lwz	d2,4-NODE_POINTER_OFFSET(a0)
+	addi	a2,a0,4-NODE_POINTER_OFFSET
+	cmplw	0,d1,d2
+	bge	update_string_error
+
+	addi	d3,d2,3
+	subi	d7,d7,2
+
+	srwi	d3,d3,2		
+	sub.	d7,d7,d3
+	blt	gc_5
+r_gc_5:
+	lea	o1,__STRING__2
+
+	subic.	d3,d3,1
+
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o1,4(a6)
+	stwu	d2,8(a6)
+	blt	update_string_5
+
+update_string_4:
+	lwzu	o0,4(a2)
+	subic.	d3,d3,1
+	stwu	o0,4(a6)
+	bge	update_string_4
+update_string_5:
+
+	addi	d1,d1,8
+	lwz	r0,0(sp)
+	stbx	d0,a0,d1
+	addi	sp,sp,4
+	blr	
+
+gc_5:	mflr	r0
+	bl	collect_1
+	addi	a2,a0,4-NODE_POINTER_OFFSET
+	b	r_gc_5
+
+		
+update_string_error:
+	lea	o0,high_index_string
+	cmpwi	0,d1,0
+	bge	print_error
+
+	lea	o0,low_index_string
+update_string_error_2:
+	b	print_error
+
+	csect	.eqAC
+eqAC:
+	lwzu	d0,4-NODE_POINTER_OFFSET(a0)
+	lwzu	o0,4-NODE_POINTER_OFFSET(a1)
+	cmpw	0,d0,o0
+	bne	equal_string_ne
+
+	andi.	d1,d0,3
+	srwi	d0,d0,2
+	subic.	d0,d0,1
+	blt	equal_string_b
+
+equal_string_1:
+	lwzu	o0,4(a1)
+	lwzu	o1,4(a0)
+
+	cmpw	o1,o0
+	bne	equal_string_ne
+
+	subic.	d0,d0,1
+	bge	equal_string_1
+
+equal_string_b:
+	subic.	d1,d1,1
+	blt	equal_string_eq
+
+equal_string_2:
+	lbz	o0,4(a1)
+	addi	a1,a1,1
+	lbz	o1,4(a0)
+	addi	a0,a0,1
+	cmpw	o1,o0
+	bne	equal_string_ne
+
+	subic.	d1,d1,1
+	bge	equal_string_2
+
+equal_string_eq:
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+equal_string_ne:
+	li	d0,0
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	csect	.cmpAC
+cmpAC:
+	lwzu	d1,4-NODE_POINTER_OFFSET(a0)
+	lwzu	d2,4-NODE_POINTER_OFFSET(a1)
+
+	cmplw	0,d2,d1
+	blt	cmp_string_less
+
+	li	d0,0
+	beq	cmp_string_chars
+
+	li	d0,1
+	b	cmp_string_chars	
+
+cmp_string_less:
+	li	d0,-1
+	mr	d1,d2
+cmp_string_chars:	
+	andi.	d2,d1,3
+	srwi	d1,d1,2
+	subic.	d1,d1,1
+	blt	cmp_string_b
+
+cmp_string_1:
+	lwzu	o0,4(a0)
+	lwzu	o1,4(a1)
+
+	cmplw	0,o1,o0
+	bne	cmp_string_ne
+
+	subic.	d1,d1,1
+	bge	cmp_string_1
+
+cmp_string_b:
+	subic.	d2,d2,1
+	blt	cmp_string_eq
+
+cmp_string_2:
+	lbz	o0,4(a0)
+	lbz	o1,4(a1)
+	addi	a0,a0,1
+
+	cmplw	0,o1,o0
+	addi	a1,a1,1
+	bne	cmp_string_ne
+
+	subic.	d2,d2,1
+	bge	cmp_string_2
+
+cmp_string_eq:
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+cmp_string_ne:
+	bgt	cmp_string_r1
+
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+cmp_string_r1:
+	li	d0,1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	csect	.string_to_string_node
+string_to_string_node:
+	lwz	d0,0(a0)
+	addi	a0,a0,4
+
+	addi	d1,d0,3
+	srwi	d1,d1,2
+		
+	subi	d7,d7,2
+	sub.	d7,d7,d1
+	blt	string_to_string_node_gc
+
+string_to_string_node_r:
+	lea	o0,__STRING__2
+	stw	o0,4(a6)
+	addi	d2,a6,4+NODE_POINTER_OFFSET
+	stwu	d0,8(a6)
+	b	string_to_string_node_4
+		
+string_to_string_node_2:
+	lwz	o0,0(a0)
+	addi	a0,a0,4
+	stwu	o0,4(a6)
+string_to_string_node_4:
+	subic.	d1,d1,1
+	bge	string_to_string_node_2
+
+	mr	a0,d2
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+string_to_string_node_gc:
+	mflr	r0
+	stwu	a0,-4(sp)
+	bl	collect_0
+
+	lwz	a0,0(sp)
+	addi	sp,sp,4
+	b	string_to_string_node_r
+
+	csect	_cn
+	dc.l	3
+_c3:	b	__cycle__in__spine
+	dc.l	4
+_c4:	b	__cycle__in__spine
+	dc.l	5
+_c5:	b	__cycle__in__spine
+	dc.l	6
+_c6:	b	__cycle__in__spine
+	dc.l	7
+_c7:	b	__cycle__in__spine
+	dc.l	8
+_c8:	b	__cycle__in__spine
+	dc.l	9
+_c9:	b	__cycle__in__spine
+	dc.l	10
+_c10:	b	__cycle__in__spine
+	dc.l	11
+_c11:	b	__cycle__in__spine
+	dc.l	12
+_c12:	b	__cycle__in__spine
+	dc.l	13
+_c13:	b	__cycle__in__spine
+	dc.l	14
+_c14:	b	__cycle__in__spine
+	dc.l	15
+_c15:	b	__cycle__in__spine
+	dc.l	16
+_c16:	b	__cycle__in__spine
+	dc.l	17
+_c17:	b	__cycle__in__spine
+	dc.l	18
+_c18:	b	__cycle__in__spine
+	dc.l	19
+_c19:	b	__cycle__in__spine
+	dc.l	20
+_c20:	b	__cycle__in__spine
+	dc.l	21
+_c21:	b	__cycle__in__spine
+	dc.l	22
+_c22:	b	__cycle__in__spine
+	dc.l	23
+_c23:	b	__cycle__in__spine
+	dc.l	24
+_c24:	b	__cycle__in__spine
+	dc.l	25
+_c25:	b	__cycle__in__spine
+	dc.l	26
+_c26:	b	__cycle__in__spine
+	dc.l	27
+_c27:	b	__cycle__in__spine
+	dc.l	28
+_c28:	b	__cycle__in__spine
+	dc.l	29
+_c29:	b	__cycle__in__spine
+	dc.l	30
+_c30:	b	__cycle__in__spine
+	dc.l	31
+_c31:	b	__cycle__in__spine
+	dc.l	32
+_c32:	b	__cycle__in__spine
+
+;
+;	ARRAYS
+;
+
+	csect	.create_arrayB
+create_arrayB:
+	mr	d2,d1
+	addi	d1,d1,3
+	srwi	d1,d1,2
+	subi	d7,d7,3
+	sub.	d7,d7,d1
+	bge+	no_collect_4575
+
+	mflr	r0
+	bl	collect_0
+
+no_collect_4575:
+	slwi	d3,d0,8
+	or	d0,d0,d3
+	slwi	d3,d0,16
+	or	d0,d0,d3
+	lea	o0,__ARRAY__2
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+	stw	d2,8(a6)
+	stwu	bool_reg,12(a6)
+	b	create_arrayBCI
+
+	csect	.create_arrayC
+create_arrayC:
+	mr	d2,d1
+	addi	d1,d1,3
+	srwi	d1,d1,2
+	subi	d7,d7,2
+	sub.	d7,d7,d1
+	bge+	no_collect_4578
+
+	mflr	r0
+	bl	collect_0
+
+no_collect_4578:
+	slwi	d3,d0,8
+	or	d0,d0,d3
+	slwi	d3,d0,16
+	or	d0,d0,d3
+	lea	o0,__STRING__2
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+	stwu	d2,8(a6)
+	b	create_arrayBCI
+
+	csect	.create_arrayI
+create_arrayI:
+	subi	d7,d7,3
+	sub.	d7,d7,d1
+	bge+	no_collect_4577
+
+	mflr	r0
+	bl	collect_0
+
+no_collect_4577:
+	lea	o0,__ARRAY__2
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+	stw	d1,8(a6)
+	stwu	int_reg,12(a6)
+
+create_arrayBCI:
+	andi.	o0,d1,1
+	beq	st_filli_array
+
+	stwu	d0,4(a6)
+
+st_filli_array:
+	srwi.	d1,d1,1
+	beq	skip_filli_array
+
+	mtctr	d1
+filli_array:
+	stw	d0,4(a6)
+	stwu	d0,8(a6)
+	bdnz	filli_array
+
+skip_filli_array:
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	csect	.create_arrayR
+create_arrayR:
+	stfd	f14,-8(sp)
+	sub	d7,d7,d0
+
+	lwz	d1,-8(sp)
+	subi	d7,d7,3+1
+
+	lwz	d2,-4(sp)
+	sub.	d7,d7,d0
+	bge+	no_collect_4579
+
+	mflr	r0
+	bl	collect_0
+
+no_collect_4579:
+	addi	a6,a6,4
+
+	rlwinm	d3,a6,32-2,31,31
+	lea	o0,__ARRAY__2
+
+	rlwinm	a6,a6,0,0,31-3
+	add	d7,d7,d3
+
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+
+	cmpwi	0,d0,0
+
+	stw	d0,8(a6)
+	stwu	real_reg,12(a6)
+	beq	skip_fillr_array
+	
+	mtctr	d0
+fillr_array:
+	stw	d1,4(a6)
+	stwu	d2,8(a6)
+	bdnz	fillr_array
+
+skip_fillr_array:
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	csect	.create_array
+create_array:
+	subi	d7,d7,3
+	sub.	d7,d7,d0
+	bge+	no_collect_4576
+
+	mflr	r0
+	bl	collect_1
+
+no_collect_4576:
+	mr	d1,a0
+	lea	o0,__ARRAY__2
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+	stw	d0,8(a6)
+	li	g0,0
+	stwu	g0,12(a6)
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	fillr1_array
+
+create_R_array:
+	subic.	d2,d2,2
+	blt	create_R_array_1
+	beq	create_R_array_2
+	subic.	d2,d2,2
+	blt	create_R_array_3	
+	beq	create_R_array_4
+	b	create_R_array_5
+
+create_R_array_1:
+	subi	d7,d7,3
+	sub.	d7,d7,d0
+	bge+	no_collect_4581
+
+	mflr	r0
+	bl	collect_0
+
+no_collect_4581:
+	lea	o0,__ARRAY__2
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+	stw	d0,8(a6)
+	stwu	d1,12(a6)
+	cmpwi	0,d3,0
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	beq	r_array_1_b
+
+	lwz	d1,-4(a4)
+	b	fillr1_array
+
+r_array_1_b:
+	lwz	d1,0(sp)
+
+fillr1_array:
+	andi.	o0,d0,1
+	beq	st_fillr1_array_1
+
+	stwu	d1,4(a6)
+st_fillr1_array_1:
+	srwi.	d0,d0,1
+	beq	skip_fillr1_array_lp
+
+	mtctr	d0
+fillr1_array_lp:
+	stw	d1,4(a6)
+	stwu	d1,8(a6)
+	bdnz	fillr1_array_lp
+
+skip_fillr1_array_lp:
+	blr
+
+create_R_array_2:
+	subi	d7,d7,3
+	sub	d7,d7,d0
+	sub.	d7,d7,d0
+	bge+	no_collect_4582
+
+	mflr	r0
+	bl	collect_0
+
+no_collect_4582:
+	lea	o0,__ARRAY__2
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+	stw	d0,8(a6)
+	stwu	d1,12(a6)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+
+	subic.	d3,d3,1
+	blt	r_array_2_bb
+	beq	r_array_2_ab
+r_array_2_aa:
+	lwz	d1,-4(a4)
+	lwz	d2,-8(a4)
+	b	st_fillr2_array
+r_array_2_ab:
+	lwz	d1,-4(a4)
+	lwz	d2,0(sp)
+	b	st_fillr2_array
+r_array_2_bb:
+	lwz	d1,0(sp)
+	lwz	d2,4(sp)
+	b	st_fillr2_array
+
+st_fillr2_array:
+	cmpwi	0,d0,0
+	beq	skip_fillr2_array_1
+
+	mtctr	d0
+fillr2_array_1:
+	stw	d1,4(a6)
+	stwu	d2,8(a6)
+	bdnz	fillr2_array_1
+
+skip_fillr2_array_1:
+	blr
+
+create_R_array_3:
+	subi	d7,d7,3
+	sub	d7,d7,d0
+	sub	d7,d7,d0
+	sub.	d7,d7,d0
+	bge+	no_collect_4583
+
+	mflr	r0
+	bl	collect_0
+
+no_collect_4583:
+	lea	o0,__ARRAY__2
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+	stw	d0,8(a6)
+	stwu	d1,12(a6)
+
+	cmpwi	0,d3,0
+
+	lwz	r0,0(sp)
+	addi	a2,sp,4
+	addi	sp,sp,4
+
+	beq	r_array_3
+
+	slwi	d4,d3,2
+	sub	a3,a4,d4
+	subi	d3,d3,1
+
+copy_a_to_b_lp3:
+	subic.	d3,d3,1
+
+	lwz	o0,0(a3)
+	addi	a3,a3,4
+	stwu	o0,-4(sp)
+	bge	copy_a_to_b_lp3
+
+r_array_3:
+	lwz	d1,0(sp)
+	cmpwi	0,d0,0
+
+	lwz	d2,4(sp)
+	lwz	d3,8(sp)
+	mr	sp,a2
+
+	beq	skip_fillr3_array
+
+	mtctr	d0
+fillr3_array_1:
+	stw	d1,4(a6)
+	stw	d2,8(a6)
+	stwu	d3,12(a6)
+	bdnz	fillr3_array_1
+
+skip_fillr3_array:
+	blr
+
+create_R_array_4:
+	subi	d7,d7,3
+	slwi	d2,d0,2
+	sub.	d7,d7,d2
+	bge+	no_collect_4584
+
+	mflr	r0
+	bl	collect_0
+
+no_collect_4584:
+	lea	o1,__ARRAY__2
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o1,4(a6)
+	stw	d0,8(a6)
+	stwu	d1,12(a6)
+
+	cmpwi	0,d3,0
+
+	lwz	r0,0(sp)
+	addi	a2,sp,4
+	addi	sp,sp,4
+
+	beq	r_array_4
+
+	slwi	d4,d3,2
+	sub	a3,a4,d4
+	subi	d3,d3,1
+
+copy_a_to_b_lp4:
+	subic.	d3,d3,1
+	lwz	o1,0(a3)
+	addi	a3,a3,4
+	stwu	o1,-4(sp)
+	bge	copy_a_to_b_lp4
+
+r_array_4:
+	lwz	d1,0(sp)
+	lwz	d2,4(sp)
+	cmpwi	0,d0,0
+
+	lwz	d3,8(sp)
+	lwz	d4,12(sp)
+	mr	sp,a2
+	beq	skip_fillr4_array
+
+	mtctr	d0
+fillr4_array:
+	stw	d1,4(a6)
+	stw	d2,8(a6)
+	stw	d3,12(a6)
+	stwu	d4,16(a6)
+	bdnz	fillr4_array
+
+skip_fillr4_array:
+	blr
+
+create_R_array_5:
+	subi	d7,d7,3
+	slwi	d4,d0,2
+	sub	d7,d7,d4
+	mr	d5,d2
+sub_size_lp:
+	subic.	d5,d5,1
+	sub	d7,d7,d0
+	bgt	sub_size_lp
+
+	tst	d7
+	bge+	no_collect_4585
+
+	mflr	r0
+	bl	collect_0
+
+no_collect_4585:
+	lea	o0,__ARRAY__2
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+	stw	d0,8(a6)
+	stwu	d1,12(a6)
+
+	cmpwi	0,d3,0
+
+	lwz	r0,0(sp)
+	addi	a2,sp,4
+	addi	sp,sp,4
+	mr	d5,d2
+
+	beq	r_array_5
+
+	slwi	d4,d3,2
+	sub	a3,a4,d4
+	subi	d3,d3,1
+
+copy_a_to_b_lp5:
+	subic.	d3,d3,1
+
+	lwz	o0,0(a3)
+	addi	a3,a3,4
+	stwu	o0,-4(sp)
+	bge	copy_a_to_b_lp5
+
+r_array_5:
+	lwz	d1,0(sp)
+	lwz	d2,4(sp)
+	lwz	d3,8(sp)
+	lwz	d4,12(sp)
+	b	st_fillr5_array
+
+fillr5_array_1:
+	stw	d1,4(a6)
+	stw	d2,8(a6)
+	mtctr	d5
+	stw	d3,12(a6)
+	addi	a3,sp,16
+	stwu	d4,16(a6)
+
+copy_elem_lp5:
+	lwz	o0,0(a3)
+	addi	a3,a3,4
+	stwu	o0,4(a6)
+	bdnz	copy_elem_lp5
+
+st_fillr5_array:
+	subic.	d0,d0,1
+	bge	fillr5_array_1
+
+	mr	sp,a2
+	blr
+
+	csect	.e__system__sAP
+e__system__sAP:
+	lwz	a2,0(a1)
+	lwz	a2,4-2(a2)
+	mtctr	a2	
+	bctr
+
+;	_ARRAYS
+
+	csect	._create_arrayB
+_create_arrayB:
+	mr	d1,d0
+	addi	d0,d0,3
+	srwi	d0,d0,2
+	subi	d7,d7,3
+	sub.	d7,d7,d0
+	bge+	no_collect_3575
+
+	mflr	r0
+	bl	collect_0
+
+no_collect_3575:
+	lea	o0,__ARRAY__2
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+	stw	d1,8(a6)
+	stwu	bool_reg,12(a6)
+	slwi	d0,d0,2
+	add	a6,a6,d0
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	csect	._create_arrayC
+_create_arrayC:
+	mr	d1,d0
+	addi	d0,d0,3
+	srwi	d0,d0,2
+	subi	d7,d7,2
+	sub.	d7,d7,d0
+	bge+	no_collect_3578
+
+	mflr	r0
+	bl	collect_0
+
+no_collect_3578:
+	lea	o0,__STRING__2
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+	stwu	d1,8(a6)
+	slwi	d0,d0,2
+	add	a6,a6,d0
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	csect	._create_arrayI
+_create_arrayI:
+	subi	d7,d7,3
+	sub.	d7,d7,d0
+	bge+	no_collect_3577
+
+	mflr	r0
+	bl	collect_0
+
+no_collect_3577:
+	lea	o0,__ARRAY__2
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+	stw	d0,8(a6)
+	stwu	int_reg,12(a6)
+	slwi	d0,d0,2
+	add	a6,a6,d0
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	csect	._create_arrayR
+_create_arrayR:
+	sub	d7,d7,d0
+	subi	d7,d7,3+1
+	sub.	d7,d7,d0
+	bge+	no_collect_3579
+
+	mflr	r0
+	bl	collect_0
+
+no_collect_3579:
+	addi	a6,a6,4
+
+	lea	o0,__ARRAY__2
+	rlwinm	d3,a6,32-2,31,31
+
+	rlwinm	a6,a6,0,0,31-3
+	add	d7,d7,d3
+
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+	stw	d0,8(a6)
+	slwi	d0,d0,3
+	stwu	real_reg,12(a6)
+	add	a6,a6,d0
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+; d0: number of elements, d1: element descriptor, d2: element size,
+; d3: element a size a0: a_element -> a0: array
+
+	csect	._create_r_array
+_create_r_array:
+	subi	d7,d7,3
+	mr	d5,d2
+sub_size_lp2:
+	subic.	d5,d5,1
+	sub	d7,d7,d0
+	bgt	sub_size_lp2
+
+	tst	d7
+	bge+	no_collect_3585
+
+	mflr	r0
+	bl	collect_1
+
+no_collect_3585:
+	lea	o0,__ARRAY__2
+	mr	d4,a0
+	addi	a0,a6,4+NODE_POINTER_OFFSET
+	stw	o0,4(a6)
+	stw	d0,8(a6)
+	stwu	d1,12(a6)
+
+	tst	d3
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	beq	_create_r_array_0
+	subic.	d3,d3,2
+	blt	_create_r_array_1
+	beq	_create_r_array_2
+	subic.	d3,d3,2
+	blt	_create_r_array_3	
+	beq	_create_r_array_4
+	b	_create_r_array_5
+
+_create_r_array_0:
+	tst	d2
+	mtctr	d2
+	slwi	d0,d0,2
+	beq	_skip_fillr0_array_lp
+_fillr0_array_1:
+	add	a6,a6,d0
+	bdnz	_fillr0_array_1
+_skip_fillr0_array_lp:
+	blr
+
+_create_r_array_1:
+	tst	d0
+	mtctr	d0
+	slwi	d2,d2,2
+	beq	_skip_fillr1_array_lp
+_fillr1_array_lp:
+	stw	d4,4(a6)
+	add	a6,a6,d2
+	bdnz	_fillr1_array_lp
+_skip_fillr1_array_lp:
+	blr
+
+_create_r_array_2:
+	tst	d0
+	mtctr	d0
+	slwi	d2,d2,2
+	beq	_skip_fillr2_array_1
+_fillr2_array_1:
+	stw	d4,4(a6)
+	stw	d4,8(a6)
+	add	a6,a6,d2
+	bdnz	_fillr2_array_1
+_skip_fillr2_array_1:
+	blr
+
+_create_r_array_3:
+	tst	d0
+	mtctr	d0
+	slwi	d2,d2,2
+	beq	_skip_fillr3_array
+_fillr3_array_1:
+	stw	d4,4(a6)
+	stw	d4,8(a6)
+	stw	d4,12(a6)
+	add	a6,a6,d2
+	bdnz	_fillr3_array_1
+_skip_fillr3_array:
+	blr
+
+_create_r_array_4:
+	tst	d0
+	mtctr	d0
+	slwi	d2,d2,2
+	beq	_skip_fillr4_array
+_fillr4_array:
+	stw	d4,4(a6)
+	stw	d4,8(a6)
+	stw	d4,12(a6)
+	stw	d4,16(a6)
+	add	a6,a6,d2
+	bdnz	_fillr4_array
+_skip_fillr4_array:
+	blr
+
+_create_r_array_5:
+	mr	d1,d3
+	subi	d2,d2,4
+	sub	d2,d2,d3
+	slwi	d2,d2,2
+	b	_st_fillr5_array
+
+_fillr5_array_1:
+	stw	d4,4(a6)
+	stw	d4,8(a6)
+	mtctr	d1
+	stw	d4,12(a6)
+	stwu	d4,16(a6)
+
+_copy_elem_lp5:
+	stwu	d4,4(a6)
+	bdnz	_copy_elem_lp5
+	add	a6,a6,d2
+_st_fillr5_array:
+	subic.	d0,d0,1
+	bge	_fillr5_array_1
+	blr
+
+ if !NEW_DESCRIPTORS
+	csect	.yet_args_needed
+yet_args_needed:
+; for more than 4 arguments
+	lwz	d1,0(a1)
+	lhz	d0,-2(d1)
+	subi	d7,d7,3
+	sub.	d7,d7,d0
+	blt	gc_1
+
+gc_r_1:	lwz	d3,4(a1)
+	subi	d0,d0,1+4
+	lwz	a1,8(a1)
+	addi	d2,a6,4
+	lwz	o0,0(a1)
+	lwz	o1,4(a1)
+	stw	o0,4(a6)
+	lwz	o2,8(a1)
+	stw	o1,8(a6)
+	addi	a1,a1,12
+	stwu	o2,12(a6)
+
+cp_a:	lwz	o0,0(a1)
+	addi	a1,a1,4
+	stwu	o0,4(a6)
+	subic.	d0,d0,1
+	bge	cp_a
+
+	stw	a0,4(a6)
+	addi	d1,d1,8
+	stw	d1,8(a6)
+	addi	a0,a6,8
+	stw	d3,12(a6)
+	stwu	d2,16(a6)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+gc_1:	mflr	r0
+	bl	collect_2
+	b	gc_r_1
+
+	csect	.yet_args_needed_0
+yet_args_needed_0:
+	subic.	d7,d7,2
+	blt	gc_20
+gc_r_20:	stwu	a0,8(a6)
+	lwz	d0,0(a1)
+	addi	a0,a6,4-8
+	addi	d0,d0,8
+	stw	d0,4-8(a6)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+gc_20:	mflr	r0
+	bl	collect_2
+	b	gc_r_20
+
+	csect	.yet_args_needed_1
+yet_args_needed_1:
+	subic.	d7,d7,3
+	blt	gc_21
+gc_r_21:	stwu	a0,12(a6)
+	lwz	d0,0(a1)
+	addi	a0,a6,4-12
+	addi	d0,d0,8
+	stw	d0,4-12(a6)
+	lwz	d1,4(a1)
+	stw	d1,8-12(a6)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+gc_21:	mflr	r0
+	bl	collect_2
+	b	gc_r_21
+
+	csect	.yet_args_needed_2
+yet_args_needed_2:
+	subic.	d7,d7,5
+	blt	gc_22
+gc_r_22:
+	lwz	d0,0(a1)
+	stw	a0,8(a6)
+	addi	d0,d0,8
+	lwz	d2,4(a1)
+	stw	d0,12(a6)
+	addi	a0,a6,12
+	lwz	o0,8(a1)
+	stw	d2,16(a6)
+	stwu	o0,4(a6)
+	stwu	a6,16(a6)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+		
+gc_22:	mflr	r0
+	bl	collect_2
+	b	gc_r_22
+
+	csect	.yet_args_needed_3
+yet_args_needed_3:
+	subic.	d7,d7,6
+	blt	gc_23
+gc_r_23:
+	lwz	d0,0(a1)
+	stw	a0,12(a6)
+	addi	d0,d0,8
+	lwz	d2,4(a1)
+	stw	d0,16(a6)
+	lwz	a1,8(a1)
+	stw	d2,20(a6)
+	lwz	o0,0(a1)
+	lwz	o1,4(a1)
+	stwu	o0,4(a6)
+	stwu	a6,20(a6)
+	addi	a0,a6,16-24
+	stw	o1,8-24(a6)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+gc_23:	mflr	r0
+	bl	collect_2
+	b	gc_r_23
+
+	csect	.yet_args_needed_4
+yet_args_needed_4:
+	subic.	d7,d7,7
+	blt	gc_24
+gc_r_24:
+	lwz	d0,0(a1)
+	stw	a0,16(a6)
+	addi	d0,d0,8
+	lwz	d2,4(a1)
+	stw	d0,20(a6)
+	lwz	a1,8(a1)
+	stw	d2,24(a6)
+	lwz	o0,0(a1)
+	lwz	o1,4(a1)
+	stwu	o0,4(a6)
+	stwu	a6,24(a6)
+	addi	a0,a6,20-28
+	lwz	o2,8(a1)
+	stw	o1,8-28(a6)
+	stw	o2,12-28(a6)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+gc_24:	mflr	r0
+	bl	collect_2
+	b	gc_r_24
+ endif
+
+	csect	.repl_args_b
+repl_args_b:
+	cmpwi	0,d0,0
+	ble	repl_args_b_1
+
+	subic.	d0,d0,1
+	beq	repl_args_b_4
+
+	lwz	a1,8(a0)
+	subic.	d1,d1,2
+	bne	repl_args_b_2
+
+	stw	a1,0(a4)
+	addi	a4,a4,4
+	b	repl_args_b_4
+
+repl_args_b_2:
+	slwi	d1,d0,2
+	add	a1,a1,d1
+	subi	d0,d0,1
+repl_args_b_3:
+	lwzu	o0,-4(a1)
+	addi	a4,a4,4
+	stw	o0,0-4(a4)
+	cmpwi	0,d0,0
+	subi	d0,d0,1
+	bne	repl_args_b_3
+repl_args_b_4:
+	lwz	o0,4(a0)
+	addi	a4,a4,4
+	stw	o0,0-4(a4)
+repl_args_b_1:
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	csect	.push_arg_b
+push_arg_b:
+	cmplwi	0,d1,2
+	blt	push_arg_b_1
+	bne	push_arg_b_2
+
+	cmpw	0,d1,d0
+	beq	push_arg_b_1
+push_arg_b_2:
+	lwz	a0,8(a0)
+	subi	d1,d1,2
+push_arg_b_1:
+	slwi	d1,d1,2
+	lwzx	a0,a0,d1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	csect	.del_args
+del_args:
+	lwz	d1,0(a0)
+	sub	d1,d1,d0
+	lhz	d0,-2(d1)
+	subic.	d0,d0,2
+	bge	del_args_2
+
+	lwz	o0,4(a0)
+	stw	d1,0(a1)
+	lwz	o1,8(a0)
+	stw	o0,4(a1)
+	stw	o1,8(a1)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+del_args_2:
+	bne	del_args_3
+
+	lwz	o0,4(a0)
+	stw	d1,0(a1)
+	lwz	o1,8(a0)
+	stw	o0,4(a1)
+	lwz	o1,0(o1)
+	stw	o1,8(a1)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+del_args_3:
+	sub.	d7,d7,d0
+	blt	del_args_gc
+del_args_r_gc:
+	stw	d1,0(a1)
+	lwz	o0,4(a0)
+	stw	a6,8(a1)
+	lwz	a0,8(a0)
+	stw	o0,4(a1)
+
+del_args_copy_args:
+	lwz	o0,0(a0)
+	addi	a0,a0,4
+	stw	o0,0(a6)
+	addi	a6,a6,4
+	subic.	d0,d0,1
+	bgt	del_args_copy_args
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+del_args_gc:
+	mflr	r0
+	bl	collect_2	
+	b	del_args_r_gc
+
+ if 0
+	csect	.o__S_P2
+o__S_P2:
+	lwz	d0,0(a0)
+	lha	d0,-2(d0)
+	cmpwi	0,d0,2
+	lwz	a0,8(a0)
+	beq	o__S_P2_2
+	lwz	a0,0(a0)
+o__S_P2_2:
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	csect	.ea__S_P2
+ea__S_P2:
+	lea	a2,__indirection
+	lwz	d0,4(a1)
+	stw	a2,0(a1)
+	stw	a0,4(a1)
+	mr	a1,d0
+	lwz	d0,0(a1)
+	andi.	r0,d0,2
+	bne	ea__S_P2_1
+		
+	stw	a0,0(a4)
+	addi	a4,a4,4
+
+	mtctr	d0
+
+	mr	a0,a1
+
+	mflr	r0
+	stwu	r0,-4(sp)
+	bctrl
+	mtlr	r0
+
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+ea__S_P2_1:
+	lwz	d0,0(a1)
+	lha	d0,-2(d0)
+	lwz	a1,8(a1)
+	cmpwi	0,d0,2
+	beq	ea__S_P2_2
+	lwz	a1,0(a1)
+ea__S_P2_2:
+	lwz	d0,0(a1)
+	andi.	r0,d0,2
+	bne	ea__S_P2_3
+
+	subi	d0,d0,20
+	mtctr	d0
+	bctr
+
+ea__S_P2_3:
+	stw	d0,0(a0)
+	lwz	g1,4(a1)
+	stw	g1,4(a0)
+	lwz	g1,8(a1)
+	stw	g1,8(a0)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+ endif
+
+	csect	.acos_real{PR}
+acos_real:
+	mflr	r0
+	stwu	r0,-4(sp)
+	fmr	f1,f14
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.acos
+	nop
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ 	lwz	r0,0(sp)
+ else
+	lwz	r0,64(sp)
+ endif
+	fmr	f14,f1
+	mtlr	r0
+ if MACOSX
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,68(sp)
+	addi	sp,sp,72
+ endif
+	blr
+
+	csect	.asin_real{PR}
+asin_real:
+	mflr	r0
+	stwu	r0,-4(sp)
+	fmr	f1,f14
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.asin
+	nop
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ 	lwz	r0,0(sp)
+ else
+	lwz	r0,64(sp)
+ endif
+	fmr	f14,f1
+	mtlr	r0
+ if MACOSX
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,68(sp)
+	addi	sp,sp,72
+ endif
+	blr
+
+	csect	.atan_real{PR}
+atan_real:
+	mflr	r0
+	stwu	r0,-4(sp)
+	fmr	f1,f14
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.atan
+	nop
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ 	lwz	r0,0(sp)
+ else
+	lwz	r0,64(sp)
+ endif
+	fmr	f14,f1
+	mtlr	r0
+ if MACOSX
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,68(sp)
+	addi	sp,sp,72
+ endif
+	blr
+
+	csect	.cos_real{PR}
+cos_real:
+	mflr	r0
+	stwu	r0,-4(sp)
+	fmr	f1,f14
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.cos
+	nop
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ 	lwz	r0,0(sp)
+ else
+	lwz	r0,64(sp)
+ endif
+	fmr	f14,f1
+	mtlr	r0
+ if MACOSX
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,68(sp)
+	addi	sp,sp,72
+ endif
+	blr
+
+	csect	.sin_real{PR}
+sin_real:
+	mflr	r0
+	stwu	r0,-4(sp)
+	fmr	f1,f14
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.sin
+	nop
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ 	lwz	r0,0(sp)
+ else
+	lwz	r0,64(sp)
+ endif
+	fmr	f14,f1
+	mtlr	r0
+ if MACOSX
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,68(sp)
+	addi	sp,sp,72
+ endif
+	blr
+
+	csect	.tan_real{PR}
+tan_real:
+	mflr	r0
+	stwu	r0,-4(sp)
+	fmr	f1,f14
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.tan
+	nop
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ 	lwz	r0,0(sp)
+ else
+	lwz	r0,64(sp)
+ endif
+	fmr	f14,f1
+	mtlr	r0
+ if MACOSX
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,68(sp)
+	addi	sp,sp,72
+ endif
+	blr
+
+	csect	.ln_real{PR}
+ln_real:
+	mflr	r0
+	stwu	r0,-4(sp)
+	fmr	f1,f14
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.log
+	nop
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ 	lwz	r0,0(sp)
+ else
+	lwz	r0,64(sp)
+ endif
+	fmr	f14,f1
+	mtlr	r0
+ if MACOSX
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,68(sp)
+	addi	sp,sp,72
+ endif
+	blr
+
+	csect	.log10_real{PR}
+log10_real:
+	mflr	r0
+	stwu	r0,-4(sp)
+	fmr	f1,f14
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.log10
+	nop
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ 	lwz	r0,0(sp)
+ else
+	lwz	r0,64(sp)
+ endif
+	fmr	f14,f1
+	mtlr	r0
+ if MACOSX
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,68(sp)
+	addi	sp,sp,72
+ endif
+	blr
+
+	csect	.exp_real{PR}
+exp_real:
+	mflr	r0
+	stwu	r0,-4(sp)
+	fmr	f1,f14
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.exp
+	nop
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ 	lwz	r0,0(sp)
+ else
+	lwz	r0,64(sp)
+ endif
+	fmr	f14,f1
+	mtlr	r0
+ if MACOSX
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,68(sp)
+	addi	sp,sp,72
+ endif
+	blr
+
+	csect	.sqrt_real{PR}
+sqrt_real:
+	mflr	r0
+	stwu	r0,-4(sp)
+	fmr	f1,f14
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.sqrt
+	nop
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ 	lwz	r0,0(sp)
+ else
+	lwz	r0,64(sp)
+ endif
+	fmr	f14,f1
+	mtlr	r0
+ if MACOSX
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,68(sp)
+	addi	sp,sp,72
+ endif
+	blr
+
+	csect	.pow_real{PR}
+pow_real:
+	mflr	r0
+	stwu	r0,-4(sp)
+	fmr	f2,f14
+	fmr	f1,f15
+
+ if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ else
+	stwu	sp,-64(sp)
+ endif
+	bl	.pow
+	nop
+#ifdef USE_DCBZ
+	li	g2,32
+#endif
+ if MACOSX
+ 	lwz	sp,0(sp)
+ 	lwz	r0,0(sp)
+ else
+	lwz	r0,64(sp)
+ endif
+	fmr	f14,f1
+	mtlr	r0
+ if MACOSX
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+ else
+	lwz	r0,68(sp)
+	addi	sp,sp,72
+ endif
+	blr
+
+	csect	.entier_real{PR}
+entier_real:
+	lea	o0,entier_constants_and_buffers
+	fctiwz	f2,f14
+	lfd	f1,0(o0)
+	stfd	f2,8(o0)
+	fcmpo	0,f14,f1
+	lwz	d0,12(o0)
+	bge+	entier_real_2
+
+	lfd	f31,24(o0)
+	xoris	o1,d0,0x8000
+	stw	o1,20(o0)
+	lfd	f1,16(o0)
+	fsub	f1,f1,f31
+	fcmpo	0,f14,f1
+	beq	entier_real_2
+
+	subi	d0,d0,1
+entier_real_2:
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr
+	
+	csect	.my_pointer_glue{PR}
+	lwz	r0,0(r3)
+	stw	RTOC,20(SP)
+	mtctr	r0
+	lwz	RTOC,4(r3)
+	bctr
+
+ if NEW_DESCRIPTORS
+	include	'pap.a'
+ endif
+
+ if MACOSX
+ 	export	.call_function_0{PR}
+	csect	.call_function_0{PR}
+	mflr	r0
+	stw	r0,8(sp)
+	subi	sp,sp,64
+
+	stw	RTOC,20(sp)
+	lwz	RTOC,4(r3)
+	lwz	r3,0(r3)
+	mtctr	r3
+	bctrl
+	lwz	RTOC,20(sp)
+
+	lwz	r0,64+8(sp)
+	addi	sp,sp,64
+	mtlr	r0
+	blr
+
+ 	export	.call_function_2{PR}
+	csect	.call_function_2{PR}
+	mflr	r0
+	stw	r0,8(sp)
+	subi	sp,sp,64
+
+	stw	RTOC,20(sp)
+	lwz	RTOC,4(r5)
+	lwz	r5,0(r5)
+	mtctr	r5
+	bctrl
+	lwz	RTOC,20(sp)
+
+	lwz	r0,64+8(sp)
+	addi	sp,sp,64
+	mtlr	r0
+	blr
+
+ 	export	.call_function_3{PR}
+	csect	.call_function_3{PR}
+	mflr	r0
+	stw	r0,8(sp)
+	subi	sp,sp,64
+
+	stw	RTOC,20(sp)
+	lwz	RTOC,4(r6)
+	lwz	r6,0(r6)
+	mtctr	r6
+	bctrl
+	lwz	RTOC,20(sp)
+
+	lwz	r0,64+8(sp)
+	addi	sp,sp,64
+	mtlr	r0
+	blr
+
+ 	export	.call_function_5{PR}
+	csect	.call_function_5{PR}
+	mflr	r0
+	stw	r0,8(sp)
+	subi	sp,sp,64
+
+	stw	RTOC,20(sp)
+	lwz	RTOC,4(r8)
+	lwz	r8,0(r8)
+	mtctr	r8
+	bctrl
+	lwz	RTOC,20(sp)
+
+	lwz	r0,64+8(sp)
+	addi	sp,sp,64
+	mtlr	r0
+	blr
+
+ 	export	.call_function_7{PR}
+	csect	.call_function_7{PR}
+	mflr	r0
+	stw	r0,8(sp)
+	subi	sp,sp,64
+
+	stw	RTOC,20(sp)
+	lwz	RTOC,4(r10)
+	lwz	r10,0(r10)
+	mtctr	r10
+	bctrl
+	lwz	RTOC,20(sp)
+
+	lwz	r0,64+8(sp)
+	addi	sp,sp,64
+	mtlr	r0
+	blr
+
+ 	export	.get_TOC{PR}
+	csect	.get_TOC{PR}
+	mr	r3,RTOC
+	blr
+ endif
+
+	macro
+	te	&address
+	tc	&address{TC},&address
+	endm
+
+	toc
+
+	tc	INT2{TC},INT+2
+	tc	CHAR2{TC},CHAR+2
+	tc	BOOL2{TC},BOOL+2
+	tc	REAL2{TC},REAL+2
+	tc	__STRING__2{TC},__STRING__+2
+	tc	__ARRAY__2{TC},__ARRAY__+2
+
+	tc	small_integers{TC},small_integers{BS}
+ if 1
+	tc	small_integers8{TC},small_integers{BS}+8
+ endif
+	tc	stack_p{TC},stack_p{BS}
+ if MACOSX
+	tc	end_a_stack{TC},end_a_stack{BS}
+	tc	end_b_stack{TC},end_b_stack{BS}
+ endif
+	tc	static_characters{TC},static_characters{BS}
+ if 1
+	tc	static_characters8{TC},static_characters{BS}+8
+ endif
+	tc	sprintf_time_buffer{TC},sprintf_time_buffer{BS}
+	tc	sprintf_buffer{TC},sprintf_buffer{BS}
+	tc	last_time{TC},last_time{BS}
+	tc	heap_size_33{TC},heap_size_33{BS}
+	tc	heap_size_129{TC},heap_size_129{BS}
+	tc	heap_p{TC},heap_p{BS}
+	tc	heap_p1{TC},heap_p1{BS}
+	tc	heap_p2{TC},heap_p2{BS}
+	tc	heap_mbp{TC},heap_mbp{BS}
+	tc	heap_copied_vector_size{TC},heap_copied_vector_size{BS}
+	tc	heap_copied_vector{TC},heap_copied_vector{BS}
+	tc	halt_sp{TC},halt_sp{BS}
+	tc	garbage_collect_time{TC},garbage_collect_time{BS}
+	tc	extra_heap{TC},extra_heap{BS}	
+	tc	extra_heap_size{TC},extra_heap_size{BS}
+	tc	execute_time{TC},execute_time{BS}
+	tc	basic_only{TC},basic_only{BS}
+	tc	alloc_size{TC},alloc_size{BS}
+	tc	IO_time{TC},IO_time{BS}
+ if MEASURE_GC
+	tc	compact_garbage_collect_time{TC},compact_garbage_collect_time{BS}
+	tc	mark_compact_garbage_collect_time{TC},mark_compact_garbage_collect_time{BS}
+	tc	total_gc_bytes_lo{TC},total_gc_bytes_lo{BS}
+	tc	total_gc_bytes_hi{TC},total_gc_bytes_hi{BS}
+	tc	total_compact_gc_bytes_lo{TC},total_compact_gc_bytes_lo{BS}
+	tc	total_compact_gc_bytes_hi{TC},total_compact_gc_bytes_hi{BS}
+ endif
+	tc	heap_end_after_copy_gc{TC},heap_end_after_copy_gc{BS}
+	tc	caf_listp{TC},caf_listp{BS}
+	tc	caf_list{TC},caf_list{BS}
+	tc	caf_list4{TC},caf_list{BS}+4
+
+ if EXCEPTIONS
+	tc	exception_info{TC},exception_info{BS}
+ endif
+ if FINALIZERS
+	tc	finalizer_list{TC},finalizer_list{BS}
+	tc	free_finalizer_list{TC},free_finalizer_list{BS}
+	tc	__Nil_m8{TC},__Nil-8
+	tc	e____system__kFinalizer_2{TC},e____system__kFinalizer+2
+	tc	e____system__kFinalizerGCTemp_2{TC},e____system__kFinalizerGCTemp+2
+ endif
+ if MARK_GC
+	te	last_heap_free
+	te	free_after_mark
+	te	bit_counter
+	te	zero_bits_before_mark
+	te	bit_vector_p
+	te	marked_gc_string_1
+	te	lazy_array_list
+  if ADJUST_HEAP_SIZE
+	te	bit_vector_size
+	te	heap_size_multiple
+	te	initial_heap_size
+  endif
+ endif
+ if MARK_AND_COPY_GC || !MARK_GC
+	te	copy_lp1
+ endif
+	te	IO_error_string
+	te	__cycle__in__spine
+	te	__indirection
+	te	stack_size
+	te	flags
+	te	execution_aborted
+	te	heap_size
+	te	false_c_string
+	te	false_string
+	te	file_c_string
+	te	garbage_collect_string_1
+	te	garbage_collect_string_2
+	te	garbage_collect_string_3
+	te	heap_end_after_gc
+	te	heap_p3
+	te	heap_use_after_gc_string_1
+	te	heap_use_after_gc_string_2
+	te	heap_vector
+	te	high_index_string
+	te	low_index_string
+	te	new_line_string
+	te	out_of_memory_string_1
+	te	out_of_memory_string_4
+	te	print_
+	te	printf_int_string
+	te	printf_real_string
+	te	sprintf_time_string
+	te	stack_overflow_string
+	te	time_string_1
+	te	time_string_2
+ if MEASURE_GC
+	te	time_string_2a
+ endif
+ if PREFETCH
+	te	queue
+	te	rmarkp_queue
+ endif
+	te	time_string_3
+	te	time_string_4
+	te	true_c_string
+	te	true_string
+	te	zero_length_string
+	te	garbage_collect_flag
+	te	entier_constants_and_buffers
+ if MEASURE_GC
+	te	f_power2_52
+	te	f_60
+	te	f_1000000
+ endif
+
+ if WRITE_HEAP
+	tc	first_function{TC},first_function{DS}
+	tc	heap2_begin_and_end{TC},heap2_begin_and_end{BS}
+	te	min_write_heap_size
+ endif
+ if PROFILE
+ 	te	garbage_collector_name
+ endif
+
+	export	print_execution_time{DS}
+	csect	print_execution_time{DS}
+	dc.l	.print_execution_time{PR}
+	dc.l	TOC{tc0}

@@ -1,0 +1,18 @@
+
+all: copy_graph_to_string_thread.obj copy_graph_to_string_interface_thread.obj copy_string_to_graph_thread.obj copy_string_to_graph_interface.obj
+
+copy_graph_to_string.obj: copy_graph_to_string.c copy_graph_to_string_implementation.c remove_forwarding_pointers_from_graph_implementation.c
+	cl /nologo /c /O2 /Gy /DTHREAD /Focopy_graph_to_string_thread.obj copy_graph_to_string.c
+	copy copy_graph_to_string_thread.obj "Clean System Files"\copy_graph_to_string.obj
+
+copy_graph_to_string_interface_thread.obj: copy_graph_to_string_interface.asm copy_graph_to_string_interface.asm
+	ml64 /nologo /c /DTHREAD=1 /Focopy_graph_to_string_interface_thread.obj copy_graph_to_string_interface.asm
+	copy copy_graph_to_string_interface_thread.obj "Clean System Files"\copy_graph_to_string_interface.obj
+
+copy_string_to_graph.obj: copy_string_to_graph.c copy_string_to_graph_implementation.c
+	cl /nologo /c /O2 /Gy /DTHREAD /Focopy_string_to_graph_thread.obj copy_string_to_graph.c
+	copy copy_string_to_graph_thread.obj "Clean System Files"\copy_string_to_graph.obj
+
+copy_string_to_graph_interface.obj: copy_string_to_graph_interface.asm
+	ml64 /nologo /c copy_string_to_graph_interface.asm
+	copy copy_string_to_graph_interface.obj "Clean System Files"\copy_string_to_graph_interface.obj

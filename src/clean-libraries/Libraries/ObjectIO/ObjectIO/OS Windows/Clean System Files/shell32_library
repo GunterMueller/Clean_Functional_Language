@@ -1,0 +1,8 @@
+shell32.dll
+DragAcceptFiles@8
+DragFinish@4
+DragQueryFileA@16
+SHGetPathFromIDList@8
+SHGetPathFromIDListA@8
+SHBrowseForFolder@4
+SHBrowseForFolderA@4

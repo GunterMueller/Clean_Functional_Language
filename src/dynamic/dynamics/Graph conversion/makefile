@@ -1,0 +1,69 @@
+# To change a version number
+# - edit version.sed
+# - sed -f version.sed <makefile_VERSION_NUMBER >makefile
+
+# Variables
+#
+COCL=C:\WINDOWS\DESKTOP\CLEAN\TOOLS\#
+CG=C:\WINDOWS\DESKTOP\CLEAN\#
+CURRENT_DIR=C:\WINDOWS\DESKTOP\DEMOLO~1\DEVELO~1\#
+DLINK_DIR=C:\WINDOWS\DESKTOP\CLEAN\dlink\#
+DDIR=C:\WINDOWS\DESKTOP\CLEAN\dlink\#
+# Building StdDynamicInternal.s
+#
+StdDynamicInternal.dcl: version.sed
+	sed -f version.sed <StdDynamicInternal.ad >StdDynamicInternal.dcl
+
+StdDynamicInternal.icl: StdDynamicInternal.ai StdDynamicInternal.dcl version.sed
+	sed -f version.sed <StdDynamicInternal.ai >StdDynamicInternal.icl
+
+StdDynamicInternal.abc: StdDynamicInternal.icl
+	$(COCL)cocl20.exe -P $(CURRENT_DIR) StdDynamicInternal.icl
+
+StdDynamicInternal.s: StdDynamicInternal.abc
+	$(CG)cg.exe $(CURRENT_DIR)cleans~1\StdDynamicInternal -s $(CURRENT_DIR)cleans~1\StdDynamicInternal.s
+	
+# Building string_to_graph
+#
+graph_to_string.a: graph_to_string.c version.sed
+	sed -f version.sed <graph_to_string.c >$(CURRENT_DIR)cleans~1\graph_to_string.a
+
+graph_to_string.b: graph_to_string.a
+	cl /I $(CURRENT_DIR) /EP $(CURRENT_DIR)cleans~1\graph_to_string.a >$(CURRENT_DIR)cleans~1\graph_to_string.b
+	
+copy_graph_to_string_0x00010101.obj:
+	as $(CURRENT_DIR)cleans~1\graph_to_string.b -o $(DDIR)\copy_graph_to_string_0x00010101.obj
+
+# Building string_to_graph
+#
+string_to_graph.a: string_to_graph.c version.sed
+	cl /I $(CURRENT_DIR) /EP $(CURRENT_DIR)string_to_graph.c > $(CURRENT_DIR)cleans~1\string_to_graph.a
+	
+string_to_graph.s: StdDynamicInternal.s string_to_graph.a 
+	type  $(CURRENT_DIR)cleans~1\string_to_graph.a >>  $(CURRENT_DIR)cleans~1\StdDynamicInternal.s
+
+all: string_to_graph.s
+	
+
+
+
+
+
+#gra1ph_to_string.s: graph_to_string.b StdDynamicInternal.s
+#	type StdDynamicInternal.s >> $(CURRENT_DIR)cleans~1\StdDynamicInternal.s
+	
+	
+	
+
+
+
+####string_to_graph_VERSION_NUMBER:
+	
+	
+	
+# Cleaning up
+#
+clean:
+	deltree $(CURRENT_DIR)cleans~1
+	del StdDynamicInternal.icl
+	del StdDynamicInternal.dcl

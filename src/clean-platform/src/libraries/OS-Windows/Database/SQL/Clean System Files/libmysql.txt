@@ -1,0 +1,17 @@
+libmysql.dll
+mysql_affected_rows@4
+mysql_close@4
+mysql_errno@4
+mysql_error@4
+mysql_fetch_fields@4
+mysql_fetch_lengths@4
+mysql_fetch_row@4
+mysql_free_result@4
+mysql_init@4
+mysql_insert_id@4
+mysql_num_fields@4
+mysql_num_rows@4
+mysql_real_connect@32
+mysql_real_escape_string@16
+mysql_real_query@12
+mysql_store_result@4

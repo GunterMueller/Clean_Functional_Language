@@ -1,0 +1,79 @@
+
+OBJECTS = \
+	backend.obj backendsupport.obj buildtree.obj \
+	cocl.obj codegen1.obj codegen2.obj codegen3.obj codegen.obj \
+	comsupport.obj instructions.obj optimisations.obj \
+	pattern_match_2.obj result_state_database.obj sa.obj \
+	set_scope_numbers.obj settings.obj statesgen.obj windows_io.obj \
+	clib_functions.obj longjmp32.obj setjmp32.obj
+
+C_OPTIONS = /D_WINDOWS_ /DCLEAN_FILE_IO /DNO_CLIB /DDEFINE_MEMSET /DDEFINE_MEMCPY
+
+backend.dll: $(OBJECTS)
+	lib /nologo /out:..\backend.lib $(OBJECTS)
+
+longjmp32.obj: longjmp32.asm
+	ml /nologo /c longjmp32.asm
+
+setjmp32.obj: setjmp32.asm
+	ml /nologo /c setjmp32.asm
+
+backend.obj: backend.c
+	cl /nologo /c $(C_OPTIONS) /O1 backend.c
+
+backendsupport.obj: backendsupport.c
+	cl /nologo /c $(C_OPTIONS) /O1 backendsupport.c
+
+buildtree.obj:
+	cl /nologo /c $(C_OPTIONS) /O1 buildtree.c
+
+cocl.obj: cocl.c
+	cl /nologo /c $(C_OPTIONS) /O1 cocl.c
+
+codegen1.obj:
+	cl /nologo /c /GS- $(C_OPTIONS) /O1 codegen1.c
+
+codegen2.obj:
+	cl /nologo /c /GS- $(C_OPTIONS) /O1 codegen2.c
+
+codegen3.obj:
+	cl /nologo /c /GS- $(C_OPTIONS) /O1 codegen3.c
+
+codegen.obj:
+	cl /nologo /c $(C_OPTIONS) /O1 codegen.c
+
+comsupport.obj:
+	cl /nologo /c /GS- $(C_OPTIONS) /O1 comsupport.c
+
+instructions.obj:
+	cl /nologo /c /GS- $(C_OPTIONS) /O1 instructions.c
+
+optimisations.obj:
+	cl /nologo /c /GS- $(C_OPTIONS) /O1 optimisations.c
+
+pattern_match_2.obj:
+	cl /nologo /c $(C_OPTIONS) /O1 pattern_match_2.c
+
+result_state_database.obj:
+	cl /nologo /c $(C_OPTIONS) /O1 result_state_database.c
+
+sa.obj:
+	cl /nologo /c $(C_OPTIONS) /O1 sa.c
+
+set_scope_numbers.obj:
+	cl /nologo /c $(C_OPTIONS) /O1 set_scope_numbers.c
+
+settings.obj:
+	cl /nologo /c $(C_OPTIONS) /O1 settings.c
+
+statesgen.obj:
+	cl /nologo /c /GS- $(C_OPTIONS) /O1 statesgen.c
+
+windows_io.obj:
+	cl /nologo /c $(C_OPTIONS) /O1 windows_io.c
+
+clib_functions.obj:
+	cl /nologo /c $(C_OPTIONS) /O1 clib_functions.c
+
+cleanup:
+	del $(OBJECTS)

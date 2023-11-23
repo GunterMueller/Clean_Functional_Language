@@ -1,0 +1,17 @@
+ws2_32.dll
+WSAGetLastError@0
+WSAStartup@8
+socket@12
+bind@12
+listen@8
+accept@12
+connect@12
+send@16
+recv@16
+closesocket@4
+WSACleanup@0
+ntohs@4
+htons@4
+ntohl@4
+htonl@4
+gethostbyname@4

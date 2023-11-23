@@ -1,0 +1,26 @@
+CLEANLIB=.
+CLEANPATH=.
+CC=gcc
+CFLAGS=-O -pedantic -Wall -W
+CPPFLAGS=-DGNU_C -DLINUX -DLINUX_ELF -DI486 -DA_64 -DCLEANLIB=$(CLEANLIB) -DCLEANPATH=$(CLEANPATH)
+
+clm: clm.o cachingcompiler.o
+	gcc clm.o cachingcompiler.o -o clm
+
+cachingcompiler.o: cachingcompiler.c cachingcompiler.h
+
+clm.o: clm.c cachingcompiler.h
+#	gcc -pedantic -Wall -c -DGNU_C -DSOLARIS -O clm.c # -mcpu=ppc603 clm.c
+ 
+clms: clms.o cachingcompiler.o
+	gcc -s clms.o cachingcompiler.o -o clms
+ 
+clms.o: clm.c cachingcompiler.h
+	gcc $(CFLAGS) $(CPPFLAGS) -c -o clms.o -DSYSTEM_LINKER clm.c
+
+all: clm patch_bin
+
+patch_bin: patch_bin.o
+	gcc -s patch_bin.o -o patch_bin
+
+patch_bin.o: patch_bin.c

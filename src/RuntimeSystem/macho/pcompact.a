@@ -1,0 +1,998 @@
+
+; mark used nodes and pointers in argument parts and link backward pointers
+
+	lea	o0,heap_size_33
+	lwz	d7,0(o0)
+
+	lea	o0,caf_list
+	slwi	d7,d7,5
+	lwz	d0,0(o0)
+	
+	li	g3,128
+
+	subi	d4,sp,8000
+
+	stwu	a4,-4(sp)
+
+	cmpwi	cr0,d0,0
+	beq	end_mark_cafs
+
+mark_cafs_lp:
+	lwz	d1,0(d0)
+	lwz	o5,-4(d0)
+
+	addi	a3,d0,4
+	slwi	d0,d1,2
+	add	a4,a3,d0
+
+	bl	rmark_stack_nodes
+
+	addic.	d0,o5,0
+	bne	mark_cafs_lp
+
+end_mark_cafs:
+
+	lea	o0,stack_p
+	lwz	a4,0(sp)
+
+	lwz	a3,0(o0)
+	addi	sp,sp,4
+
+	bl	rmark_stack_nodes
+
+	b	compact_heap
+
+#include	"pcompact_rmark.a"
+#include	"pcompact_rmarkr.a"
+
+; compact the heap
+
+compact_heap:
+
+ .if FINALIZERS
+	lea	a0,finalizer_list
+	lea	a1,free_finalizer_list
+
+	lwz	a2,0(a0)
+determine_free_finalizers_after_compact1:
+	lea	o0,__Nil-8
+	cmplw	o0,a2
+	beq	end_finalizers_after_compact1
+
+	sub	d1,a2,d6
+	rlwinm	o0,d1,32-5,5,29
+	lwzx	o1,o4,o0
+	rlwinm	d1,d1,32-2,27,31
+	rlwnm.	r0,o1,d1,0,0
+	beq	finalizer_not_used_after_compact1
+
+	lwz	d0,0(a2)
+	mr	a3,a2
+	b	finalizer_find_descriptor
+
+finalizer_find_descriptor_lp:
+	clrrwi	d0,d0,2
+	mr	a3,d0
+	lwz	d0,0(d0)
+finalizer_find_descriptor:
+	andi.	r0,d0,1
+	bne	finalizer_find_descriptor_lp
+
+	lea	o0,e____system__kFinalizerGCTemp+2
+	stw	o0,0(a3)
+
+	cmplw	a2,a0
+	bgt	finalizer_no_reverse
+
+	lwz	d0,0(a2)
+	addi	a3,a0,1
+	stw	a3,0(a2)
+	stw	d0,0(a0)
+
+finalizer_no_reverse:
+	addi	a0,a2,4
+	lwz	a2,4(a2)
+	b	determine_free_finalizers_after_compact1
+
+finalizer_not_used_after_compact1:
+	lea	o0,e____system__kFinalizerGCTemp+2
+	stw	o0,0(a2)
+
+	stw	a2,0(a1)
+	addi	a1,a2,4
+
+	lwz	a2,4(a2)
+	stw	a2,0(a0)
+	b	determine_free_finalizers_after_compact1
+
+end_finalizers_after_compact1:
+	stw	a2,0(a1)
+
+	lea	o1,finalizer_list
+	lwz	a0,0(o1)
+	lea	o0,__Nil-8
+	cmplw	o0,a0
+	beq	finalizer_list_empty
+	andi.	r0,a0,3
+	bne	finalizer_list_already_reversed
+	lwz	d0,0(a0)
+	addi	o0,o1,1
+	stw	o0,0(a0)
+	stw	d0,0(o1)
+finalizer_list_already_reversed:
+finalizer_list_empty:
+
+	lea	a2,free_finalizer_list
+	lea	o0,__Nil-8
+	lwz	o1,0(a2)
+	cmplw	o0,o1
+	beq	free_finalizer_list_empty
+
+	stwu	a4,-4(sp)
+	addi	a4,a2,4
+
+  	mr	a3,a2
+	bl	rmark_stack_nodes
+
+	lwz	a4,0(sp)
+	addi	sp,sp,4
+
+free_finalizer_list_empty:
+ .endif
+
+	lea	o0,heap_size_33
+	lwz	d5,0(o0)
+	slwi	d2,d5,5
+
+ .if SHARE_CHAR_INT
+	add	d2,d2,d6
+ .endif
+
+	addi	d5,d5,3
+	srwi.	d5,d5,2
+		
+	mr	a2,o4
+	mr	a6,d6
+	li	d4,0
+	
+	beq	end_compact_heap
+
+	mtctr	d5
+skip_zeros_2:
+	lwz	d4,0(a2)
+	baddi	a2,4
+	cmpwi	cr0,d4,0
+	bne	end_skip_zeros
+find_non_zero_long_2:
+	bdnz	skip_zeros_2
+
+	b	end_compact_heap
+
+end_skip_zeros:
+	sub	d7,a2,o4
+	subi	d7,d7,4
+	slwi	d7,d7,5
+	add	d7,d7,d6
+
+skip_zero_bits:
+	cntlzw	d1,d4
+	cmpwi	cr0,d1,32
+	beq-	find_non_zero_long_2
+
+	addi	d1,d1,1
+	slw	d4,d4,d1
+	slwi	d1,d1,2
+	add	d7,d7,d1
+		
+	lwz	d0,-4(d7)
+	mr	a0,d7
+
+	andi.	r0,d0,2
+	clrrwi	d0,d0,2
+	beq+	begin_update_list_2
+
+	lwz	d3,-8(d0)
+	mr	a1,d0
+	andi.	r0,d3,1
+	beq	end_list_2
+find_descriptor_2:
+	clrrwi	a1,d3,2
+	lwz	d3,0(a1)
+	andi.	r0,d3,1
+	bne	find_descriptor_2
+end_list_2:
+	lhz	d1,-2(d3)
+
+	cmplwi	cr0,d1,256
+	blt	no_record_arguments
+
+	lhz	d3,-2+2(d3)
+	subic.	d3,d3,2
+	bge	copy_record_arguments_aa
+	
+	subi	d1,d1,256+3
+
+copy_record_arguments_all_b:
+	mr	g2,d1
+
+update_up_list_1r:
+	mr	a1,d0
+	sub	d0,d0,d6
+
+	tstmbit	o4,d0,d1,o0,o1,o2,2
+	beq	copy_argument_part_1r
+
+	lwz	d0,0(a1)
+	stw	a6,0(a1)
+	subi	d0,d0,3
+	b	update_up_list_1r
+
+copy_argument_part_1r:
+	lwz	d0,0(a1)
+	stw	a6,0(a1)
+	stw	d0,0(a6)
+	addi	a6,a6,4
+
+	mr	d1,g2
+
+copy_b_record_argument_part_arguments:
+	lwz	o0,0(a0)
+
+	subic.	d1,d1,1
+
+	addi	a0,a0,4
+	stw	o0,0(a6)
+	addi	a6,a6,4
+	bge	copy_b_record_argument_part_arguments
+
+	sub	o0,a2,o4
+	slwi	o0,o0,5
+	add	o0,o0,d6
+
+	cmpw	cr0,o0,d7
+	addi	d7,d7,4
+	slwi	d4,d4,1
+	bne	skip_zero_bits
+
+	bdz	end_compact_heap
+
+	lwz	d4,0(a2)
+	lis	o1,0x8000
+	andc	d4,d4,o1
+	b	skip_zeros_2+4
+
+copy_record_arguments_aa:
+	subi	d1,d1,256+2
+	sub	d1,d1,d3
+	mr	g2,d1
+
+update_up_list_2r:
+	mr	a1,d0
+	lwz	d0,0(a1)
+	andi.	d1,d0,3
+	subic.	d1,d1,3
+	stw	a6,0(a1)
+	bne	copy_argument_part_2r
+
+	subi	d0,d0,3
+	b	update_up_list_2r
+
+copy_argument_part_2r:
+	cmplw	0,d0,a0
+	blt	copy_record_argument_2
+ .if SHARE_CHAR_INT
+	cmplw	0,d0,d2
+	bge	copy_record_argument_2
+ .endif
+	mr	a1,d0
+	lwz	d0,0(a1)
+	addi	d1,a6,1
+	stw	d1,0(a1)
+copy_record_argument_2:
+	stw	d0,0(a6)
+	addi	a6,a6,4
+
+	subic.	d3,d3,1
+	blt	no_pointers_in_record
+copy_record_pointers:
+	lwz	a1,0(a0)
+	addi	a0,a0,4
+	cmplw	0,a1,a0
+	blt	copy_record_pointers_2
+ .if SHARE_CHAR_INT
+	cmplw	0,a1,d2
+	bge	copy_record_pointers_2
+ .endif
+	lwz	d1,0(a1)
+	addi	d0,a6,1
+	stw	d0,0(a1)
+	mr	a1,d1
+copy_record_pointers_2:
+	stw	a1,0(a6)
+	subic.	d3,d3,1
+	addi	a6,a6,4
+	bge	copy_record_pointers
+		
+no_pointers_in_record:
+	cmpwi	cr0,g2,0
+	subi	d1,g2,1
+	beq	no_non_pointers_in_record
+
+copy_non_pointers_in_record:
+	lwz	o0,0(a0)
+	addi	a0,a0,4
+	stw	o0,0(a6)
+;	subi.	d2,d2,1
+	subic.	d1,d1,1
+	addi	a6,a6,4
+	bge	copy_non_pointers_in_record
+
+no_non_pointers_in_record:
+	b	skip_zero_bits
+
+no_record_arguments:
+	subi	d1,d1,3
+update_up_list_2:
+	mr	a1,d0
+	lwz	d0,0(a1)
+	andi.	d3,d0,3
+	cmpwi	cr0,d3,3
+	bne	copy_argument_part_2
+
+	stw	a6,0(a1)
+	clrrwi	d0,d0,2
+	b	update_up_list_2
+
+copy_argument_part_2:
+	stw	a6,0(a1)
+
+	cmplw	0,d0,a0
+	addi	a6,a6,4
+	blt	copy_arguments_1
+
+ .if SHARE_CHAR_INT
+	cmplw	0,d0,d2
+	bge	copy_arguments_1
+ .endif
+	mr	a1,d0
+	lwz	d0,0(a1)
+	addi	d3,a6,1-4
+	stw	d3,0(a1)
+copy_arguments_1:
+	stw	d0,-4(a6)
+
+copy_argument_part_arguments:
+	lwz	a1,0(a0)
+	addi	a0,a0,4
+	cmplw	0,a1,a0
+	blt	copy_arguments_2
+ .if SHARE_CHAR_INT
+	cmplw	0,a1,d2
+	bge	copy_arguments_2
+ .endif
+	ori	d0,a6,1
+	lwz	d3,0(a1)
+	stw	d0,0(a1)
+	mr	a1,d3
+
+copy_arguments_2:
+	stw	a1,0(a6)
+	subic.	d1,d1,1
+	addi	a6,a6,4
+	bge	copy_argument_part_arguments
+
+	b	skip_zero_bits
+
+update_list_2:
+	stw	a6,0(a1)
+begin_update_list_2:
+	mr	a1,d0
+	lwz	d0,0(a1)
+update_list__2:
+	andi.	r0,d0,1
+	beq	end_update_list_2
+	andi.	r0,d0,2
+	clrrwi	d0,d0,2
+	beq	update_list_2
+	mr	a1,d0
+	lwz	d0,0(a1)
+	b	update_list__2
+
+end_update_list_2:
+	stw	a6,0(a1)
+
+	andi.	r0,d0,2
+	stw	d0,0(a6)
+	beq	move_lazy_node
+
+	lhz	d1,-2(d0)
+	baddi	a6,4
+	cmpwi	cr0,d1,0
+	beq	move_hnf_0
+
+	cmplwi	cr0,d1,256
+	bge	move_record
+
+	subic.	d1,d1,2
+	blt	move_hnf_1
+	beq	move_hnf_2
+
+move_hnf_3:
+	lwz	a1,0(a0)
+	addi	a0,a0,4
+move_hnf_3_:
+	cmplw	0,a1,a0
+	blt	copy_hnf_3_1
+ .if SHARE_CHAR_INT
+	cmplw	0,a1,d2
+	bge	copy_hnf_3_1
+ .endif
+	ori	d0,a6,1
+	lwz	d1,0(a1)
+	stw	d0,0(a1)
+	mr	a1,d1
+copy_hnf_3_1:
+	stw	a1,0(a6)
+		
+	lwz	a1,0(a0)
+	addi	a0,a0,4
+	cmplw	0,a1,a0
+	blt	copy_hnf_3_2
+ .if SHARE_CHAR_INT
+	cmplw	0,a1,d2
+	bge	copy_hnf_3_2
+ .endif
+	addi	d0,a6,4+2+1
+	lwz	d1,0(a1)
+	stw	d0,0(a1)
+	mr	a1,d1
+copy_hnf_3_2:
+	stw	a1,4(a6)
+	addi	a6,a6,8
+	b	skip_zero_bits
+
+move_hnf_2:
+	lwz	a1,0(a0)
+	addi	a0,a0,4
+	cmplw	0,a1,a0
+	blt	copy_hnf_2_1
+ .if SHARE_CHAR_INT
+	cmplw	0,a1,d2
+	bge	copy_hnf_2_1
+ .endif
+	ori	d0,a6,1
+	lwz	d1,0(a1)
+	stw	d0,0(a1)
+	mr	a1,d1
+copy_hnf_2_1:
+	stw	a1,0(a6)
+		
+	lwz	a1,0(a0)
+	addi	a0,a0,4
+	cmplw	0,a1,a0
+	blt	copy_hnf_2_2
+ .if SHARE_CHAR_INT
+	cmplw	0,a1,d2
+	bge	copy_hnf_2_2
+ .endif
+	addi	d0,a6,4+1
+	lwz	d1,0(a1)
+	stw	d0,0(a1)
+	mr	a1,d1
+copy_hnf_2_2:
+	stw	a1,4(a6)
+	addi	a6,a6,8
+	b	skip_zero_bits
+
+move_hnf_1:
+	lwz	a1,0(a0)
+	addi	a0,a0,4
+	cmplw	0,a1,a0
+	blt	move_hnf_1_
+ .if SHARE_CHAR_INT
+	cmplw	0,a1,d2
+	bge	move_hnf_1_
+ .endif
+	ori	d0,a6,1
+	lwz	d1,0(a1)
+	stw	d0,0(a1)
+	mr	a1,d1
+move_hnf_1_:
+	stw	a1,0(a6)
+	addi	a6,a6,4
+	b	skip_zero_bits
+
+move_real_or_file:
+	lwz	o0,0(a0)
+	lwz	o1,4(a0)
+	stw	o0,0(a6)
+	stw	o1,4(a6)
+	addi	a6,a6,8
+	b	skip_zero_bits
+
+move_int_bool_or_char:
+	lwz	o0,0(a0)
+	addi	a6,a6,4
+	stw	o0,-4(a6)
+copy_normal_hnf_0:
+	b	skip_zero_bits
+
+move_hnf_0:
+	cmplw	0,d0,int_reg
+	blt	move_real_file_string_or_array
+
+	cmplw	0,d0,char_reg
+	ble	move_int_bool_or_char
+
+;	b,a	copy_normal_hnf_0
+	b	skip_zero_bits
+
+move_real_file_string_or_array:
+	lea	o0,__STRING__+2
+	cmplw	0,d0,o0
+	bgt	move_real_or_file
+
+	bne	move_array
+
+	lwz	d0,0(a0)
+	addi	d0,d0,3
+	srwi	d0,d0,2
+
+cp_s_arg_lp3:
+	lwz	o0,0(a0)
+	subic.	d0,d0,1
+	stw	o0,0(a6)
+	blt	end_cp_s_lp3
+
+cp_s_lp3:
+	lwzu	o0,4(a0)
+	subic.	d0,d0,1
+	stwu	o0,4(a6)
+	bge	cp_s_lp3
+
+end_cp_s_lp3:
+	addi	a6,a6,4
+	b	skip_zero_bits
+
+move_record:
+	bsubicc	d1,258
+	blt	move_record_1
+	beq	move_record_2
+
+move_record_3:
+	lhz	d1,-2+2(d0)
+
+	lwz	a1,0(a0)
+
+	bsubicc	d1,1	
+
+	baddi	a0,4
+
+	bgt	move_hnf_3_
+
+	blt	move_record_3_1b
+
+move_record_3_1a:
+	cmplw	0,a1,a0
+	blt	move_record_3_1b
+ .if SHARE_CHAR_INT
+	cmplw	0,a1,d2
+	bge	move_record_3_1b
+ .endif
+	addi	d0,a6,1
+	lwz	d1,0(a1)
+	stw	d0,0(a1)
+	mr	a1,d1
+move_record_3_1b:
+	stw	a1,0(a6)
+	addi	a6,a6,4
+
+	lwz	a1,0(a0)
+	addi	a0,a0,4
+	cmplw	0,a1,a0
+	blt	move_record_3_2
+ .if SHARE_CHAR_INT
+	cmplw	0,a1,d2
+	bge	move_record_3_2
+ .endif
+	sub	d0,a1,d6
+	addi	d0,d0,4
+
+	tstmbit	o4,d0,d1,o0,o1,o2,2
+	beq	not_linked_record_argument_part_3_b
+
+	sub	d0,a6,d6
+	setmbit	o4,d0,d1,o0,o1,o2,2
+	b	linked_record_argument_part_3_b
+
+not_linked_record_argument_part_3_b:
+	srw	o0,g3,o2
+	or	o1,o1,o0	
+	stbx	o1,o4,d1
+
+	sub	d0,a6,d6
+	clrmbit	o4,d0,d1,o0,o1,o2,2
+
+linked_record_argument_part_3_b:
+	lwz	d1,0(a1)
+	addi	d0,a6,2+1
+	stw	d0,0(a1)
+	mr	a1,d1
+move_record_3_2:
+	stw	a1,0(a6)
+	addi	a6,a6,4
+
+	sub	o0,a2,o4
+	slwi	o0,o0,5
+	add	o0,o0,d6
+
+	addi	d7,d7,4
+	cmpw	cr0,d7,o0
+	
+	addi	d7,d7,4
+	slwi	d4,d4,2
+	blt	skip_zero_bits
+	bgt	bits_in_next_long
+
+	lis	o1,0x80000000>>16
+	b	one_bit_in_next_long
+
+bits_in_next_long:
+	lis	o1,0xc0000000>>16
+one_bit_in_next_long:
+	bdz	end_compact_heap
+
+	lwz	d4,0(a2)
+	andc	d4,d4,o1
+	b	skip_zeros_2+4
+
+move_record_2:
+	lhz	g1,-2+2(d0)
+	cmplwi	cr0,g1,1
+	bgt	move_hnf_2	
+	blt	move_real_or_file
+
+move_record_2_ab:
+	lwz	a1,0(a0)
+	lwzu	o0,4(a0)
+	cmplw	0,a1,a0
+	blt	move_record_2_1
+ .if SHARE_CHAR_INT
+	cmplw	0,a1,d2
+	addi	d0,a6,1
+	bge	move_record_2_1
+ .endif
+	lwz	d1,0(a1)
+	stw	d0,0(a1)
+	mr	a1,d1
+move_record_2_1:
+	stw	a1,0(a6)
+	stw	o0,4(a6)
+	addi	a6,a6,8
+	b	skip_zero_bits
+
+move_record_1:
+	lhz	g1,-2+2(d0)
+	cmpwi	cr0,g1,0
+	bne	move_hnf_1
+
+	b	move_int_bool_or_char
+
+skip_zeros_2_a:
+	lwz	d4,0(a2)
+	bdz-	out_of_memory_4
+	cmpwi	cr0,d4,0
+	addi	a2,a2,4
+	beq	skip_zeros_2_a
+
+end_skip_zeros_a:
+	sub	d7,a2,o4
+	subi	d7,d7,4
+	slwi	d7,d7,5
+	add	d7,d7,d6
+
+move_array:
+skip_zero_bits_a:
+	cntlzw	d1,d4
+	cmpwi	cr0,d1,32
+	beq	skip_zeros_2_a
+
+	slw	d4,d4,d1
+	slwi	d4,d4,1
+
+	slwi	d1,d1,2
+	add	d7,d7,d1
+
+	cmpw	cr0,d7,a0
+	mr	d1,d7
+	addi	d7,d7,4
+	bne	move_a_array
+
+move_b_array:
+	lwz	a1,0(a0)
+	lwzu	d1,4(a0)
+	stw	a1,0(a6)
+	lhz	d0,-2(d1)
+
+	addi	a6,a6,4
+
+	cmpwi	cr0,d0,0
+	beq	move_strict_basic_array
+
+	subi	d1,d0,256
+	mullw	d0,a1,d1
+	b	cp_s_arg_lp3
+
+move_strict_basic_array:
+	cmpw	cr0,d1,int_reg
+	mr	d0,a1
+	beq	cp_s_arg_lp3
+
+	cmpw	cr0,d1,bool_reg
+	beq	move_bool_array
+
+	add	d0,d0,d0
+	b	cp_s_arg_lp3
+
+move_bool_array:
+	addi	d0,d0,3
+	srwi	d0,d0,2
+	b	cp_s_arg_lp3
+
+move_a_array:
+	mr	a1,d1
+	sub	d1,d1,a0
+	srwi	d1,d1,2
+	subic.	d1,d1,1
+	blt	skip_zero_bits
+ .if 0
+		cmpwi	d1,1
+		ble	move_a_array_size_0_1
+ .endif
+
+; first swap second last element of array and second last element of header
+	lwz	o0,0(a0)
+	lwz	d0,-4(a1)
+	stw	o0,-4(a1)
+	stw	d0,0(a6)
+
+; then swap last element of array and last element of header
+; this also works for length 0 and 1 !
+
+	lwz	d0,0(a1)
+	lwz	o0,4(a0)
+	stw	o0,0(a1)
+	addi	a0,a0,8
+ .if 0
+	c_move_array_size_1:
+ .endif
+
+	cmpwi	cr0,d0,0
+	stw	d0,4(a6)
+	addi	a6,a6,8
+	beq	st_move_array_lp
+		
+	lhz	d3,-2+2(d0)
+	lhz	d0,-2(d0)
+	subi	d0,d0,256
+	cmpw	cr0,d0,d3
+	beq	st_move_array_lp
+
+move_array_ab:
+	mr	o2,d4
+	mr	o3,d5
+
+	mr	g2,d2
+	stw	a0,-4(sp)
+
+	lwz	d2,-8(a6)
+	mr	d1,d3
+
+	mr	d3,d0
+	slwi	d2,d2,2
+	mullw	a1,d2,d3
+
+	sub	d0,d0,d1
+	add	a1,a1,a0
+
+	mflr	r0
+	stw	r0,-8(sp)
+
+	bl	reorder
+
+	lwz	r0,-8(sp)
+	lwz	d3,-8(a6)
+	mtlr	r0
+
+	lwz	a0,-4(sp)
+	mr	d2,g2
+	subi	d1,d1,1
+	subi	d0,d0,1
+	b	st_move_array_lp_ab
+
+move_array_ab_lp1:
+	mr	d4,d1
+move_array_ab_a_elements:
+	lwz	d5,0(a0)
+	addi	a0,a0,4
+	cmplw	0,d5,a0
+	blt	move_array_element_ab
+ .if SHARE_CHAR_INT
+	cmplw	0,d5,d2
+	bge	move_array_element_ab
+ .endif
+	mr	a1,d5
+	lwz	d5,0(a1)
+	addi	o0,a6,1
+	stw	o0,0(a1)
+move_array_element_ab:
+	subic.	d4,d4,1
+	stw	d5,0(a6)
+	addi	a6,a6,4
+	bge	move_array_ab_a_elements
+
+	mr	d4,d0
+move_array_ab_b_elements:
+	lwz	o0,0(a0)
+	subic.	d4,d4,1
+	addi	a0,a0,4
+	stw	o0,0(a6)
+	addi	a6,a6,4
+	bge	move_array_ab_b_elements
+st_move_array_lp_ab:
+	subic.	d3,d3,1
+	bge	move_array_ab_lp1
+
+	mr	d5,o3
+	mr	d4,o2
+	b	skip_zero_bits
+
+st_move_array_lp:
+	subic.	d1,d1,1
+	subi	a6,a6,4
+	bge+	move_lazy_node_arguments
+	addi	a6,a6,4
+	b	skip_zero_bits
+ .if 0
+	move_a_array_size_0_1:
+		lwz	o0,0(a0)
+		lwz	d0,4(a0)
+		blt	move_array_size_0
+	
+		stw	d0,0(a6)
+		lwz	d0,8(a0)
+		stwu	o0,8(a0)
+		b	c_move_array_size_1
+	
+	move_array_size_0:
+		stw	o0,0(a6)
+		stw	d0,4(a6)
+		addi	a6,a6,8
+		b	skip_zero_bits
+ .endif
+
+move_lazy_node:
+	lha	d1,-2(d0)
+	mr	a1,d0
+	cmpwi	cr0,d1,0
+	beq	move_lazy_node_0
+
+	bsubicc	d1,1
+	ble	move_lazy_node_1
+
+	cmplwi	cr0,d1,256
+	bge	move_closure_with_unboxed_arguments
+
+move_lazy_node_arguments:
+	lwz	a1,0(a0)
+	baddi	a0,4
+	cmplw	0,a1,a0
+	blt	move_lazy_node_arguments_
+ .if SHARE_CHAR_INT
+	cmplw	0,a1,d2
+	bge	move_lazy_node_arguments_
+ .endif
+	lwz	o0,0(a1)
+
+	bsubicc	d1,1
+
+	stwu	o0,4(a6)
+	addi	d0,a6,1
+	stw	d0,0(a1)
+	bge	move_lazy_node_arguments
+
+	baddi	a6,4
+	b	skip_zero_bits
+
+move_lazy_node_arguments_:
+	bsubicc	d1,1
+	stwu	a1,4(a6)
+	bge	move_lazy_node_arguments
+		
+	baddi	a6,4
+	b	skip_zero_bits
+
+move_lazy_node_1:
+	lwz	a1,0(a0)
+	baddi	a0,4
+	cmplw	0,a1,a0
+	blt	move_lazy_node_1_
+ .if SHARE_CHAR_INT
+	cmplw	0,a1,d2
+	bge	move_lazy_node_1_
+ .endif
+	addi	d0,a6,4+1
+	lwz	d1,0(a1)
+	stw	d0,0(a1)
+	mr	a1,d1
+move_lazy_node_1_:
+	stw	a1,4(a6)
+move_lazy_node_0:
+	baddi	a6,12
+	b	skip_zero_bits
+
+move_closure_with_unboxed_arguments:
+	baddi	d1,1
+	srwi	d0,d1,8
+	beq	move_closure_with_unboxed_arguments_1
+	bandic	d1,255
+	bsubc	d1,d0
+	beq	copy_non_pointers_of_closure
+
+move_pointers_in_closure:
+	lwz	a1,0(a0)
+	baddi	a0,4
+	cmplw	6,a1,a0
+
+	bsubicc	d1,1
+
+	blt	cr6,move_pointers_in_closure_
+ .if SHARE_CHAR_INT
+	cmplw	6,a1,d2
+	bge	cr6,move_pointers_in_closure_
+ .endif
+	lwz	o0,0(a1)
+	addi	o1,a6,4+1
+	stw	o1,0(a1)
+	mr	a1,o0
+
+move_pointers_in_closure_:
+	stwu	a1,4(a6)
+	bne	move_pointers_in_closure
+
+copy_non_pointers_of_closure:
+	bsubicc	d0,1
+
+	lwz	d1,0(a0)
+	baddi	a0,4
+	stwu	d1,4(a6)
+	
+	bne	copy_non_pointers_of_closure
+
+	baddi	a6,4
+	b	skip_zero_bits
+
+move_closure_with_unboxed_arguments_1:
+	lwz	d0,0(a0)
+	baddi	a6,12
+	stw	d0,4-12(a6)
+	b	skip_zero_bits	
+
+end_compact_heap:
+
+ .if FINALIZERS
+	lea	a0,finalizer_list
+	lwz	a0,0(a0)
+
+restore_finalizer_descriptors:
+	lea	o0,__Nil-8
+	cmplw	o0,a0
+	beq	end_restore_finalizer_descriptors
+
+	lea	o0,e____system__kFinalizer+2
+	stw	o0,0(a0)
+	lwz	a0,4(a0)
+	b	restore_finalizer_descriptors
+
+end_restore_finalizer_descriptors:
+ .endif

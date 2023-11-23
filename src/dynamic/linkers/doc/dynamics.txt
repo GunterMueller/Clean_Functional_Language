@@ -1,0 +1,35 @@
+Dynamics issues
+
+Platform dependent parts:
+
+- what if for example a platform specific function is packed into a  dynamic? 
+  Example: freads. Are certain modules not imported like the  StdEnv because 
+  although the interface behaves in platform independent  way, the implemention 
+  is not platform independent.  
+  (dynamic linker)
+
+- the conversion routine use exactly the format for storing arbitrary  Clean 
+  objects, but machine words are stored in reverse order. A  possible solution 
+  could be to encoded the platform and use and extra  pass to reverse all words. 
+  (run-time conversion functions) 
+
+Types:
+- unique types in dynamics so destructively updating dynamics becomes  possible.  
+  (compiler for storing attributes,extension of run-time type check  algoritm)
+- lazy reading of dynamics and preserving sharing as much as possible as described 
+  in Marco's work.
+  (extension of run-time conversion functions such that individual  nodes become 
+  directly accessible, extension of the run-time system  to include: the creation
+  of nodes which take care of reading a node  from disk and the administration for
+  sharing nodes)
+
+- extension of Marco's Pil type algoritm by introducing a normal form for types 
+  such that for example:  :: Col1 = Blue | Red;  :: Col2 = Red | Blue;  
+  These type should be considered equeal.  (extension of dynamic type algoritm)
+
+- identification of types. For example: several modules can provide other definition 
+  for trees   
+
+- Code and data during running application
+
+- version manager of object/abc modules  (dynamic linker)- code and data garbage collector  (dynamic linker)Network:- another representation for network dynamics is needed because in a   "hostile" environment, symbolic function pointers are no longer  sufficient because these modules may not exists in that environment.  A possible solution could be to extend the dynamic with a third  component containing the required ABC-code. The ABC-code can then  be assembled as needed. This implies also that symbolic function  pointers should be universal e.i. all tools should use the same  labelling convention regardless of their platform.  

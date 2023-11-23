@@ -1,0 +1,16 @@
+# This is for Unix
+CC = gcc
+CFLAGS = -D_SUN_ -DGNU_C -O -fomit-frame-pointer -m32
+AR = ar
+RANLIB = ranlib
+
+OBJECTS = \
+	backend.o backendsupport.o buildtree.o cocl.o \
+	codegen1.o codegen2.o codegen3.o codegen.o \
+	comsupport.o dbprint.o instructions.o optimisations.o \
+	pattern_match_2.o result_state_database.o sa.o \
+	set_scope_numbers.o settings.o unix_io.o statesgen.o
+
+backend.a: $(OBJECTS)
+	$(AR) cur backend.a $(OBJECTS)
+	$(RANLIB) backend.a

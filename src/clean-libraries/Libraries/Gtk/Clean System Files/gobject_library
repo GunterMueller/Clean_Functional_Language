@@ -1,0 +1,7 @@
+libgobject-2.0-0.dll
+g_object_unref
+g_signal_connect_data
+g_value_get_string
+g_value_init
+g_value_take_string
+g_value_unset

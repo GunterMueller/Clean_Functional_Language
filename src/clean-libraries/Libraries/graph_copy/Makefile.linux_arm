@@ -1,0 +1,19 @@
+
+all: copy_graph_to_string.o copy_string_to_graph.o copy_graph_to_string_interface.o copy_string_to_graph_interface.o
+
+copy_graph_to_string.o: copy_graph_to_string.c copy_graph_to_string_implementation.c remove_forwarding_pointers_from_graph_implementation.c
+	gcc -fomit-frame-pointer -O -c -DLINUX32 -DNO_PROFILE_GRAPH copy_graph_to_string.c
+	cp copy_graph_to_string.o "Clean System Files"/copy_graph_to_string.o
+
+copy_string_to_graph.o:	copy_string_to_graph.c
+	gcc -fomit-frame-pointer -O -c -DLINUX32 -DNO_PROFILE_GRAPH copy_string_to_graph.c
+	cp copy_string_to_graph.o "Clean System Files"/copy_string_to_graph.o
+
+copy_string_to_graph.o: copy_string_to_graph.c copy_string_to_graph_implementation.c
+	as copy_graph_to_string_interface_linux_arm.s -o copy_graph_to_string_interface.o
+	cp copy_graph_to_string_interface.o "Clean System Files"/copy_graph_to_string_interface.o
+
+copy_string_to_graph_interface.o: copy_string_to_graph_interface_linux_arm.s
+	as copy_string_to_graph_interface_linux_arm.s -o copy_string_to_graph_interface.o
+	cp copy_string_to_graph_interface.o "Clean System Files"/copy_string_to_graph_interface.o
+

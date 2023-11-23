@@ -1,0 +1,68 @@
+foreign module xpicture;
+
+int start_drawing(int)				'StartXDrawing';
+int end_drawing(int)				'EndXDrawing';
+
+int hide_pen(int)				'HidePenX';
+int show_pen(int)				'ShowPenX';
+void get_pen(int,int *,int *)			'GetPenX';
+int pen_size(int,int,int)				'PenSizeX';
+int pen_mode(int,int)				'PenModeX';
+int pen_pattern(int,int)			'PenPatternX';
+int pen_normal(int)				'PenNormalX';
+
+int move_to(int,int,int)			'MoveToX';
+int move_relative(int,int,int)			'MoveRelativeX';
+int line_to(int,int,int)			'LineToX';
+int line_relative(int,int,int)			'LineRelativeX';
+int draw_string(CLEAN_STRING,int)		'DrawStringX';
+
+int get_color(int)				'GetColorX';
+int foreground_color(int,int)			'ForegroundColorX';
+int background_color(int,int)			'BackgroundColorX';
+int rgb_fg_color(double,double,double,int)	'RGBForegroundColorX';
+int rgb_bg_color(double,double,double,int)	'RGBBackgroundColorX';
+
+int draw_line(int,int,int,int,int)		'DrawLineX';
+int draw_point(int,int,int)			'DrawPointX';
+int frame_rectangle(int,int,int,int,int)	'FrameRectangleX';
+int paint_rectangle(int,int,int,int,int)	'PaintRectangleX';
+int erase_rectangle(int,int,int,int,int)	'EraseRectangleX';
+int invert_rectangle(int,int,int,int,int)	'InvertRectangleX';
+int move_rectangle(int,int,int,int,int,int,int)	'MoveRectangleX';
+int copy_rectangle(int,int,int,int,int,int,int) 'CopyRectangleX';
+int frame_round_rectangle(int,int,int,int,int,int,int)		'FrameRoundRectangleX';
+int paint_round_rectangle(int,int,int,int,int,int,int)              'PaintRoundRectangleX';
+int erase_round_rectangle(int,int,int,int,int,int,int)              'EraseRoundRectangleX';
+int invert_round_rectangle(int,int,int,int,int,int,int)             'InvertRoundRectangleX';
+int frame_oval(int,int,int,int,int)		'FrameOvalX';
+int paint_oval(int,int,int,int,int)		'PaintOvalX';
+int erase_oval(int,int,int,int,int)		'EraseOvalX';
+int invert_oval(int,int,int,int,int)		'InvertOvalX';
+int frame_arc(int,int,int,int,int,int,int)	'FrameArcX';
+int paint_arc(int,int,int,int,int,int,int)	'PaintArcX';
+int erase_arc(int,int,int,int,int,int,int)	'EraseArcX';
+int invert_arc(int,int,int,int,int,int,int)	'InvertArcX';
+int alloc_polygon(int)				'AllocatePolygonX';
+int free_polygon(int,int)			'FreePolygonX';
+int set_polygon_point(int,int,int,int)		'SetPolygonPointX';
+int frame_polygon(int,int,int,int,int)		'FramePolygonX';
+int paint_polygon(int,int,int,int,int)		'PaintPolygonX';
+int erase_polygon(int,int,int,int,int)		'ErasePolygonX';
+int invert_polygon(int,int,int,int,int)		'InvertPolygonX';
+
+int get_number_fonts(int)			'GetNumberOfFontsX';
+CLEAN_STRING get_font_name(int)			'GetFontNameX';
+void get_font_info(int,int *,int *,int *,int *,int*)			'GetFontInfoX';
+void get_font_font_info(int,int *,int *,int *,int *)			'GetFontFontInfoX';
+void get_string_width(int,CLEAN_STRING,int *,int*)		'GetStringWidthX';
+int get_font_string_width(int,CLEAN_STRING)	'GetFontStringWidthX';
+int set_font(int,int,CLEAN_STRING,CLEAN_STRING,CLEAN_STRING)			'SetFontX';
+int set_font_name(int, CLEAN_STRING)		'SetFontNameX';
+int set_font_style(int, CLEAN_STRING)		'SetStyleX';
+int set_font_size(int, CLEAN_STRING)		'SetSizeX';
+int select_default_font(int)			'SelectDefaultFontX';
+int select_font(CLEAN_STRING)			'SelectFontX';
+void get_font_styles(CLEAN_STRING,int *,int *,int *,int *,int *)		'GetFontStylesX';
+int get_font_sizes(CLEAN_STRING)		'GetFontSizesX';
+int get_one_font_size(int)			'GetOneFontSizeX';

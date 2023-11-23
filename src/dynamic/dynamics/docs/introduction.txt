@@ -1,0 +1,48 @@
+The dynamic implementation in Clean 2.0
+
+This document describes the changes w.r.t. Clean 1.3 necessary to support
+dynamics in Clean.
+
+Survey of tools:
+----------------
+Clean IDE:
+If you want to use dynamics, then your project must be marked as dynamic
+by setting Project\Project Options\Linker\Link Method to eager.
+
+Clean 2.0-compiler:
+For each definition/implementation module a type file is created with the
+tcl-extension. The type file contains all the type definitions of its
+implementation module.
+
+Code generator:
+The code generator is presented with extra options which have the following
+effects:
+	- the label names of an implementation module type are (also) exported
+	- all prefixes of a label name part of a type implementation are generated
+	- a section which assumes the flow of control proceeds to the directly 
+          following section is marked with an absolute relocation.
+	- references to start of a section of a label part which (partly) implements 
+	  a type become references through this label.
+
+Static linker:
+The static linker produces an application with a .lib and .typ extension. The .lib
+is an 'executable'. It essentially is concatenation of the object files needed for 
+an application which have been checked for consistency.
+
+The type file i.e. the .typ-file contains is a concatenation of all types files
+needed for an application. 
+
+Dynamic Linker:
+If you want to start an application from the prompt, then use the full path name to
+.lib-file you want to start. The commandline for your application can then be appended.
+
+Type equivalence:
+-----------------
+Two equally named types are equivalent iff their defintions are equivalent. Two definitions
+are equivalent if they are syntaxically the same modulo alpha conversion on the arguments of
+type constructors.
+
+Type equivalence & projection:
+------------------------------
+If a dynamic has successfully been matched against a dynamic pattern, then that dynamic can
+also be used after future successfull matches in other dynamic patterns.

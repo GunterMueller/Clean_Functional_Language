@@ -1,0 +1,90 @@
+// PASS ONE: COLOURING NODES
+//
+// Format SN: (shared nodes)
+// word 0:	descP
+// word 1 (1234):
+//			- 12 reserved
+//			- 34 colour index
+//
+// Format DL: (dynamics list)
+// word:	pointer to dynamic
+//
+// Format CT: (colour table)
+// word:	colour combination number
+//
+//
+// PASS TWO 
+//
+// Format SN: (shared nodes)
+// word 0: 	descP
+// word 1 (1234):
+//			- most significant bit of byte 1:
+//				= 0, then SN-node (default)
+//				= 1, then EN-node
+//			- rest of 12 reserved
+//			- 34 colour index
+//
+// Format EN: (entry nodes)
+// word 0 (EN_DESCP)/1 (EN_COLOUR) like in SN-format. Most significant bit of byte 1 should be set to one.
+// word 2 (EN_NODE_INDEX) : NodeIndex
+// word 3 (EN_BLOCK_OFFSET):unused
+// word 4 (EN_NODE): node
+//
+// Format NodeIndex:
+// word (1234):
+//			- 12 entry node index
+//
+// Format BlockIndex
+//			- 34 except for least two significant bits, block index (*4)
+//			- least two significant bits are reserved
+//
+// Format CT: (colour table)
+// word (1234):
+//			- 12 next available entry node index, initialized at zero
+//			- 34 in BlockIndex-format
+//
+// Format 'internal reference':
+// word (1234): 
+//			- 1234 byte offset 
+//			- least two significant bits 01
+//
+// Format 'external reference':
+// word (1234): 
+//			- 1234 in NodeIndex format 
+//			- least two significant bits 11
+// 
+// Format BI: (block info)
+// word (1234):
+//			- 12 block size (in bytes)
+//			- 34 in BlockIndex-format
+
+// ------------------------------------------------------------------------------------------	
+// Linked block implementation
+/*	
+	Interface:
+
+	// User definable
+#define N_LB_ENTRIES		8			// n entries = 2 ^ N_LB_ENTRIES_EXP
+#define N_LB_ENTRIES_EXP	3
+
+
+#define LB_ENTRY_BSIZE		4			// entry size = 2 ^ LB_ENTRY_BSIZE_EXP (in bytes)
+#define LB_ENTRY_BSIZE_EXP	2			
+#define MAKE_ID(x)			x##_Example
+
+#include "LinkedBlock.c"
+
+	Description:
+	The above text creates a linked list of tables. Each table has N_LB_ENTRIES-entries.
+	Each entry has size LB_ENTRY_BSIZE. The following routines are available:
+	
+	Variables:
+	MAKE_ID(lb_root)			// ptr to root of list
+	
+	Subroutines:
+	MAKE_ID(lb_init)			// initializes the linked block
+	MAKE_ID(lb_alloc_entry)		// allocates entry, OUT: %ecx ptr to newly created entry
+	MAKE_ID(lb_index_of_entry)	// gets ptr to indexed entry, IN: %ecx valid zero based index, OUT: %ecx ptr to entry
+	MAKE_ID(lb_size)			// computes array size, OUT: %ecx array size
+	MAKE_ID(lb_map_array)		// maps on array, IN: %ecx address of map function
+*/

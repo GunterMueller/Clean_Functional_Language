@@ -1,0 +1,1064 @@
+SECTION DEPENDENCIES:
+  SYMBOL writeStore               :: "(StoreId a) a PSt -> PSt"
+  SYMBOL snd                      :: "!(a, !b) -> b"
+  SYMBOL readStore                :: "(StoreId a) PSt -> (a, PSt)"
+  SYMBOL gec                      :: "((IncludeUpdate -> b -> PSt -> PSt) -> PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)) (a -> b) (IncludeUpdate -> b -> PSt -> PSt) PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)"
+  SYMBOL self`                    :: "(((IncludeUpdate -> (a, EITHER a a) -> PSt -> PSt) -> PSt -> (IncludeUpdate -> (a, EITHER a a) -> PSt -> PSt, PSt)) -> (IncludeUpdate -> (a, EITHER a a) -> PSt -> PSt) -> PSt -> (IncludeUpdate -> (a, EITHER a a) -> PSt -> PSt, PSt)) ((IncludeUpdate -> a -> PSt -> PSt) -> PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)) ((IncludeUpdate -> a -> PSt -> PSt) -> PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)) (IncludeUpdate -> a -> PSt -> PSt) PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)"
+  SYMBOL feedback`                :: "(((IncludeUpdate -> a -> PSt -> PSt) -> PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)) -> ((IncludeUpdate -> a -> PSt -> PSt) -> PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)) -> (IncludeUpdate -> a -> PSt -> PSt) -> PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)) ((IncludeUpdate -> a -> PSt -> PSt) -> PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)) (IncludeUpdate -> a -> PSt -> PSt) PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)"
+  SYMBOL self                     :: "((IncludeUpdate -> a -> PSt -> PSt) -> PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)) ((IncludeUpdate -> a -> PSt -> PSt) -> PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)) (IncludeUpdate -> a -> PSt -> PSt) PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)"
+  SYMBOL feedback                 :: "((IncludeUpdate -> a -> PSt -> PSt) -> PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)) (IncludeUpdate -> a -> PSt -> PSt) PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)"
+  SYMBOL openStore                :: "(StoreId a) (Maybe a) PSt -> (Bool, PSt)"
+  SYMBOL Nothing                  :: "Maybe a"
+  SYMBOL Just                     :: "a -> Maybe a"
+  SYMBOL openStoreId              :: "PSt -> (StoreId a, PSt)"
+  SYMBOL StoreId                  :: "Int -> StoreId a"
+  SYMBOL arr                      :: "(a -> b) (IncludeUpdate -> b -> PSt -> PSt) PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)"
+  SYMBOL id                       :: "!a -> a"
+  SYMBOL loop                     :: "((IncludeUpdate -> (c, b) -> PSt -> PSt) -> PSt -> (IncludeUpdate -> (a, b) -> PSt -> PSt, PSt)) (IncludeUpdate -> c -> PSt -> PSt) PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)"
+  SYMBOL simple_loop              :: "((a, b) -> (c, b)) a -> c"
+  SYMBOL second                   :: "((IncludeUpdate -> b -> PSt -> PSt) -> PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)) (IncludeUpdate -> (c, b) -> PSt -> PSt) PSt -> (IncludeUpdate -> (c, a) -> PSt -> PSt, PSt)"
+  SYMBOL >>>                      :: "((IncludeUpdate -> b -> PSt -> PSt) -> PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)) ((IncludeUpdate -> c -> PSt -> PSt) -> PSt -> (IncludeUpdate -> b -> PSt -> PSt, PSt)) (IncludeUpdate -> c -> PSt -> PSt) PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)"
+  SYMBOL assoc                    :: "((a, b), c) -> (a, (b, c))"
+  SYMBOL unassoc                  :: "(a, (b, c)) -> ((a, b), c)"
+  SYMBOL cross                    :: "(a -> b) (c -> d) (a, c) -> (b, d)"
+  SYMBOL first                    :: "((IncludeUpdate -> b -> PSt -> PSt) -> PSt -> (IncludeUpdate -> a -> PSt -> PSt, PSt)) (IncludeUpdate -> (b, c) -> PSt -> PSt) PSt -> (IncludeUpdate -> (a, c) -> PSt -> PSt, PSt)"
+  SYMBOL fst                      :: "!(!a, b) -> a"
+  SYMBOL o                        :: "(a -> b) (c -> a) -> c -> b"
+
+SECTION DEFINES:
+  THEOREM 01identity               : (All f (= (@ 18 >>> (@ 13 arr (@ 14 id)) f) f))
+  THEOREM 02identity               : (All f (= (@ 18 >>> f (@ 13 arr (@ 14 id))) f))
+  THEOREM 03associativity          : (All f (All g (All h (= (@ 18 >>> (@ 18 >>> f g) h) (@ 18 >>> f (@ 18 >>> g h))))))
+  THEOREM 04functor_composition    : (All g (All f (= (@ 13 arr (@ 24 o g f)) (@ 18 >>> (@ 13 arr f) (@ 13 arr g)))))
+  THEOREM 05extension              : (All f (= (@ 22 first (@ 13 arr f)) (@ 13 arr (@ 21 cross f (@ 14 id)))))
+  THEOREM 06functor                : (All f (All g (= (@ 22 first (@ 18 >>> f g)) (@ 18 >>> (@ 22 first f) (@ 22 first g)))))
+  THEOREM 07exchange               : (All f (All g (= (@ 18 >>> (@ 22 first f) (@ 13 arr (@ 21 cross (@ 14 id) g))) (@ 18 >>> (@ 13 arr (@ 21 cross (@ 14 id) g)) (@ 22 first f)))))
+  THEOREM 08unit                   : (All f (= (@ 18 >>> (@ 22 first f) (@ 13 arr (@ 23 fst))) (@ 18 >>> (@ 13 arr (@ 23 fst)) f)))
+  THEOREM 09association            : (All f (= (@ 18 >>> (@ 22 first (@ 22 first f)) (@ 13 arr (@ 19 assoc))) (@ 18 >>> (@ 13 arr (@ 19 assoc)) (@ 22 first f))))
+  THEOREM 10left_tightening        : (All h (All f (= (@ 15 loop (@ 18 >>> (@ 22 first h) f)) (@ 18 >>> h (@ 15 loop f)))))
+  THEOREM 11right_tightening       : (All f (All h (= (@ 15 loop (@ 18 >>> f (@ 22 first h))) (@ 18 >>> (@ 15 loop f) h))))
+  THEOREM 12sliding                : (All f (All k (= (@ 15 loop (@ 18 >>> f (@ 13 arr (@ 21 cross (@ 14 id) k)))) (@ 15 loop (@ 18 >>> (@ 13 arr (@ 21 cross (@ 14 id) k)) f)))))
+  THEOREM 13vanishing              : (All f (= (@ 15 loop (@ 15 loop f)) (@ 15 loop (@ 18 >>> (@ 13 arr (@ 20 unassoc)) (@ 18 >>> f (@ 13 arr (@ 19 assoc)))))))
+  THEOREM 14superposing            : (All f (= (@ 17 second (@ 15 loop f)) (@ 15 loop (@ 18 >>> (@ 13 arr (@ 19 assoc)) (@ 18 >>> (@ 17 second f) (@ 13 arr (@ 20 unassoc)))))))
+  THEOREM 15extension              : (All f (= (@ 15 loop (@ 13 arr f)) (@ 13 arr (@ 16 simple_loop f))))
+  THEOREM GecCircuit               : (All f (Ex f` (= f (@ 3 gec f f`))))
+  THEOREM axiom                    : (= (BOOL False) (BOOL True))
+  THEOREM feedback_self_id         : (All f (= (@ 7 feedback f) (@ 6 self f (@ 13 arr (@ 14 id)))))
+  THEOREM openStoreId_0            : (All env (= (@ 11 openStoreId env) (TUPLE (@ 12 StoreId (INT 0)) env)))
+  THEOREM openStoreId_1            : (All env (= (@ 11 openStoreId env) (TUPLE (@ 12 StoreId (INT 1)) env)))
+  THEOREM openStoreId_2            : (All env (= (@ 11 openStoreId env) (TUPLE (@ 12 StoreId (INT 2)) env)))
+  THEOREM openStoreId_3            : (All env (= (@ 11 openStoreId env) (TUPLE (@ 12 StoreId (INT 3)) env)))
+  THEOREM openStore_Just           : (All i (All x (All env (= (@ 8 openStore i (@ 10 Just x) env) (TUPLE (BOOL True) (@ 0 writeStore i x env))))))
+  THEOREM openStore_Nothing        : (All i (All env (= (@ 8 openStore i (@ 9 Nothing) env) (TUPLE (BOOL True) env))))
+  THEOREM readStore_writeStore     : (All i (All x (All env (= (@ 2 readStore i (@ 0 writeStore i x env)) (TUPLE x env)))))
+  THEOREM self`_feedback_self      : (All g (All f (= (@ 4 self` (@ 7 feedback) g f) (@ 6 self g f))))
+  THEOREM self`_feedback`_self     : (All g (All f (= (@ 4 self` (@ 5 feedback` (@ 6 self)) g f) (@ 6 self g f))))
+  THEOREM snd_readStore            : (All i (All env (= (@ 1 snd (@ 2 readStore i env)) env)))
+  THEOREM writeStore               : (All i (All x (All env (= (@ 0 writeStore i x env) env))))
+
+THEOREM:
+  01identity
+DEPENDS:
+  3 18 13 14
+PROOF:
+  Introduce f.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Witness for H1.
+     Rewrite -> All H1.
+     Extensionality set1.
+     Extensionality env1.
+     Introduce env1 set1.
+     Reduce NF All (  ).
+     Injective.
+     Split Deep.
+     1. Extensionality u1.
+        Extensionality x1.
+        Extensionality env2.
+        Introduce env2 x1 u1.
+        Reduce NF All (  ).
+        Reflexive.
+     2. Reflexive.
+  2. Apply "GecCircuit".
+
+THEOREM:
+  02identity
+DEPENDS:
+  3 18 13 14
+PROOF:
+  Introduce f.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Witness for H1.
+     Rewrite -> All H1.
+     Extensionality set1.
+     Extensionality env1.
+     Introduce env1 set1.
+     Reduce NF All (  ).
+     Injective.
+     Split Deep.
+     1. Extensionality u1.
+        Extensionality x1.
+        Extensionality env2.
+        Introduce env2 x1 u1.
+        Reduce NF All (  ).
+        Reflexive.
+     2. Reflexive.
+  2. Apply "GecCircuit".
+
+THEOREM:
+  03associativity
+DEPENDS:
+  18
+PROOF:
+  Introduce f g h.
+  Extensionality set1.
+  Extensionality env1.
+  Introduce env1 set1.
+  Reduce NF All (  ).
+  SplitCase 4.
+  1. Reduce NF All (  ).
+     Reflexive.
+  2. Reduce NF All (  ).
+     Reflexive.
+
+THEOREM:
+  04functor_composition
+DEPENDS:
+  13 24 18
+PROOF:
+  Introduce g f.
+  Extensionality set1.
+  Extensionality env1.
+  Introduce env1 set1.
+  Reduce NF All (  ).
+  Injective.
+  Split Deep.
+  1. Extensionality u.
+     Extensionality x.
+     Extensionality env2.
+     Introduce env2 x u.
+     Reduce NF All (  ).
+     Reflexive.
+  2. Reflexive.
+
+THEOREM:
+  05extension
+DEPENDS:
+  22 13 21 14
+PROOF:
+  Introduce f.
+  Extensionality set1.
+  Extensionality env1.
+  Introduce env1 set1.
+  Reduce 2 All (  ).
+  Rewrite -> All "openStoreId_0".
+  Rewrite -> All "openStore_Nothing".
+  Reduce NF All (  ).
+  Injective.
+  Split Deep.
+  1. Extensionality u.
+     Extensionality x.
+     Extensionality env2.
+     Introduce env2 x u.
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "readStore_writeStore".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce NF All (  ).
+     Reflexive.
+  2. Reflexive.
+
+THEOREM:
+  06functor
+DEPENDS:
+  3 22 18
+PROOF:
+  Introduce f g.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Assume (Ex g` (= g (@ 3 gec g g`))).
+     1. Witness for H1.
+        Witness for H2.
+        Rewrite -> All H1.
+        Rewrite -> All H2.
+        Extensionality set1.
+        Extensionality env1.
+        Introduce env1 set1.
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "openStoreId_0".
+        Rewrite -> All "openStore_Nothing".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "openStoreId_1".
+        Reduce 1 All (  ).
+        Rewrite -> All "openStore_Nothing".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "openStoreId_2".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "openStore_Nothing".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Injective.
+        Split Deep.
+        1. Extensionality u1.
+           Extensionality x1.
+           Extensionality env2.
+           Introduce env2 x1 u1.
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Rewrite -> All "readStore_writeStore".
+           Reduce 1 All (  ).
+           Rewrite -> All "readStore_writeStore".
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Rewrite -> All "readStore_writeStore".
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Reduce NF All (  ).
+           Reflexive.
+        2. Reflexive.
+     2. Apply "GecCircuit".
+  2. Apply "GecCircuit".
+
+THEOREM:
+  07exchange
+DEPENDS:
+  3 18 22 13 21 14
+PROOF:
+  Introduce f g.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Assume (Ex g` (= g (@ 3 gec g g`))).
+     1. Witness for H2.
+        Witness for H1.
+        Rewrite -> All H1.
+        Rewrite -> All H2.
+        Extensionality set1.
+        Extensionality env1.
+        Introduce env1 set1.
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "openStoreId_0".
+        Reduce 1 All (  ).
+        Rewrite -> All "openStore_Nothing".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "openStoreId_1".
+        Reduce 1 All (  ).
+        Rewrite -> All "openStore_Nothing".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Injective.
+        Split Deep.
+        1. Extensionality u1.
+           Extensionality x1.
+           Extensionality env2.
+           Introduce env2 x1 u1.
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Rewrite -> All "readStore_writeStore".
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Reduce 1 All (  ).
+           Rewrite -> All "readStore_writeStore".
+           Reduce 1 All (  ).
+           Reduce NF All (  ).
+           Reflexive.
+        2. Reflexive.
+     2. Apply "GecCircuit".
+  2. Apply "GecCircuit".
+
+THEOREM:
+  08unit
+DEPENDS:
+  3 18 22 13 23
+PROOF:
+  Introduce f.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Witness for H1.
+     Extensionality set1.
+     Extensionality env1.
+     Introduce env1 set1.
+     Rewrite -> All H1.
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStoreId_0".
+     Reduce 1 All (  ).
+     Rewrite -> All "openStore_Nothing".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Injective.
+     Split Deep.
+     1. Extensionality u1.
+        Extensionality x1.
+        Extensionality env2.
+        Introduce env2 x1 u1.
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "readStore_writeStore".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce NF All (  ).
+        Reflexive.
+     2. Reflexive.
+  2. Apply "GecCircuit".
+
+THEOREM:
+  09association
+DEPENDS:
+  3 18 22 13 19
+PROOF:
+  Introduce f.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Witness for H1.
+     Rewrite -> All H1.
+     Extensionality set1.
+     Extensionality env1.
+     Introduce env1 set1.
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStoreId_0".
+     Reduce 1 All (  ).
+     Rewrite -> All "openStore_Nothing".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStoreId_1".
+     Reduce 1 All (  ).
+     Rewrite -> All "openStore_Nothing".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStoreId_2".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStore_Nothing".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Injective.
+     Split Deep.
+     1. Extensionality u1.
+        Extensionality x1.
+        Extensionality env2.
+        Introduce env2 x1 u1.
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "readStore_writeStore".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "readStore_writeStore".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce NF All (  ).
+        Reflexive.
+     2. Reflexive.
+  2. Apply "GecCircuit".
+
+THEOREM:
+  10left_tightening
+DEPENDS:
+  3 15 18 22
+PROOF:
+  Introduce h f.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Assume (Ex h` (= h (@ 3 gec h h`))).
+     1. Witness for H1.
+        Witness for H2.
+        Extensionality set1.
+        Extensionality env1.
+        Introduce env1 set1.
+        Rewrite -> All H1.
+        Rewrite -> All H2.
+        Reduce 1 All (  ).
+        Rewrite -> All "openStoreId_0".
+        Reduce 1 All (  ).
+        Rewrite -> All "openStore_Nothing".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "openStoreId_1".
+        Reduce 1 All (  ).
+        Rewrite -> All "openStore_Nothing".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "openStoreId_2".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "openStore_Nothing".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Injective.
+        Split Deep.
+        1. Extensionality u1.
+           Extensionality x1.
+           Extensionality env2.
+           Introduce env2 x1 u1.
+           Reduce 1 (set` 3 NO) (  ).
+           Uncurry.
+           Reduce 1 All (  ).
+           Uncurry.
+           Reduce 1 (set` 3 NO) (  ).
+           Uncurry.
+           Reduce 1 (loop_setcb 2 NO) (  ).
+           Reduce 1 (first_setac 1 NO) (  ).
+           Uncurry.
+           Reduce 1 (set` 1 NO) (  ).
+           Uncurry.
+           Reduce 1 (first_setb 1 NO) (  ).
+           Rewrite -> All "readStore_writeStore".
+           Reduce 2 (first_setb2 1 NO) (  ).
+           Uncurry.
+           Reduce 1 (set` 1 NO) (  ).
+           Uncurry.
+           Reduce 1 (loop_setcb 1 NO) (  ).
+           Rewrite -> All "readStore_writeStore".
+           Reduce 4 (snd 2 NO) (  ).
+           Reduce 4 (fst 3 NO) (  ).
+           Reduce 4 (snd 2 NO) (  ).
+           Reduce 4 (fst 1 NO) (  ).
+           Reflexive.
+        2. Reflexive.
+     2. Apply "GecCircuit".
+  2. Apply "GecCircuit".
+
+THEOREM:
+  11right_tightening
+DEPENDS:
+  3 15 18 22
+PROOF:
+  Introduce f h.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Assume (Ex h` (= h (@ 3 gec h h`))).
+     1. Witness for H1.
+        Witness for H2.
+        Rewrite -> All H1.
+        Rewrite -> All H2.
+        Extensionality set1.
+        Extensionality env1.
+        Introduce env1 set1.
+        Reduce 1 All (  ).
+        Rewrite -> All "openStoreId_0".
+        Reduce 1 All (  ).
+        Rewrite -> All "openStore_Nothing".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "openStoreId_1".
+        Reduce 1 All (  ).
+        Rewrite -> All "openStore_Nothing".
+        Reduce 1 All (  ).
+        Rewrite -> All "openStoreId_2".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "openStore_Nothing".
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Injective.
+        Split Deep.
+        1. Extensionality u1.
+           Extensionality x1.
+           Extensionality env2.
+           Introduce env2 x1 u1.
+           Reduce 1 All (  ).
+           Uncurry.
+           Reduce 1 (set` 1 NO) (  ).
+           Reduce 1 (set` 2 NO) (  ).
+           Uncurry.
+           Reduce 1 (first_setac 1 NO) (  ).
+           Uncurry.
+           Reduce 1 (set` 1 NO) (  ).
+           Uncurry.
+           Reduce 1 (first_setb 1 NO) (  ).
+           Rewrite -> All "readStore_writeStore".
+           Reduce 2 (first_setb2 1 NO) (  ).
+           Uncurry.
+           Reduce 1 (loop_setcb 1 NO) (  ).
+           Reduce 1 (loop_setcb 1 NO) (  ).
+           Rewrite -> All "readStore_writeStore".
+           Reduce NF (snd 1 NO) (  ).
+           Reduce NF (fst 1 NO) (  ).
+           Uncurry.
+           Reduce NF (set` 1 NO) (  ).
+           Reflexive.
+        2. Reflexive.
+     2. Apply "GecCircuit".
+  2. Apply "GecCircuit".
+
+THEOREM:
+  12sliding
+DEPENDS:
+  3 15 18 13 21 14
+PROOF:
+  Introduce f k.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Witness for H1.
+     Rewrite -> All H1.
+     Extensionality set1.
+     Extensionality env1.
+     Introduce env1 set1.
+     Reduce 1 All (  ).
+     Rewrite -> 1 "openStoreId_0".
+     Rewrite -> All "openStoreId_1".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStore_Nothing".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Injective.
+     Split Deep.
+     1. Extensionality u1.
+        Extensionality x1.
+        Extensionality env2.
+        Introduce env2 x1 u1.
+        Reduce 1 All (  ).
+        Uncurry.
+        Reduce 5 (set` 1 NO) (  ).
+        Reduce 5 (arr_seta 1 NO) (  ).
+        Rewrite -> All "readStore_writeStore".
+        Uncurry.
+        Reduce NF (snd 1 NO) (  ).
+        Reduce NF (snd 2 NO) (  ).
+        Reduce NF (cross 1 NO) (  ).
+        Reduce NF (cross 1 NO) (  ).
+        Reduce NF (fst 1 NO) (  ).
+        Reduce 1 (_tupleselect_2_1 1 NO) (  ).
+        Reduce 1 (_tupleselect_2_2 1 NO) (  ).
+        Reduce 1 (_tupleselect_2_2 1 NO) (  ).
+        Reduce 1 (_tupleselect_2_1 1 NO) (  ).
+        *
+     2. Reflexive.
+  2. Apply "GecCircuit".
+
+THEOREM:
+  13vanishing
+DEPENDS:
+  3 15 18 13 20 19
+PROOF:
+  Introduce f.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Witness for H1.
+     Rewrite -> All H1.
+     Extensionality set1.
+     Extensionality env1.
+     Introduce env1 set1.
+     Reduce 1 All (  ).
+     Rewrite -> 1 "openStoreId_0".
+     Rewrite -> All "openStoreId_1".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStore_Nothing".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStoreId_2".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStore_Nothing".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Injective.
+     Split Deep.
+     1. Extensionality u1.
+        Extensionality x1.
+        Extensionality env2.
+        Introduce env2 x1 u1.
+        Reduce 1 All (  ).
+        Uncurry.
+        Reduce 2 (arr_seta 1 NO) (  ).
+        Reduce 2 (set` 2 NO) (  ).
+        Reduce 2 (arr_seta 1 NO) (  ).
+        Reduce 1 (loop_setcb 3 NO) (  ).
+        Rewrite -> All "readStore_writeStore".
+        Reduce 1 (loop_seta0 1 NO) (  ).
+        Uncurry.
+        Reduce 2 (set` 1 NO) (  ).
+        Reduce 1 (loop_setcb 1 NO) (  ).
+        Rewrite -> All "readStore_writeStore".
+        Uncurry.
+        Reduce 1 (loop_setcb 1 NO) (  ).
+        *
+     2. Reflexive.
+  2. Apply "GecCircuit".
+
+THEOREM:
+  14superposing
+DEPENDS:
+  3 17 15 18 13 19 20
+PROOF:
+  Introduce f.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Witness for H1.
+     Rewrite -> All H1.
+     Extensionality set1.
+     Extensionality env1.
+     Introduce env1 set1.
+     Reduce 1 All (  ).
+     Rewrite -> All "openStoreId_0".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStore_Nothing".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStoreId_1".
+     Reduce 1 All (  ).
+     Rewrite -> All "openStore_Nothing".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStoreId_2".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStoreId_3".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStore_Nothing".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Injective.
+     Split Deep.
+     1. Extensionality u1.
+        Extensionality x1.
+        Extensionality env2.
+        Introduce env2 x1 u1.
+        Reduce 2 (arr_seta 1 NO) (  ).
+        Reduce 2 (first_setac 1 NO) (  ).
+        Reduce 1 All (  ).
+        Uncurry.
+        Reduce 2 (set` 1 NO) (  ).
+        Reduce 2 (arr_seta 2 NO) (  ).
+        Reduce 2 (arr_seta 2 NO) (  ).
+        Reduce 2 (first_setac 1 NO) (  ).
+        Reduce 2 (set` 1 NO) (  ).
+        Reduce 1 (first_setb 2 NO) (  ).
+        Rewrite -> All "readStore_writeStore".
+        Reduce 3 (first_setb2 1 NO) (  ).
+        Reduce 2 (arr_seta 2 NO) (  ).
+        Reduce 2 (arr_seta 2 NO) (  ).
+        Reduce 1 (loop_setcb 1 NO) (  ).
+        Reduce 1 (loop_setcb 1 NO) (  ).
+        Rewrite -> All "readStore_writeStore".
+        Uncurry.
+        Reduce 1 (first_setb 1 NO) (  ).
+        Rewrite -> All "readStore_writeStore".
+        Reduce 3 (first_setb2 1 NO) (  ).
+        Reduce 1 (arr_seta 1 NO) (  ).
+        Reduce 1 (unassoc 1 NO) (  ).
+        Reduce 1 (unassoc 1 NO) (  ).
+        Reduce 1 (assoc 1 NO) (  ).
+        Reduce 1 (assoc 1 NO) (  ).
+        Reduce 1 (assoc 1 NO) (  ).
+        Reduce 1 (assoc 1 NO) (  ).
+        Reduce 1 (assoc 1 NO) (  ).
+        Reduce 1 (assoc 1 NO) (  ).
+        Reduce 1 (assoc 1 NO) (  ).
+        Reduce 1 (assoc 1 NO) (  ).
+        Reduce 1 (assoc 1 NO) (  ).
+        Reduce 1 (assoc 1 NO) (  ).
+        Reduce NF (fst 1 NO) (  ).
+        Reduce NF (fst 4 NO) (  ).
+        Reduce NF (fst 3 NO) (  ).
+        Reduce NF (fst 5 NO) (  ).
+        Reduce NF (fst 4 NO) (  ).
+        Reduce NF (fst 5 NO) (  ).
+        Reduce NF (fst 5 NO) (  ).
+        Reduce NF (fst 6 NO) (  ).
+        Reduce NF (snd 9 NO) (  ).
+        Reduce NF (snd 7 NO) (  ).
+        Reduce NF (fst 6 NO) (  ).
+        Reduce NF (fst 8 NO) (  ).
+        Reduce NF (fst 8 NO) (  ).
+        Reduce NF (fst 9 NO) (  ).
+        Reduce 5 (snd 3 NO) (  ).
+        Reduce 5 (snd 7 NO) (  ).
+        Reduce 5 (snd 8 NO) (  ).
+        Reduce 5 (snd 10 NO) (  ).
+        Reduce 5 (snd 11 NO) (  ).
+        Reduce 5 (fst 2 NO) (  ).
+        *
+     2. Reflexive.
+  2. Apply "GecCircuit".
+
+THEOREM:
+  15extension
+DEPENDS:
+  15 13 16
+PROOF:
+  Introduce f.
+  Extensionality set1.
+  Extensionality env1.
+  Introduce env1 set1.
+  Reduce 1 All (  ).
+  Rewrite -> All "openStoreId_0".
+  Reduce 1 All (  ).
+  Rewrite -> All "openStore_Nothing".
+  Reduce 1 All (  ).
+  Reduce 1 All (  ).
+  Reduce 1 All (  ).
+  Reduce 1 All (  ).
+  Reduce 1 All (  ).
+  Reduce 1 All (  ).
+  Injective.
+  Split Deep.
+  1. Extensionality u1.
+     Extensionality x1.
+     Extensionality env2.
+     Introduce env2 x1 u1.
+     Reduce 1 All (  ).
+     Uncurry.
+     Reduce 1 (arr_seta 1 NO) (  ).
+     Uncurry.
+     Reduce 1 (loop_setcb 1 NO) (  ).
+     Rewrite -> All "readStore_writeStore".
+     Reduce 2 (simple_loop 1 NO) (  ).
+     *
+  2. Reflexive.
+
+THEOREM:
+  GecCircuit
+DEPENDS:
+  3
+PROOF:
+  Contradiction.
+  Assume (= (BOOL False) (BOOL True)).
+  1. AbsurdEqualityH H2.
+  2. Exact "axiom".
+
+THEOREM:
+  axiom
+DEPENDS:
+  
+PROOF:
+  *
+
+THEOREM:
+  feedback_self_id
+DEPENDS:
+  3 7 6 13 14
+PROOF:
+  Introduce f.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Witness for H1.
+     Rewrite -> All H1.
+     Extensionality set1.
+     Extensionality env1.
+     Introduce env1 set1.
+     Reduce 1 All (  ).
+     Rewrite -> 1 "openStoreId_0".
+     Rewrite -> 1 "openStoreId_1".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Rewrite -> All "openStore_Just".
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 1 All (  ).
+     Reduce 3 (RunCircuit 1 NO) (  ).
+     Reduce 3 (RunCircuit 1 NO) (  ).
+     Reduce 3 (RunCircuit 1 NO) (  ).
+     *
+  2. Apply "GecCircuit".
+
+THEOREM:
+  openStoreId_0
+DEPENDS:
+  11 12
+PROOF:
+  Contradiction.
+  Assume (= (BOOL False) (BOOL True)).
+  1. AbsurdEqualityH H2.
+  2. Rewrite -> All "axiom".
+     Reflexive.
+
+THEOREM:
+  openStoreId_1
+DEPENDS:
+  11 12
+PROOF:
+  Contradiction.
+  Assume (= (BOOL False) (BOOL True)).
+  1. AbsurdEqualityH H2.
+  2. Rewrite -> All "axiom".
+     Reflexive.
+
+THEOREM:
+  openStoreId_2
+DEPENDS:
+  11 12
+PROOF:
+  Contradiction.
+  Assume (= (BOOL False) (BOOL True)).
+  1. AbsurdEqualityH H2.
+  2. Rewrite -> All "axiom".
+     Reflexive.
+
+THEOREM:
+  openStoreId_3
+DEPENDS:
+  11 12
+PROOF:
+  Contradiction.
+  Assume (= (BOOL False) (BOOL True)).
+  1. AbsurdEqualityH H2.
+  2. Exact "axiom".
+
+THEOREM:
+  openStore_Just
+DEPENDS:
+  8 10 0
+PROOF:
+  Introduce i x env.
+  Reduce 1 All (  ).
+  Reduce 1 All (  ).
+  Reflexive.
+
+THEOREM:
+  openStore_Nothing
+DEPENDS:
+  8 9
+PROOF:
+  Introduce i env.
+  Reduce NF All (  ).
+  Reflexive.
+
+THEOREM:
+  readStore_writeStore
+DEPENDS:
+  2 0
+PROOF:
+  Contradiction.
+  Assume (= (BOOL False) (BOOL True)).
+  1. AbsurdEqualityH H2.
+  2. Rewrite -> All "axiom".
+     Reflexive.
+
+THEOREM:
+  self`_feedback_self
+DEPENDS:
+  3 4 7 6
+PROOF:
+  Introduce g f.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Assume (Ex g` (= g (@ 3 gec g g`))).
+     1. Witness for H2.
+        Witness for H1.
+        Rewrite -> All H1.
+        Rewrite -> All H2.
+        Extensionality set1.
+        Extensionality env1.
+        Introduce env1 set1.
+        Reduce 1 All (  ).
+        Reduce 1 All (  ).
+        Rewrite -> All "openStoreId_0".
+        SplitCase 1.
+        1. Definedness.
+        2. InjectiveH in H3.
+           Split Deep H3.
+           Rewrite <- All H4.
+           Rewrite <- All H3.
+           Reduce 1 All (  ).
+           *
+     2. Apply "GecCircuit".
+  2. Apply "GecCircuit".
+
+THEOREM:
+  self`_feedback`_self
+DEPENDS:
+  3 4 5 6
+PROOF:
+  Introduce g f.
+  Assume (Ex f` (= f (@ 3 gec f f`))).
+  1. Assume (Ex g` (= g (@ 3 gec g g`))).
+     1. Witness for H1.
+        Witness for H2.
+        Extensionality set1.
+        Extensionality env1.
+        Introduce env1 set1.
+        Rewrite -> All H1.
+        Rewrite -> All H2.
+        Reduce 17 (self` 1 NO) (  ).
+        Rewrite -> All "openStoreId_0".
+        Reduce 5 (self2 1 NO) (  ).
+        Reduce 3 (RunCircuit 1 NO) (  ).
+        SplitCase 2.
+        1. Definedness.
+        2. InjectiveH in H3.
+           Split Deep H3.
+           Rewrite <- All H4.
+           Rewrite <- All H3.
+           Reduce 2 (self 1 NO) (  ).
+           Rewrite -> All "openStoreId_1".
+           *
+     2. Apply "GecCircuit".
+  2. Apply "GecCircuit".
+
+THEOREM:
+  snd_readStore
+DEPENDS:
+  1 2
+PROOF:
+  Contradiction.
+  Assume (= (BOOL False) (BOOL True)).
+  1. AbsurdEqualityH H2.
+  2. Exact "axiom".
+
+THEOREM:
+  writeStore
+DEPENDS:
+  0
+PROOF:
+  Contradiction.
+  Assume (= (BOOL False) (BOOL True)).
+  1. AbsurdEqualityH H2.
+  2. Exact "axiom".
+
+

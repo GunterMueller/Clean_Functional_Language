@@ -1,0 +1,14 @@
+gdi32.dll
+StartPage@4
+StartDocA@8
+EndPage@4
+EndDoc@4
+StretchBlt@44
+SetPixel@16
+GetPixel@12
+CreateCompatibleDC@4
+DPtoLP@12
+GetTextExtentPointA@16
+CreateFontA@56
+CreateEllipticRgn@16
+PaintRgn@8

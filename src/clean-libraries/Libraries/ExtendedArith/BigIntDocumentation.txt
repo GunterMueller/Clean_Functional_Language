@@ -1,0 +1,197 @@
+This file contains documentation for the "BigInt" module.
+
+CONTENTS
+********
+
+ part 1 - Introduction
+ part 2 - Implementation background
+ part 3 - Functions to access and manipulate the internal data structure
+ part 4 - Inplace addition and subtraction
+ part 5 - Specialised inlined functions for operations with 32 bit numbers
+ 
+
+ part 1 - INTRODUCTION
+**********************
+
+    The BigInt module provides a type "BigInt". This type represents integer numbers of
+    unbounded length. Various functions and instances on this type are present. We have put
+    some effort in optimising the implementation for small numbers to keep the speed penalty for
+    using BigInts instead of 32 bit Ints low. Apart from the functions that everybody would
+    expect in such a module (like addition, multiplication, conversion from/to other types
+    and so on) the following features are provided:
+
+     - functions to access and manipulate the internal data structure of a BigInt, see part 3.
+     - inplace addition and subtraction that use Clean's uniquness type system to destructively
+       update a BigInt, see part 4.
+     - specialised inlined functions for operations with 32 bit numbers, see part 5.
+
+    Most functions will not be further explained here: the definition module should be self
+    explanatory, so it is not necessary to read the remaining parts of this documentation to
+    use the module. But we do not recommend to use the following functions without having
+    read part 5 before: ==%, <>%, <%, <=%, >%, >=%, +%, -%, %-, *%.
+
+    The BigInt module does not provide any bit shifting operations. This has to do with the
+    fact that the StdEnv's ">>" and "<<" operators are not overloaded. We might add such
+    operations in Clean's next major upgrade to version 2.0.
+    
+    Clean as a programming language contains no support for BigInts. So the type of every
+    integer constant will always be Int. Use the class "toBigInt" to generate a BigInt from
+    an Int or a String. If you want to write a function that contains constants in such a
+    way that it can be applied to 32 bit Ints and to BigInts as well, then you have to
+    introduce an "overloaded constant", e.g.
+        
+        class three a :: a
+        instance three    Int where three = 3
+        instance three BigInt where three = toBigInt 3
+        
+        my_function_that_doesnt_do_much_but_is_very_generic x = x*three
+
+    The "BigInt" module is a system module, so no ".icl"-part is provided. However the
+    file "BigInt_icl.txt" contains the original icl file. This file can be removed.
+
+
+ part 2 - IMPLEMENTATION BACKGROUND
+***********************************
+
+    To be able to estimate the relative cost of the provided functions it is worthwhile to
+    get some insight into the implementation of the BigInt type:
+
+        :: BigInt   =   {   _sign_or_number ::  !Int
+                        ,   _limbs          ::  !.{#Int}
+                        }
+
+    This type is defined in the _SystemBigInt module. You can not access it's fields because
+    their names begin with "_". The point is, that two different representations for
+    numbers are used: For numbers that are outside the range of a 32 bit Int the _limbs array
+    contains all bits that represent that number. The _sign_or_number field will indicate then
+    whether the number is positive or not. We will call these numbers "big" BigInts. "Small" 
+    BigInts (the numbers within -2^31 to 2^31-1) are stored in the _sign_or_number field
+    itself. In that case the _limbs array will be empty.
+    
+    This setup enables operations on small numbers to be relatively cheap. To create such a
+    small number only two words of memory are needed: one for the empty _limbs array and one
+    for the number in the _sign_or_number field itself. In that way we achieve, that a
+    BigInt implementation of the nfib benchmark is only 3.5 times slower than an Int based
+    implementation, as long as the result of that benchmark lies within the mentioned borders
+    (on a Pentium III processor).
+
+    In those cases were the cheap representation does not apply, the _limbs array will be
+    passed to a function that is written in C and/or assembly to do further calculations.
+    The used C/assembly functions are part of the GNU multiple precision library (GMP).
+
+ part 3 - FUNCTIONS TO ACCESS AND MANIPULATE THE INTERNAL DATA STRUCTURE
+************************************************************************
+
+    The following functions allow to directly access the _limbs array:
+    
+        unpackBigInt :: !u:BigInt -> (!Bool, !u:{#Int})
+        packBigInt   :: !Bool !u:{#Int} -> u:BigInt
+
+    The Boolean that is returned by unpackBigInt indicates whether the number is non negative.
+    The _limbs array that is returned by unpackBigInt contains at least one element, so
+
+        snd (unpackBigInt zero)=={0}
+    
+    This is the only case where the most significant array element (that one with the biggest
+    index) is zero. We decided that unpackBigInt should always return an array. This function
+    thus hides the fact that two representations are used to represent numbers (see above).
+    Note that the returned array can destructively be updated when the original BigInt was
+    unique. Further note that all 32 bits of each element of the _limbs array are used to
+    store a number. Each element can be interpreted as a digit in a number with base 2^32.
+    You should interprete these 32 bit integers as _unsigned_ integers, ranging from 0 to
+    2^32-1, although they will be handled as _signed_ integers in Clean (Clean currently has
+    no unsigned 32 bit integers).
+    
+    The packBigInt function acts reverse to unpackBigInt. For efficiency issues it might be
+    important to know, that this function will make a copy of it's array argument, if the
+    most significant array element is zero, but only if the array size is bigger than one.
+    This has to do with the fact that trailing zeros are always removed from the _limbs array.
+
+ part 4 - INPLACE ADDITION AND SUBTRACTION
+******************************************
+
+    To read this part you should be familiar with Clean's uniqueness typing system (see the
+    Clean language report).
+
+    The following functions can destructively update BigInts: .+., .+, .-., .-, -.
+    All other functions that return a BigInt will allocate new memory to store the result.
+    There are cases where this can be too costly. Consider a number whose
+    _limbs array (see above) is let's say five KByte big. Non destructively incrementing
+    this number would require to copy these five KByte just to change probably only one
+    word in the whole array. The functions for inplace addition/subtraction circumvent
+    this disadvantage. They take one or two unique BigInt arguments and will only allocate
+    new memory if this is necessary. The "." before or after the "+" of "-" sign indicates
+    which argument(s) have to be unique. The .+. and .-. operators choose the argument with
+    the biggest limbs array to be destructively updated.
+    
+    Note that using these functions can gain much speed for big BigInts (see part 2).
+    But for small BigInts there won't be any speedup.
+    
+    The remainig question is: How do I get a unique BigInt ?
+    
+    The function "copyBigInt" generates a unique copy of a BigInt, but this might nothinging
+    the gain from using inplace operations.
+    
+    Other functions that return a unique BigInt are quotRem, divMod, powMod, stringToBigInt,
+    instance toBigInt Int, instance toBigInt {#Char}.
+    
+    Unfortunately the "important" functions are missing in this list. The result of a
+    multiplication or (non inplace) addition is _not_ unique. This is somewhat weird,
+    because these functions in fact create a fresh, newly allocated BigInt. The reason is that
+    these functions (like +, -, *, /) are overloaded. Non overloaded functions could easily
+    return unique BigInts that were ready to be destructively updated further. Clean's type
+    system is currently not strong enough to handle this problem.
+    
+ part 5 - SPECIALISED INLINED FUNCTIONS FOR OPERATIONS WITH 32 BIT NUMBERS
+****************************************************************************
+
+    Functions like addition or multiplication are implemented as follows: check whether
+    both arguments are small BigInts (see part 2) and if yes perform the corresponding
+    cheap (processor built in) instruction to get the desired result. If they are not small
+    then handle this case seperately. This leaves place for optimalisation: It will often
+    be known at compile time that an argument is a small BigInt. In that case one of the
+    checks could be left out. The module "ExtendedArithBasics" defines the following methods
+    for that purpose: ==%, <>%, <%, <=%, >%, >=%, +%, -%, %-, *%, ^%. All these functions
+    get a BigInt argument and a 32 bit Int argument. The "%" sign indicates on which side
+    of the infix operator the 32 bit Int should appear. (The "%" looks like an "i", doesn't
+    it?) 
+    
+    The BigInt instances of these classes have another property: the code for these
+    functions will be inlined. This means that with each call to one of these functions
+    the whole body of that function will be inserted in the resulting executable code.
+    The advantage is that after inlining further possibilities for optimalisation
+    could arise. But a clear disadvantage is that the resulting code gets bigger. 
+    Inlining is hard to control. It is not forseeable whether using these functions will
+    enhance the speed of your program. It could but it also could not. In any case it will
+    make your executables bigger. So use these functions only where speed is cruical.
+    You might have to rely your decisions on experiments.
+    
+    If you want to combine a BigInt and a 32 bit Int without using the specialised functions
+    then you have to use the "toBigInt" function. If "bigInt" is of type "BigInt" then it
+    is wrong to assume that writing
+    
+        bigInt + (toBigInt 1)
+    
+    would always be much more costly than
+    
+        bigInt +% 1
+    
+    just because the application of the function toBigInt would be costly. This function
+    application is in fact very cheap. The function toBigInt has nothing more to do
+    than to write one word into memory (it creates the empty _limbs array, see part 2).
+    This function will be inlined without any additional cost because it's body contains
+    only one instruction. The same holds for the BigInt instances of "zero" and "one".
+    
+    The conclusion: It is important for the programmer to know the costs. The following
+    table should assist you in making decisions. For each listed function we give the
+    number of ABC instructions that replace the single function call because of inlining
+    (an ABC instruction is an instruction for the ABC machine, some kind of virtual
+    intermediate machine architecture that Clean uses)
+    
+        function:           ==% <>% <%  <=% >%  >=% +%  -%  %-  *%  ^%
+        # ABC-instructions: 8   9   7   8   7   8   7   7   7   13  1 
+
+    Note: 
+        - ^% is not inlined
+        - the Rational number instances of these classes are not inlined and hence cannot
+          lead into code explosion.

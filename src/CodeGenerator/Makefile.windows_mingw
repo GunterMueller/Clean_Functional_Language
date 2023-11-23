@@ -1,0 +1,13 @@
+CC = gcc
+CFLAGS = -DI486 -DGNU_C -D_WINDOWS_ -O -fomit-frame-pointer
+
+OBJECTS = cg.o cgcalc.o cgcode.o cginput.o cginstructions.o \
+	cglin.o cgopt.o cgias.o cgiwas.o cgstack.o
+
+cg.exe: $(OBJECTS)
+	gcc -s $(OBJECTS) -o $@ 
+
+clean:
+	rm $(OBJECTS)
+
+# DO NOT DELETE

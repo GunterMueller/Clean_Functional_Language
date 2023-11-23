@@ -1,0 +1,79 @@
+Notions are (sometimes) used before defined
+means of communication
+
+- Graph
+	* data-graph 
+	* references to data/code
+
+- Type storage
+	* .tcl, type definitions for each .icl-module
+	* .typ, concatenation of *.tcl for a complete application aka type-table
+
+- Library
+	* type, an .typ-file
+	* code, an *unlinked* application i.e. containing symbolic references
+
+- Dynamic
+	* identity: 
+		- at run-time, a dynamic run-time system index
+		- otherwise a path to rhe encoded dynamic
+  	* graph to be encoded is divided into partitions aka blocks 
+	* division by value and type of (nested) dynamics
+	* unit of laziness: block, identified by its unique index in a dynamic
+	* normal order of laziness: first dynamic-constructor, then type and finally value.
+	* run-time representation: (value,type)-pair, otherwise encoded dynamic
+          and at least one library
+
+	
+- Internal/external type
+	* dynamic (size {i  \\ i <- [1..100]}) :: Int
+	* external type, denoted after defines-token e.g. Int
+	* internal type, type of each subexpression e.g. size :: {a} -> Int | Array {#} a, etc.
+
+- Data/Lazy dynamic
+	* data, conditions:
+		- graph in hyper strict nf
+		- no arrow types i.e. functions
+		- abstract/existential typed graph are not permitted
+          external type == internal type, no code library needed
+        * lazy, otherwise
+
+- Nested dynamics
+	* dynamic containing one or more dynamics
+	 
+- Internal/external dynamic
+	* internal dynamic, type-component identifies *the* type-table solely by
+	  ModuleIds, references to data/code in value-component remain within a
+	  single library.
+	* external dynamic, otherwise
+	
+- Type checking is divided into:
+	* unification, StdDynamic
+	* type definition check, Dynamic run-time system
+
+- Type definition equivalence
+  Two type definitions must syntaxically agree. Modulo
+	* alpha conversion of type constructor variables
+	* order of constructors is insignificant
+
+- Type identification at run-time
+	* type name
+	* defining module name
+	* library identification
+		- ModuleID at run-time
+		  Initially used, before conversion to a string
+		- RunTimeID at run-time
+		  Run-time index identifying type-table
+		- RunTimeID after conversion i.e. DiskID
+		  Converted run-time index identifying type table after
+		  a dynamic has been converted to its string representation
+	* promotion-rules of library identification:
+		ModuleID -> DiskId,	internal dynamic
+                DiskID <-> RunTimeID,	external dynamic
+       
+- Dynamic patterns
+	* type variables are means of communication among dynamics		  
+			
+- (un)Visible dynamic
+	* a dynamic d is visible w.r.t. a library iff the library issued a load
+	  dynamic d command e.g. by using readDynamic

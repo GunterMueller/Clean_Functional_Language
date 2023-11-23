@@ -1,0 +1,18 @@
+
+32512	ICON	icons\clean_exe.ico
+32513	ICON	icons\clean_prj.ico
+32514	ICON	icons\clean_abc.ico
+32515	ICON	icons\clean_dcl.ico
+32516	ICON	icons\clean_icl.ico
+32517	ICON	icons\clean_pcl.ico
+32518	ICON	icons\clean_chp.ico
+
+32512	BITMAP	bitmaps\aboutIDE.bmp
+32513	BITMAP	bitmaps\findBM.bmp
+32514	BITMAP	bitmaps\newfBM.bmp
+32515	BITMAP	bitmaps\openBM.bmp
+32516	BITMAP	bitmaps\prntBM.bmp
+32517	BITMAP	bitmaps\saveBM.bmp
+32518	BITMAP	bitmaps\srchBM.bmp
+32519	BITMAP	bitmaps\updtBM.bmp
+32520	BITMAP	bitmaps\urunBM.bmp

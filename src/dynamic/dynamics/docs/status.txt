@@ -1,0 +1,47 @@
+- Type equivalence among Int(Main application), Int(unknown) and Int(integer which 
+  requires a *single* implementation for Int. Only the first two required equivalence
+  are important.
+
+Main application:
+Start world
+	# (ok,d,world)
+		= readDynamic "unknown" world
+	# dynamic_sum
+		= case d
+			((i1,i2 :: Int) :: (Real,Dynamic))
+				-> toInt i1 + i2
+	= (dynamic_sum,world)
+
+
+Dynamic 'unknown':
+Start world
+	# (ok,d,world)
+		= readDynamic "integer" world
+	# new_dynamic
+		= case d of
+			(i :: Int)
+				-> dynamic (toReal i,d)
+	= WriteDynamic new_dynamic "unknown" world
+
+Dynamic 'integer':
+	= dynamic 1
+
+- Communication scheme of Main application
+
+ Application
+    |
+    | (Real,Dynamic)
+    |
+ Unknown
+    |
+    | Int 
+    |
+ Integer
+
+- Explanation 
+  The Int from Integer could be used in unknown and application and should therefore
+  have a single implementation. The type equivalence of the integer propagates upwards
+  until the Dynamic-keyword does not occur anymore in the external type of a dynamic
+  on the path to the top.
+
+- What to do with TypeConsSymbol

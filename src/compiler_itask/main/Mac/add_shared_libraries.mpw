@@ -1,0 +1,3 @@
+directory ::
+duplicate -y CleanCompiler2 'Clean Compiler 2'
+mergefragment -a -p CleanCompilerLib CodeGenLib 'Clean Compiler 2'

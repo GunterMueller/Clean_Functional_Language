@@ -1,0 +1,7 @@
+CarbonLib
+GetControlData
+SetControlData
+AdvanceKeyboardFocus
+GetKeyboardFocus
+IsControlVisible
+GetThemeTextDimensions

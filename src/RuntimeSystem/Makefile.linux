@@ -1,0 +1,36 @@
+
+SDIR = ./
+ODIR = ./
+
+CFLAGS = -DUSE_CLIB -DLINUX -DI486 -DGNU_C -DELF -m32
+ASFLAGS = --32
+
+all: $(ODIR)_startup.o
+
+$(ODIR)_startup.o: $(ODIR)istartup.o $(ODIR)ifileIO3.o $(ODIR)scon.o $(ODIR)ufileIO2.o $(ODIR)uwrite_heap.o
+	ld -m elf_i386 -r -o $(ODIR)_startup.o $(ODIR)istartup.o $(ODIR)scon.o $(ODIR)ifileIO3.o $(ODIR)ufileIO2.o uwrite_heap.o
+
+$(ODIR)scon.o: $(SDIR)scon.c
+#	gcc -c -O $(CFLAGS) -o $(ODIR)scon.o $(SDIR)scon.c
+	$(CC) -O $(CFLAGS) -ffunction-sections -fdata-sections $(SDIR)scon.c -S -o $(ODIR)scon.s
+	mv $(ODIR)scon.s $(ODIR)scon.s.copy
+	grep -v -w ___main $(ODIR)scon.s.copy > $(ODIR)scon.s
+	as $(ASFLAGS) $(ODIR)scon.s -o $(ODIR)scon.o
+
+$(ODIR)ufileIO2.o: $(SDIR)ufileIO2.c
+	$(CC) -c -O $(CFLAGS) -ffunction-sections -fdata-sections -o $(ODIR)ufileIO2.o $(SDIR)ufileIO2.c
+
+$(ODIR)uwrite_heap.o: $(SDIR)uwrite_heap.c
+	$(CC) -c -O $(CFLAGS) -o $(ODIR)uwrite_heap.o $(SDIR)uwrite_heap.c
+
+$(ODIR)istartup.o: $(SDIR)istartup.s
+	cp $(ODIR)istartup.s $(ODIR)istartup.c
+	$(CC) $(CFLAGS) -E $(ODIR)istartup.c > $(ODIR)istartup.t
+	sed s/@// < $(SDIR)/istartup.t > $(ODIR)istartup.a
+	as $(ASFLAGS) $(ODIR)istartup.a -o $(ODIR)istartup.o
+
+$(ODIR)ifileIO3.o: $(SDIR)ifileIO3.s
+	cp $(ODIR)ifileIO3.s $(ODIR)ifileIO3.c
+	$(CC) $(CFLAGS) -E $(ODIR)ifileIO3.c > $(ODIR)ifileIO3.t
+	sed s/@// < $(SDIR)/ifileIO3.t > $(ODIR)ifileIO3.a
+	as $(ASFLAGS) $(ODIR)ifileIO3.a -o $(ODIR)ifileIO3.o

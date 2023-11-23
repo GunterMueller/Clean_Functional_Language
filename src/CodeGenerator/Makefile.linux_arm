@@ -1,0 +1,16 @@
+
+CC = gcc
+CFLAGS = -DGNU_C -DLINUX -DLINUX_ELF -DARM -O -fomit-frame-pointer
+
+OBJECTS = cg.o cgcalc.o cgcode.o cginput.o cginstructions.o \
+	cglin.o cgopt.o cgarmas.o cgarmwas.o cgstack.o
+
+cg: $(OBJECTS)
+	gcc -s $(OBJECTS) -o $@ 
+
+cginstructions.o : cgarmc.c
+
+clean:
+	rm $(OBJECTS)
+
+# DO NOT DELETE

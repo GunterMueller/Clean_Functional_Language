@@ -1,0 +1,741 @@
+
+.macro	lea_	&r,&a
+	lis	$0,ha16($1)
+	addi	$0,$0,lo16($1)
+.endmacro
+
+MACOSX		=	1
+USE_TEMPORARY_MEMORY	=	1
+CHECK_STACK_OVERFLOWS	=	0
+MODULE_NAMES	=	1
+
+#define sp r1
+
+#define d0 r24
+#define d1 r25
+#define d2 r26
+#define d3 r27
+#define d4 r28
+#define d5 r29
+#define d6 r30
+#define d7 r31
+
+#define a0 r23
+#define a1 r22
+#define a2 r21
+#define a3 r20
+#define a4 r19
+#define a5 r18
+#define a6 r17
+
+#define o0 r3
+#define o1 r4
+#define o2 r5
+#define o3 r6
+#define o4 r7
+#define o5 r8
+
+#define g2 r9
+#define g3 r10
+
+#define g0 r11
+#define g1 r12
+
+#define int_reg r16
+#define char_reg r15
+#define real_reg r14
+#define bool_reg r13
+
+	.globl	init_profiler
+	.globl	profile_r
+	.globl 	profile_l
+	.globl 	profile_l2
+	.globl 	profile_n
+	.globl 	profile_n2
+	.globl 	profile_s
+	.globl 	profile_s2
+	.globl 	profile_t
+	.globl	profile_ti
+	.globl	write_profile_information
+	.globl	write_profile_stack
+
+ .if USE_TEMPORARY_MEMORY
+	.globl	_TempNewHandle
+	.globl	_TempHLock
+	.globl	_TempHUnlock
+	.globl	_TempDisposeHandle
+ .else
+	.globl	_NewPtr
+ .endif
+	.globl	__STRING__
+	.globl	writeFC
+	.globl	writeFI
+	.globl	print_error
+	.globl	_stack_size
+	.globl	_er_print_string
+	.globl	_er_print_char
+ .if CHECK_STACK_OVERFLOWS
+	.globl	_Debugger
+ .endif
+
+#define FunctionProfile_next 0
+#define FunctionProfile_name 4
+
+#define FunctionProfile	8
+
+#define Globals_n_free_records_in_block 	0
+				# comment 0 n free records in block
+#define Globals_last_allocated_block	4
+				# comment 4 latest allocated block
+#define Globals_profile_records		8
+				# comment 8 profile record list
+#define Globals_stack_pointer      		12
+				# comment 12 stack pointer
+#define Globals_n_words_free		16
+ .if USE_TEMPORARY_MEMORY
+#define Globals_temp_handle_list		20
+#define Globals_profile_stack_handle	24
+  .if CHECK_STACK_OVERFLOWS
+Globals_end_profile_stack =		28
+Globals =				32
+ .else
+Globals =				28
+  .endif
+ .else
+  .if CHECK_STACK_OVERFLOWS
+Globals_end_profile_stack =		20
+Globals =				24
+  .else
+Globals =				20
+  .endif
+ .endif
+
+	.text
+profile_ti:
+	lea_	r5,profile_globals
+	b	profile_t_
+
+profile_t:
+	mflr	r12
+	lea_	r5,profile_globals
+	mtctr	r12
+	mtlr	r0
+profile_t_:
+	lwz	r6,Globals_stack_pointer(r5)
+	lwzu	r4,-4(r6)
+	stw	r6,Globals_stack_pointer(r5)
+	bctr
+
+profile_r:
+	lea_	r5,profile_globals
+	lwz	r6,Globals_stack_pointer(r5)
+	lwzu	r4,-4(r6)
+	stw	r6,Globals_stack_pointer(r5)
+	blr
+
+profile_l:
+	mflr	r12
+	lea_	r5,profile_globals
+	lwz	r4,0(r3)
+	mtctr	r12
+		
+	cmpwi	0,r4,0
+	beql	allocate_function_profile_record
+
+	lwz	r6,Globals_stack_pointer(r5)
+	stw	r4,0(r6)
+	addi	r6,r6,4
+ .if CHECK_STACK_OVERFLOWS
+	lwz	r12,Globals_end_profile_stack(r5)
+ .endif
+	stw	r6,Globals_stack_pointer(r5)
+ .if CHECK_STACK_OVERFLOWS 
+	cmpw	r6,r12
+	bge	profile_stack_overflow
+ .endif
+	mtlr	r0
+	bctr
+
+profile_l2:
+	mflr	r12
+	lea_	r5,profile_globals
+	lwz	r4,0(r3)
+	mtctr	r12
+		
+	cmpwi	0,r4,0
+	beql	allocate_function_profile_record
+
+	lwz	r6,Globals_stack_pointer(r5)	
+	stw	r4,0(r6)
+	stw	r4,4(r6)
+	addi	r6,r6,8
+ .if CHECK_STACK_OVERFLOWS
+	lwz	r12,Globals_end_profile_stack(r5)
+ .endif
+	stw	r6,Globals_stack_pointer(r5)
+ .if CHECK_STACK_OVERFLOWS 
+	cmpw	r6,r12
+	bge	profile_stack_overflow
+ .endif
+
+	mtlr	r0
+	bctr
+
+profile_n:
+	mflr	r12
+	lea_	r5,profile_globals
+	lwz	r4,0(r3)
+	mtctr	r12
+		
+	cmpwi	0,r4,0
+	beql	allocate_function_profile_record
+
+	lwz	r6,Globals_stack_pointer(r5)
+	stw	r4,0(r6)
+	addi	r6,r6,4
+ .if CHECK_STACK_OVERFLOWS
+	lwz	r12,Globals_end_profile_stack(r5)
+ .endif
+	stw	r6,Globals_stack_pointer(r5)
+ .if CHECK_STACK_OVERFLOWS 
+	cmpw	r6,r12
+	bge	profile_stack_overflow
+ .endif
+	mtlr	r0
+	bctr
+
+profile_n2:
+	mflr	r12
+	lea_	r5,profile_globals
+	lwz	r4,0(r3)
+	mtctr	r12
+		
+	cmpwi	0,r4,0
+	beql	allocate_function_profile_record
+
+	lwz	r6,Globals_stack_pointer(r5)
+	stw	r4,0(r6)
+	stw	r4,4(r6)
+	addi	r6,r6,8
+ .if CHECK_STACK_OVERFLOWS
+	lwz	r12,Globals_end_profile_stack(r5)
+ .endif
+	stw	r6,Globals_stack_pointer(r5)
+ .if CHECK_STACK_OVERFLOWS 
+	cmpw	r6,r12
+	bge	profile_stack_overflow
+ .endif
+	mtlr	r0
+	bctr
+
+profile_s2:
+	mflr	r12
+	lea_	r5,profile_globals
+	lwz	r4,0(r3)
+	mtctr	r12
+		
+	cmpwi	0,r4,0
+	beql	allocate_function_profile_record
+
+	lwz	r6,Globals_stack_pointer(r5)
+	stw	r4,0(r6)
+	stw	r4,4(r6)
+	addi	r6,r6,8
+ .if CHECK_STACK_OVERFLOWS
+	lwz	r12,Globals_end_profile_stack(r5)
+ .endif
+	stw	r6,Globals_stack_pointer(r5)
+ .if CHECK_STACK_OVERFLOWS 
+	cmpw	r6,r12
+	bge	profile_stack_overflow
+ .endif
+	mtlr	r0
+	bctr
+
+profile_s:
+	mflr	r12
+	lea_	r5,profile_globals
+	lwz	r4,0(r3)
+	mtctr	r12
+		
+	cmpwi	0,r4,0
+	beql	allocate_function_profile_record
+
+	lwz	r6,Globals_stack_pointer(r5)
+
+	stw	r4,0(r6)
+	addi	r6,r6,4
+ .if CHECK_STACK_OVERFLOWS
+	lwz	r12,Globals_end_profile_stack(r5)
+ .endif
+	stw	r6,Globals_stack_pointer(r5)
+ .if CHECK_STACK_OVERFLOWS 
+	cmpw	r6,r12
+	bge	profile_stack_overflow
+ .endif
+	mtlr	r0
+	bctr
+
+allocate_function_profile_record:
+	lwz	r6,Globals_n_free_records_in_block(r5)
+	lwz	r4,Globals_last_allocated_block(r5)
+	cmpwi	0,r6,0
+	bne+	no_alloc
+
+	stw	r0,-4(sp)
+	stw	r3,-8(sp)
+	stw	r9,-12(sp)
+	stw	r10,-16(sp)
+	mfctr	r11
+	stw	r11,-20(sp)
+	mflr	r12
+	stw	r12,-24(sp)
+	
+ .if USE_TEMPORARY_MEMORY
+	li	r3,(512*FunctionProfile)+4
+ .else
+	li	r3,512*FunctionProfile
+ .endif
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+32+28)(sp)
+ .else
+	stwu	sp,-(64+32)(sp)
+ .endif
+ .if USE_TEMPORARY_MEMORY
+ 	bl	allocate_temp_memory_handle
+ .else
+	bl	_NewPtr
+	nop
+ .endif
+ .if MACOSX
+	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64+32
+ .endif
+	and.	r4,r3,r3
+	
+	lwz	r12,-24(sp)
+	lwz	r11,-20(sp)
+	mtlr	r12
+	lwz	r10,-16(sp)
+	mtctr	r11
+	lwz	r9,-12(sp)
+	lwz	r3,-8(sp)
+	lwz	r0,-4(sp)
+
+	lea_	r5,profile_globals
+
+	beq	profiler_memory_error
+
+ .if USE_TEMPORARY_MEMORY
+	lwz	r6,Globals_temp_handle_list(r5)
+	stw	r4,Globals_temp_handle_list(r5)
+	lwz	r4,0(r4)
+	stw	r6,0(r4)
+	addi	r4,r4,4
+ .endif
+	li	r6,512
+	stw	r4,Globals_last_allocated_block(r5)	
+
+no_alloc:	
+	subi	r6,r6,1
+	stw	r6,Globals_n_free_records_in_block(r5)
+	addi	r7,r4,FunctionProfile
+	stw	r7,Globals_last_allocated_block(r5)
+
+	lwz	r6,Globals_profile_records(r5)
+	li	r8,0
+	stw	r6,FunctionProfile_next(r4)
+	stw	r4,Globals_profile_records(r5)
+	stw	r3,FunctionProfile_name(r4)
+	
+	stw	r4,0(r3)
+	blr
+
+write_profile_information:
+ .if USE_TEMPORARY_MEMORY
+ 	mflr	r0
+  .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(96+28)(sp)
+  .else
+	stwu	sp,-96(sp)
+  .endif
+	stw	r0,96-4(sp)
+	lea_	r5,profile_globals
+	lwz	r3,Globals_profile_stack_handle(r5)
+ 	bl	free_temp_memory_handle
+
+	lea_	r5,profile_globals
+
+	stw	r31,96-8(sp)
+	
+	lwz	r31,Globals_temp_handle_list(r5)
+	b	free_temp_handles
+	
+free_temp_handles_lp:
+	mr	r3,r31
+	lwz	r31,0(r31)
+	lwz	r31,0(r31)
+	bl	free_temp_memory_handle
+
+free_temp_handles:
+	cmpwi	0,r31,0
+	bne	free_temp_handles_lp
+
+	lwz	r31,96-8(sp)
+	
+	lwz	r0,96-4(sp)
+  .if MACOSX
+	lwz	sp,0(sp)
+  .else
+	addi	sp,sp,96
+  .endif
+ 	mtlr	r0
+ .endif
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr
+
+write_profile_stack:
+	mflr	r0
+	lea_	d0,profile_globals
+	stwu	r0,-4(sp)
+	lwz	d0,Globals_stack_pointer(d0)
+
+	cmpwi	0,d0,0
+	beq	stack_not_initialised
+
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ .else
+	stwu	sp,-64(sp)
+ .endif
+	lea_	o0,stack_trace_string
+	bl	_er_print_string
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+
+	li	d2,12
+write_functions_on_stack:
+	lwzu	d1,-4(d0)
+	cmpwi	0,d1,0
+	beq	end_profile_stack
+		
+	lwz	o0,FunctionProfile_name(d1)
+
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ .else
+	stwu	sp,-64(sp)
+ .endif
+	addi	o0,o0,4
+	bl	_er_print_string
+	li	o0,13
+	bl	_er_print_char
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+
+	subic.	d2,d2,1
+ .if 0
+	b	write_functions_on_stack
+ .else
+	bne	write_functions_on_stack
+ .endif
+
+end_profile_stack:
+stack_not_initialised:
+	lwz	r0,0(sp)
+	mtlr	r0
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+	blr
+
+init_profiler:
+ .if 0
+	mflr	r0
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+
+	bl	.Debugger
+	nop
+	
+	lwz	r0,64-4(sp)
+	addi	sp,sp,64
+	mtlr	r0
+ .endif
+
+	mflr	r0
+	stwu	r0,-4(sp)
+
+ .if 1
+	lea_	r3,_stack_size
+	lwz	r3,0(r3)
+	addi	r3,r3,4095
+	rlwinm	r3,r3,0,0,31-12
+ .else
+	li	r3,   (512*1024) % 65536
+	addis	r3,r3,(512*1024) / 65536
+ .endif
+
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+ .else
+	stwu	sp,-64(sp)
+ .endif
+ .if USE_TEMPORARY_MEMORY
+ 	bl	allocate_temp_memory_handle
+ .else
+	bl	_NewPtr
+	nop
+ .endif
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	lea_	r5,profile_globals
+
+	and.	r9,r3,r3
+	beq	init_profiler_error
+
+ .if USE_TEMPORARY_MEMORY
+	stw	r9,Globals_profile_stack_handle(r5)
+ 	lwz	r9,0(r9)
+	li	r0,0
+	stw	r0,Globals_temp_handle_list(r5)
+ .endif
+ .if CHECK_STACK_OVERFLOWS
+  .if 1
+	lea_	r3,_stack_size
+	lwz	r3,0(r3)
+  .else
+	li	r3,   (512*1024) % 65536
+	addis	r3,r3,(512*1024) / 65536
+  .endif
+	add	r3,r3,r9
+	stw	r3,Globals_end_profile_stack(r5)
+ .endif
+	lea_	r3,start_string
+	bl	allocate_function_profile_record
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	mtlr	r0
+
+	li	r0,0
+	stw	r4,4(r9)
+	stw	r0,0(r9)
+	addi	r9,r9,8
+	stw	r9,Globals_stack_pointer(r5)
+	stw	d7,Globals_n_words_free(r5)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+
+	blr
+
+ .if USE_TEMPORARY_MEMORY
+allocate_temp_memory_handle:
+	mflr	r0
+	stw	r31,-4(sp)
+	stw	r0,8(sp)
+	stwu	sp,-96(sp)
+
+	addi	r4,sp,56
+	bl	L_TempNewHandle$stub
+	nop
+
+	mr.	r31,r3
+	beq	return_r31
+
+	addi	r4,sp,56
+	bl	L_TempHLock$stub
+	nop
+
+	lha	r0,56(sp)
+	cmpwi	r0,0
+	beq+	return_r31
+
+	mr	r3,r31
+	addi	r4,sp,56
+	bl	L_TempDisposeHandle$stub
+	nop
+
+	li	r31,0
+return_r31:
+	lwz	r0,104(sp)
+	mr	r3,r31
+	mtlr	r0
+	addi	sp,sp,96
+	lwz	r31,-4(sp)
+	blr
+
+free_temp_memory_handle:
+	mflr	r0
+	stw	r3,-4(sp)
+	stw	r0,8(sp)
+	stwu	sp,-96(sp)
+
+	addi	r4,sp,56
+	bl	L_TempHUnlock$stub
+	nop
+
+	lwz	r3,96-4(sp)
+	addi	r4,sp,56
+	bl	L_TempDisposeHandle$stub
+	nop
+
+	lwz	r0,104(sp)
+	addi	sp,sp,96
+	mtlr	r0
+	blr
+ .endif
+
+init_profiler_error:
+	lea_	o0,not_enough_memory_for_profile_stack
+	lea_	r5,profile_globals
+	li	r4,0
+	stw	r4,Globals_stack_pointer(r5)
+	b	print_error
+profiler_memory_error:
+	lea_	o0,not_enough_memory_for_profiler
+	b	print_error
+ .if CHECK_STACK_OVERFLOWS 
+profile_stack_overflow:
+	mflr	r0
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+
+	bl	.Debugger
+	nop
+	
+	lwz	r0,64-4(sp)
+	addi	sp,sp,64
+	mtlr	r0
+	b	profile_stack_overflow
+ .endif
+
+	.data
+	.align	2
+	.comm	profile_globals,Globals
+
+	.align	2
+ .if MODULE_NAMES
+m_system_:
+	.long	6
+	.ascii	"System"
+	.byte	0,0
+	.long	m_system_
+ .endif
+start_string:
+	.long	0
+	.ascii	"start"
+	.byte	0
+	.align	2
+not_enough_memory_for_profile_stack:
+	.ascii	"not enough memory for profile stack"
+	.byte	13
+	.byte	0
+not_enough_memory_for_profiler:
+	.ascii	"not enough memory for profiler"
+	.byte	13
+	.byte	0
+stack_trace_string:
+	.ascii	"Stack trace:"
+	.byte	13
+	.byte	0
+	.align	2
+
+.picsymbol_stub
+L_TempDisposeHandle$stub:
+	.indirect_symbol _TempDisposeHandle
+	mflr r0
+	bcl 20,31,L21$pb
+L21$pb:
+	mflr r11
+	addis r11,r11,ha16(L21$lz-L21$pb)
+	mtlr r0
+	lwz r12,lo16(L21$lz-L21$pb)(r11)
+	mtctr r12
+	addi r11,r11,lo16(L21$lz-L21$pb )
+	bctr
+.lazy_symbol_pointer
+L21$lz:
+	.indirect_symbol _TempDisposeHandle
+	.long dyld_stub_binding_helper
+
+
+.picsymbol_stub
+L_TempHLock$stub:
+	.indirect_symbol _TempHLock
+	mflr r0
+	bcl 20,31,L22$pb
+L22$pb:
+	mflr r11
+	addis r11,r11,ha16(L22$lz-L22$pb)
+	mtlr r0
+	lwz r12,lo16(L22$lz-L22$pb)(r11)
+	mtctr r12
+	addi r11,r11,lo16(L22$lz-L22$pb )
+	bctr
+.lazy_symbol_pointer
+L22$lz:
+	.indirect_symbol _TempHLock
+	.long dyld_stub_binding_helper
+
+
+
+.picsymbol_stub
+L_TempHUnlock$stub:
+	.indirect_symbol _TempHUnlock
+	mflr r0
+	bcl 20,31,L23$pb
+L23$pb:
+	mflr r11
+	addis r11,r11,ha16(L23$lz-L23$pb)
+	mtlr r0
+	lwz r12,lo16(L23$lz-L23$pb)(r11)
+	mtctr r12
+	addi r11,r11,lo16(L23$lz-L23$pb )
+	bctr
+.lazy_symbol_pointer
+L23$lz:
+	.indirect_symbol _TempHUnlock
+	.long dyld_stub_binding_helper
+
+
+
+.picsymbol_stub
+L_TempNewHandle$stub:
+	.indirect_symbol _TempNewHandle
+	mflr r0
+	bcl 20,31,L24$pb
+L24$pb:
+	mflr r11
+	addis r11,r11,ha16(L24$lz-L24$pb)
+	mtlr r0
+	lwz r12,lo16(L24$lz-L24$pb)(r11)
+	mtctr r12
+	addi r11,r11,lo16(L24$lz-L24$pb )
+	bctr
+.lazy_symbol_pointer
+L24$lz:
+	.indirect_symbol _TempNewHandle
+	.long dyld_stub_binding_helper
+

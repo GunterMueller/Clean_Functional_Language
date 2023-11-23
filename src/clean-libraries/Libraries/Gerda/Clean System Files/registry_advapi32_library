@@ -1,0 +1,8 @@
+advapi32.dll
+RegOpenKeyExA@20
+RegDeleteKeyA@8
+RegCloseKey@4
+RegCreateKeyExA@36
+RegSetValueExA@24
+RegCreateKeyExA@36
+RegQueryValueExA@24

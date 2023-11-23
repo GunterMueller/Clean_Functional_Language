@@ -1,0 +1,43 @@
+
+int create_commanddial(CleanString,int,int,int);
+int create_propertydial(CleanString,int,int);
+int add_dialog_button(int,int,int,int,int,CleanString);
+int add_static_text(int,int,int,int,int,CleanString);
+int add_edit_text(int,int,int,int,int,int,CleanString);
+int add_dialog_exclusives(int,int,int,int,int,int,int);
+int add_dialog_popup(int,int,int,int,int);
+int get_popup_ex(int);
+int correct_popup_size(int);
+int add_dialog_radiob(int,int,CleanString,int);
+int add_dialog_nonexclusives(int,int,int,int,int,int,int);
+int add_dialog_checkb(int,int,CleanString,int);
+int add_dialog_control(int,int,int,int,int,int,int,int);
+int set_command_default(int,int);
+CleanString get_edit_text(int);
+int set_edit_text(int,CleanString);
+int set_static_text(int,CleanString);
+int get_mark(int);
+int press_radio_widget(int,CleanString);
+Clean(get_dialog_event :: Int -> (Int,Int))
+void get_dialog_event(int,int*,int*);
+int popup_modaldialog(int);
+int popup_modelessdialog(int);
+int create_notice(CleanString);
+int create_about_dialog(int,int,int,int,int,CleanString);
+int add_n_button(int,CleanString,int);
+int handle_notice(int);
+int beep(int);
+Clean(get_current_rect :: Int -> (Int,Int,Int,Int))
+void get_current_rect(int,int *,int *,int *,int *);
+int repos_widget(int,int,int,int,int);
+int get_father_width(int);
+int set_dialog_margins(int,int,int);
+int mm_to_pixel_hor(double);
+int mm_to_pixel_ver(double);
+int activate_dialog(int);
+int enable_dialog_item(int);
+int disable_dialog_item(int);
+int check_dialog_item(int,int);
+int destroy_dialog(int);
+int popdown_dialog(int);
+int dialog_item_to_object(int);

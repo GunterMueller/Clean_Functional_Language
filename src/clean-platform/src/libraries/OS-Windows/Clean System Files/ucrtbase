@@ -1,0 +1,14 @@
+ucrtbase.dll
+__acrt_iob_func
+__stdio_common_vsscanf
+setvbuf
+malloc
+calloc
+free
+memset
+memcpy
+strcmp
+strcpy
+chkstk
+__stdio_common_vsprintf
+__stdio_common_vfprintf

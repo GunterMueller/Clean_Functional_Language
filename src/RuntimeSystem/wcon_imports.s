@@ -1,0 +1,21 @@
+
+	.global	_GetTickCount@0
+	.global	_ExitProcess@4
+	.global	_WriteFile@20
+	.global	_AllocConsole@0
+	.global	_GetStdHandle@4
+	.global	_WriteFile@20
+	.global	_ReadFile@20
+	.global	_SetConsoleTitleA@4
+	.global	_GetConsoleMode@8
+	.global	_SetConsoleMode@8
+	.global	_GlobalFree@4
+	.global	_GetLastError@0
+	.global	_GlobalAlloc@8
+	.global	_GetCommandLineA@0
+	.global	_CreateFileA@28
+	.global	_ExitProcess@4
+	.global	_FindFirstFileA@8
+	.global	_FindClose@4
+	.global	_CreateFileA@28
+	.global	_CloseHandle@4

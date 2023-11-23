@@ -1,0 +1,3635 @@
+Version:	1.3
+Global
+	Built:	True
+	CodeGen
+		CheckStacks:	False
+		CheckIndexes:	False
+		KeepABC:	False
+		TargetProcessor:	CurrentProcessor
+	Application
+		HeapSize:	409600
+		StackSize:	102400
+		ExtraMemory:	81920
+		IntialHeapSize:	204800
+		HeapSizeMultiplier:	4096
+		ShowExecutionTime:	False
+		ShowGC:	False
+		ShowStackSize:	False
+		MarkingCollector:	False
+		Profile
+			Memory:	False
+			MemoryMinimumHeapSize:	0
+			Time601:	False
+			Time:	False
+		Output
+			Output:	ShowConstructors
+			Font:	Geneva
+			FontSize:	12
+			WriteStdErr:	False
+	Project
+		Verbose:	False
+	Link
+		DefaultSystemObjects:	True
+		DefaultLibraries:	True
+	Paths
+		Path:	{Project}
+		Path:	Clean:Linkers:shared
+		Path:	Clean:IDE stuff
+MainModule
+	Name:	StaticLinker
+	Dir:	{Project}
+	IclOpen:	False
+	Compiler
+		NeverMemoryProfile:	False
+		NeverTimeProfile:	False
+		StrictnessAnalysis:	True
+		ListTypes:	NoTypes
+		ListAttributes:	False
+		Warnings:	False
+		Verbose:	False
+		ReadableABC:	False
+		ReuseUniqueNodes:	False
+	Dcl
+		Editor
+			TabSize:	4
+			Font:	Geneva
+			FontSize:	12
+			AutoIndent:	True
+		WindowPosition
+			X:	0
+			Y:	0
+			SizeX:	500
+			SizeY:	300
+	DclOpen:	False
+	Icl
+		Editor
+			TabSize:	4
+			Font:	Geneva
+			FontSize:	12
+			AutoIndent:	True
+		WindowPosition
+			X:	0
+			Y:	0
+			SizeX:	522
+			SizeY:	427
+	IclOpen:	False
+	LastModified:	Yes 2000 8 17 15 25 16
+	Dependencies
+		Module:	CommonObjectToDisk
+		Module:	Linker
+		Module:	LinkerMessages
+		Module:	NamesTable
+		Module:	ObjectToDisk
+		Module:	PEFObjectToDisk
+		Module:	PlatformLinkOptions
+		Module:	State
+		Module:	StaticLinker
+		Module:	StdArray
+		Module:	StdBool
+		Module:	StdChar
+		Module:	StdCharList
+		Module:	StdClass
+		Module:	StdEnum
+		Module:	StdEnv
+		Module:	StdFile
+		Module:	StdFunc
+		Module:	StdInt
+		Module:	StdList
+		Module:	StdMisc
+		Module:	StdOrdList
+		Module:	StdOverloaded
+		Module:	StdReal
+		Module:	StdString
+		Module:	StdTuple
+		Module:	SymbolTable
+		Module:	_SystemArray
+		Module:	_SystemEnum
+		Module:	pdState
+		Module:	pdSymbolTable
+OtherModules
+	Module
+		Name:	SortSymbols
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 43
+		Dependencies
+			Module:	NamesTable
+			Module:	SortSymbols
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdSortSymbols
+			Module:	pdState
+			Module:	pdSymbolTable
+	Module
+		Name:	pdSortSymbols
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 43
+		Dependencies
+			Module:	NamesTable
+			Module:	SortSymbols
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdSortSymbols
+			Module:	pdSymbolTable
+	Module
+		Name:	ConvertMWObject
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 42
+		Dependencies
+			Module:	ConvertMWObject
+			Module:	NamesTable
+			Module:	SortSymbols
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdSortSymbols
+			Module:	pdSymbolTable
+			Module:	xcoff
+	Module
+		Name:	mac_types
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 40
+		Dependencies
+			Module:	mac_types
+	Module
+		Name:	resources
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 41
+		Dependencies
+			Module:	mac_types
+			Module:	resources
+	Module
+		Name:	memory
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 40
+		Dependencies
+			Module:	mac_types
+			Module:	memory
+	Module
+		Name:	structure
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 40
+		Dependencies
+			Module:	mac_types
+			Module:	structure
+	Module
+		Name:	files
+		Dir:	{Application}:Extensions to PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 40
+		Dependencies
+			Module:	StdArray
+			Module:	_SystemArray
+			Module:	files
+			Module:	mac_types
+	Module
+		Name:	pointer
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 39
+		Dependencies
+			Module:	mac_types
+			Module:	pointer
+	Module
+		Name:	Sections
+		Dir:	Clean:Linkers:shared
+		IclOpen:	True
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	810
+				SizeY:	331
+		IclOpen:	True
+		LastModified:	Yes 2000 8 17 15 25 39
+		Dependencies
+			Module:	LinkerMessages
+			Module:	NamesTable
+			Module:	PlatformLinkOptions
+			Module:	Sections
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdSections
+			Module:	pdState
+			Module:	pdSymbolTable
+	Module
+		Name:	pdSections
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 38
+		Dependencies
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	pdSections
+	Module
+		Name:	pefConstants
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 38
+		Dependencies
+			Module:	pefConstants
+	Module
+		Name:	LoaderSection
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 38
+		Dependencies
+			Module:	ExtArray
+			Module:	ExtFile
+			Module:	ExtInt
+			Module:	ExtString
+			Module:	LinkerMessages
+			Module:	LoaderSection
+			Module:	NamesTable
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtFile
+			Module:	pdExtInt
+			Module:	pdExtString
+			Module:	pdState
+			Module:	pdSymbolTable
+			Module:	xcoff
+	Module
+		Name:	ExtInt
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 25
+		Dependencies
+			Module:	ExtInt
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtInt
+	Module
+		Name:	pdExtInt
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 20
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtInt
+	Module
+		Name:	pdLinkerOffsets
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 32
+		Dependencies
+			Module:	NamesTable
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdLinkerOffsets
+			Module:	pdSymbolTable
+	Module
+		Name:	Directory
+		Dir:	{Application}:Directory
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 29
+		Dependencies
+			Module:	Directory
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+		NeededObjFiles
+			ObjectFile:	cDirectory.obj
+		NeededLibraries
+			Library:	directory_library
+	Module
+		Name:	PEFObjectToDisk
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 17
+		Dependencies
+			Module:	CommonObjectToDisk
+			Module:	ExtArray
+			Module:	ExtFile
+			Module:	ExtString
+			Module:	LinkerMessages
+			Module:	LinkerOffsets
+			Module:	NamesTable
+			Module:	PEFObjectToDisk
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtFile
+			Module:	pdExtString
+			Module:	pdState
+			Module:	pdSymbolTable
+			Module:	xcoff
+	Module
+		Name:	CommonObjectToDisk
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	159
+				Y:	74
+				SizeX:	895
+				SizeY:	339
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 18
+		Dependencies
+			Module:	CommonObjectToDisk
+			Module:	DebugUtilities
+			Module:	ExtArray
+			Module:	ExtFile
+			Module:	ExtString
+			Module:	LinkerMessages
+			Module:	NamesTable
+			Module:	Relocations
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtFile
+			Module:	pdExtString
+			Module:	pdState
+			Module:	pdSymbolTable
+			Module:	xcoff
+	Module
+		Name:	ObjectToDisk
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 32
+		Dependencies
+			Module:	CommonObjectToDisk
+			Module:	LinkerMessages
+			Module:	NamesTable
+			Module:	ObjectToDisk
+			Module:	PEFObjectToDisk
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdState
+			Module:	pdSymbolTable
+	Module
+		Name:	Linker
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 33
+		Dependencies
+			Module:	CommonObjectToDisk
+			Module:	ExtArray
+			Module:	ExtFile
+			Module:	ExtString
+			Module:	Linker
+			Module:	LinkerMessages
+			Module:	NamesTable
+			Module:	ObjectToDisk
+			Module:	PEFObjectToDisk
+			Module:	PlatformLinkOptions
+			Module:	ReadObject
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	UtilStrictLists
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtFile
+			Module:	pdExtString
+			Module:	pdState
+			Module:	pdSymbolTable
+			Module:	piObjectToDisk
+	Module
+		Name:	LinkerMessages
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 29
+		Dependencies
+			Module:	LinkerMessages
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+	Module
+		Name:	pdState
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 30
+		Dependencies
+			Module:	LinkerMessages
+			Module:	NamesTable
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdState
+			Module:	pdSymbolTable
+	Module
+		Name:	State
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 30
+		Dependencies
+			Module:	DebugUtilities
+			Module:	LinkerMessages
+			Module:	NamesTable
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdState
+			Module:	pdSymbolTable
+	Module
+		Name:	NamesTable
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 26
+		Dependencies
+			Module:	DebugUtilities
+			Module:	ExtString
+			Module:	NamesTable
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtString
+	Module
+		Name:	_SystemEnum
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 3 16 15 12 5
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+	Module
+		Name:	StdEnum
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 21
+		Dependencies
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	_SystemEnum
+	Module
+		Name:	StdMisc
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 2 9 11 8 24
+		Dependencies
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+	Module
+		Name:	StdFunc
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 21
+		Dependencies
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+	Module
+		Name:	StdCharList
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 22
+		Dependencies
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdOverloaded
+			Module:	StdReal
+	Module
+		Name:	StdTuple
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 24
+		Dependencies
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdOverloaded
+			Module:	StdTuple
+	Module
+		Name:	StdOrdList
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 24
+		Dependencies
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+	Module
+		Name:	StdList
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 22
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	_SystemArray
+			Module:	_SystemEnum
+	Module
+		Name:	StdClass
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 21
+		Dependencies
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+	Module
+		Name:	StdString
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 2 9 11 8 24
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	_SystemArray
+			Module:	_SystemEnum
+	Module
+		Name:	_SystemArray
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 3 17 14 40 39
+		Dependencies
+			Module:	_SystemArray
+	Module
+		Name:	StdArray
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 23
+		Dependencies
+			Module:	StdArray
+			Module:	_SystemArray
+	Module
+		Name:	StdChar
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 2 9 11 8 23
+		Dependencies
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+	Module
+		Name:	StdReal
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 2 9 11 8 24
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	_SystemArray
+	Module
+		Name:	StdBool
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 2 9 11 8 24
+		Dependencies
+			Module:	StdBool
+			Module:	StdOverloaded
+	Module
+		Name:	StdEnv
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 24
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+	Module
+		Name:	pdSymbolTable
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 27
+		Dependencies
+			Module:	ExtString
+			Module:	NamesTable
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtString
+			Module:	pdSymbolTable
+			Module:	xcoff
+	Module
+		Name:	SymbolTable
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 27
+		Dependencies
+			Module:	NamesTable
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdSymbolTable
+	Module
+		Name:	PlatformLinkOptions
+		Dir:	{Project}
+		IclOpen:	True
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	True
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	114
+				Y:	0
+				SizeX:	862
+				SizeY:	380
+		IclOpen:	True
+		LastModified:	Yes 2000 8 17 15 25 37
+		Dependencies
+			Module:	CommonObjectToDisk
+			Module:	DebugUtilities
+			Module:	ExtArray
+			Module:	ExtFile
+			Module:	ExtString
+			Module:	LinkerMessages
+			Module:	LinkerOffsets
+			Module:	LoaderSection
+			Module:	NamesTable
+			Module:	PlatformLinkOptions
+			Module:	Sections
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	files
+			Module:	mac_types
+			Module:	memory
+			Module:	pdExtFile
+			Module:	pdExtString
+			Module:	pdSections
+			Module:	pdState
+			Module:	pdSymbolTable
+			Module:	pefConstants
+			Module:	pointer
+			Module:	resources
+			Module:	structure
+	Module
+		Name:	StdFile
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 2 9 11 8 25
+		Dependencies
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdFile
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+	Module
+		Name:	StdOverloaded
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 19
+		Dependencies
+			Module:	StdOverloaded
+	Module
+		Name:	StdInt
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 2 9 11 8 24
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	_SystemArray
+	Module
+		Name:	LinkerOffsets
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 31
+		Dependencies
+			Module:	DebugUtilities
+			Module:	ExtInt
+			Module:	LinkerMessages
+			Module:	LinkerOffsets
+			Module:	NamesTable
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtInt
+			Module:	pdLinkerOffsets
+			Module:	pdState
+			Module:	pdSymbolTable
+	Module
+		Name:	xcoff
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 25
+		Dependencies
+			Module:	StdArray
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	_SystemArray
+			Module:	xcoff
+	Module
+		Name:	pdExtString
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 25
+		Dependencies
+			Module:	StdArray
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	_SystemArray
+			Module:	pdExtString
+	Module
+		Name:	ExtString
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 25
+		Dependencies
+			Module:	ExtString
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	_SystemArray
+			Module:	pdExtString
+	Module
+		Name:	ExtArray
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 26
+		Dependencies
+			Module:	ExtArray
+			Module:	NamesTable
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdSymbolTable
+	Module
+		Name:	pdExtFile
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 28
+		Dependencies
+			Module:	Directory
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtFile
+	Module
+		Name:	ExtFile
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 29
+		Dependencies
+			Module:	ExtArray
+			Module:	ExtFile
+			Module:	ExtString
+			Module:	NamesTable
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtFile
+			Module:	pdExtString
+			Module:	pdSymbolTable
+	Module
+		Name:	DebugUtilities
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 19
+		Dependencies
+			Module:	DebugUtilities
+			Module:	StdFile
+			Module:	StdOverloaded
+			Module:	StdString
+	Module
+		Name:	Relocations
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 20
+		Dependencies
+			Module:	ExtArray
+			Module:	ExtFile
+			Module:	ExtInt
+			Module:	ExtString
+			Module:	LinkerMessages
+			Module:	NamesTable
+			Module:	Relocations
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtFile
+			Module:	pdExtInt
+			Module:	pdExtString
+			Module:	pdState
+			Module:	pdSymbolTable
+			Module:	xcoff
+	Module
+		Name:	UtilStrictLists
+		Dir:	Clean:IDE stuff
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 33
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	UtilStrictLists
+			Module:	_SystemArray
+			Module:	_SystemEnum
+	Module
+		Name:	piObjectToDisk
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	767
+				SizeY:	366
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 34
+		Dependencies
+			Module:	DebugUtilities
+			Module:	ExtArray
+			Module:	ExtFile
+			Module:	ExtInt
+			Module:	ExtString
+			Module:	LinkerMessages
+			Module:	NamesTable
+			Module:	PlatformLinkOptions
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	WriteState
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtFile
+			Module:	pdExtInt
+			Module:	pdExtString
+			Module:	pdState
+			Module:	pdSymbolTable
+			Module:	piObjectToDisk
+	Module
+		Name:	ReadObject
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 42
+		Dependencies
+			Module:	ConvertMWObject
+			Module:	DebugUtilities
+			Module:	ExtArray
+			Module:	ExtFile
+			Module:	ExtInt
+			Module:	ExtString
+			Module:	NamesTable
+			Module:	ReadObject
+			Module:	SortSymbols
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtFile
+			Module:	pdExtInt
+			Module:	pdExtString
+			Module:	pdSortSymbols
+			Module:	pdSymbolTable
+			Module:	xcoff
+	Module
+		Name:	WriteState
+		Dir:	Clean:Linkers:shared
+		IclOpen:	True
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	395
+				Y:	40
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	True
+		LastModified:	Yes 2000 8 17 15 25 35
+		Dependencies
+			Module:	CommonObjectToDisk
+			Module:	DebugUtilities
+			Module:	ExtArray
+			Module:	ExtFile
+			Module:	ExtString
+			Module:	LinkerMessages
+			Module:	LinkerOffsets
+			Module:	NamesTable
+			Module:	ReadWriteState
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	WriteState
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtFile
+			Module:	pdExtString
+			Module:	pdState
+			Module:	pdSymbolTable
+			Module:	pdWriteState
+			Module:	xcoff
+	Module
+		Name:	pdWriteState
+		Dir:	{Project}
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	963
+				SizeY:	338
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 35
+		Dependencies
+			Module:	CommonObjectToDisk
+			Module:	DebugUtilities
+			Module:	ExtArray
+			Module:	ExtFile
+			Module:	ExtInt
+			Module:	ExtString
+			Module:	LinkerMessages
+			Module:	LinkerOffsets
+			Module:	NamesTable
+			Module:	ReadWriteState
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtFile
+			Module:	pdExtInt
+			Module:	pdExtString
+			Module:	pdState
+			Module:	pdSymbolTable
+			Module:	pdWriteState
+			Module:	xcoff
+	Module
+		Name:	ReadWriteState
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Geneva
+				FontSize:	12
+				AutoIndent:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 8 17 15 25 36
+		Dependencies
+			Module:	DebugUtilities
+			Module:	ExtArray
+			Module:	ExtFile
+			Module:	ExtString
+			Module:	LinkerMessages
+			Module:	NamesTable
+			Module:	ReadWriteState
+			Module:	State
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	SymbolTable
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtFile
+			Module:	pdExtString
+			Module:	pdState
+			Module:	pdSymbolTable

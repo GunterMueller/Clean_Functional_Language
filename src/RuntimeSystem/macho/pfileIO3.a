@@ -1,0 +1,1421 @@
+;	File:	cgpfileIO3.s
+;	Copyright:	University of Nijmegen
+;	Written by:	John van Groningen
+;	Machine:	Power Macintosh
+
+MACOSX	=	1
+
+#define	sp	r1
+
+#define	d0	r24
+#define	d1	r25
+#define	d2	r26
+#define	d3	r27
+#define	d4	r28
+#define	d5	r29
+#define	d6	r30
+#define	d7	r31
+
+#define	a0	r23
+#define	a1	r22
+#define	a2	r21
+#define	a3	r20
+#define	a4	r19
+#define	a5	r18
+#define	a6	r17
+
+#define	o0	r3
+#define	o1	r4
+#define	o2	r5
+#define	o3	r6
+#define	o4	r7
+#define	o5	r8
+
+#define	g2	r9
+#define	g3	r10
+
+#define	g0	r11
+#define	g1	r12
+
+#define	int_reg	r16
+#define	char_reg	r15
+#define	real_reg	r14
+#define	bool_reg	r13
+
+#include	"pmacros.a"
+
+	.data
+	.align	3
+tmp_real:	.double	0.0
+freadstring_error:
+	.ascii	"Error in freadsubstring parameters."
+	.byte	13,0
+	.byte	0,0,0
+fwritestring_error:
+	.ascii	"Error in fwritesubstring parameters."
+	.byte	13,0
+	.byte	0,0
+
+	.text
+
+	.globl	stdioF
+	.globl	stderrF
+	.globl	openF
+	.globl	closeF
+	.globl	reopenF
+	.globl	readFC
+	.globl	readFI
+	.globl	readFR
+	.globl	readFS
+	.globl	readFString
+	.globl	readLineF
+	.globl	writeFC
+	.globl	writeFI
+	.globl	writeFR
+	.globl	writeFS
+	.globl	writeFString
+	.globl	endF
+	.globl	errorF
+	.globl	positionF
+	.globl	seekF
+	.globl	shareF
+	
+	.globl	openSF
+	.globl	readSFC
+	.globl	readSFI
+	.globl	readSFR
+	.globl	readSFS
+	.globl	readLineSF
+	.globl	endSF
+	.globl	positionSF
+	.globl	seekSF
+
+	.globl	collect_0
+	.globl	collect_1
+	.globl	__STRING__
+
+	.text
+	.globl	_open_stdio
+stdioF:	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_open_stdio
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	mr	d1,r3
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_open_stderr
+stderrF:	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_open_stderr
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	mr	d1,r3
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_open_file
+openF:	mr	o1,d0
+	addi	o0,a0,4
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_open_file
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	addic.	d1,o0,0
+	li	d0,-1
+	blt	openF_1
+	li	d2,-1
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr
+
+openF_1:
+	li	d2,0
+	lwz	r0,0(sp)
+	neg	d1,d1
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_close_file
+closeF:	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_close_file
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	mr	d0,o0
+	
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_re_open_file
+reopenF:
+	mr	o0,d2
+	mr	o1,d0
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_re_open_file
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+	
+	mr	d1,d2
+	mr	d2,o0
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_file_read_char
+readFC:
+	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_read_char
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	mr	d2,o0
+	cmpwi	0,o0,-1
+	li	d0,-1
+	beq	readFC_eof
+
+	li	d3,-1
+	
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+readFC_eof:
+	li	d2,0
+	li	d3,0
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_file_read_int
+readFI:
+	subi	sp,sp,4
+	mr	o1,sp
+	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_read_int
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+	
+	lwz	d2,0(sp)
+	li	d0,-1
+	mr	d3,o0
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+	blr	
+
+	.text
+	.globl	_file_read_real
+readFR:
+	lea	o1,tmp_real
+	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_read_real
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	lea	o1,tmp_real
+	mr	d2,o0
+	lfd	f14,0(o1)
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+
+
+
+
+	.text
+	.globl	_file_read_characters
+	.globl	print_error
+readFString:
+	lwz	d4,4(a0)
+	cmplw	0,d3,d4
+	bge	readFString_error
+
+	sub	o0,d4,d3
+	cmplw	0,d2,o0
+	bgt	readFString_error
+	
+	addi	o2,a0,8
+	stwu	d2,-4(sp)
+	add	o2,o2,d3
+	mr	o1,sp
+	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_read_characters
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	mr	d2,o0
+	li	d0,-1
+
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+	blr	
+
+readFString_error:
+	lea	o0,freadstring_error
+	b	print_error
+
+	.text
+ .if 0
+	.globl	_file_read_string
+ .else
+	.globl	_file_read_characters
+ .endif
+readFS:
+	addi	d5,d0,8+3
+	srwi	d5,d5,2
+	sub.	d7,d7,d5
+	blt	readFS_gc
+readFS_r_gc:
+	add	d7,d7,d5
+	mr	d4,d2
+	
+	lea	o0,__STRING__+2
+	addi	d3,a6,4
+	stwu	o0,4(a6)
+ .if 0
+	addi	o2,a6,4
+	mr	o1,d0
+ .else
+	addi	o2,a6,8
+	stw	d0,4(a6)
+	addi	o1,a6,4
+ .endif
+	mr	o0,d2
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+ .if 0
+	bl	_file_read_string
+ .else
+	bl	_file_read_characters
+ .endif
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+readFS_end:
+	addi	d0,o0,3
+	clrrwi	d0,d0,2
+	addi	a6,a6,4
+	add	a6,a6,d0
+	srwi	d0,d0,2
+	baddi	d0,2
+	bsub	d7,d0
+
+	mr	a0,d3
+	mr	d1,d4
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+readFS_gc:
+	mflr	r0
+	bl	collect_0
+	b	readFS_r_gc
+
+	.text
+	.globl	_file_read_line
+readLineF:
+	li	d5,32+2
+	cmpw	0,d7,d5
+	blt	readLineF_gc
+
+readLineF_r_gc:
+	mr	d4,d1
+	
+	lea	o0,__STRING__+2
+	addi	d3,a6,4
+	stwu	o0,4(a6)
+	
+	addi	o2,a6,8
+	subi	o1,d7,2
+	slwi	o1,o1,2
+	mr	o0,d4
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_read_line
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	addic.	d0,o0,0
+	stw	d0,4(a6)
+	bge	readFS_end
+
+	subi	d0,d7,2
+	slwi	d0,d0,2
+	stwu	d0,4(a6)
+
+readLineF_lp:
+	add	a6,a6,d0
+
+	lwz	d5,4(d3)
+	mr	a0,d3
+	srwi	d5,d5,2
+	addi	d5,d5,2+32
+	neg	d7,d5
+
+	mflr	r0
+	bl	collect_1
+
+	mr	a1,a0
+	add	d7,d7,d5
+	lwzu	d0,4(a1)
+	addi	d1,d0,3
+	srwi	d1,d1,2
+	subi	d7,d7,2
+	sub	d7,d7,d1
+	
+	lea	o0,__STRING__+2
+	subic.	d1,d1,1
+
+	addi	d3,a6,4
+	stw	o0,4(a6)
+	stwu	d0,8(a6)
+	blt	end_copy_string1
+
+copy_st_lp1:
+	lwzu	g1,4(a1)
+	subic.	d1,d1,1
+	stwu	g1,4(a6)
+	bge	copy_st_lp1
+end_copy_string1:
+
+	addi	o2,a6,4
+	slwi	o1,d7,2
+	mr	o0,d4
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_read_line
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	addic.	d0,o0,0
+	lwz	g1,4(d3)
+	blt	readLineF_again
+
+	mr	a0,d3
+	add	g1,g1,d0
+	stw	g1,4(d3)
+
+	addi	d1,d0,3
+	srwi	d1,d1,2
+	sub	d7,d7,d1
+	slwi	d1,d1,2
+	add	a6,a6,d1
+	
+	mr	d1,d4
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+readLineF_gc:
+	sub	d7,d7,d5
+	mflr	r0
+	bl	collect_0
+	add	d7,d7,d5
+	b	readLineF_r_gc
+
+readLineF_again:
+	slwi	d0,d7,2
+	add	g1,g1,d0
+	stw	g1,4(d3)
+	b	readLineF_lp
+
+	.text
+	.globl	_file_write_char
+writeFC:
+	mr	o1,d1
+	mr	o0,d2
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_write_char
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_file_write_int
+writeFI:
+	mr	o1,d1
+	mr	o0,d2
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_write_int
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_file_write_real
+writeFR:
+	mr	o2,d1
+	fmr	f1,f14
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_write_real
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+ .if 0
+	.globl	_file_write_string
+ .else
+	.globl	_file_write_characters
+ .endif
+writeFS:
+ .if 0
+	mr	o1,d1
+	addi	o0,a0,4
+ .else
+	lwz	o1,4(a0)
+	mr	o2,d1
+	addi	o0,a0,8
+ .endif
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+ .if 0
+	bl	_file_write_string
+ .else
+	bl	_file_write_characters
+ .endif
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+ .if 1
+	.text
+	.globl	_file_write_characters
+	.globl	print_error
+writeFString:
+	lwz	d4,4(a0)
+	cmplw	0,d3,d4
+	bge	writeFString_error
+
+	sub	o0,d4,d3
+	cmplw	0,d2,o0
+	bgt	writeFString_error
+
+	mr	o2,d1
+	addi	o0,a0,8
+	mr	o1,d2
+	add	o0,o0,d3
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_write_characters
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+writeFString_error:
+	lea	o0,fwritestring_error
+	b	print_error
+ .endif
+
+	.text
+	.globl	_file_end
+endF:
+	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_end
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	li	d0,-1
+	mr	d2,o0
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_file_error
+errorF:
+	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_error
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	mr	d2,o0
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_file_position
+positionF:
+	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_position
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	mr	d2,o0
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_file_seek
+seekF:
+	mr	o2,d0
+	mr	o1,d1
+	mr	o0,d3
+	mr	d1,d3
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_seek
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	mr	d2,o0
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_file_share
+shareF:
+	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_share
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+	
+	li	d0,-1
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_open_s_file
+openSF:
+	mr	o1,d0
+	addi	o0,a0,4
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_open_s_file
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	addic.	d1,o0,0
+	li	d0,0
+	blt	openSF_1
+	li	d2,-1
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+openSF_1:
+	li	d2,0
+	lwz	r0,0(sp)
+	neg	d1,d1
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_file_read_s_char
+readSFC:
+	stwu	d0,-4(sp)
+	mr	o1,sp
+	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_read_s_char
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	mr	d2,o0
+	cmpwi	0,o0,-1
+	lwz	d0,0(sp)
+	beq	readSFC_eof
+
+	li	d3,-1
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+	blr	
+
+readSFC_eof:
+	li	d2,0
+	li	d3,0
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+	blr	
+
+	.text
+	.globl	_file_read_s_int
+readSFI:
+	stwu	d0,-4(sp)
+	mr	o2,sp
+	subi	sp,sp,4
+	mr	o1,sp
+	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_read_s_int
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	lwz	d2,0(sp)
+	lwz	d0,4(sp)
+	mr	d3,o0
+
+	lwz	r0,8(sp)
+	addi	sp,sp,12
+	blr	
+
+	.text
+	.globl	_file_read_s_real
+readSFR:
+	stwu	d0,-4(sp)
+	mr	o2,sp
+	lea	o1,tmp_real
+	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_read_s_real
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	lea	g1,tmp_real
+	lwz	d0,0(sp)
+	lfd	f14,0(g1)
+	mr	d2,o0
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+	blr	
+
+	.text
+	.globl	_file_read_s_string
+readSFS:
+	addi	d5,d0,8+3
+	srwi	d5,d5,2
+	sub.	d7,d7,d5
+	blt	readSFS_gc
+readSFS_r_gc:
+	add	d7,d7,d5
+	mr	d4,d2
+
+	lea	o0,__STRING__+2
+	addi	d3,a6,4
+	stwu	o0,4(a6)
+
+	stwu	d1,-4(sp)
+	mr	o3,sp
+	addi	o2,a6,4
+	mr	o1,d0
+	mr	o0,d2
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_read_s_string
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+readSFS_end:
+	addi	d0,d0,3
+	clrrwi	d0,d0,2
+	addi	a6,a6,4
+	add	a6,a6,d0
+	srwi	d0,d0,2
+	baddi	d0,2
+	bsub	d7,d0
+
+	mr	a0,d3
+	mr	d1,d4
+	lwz	d0,0(sp)
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+	blr	
+
+readSFS_gc:
+	mflr	r0
+	bl	collect_0
+	b	readSFS_r_gc
+
+	.text
+	.globl	_file_read_s_line
+readLineSF:
+	li	d5,32+2
+	cmpw	0,d7,d5
+	blt	readLineSF_gc
+
+readLineSF_r_gc:
+	stwu	d0,-4(sp)
+	mr	d4,d1
+
+	lea	o0,__STRING__+2
+	addi	d3,a6,4
+	stwu	o0,4(a6)
+
+	mr	o3,sp
+	addi	o2,a6,8
+	subi	o1,d7,2
+	slwi	o1,o1,2
+	mr	o0,d4
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_read_s_line
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	addic.	d0,o0,0
+	stw	d0,4(a6)
+	bge	readSFS_end
+
+	subi	d0,d7,2
+	slwi	d0,d0,2
+	stwu	d0,4(a6)
+
+readLineSF_lp:
+	add	a6,a6,d0
+
+	lwz	d5,4(d3)
+	mr	a0,d3
+	srwi	d5,d5,2
+	addi	d5,d5,2+32
+	neg	d7,d5
+
+	mflr	r0
+	bl	collect_1
+
+	mr	a1,a0
+	add	d7,d7,d5
+	lwzu	d0,4(a1)
+	addi	d1,d0,3
+	srwi	d1,d1,2
+	subi	d7,d7,2
+	sub	d7,d7,d1
+	
+	lea	o0,__STRING__+2
+	subic.	d1,d1,1
+
+	addi	d3,a6,4
+	stw	o0,4(a6)
+	stwu	d0,8(a6)
+	blt	end_copy_string2
+
+copy_st_lp2:
+	lwzu	g1,4(a1)
+	subic.	d1,d1,1
+	stwu	g1,4(a6)
+	bge	copy_st_lp2
+end_copy_string2:
+
+	mr	o3,sp
+	addi	o2,a6,4
+	slwi	o1,d7,2
+	mr	o0,d4
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_read_s_line
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+
+	addic.	d0,o0,0
+	lwz	g1,4(d3)
+	blt	readLineSF_again
+
+	mr	a0,d3
+	add	g1,g1,d0
+	stw	g1,4(d3)
+
+	addi	d1,d0,3
+	srwi	d1,d1,2
+	sub	d7,d7,d1
+	slwi	d1,d1,2
+	add	a6,a6,d1
+	
+	lwz	d0,0(sp)
+	mr	d1,d4
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+	blr	
+
+readLineSF_gc:
+	sub	d7,d7,d5
+	mflr	r0
+	bl	collect_0
+	add	d7,d7,d5
+	b	readLineSF_r_gc
+
+readLineSF_again:
+	slwi	d0,d7,2
+	add	g1,g1,d0
+	stw	g1,4(d3)
+	b	readLineSF_lp
+
+	.text
+	.globl	_file_s_end
+endSF:
+	mr	o1,d0
+	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_s_end
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+	
+	mr	d0,o0
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_file_s_position
+positionSF:
+	mr	o1,d0
+	mr	o0,d1
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_s_position
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+	
+	mr	d0,o0
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+	.text
+	.globl	_file_s_seek
+seekSF:
+	stwu	d2,-4(sp)
+	mr	o3,sp
+
+	mr	o2,d0
+	mr	o1,d1
+	mr	o0,d3
+	mr	d1,d3
+
+	mflr	r0
+ .if MACOSX
+ 	mr	g0,sp
+ 	ori	sp,sp,28
+ 	stwu	g0,-(64+28)(sp)
+	stw	r0,60(sp)
+ .else
+	stw	r0,-4(sp)
+	stwu	sp,-64(sp)
+ .endif
+	bl	_file_s_seek
+	lwz	r0,60(sp)
+ .if MACOSX
+ 	lwz	sp,0(sp)
+ .else
+	addi	sp,sp,64
+ .endif
+	mtlr	r0
+	
+	lwz	d0,0(sp)
+	mr	d2,o0
+
+	lwz	r0,4(sp)
+	addi	sp,sp,8
+	blr	

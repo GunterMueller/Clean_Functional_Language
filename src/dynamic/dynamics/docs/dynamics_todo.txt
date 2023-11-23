@@ -1,0 +1,52 @@
+Dynamics todo
+
+* ModuleID-node sharing for one module
+  compiler, more efficient
+* dlink and DynamicLinker expect to be
+  placed in the path of the CleanIDE
+- move type definition normalizer from checker to convertDynamics.
+- compiler, overloading let_ptr-function needs as arg the number of bindings like
+  in convertDynamics.
+
+CLEAN COMPILER
+==============
+- sharing of type part of dynamic
+
+TYPE EQUIVALENCE
+================
+- type variables of type definitions which were previously (before version 1.21)
+  normalized have been removed by Sjaak and have not yet been added again in 
+  convertDynamics. As far as I can determine the normalization is performed but 
+  I am not entirely sure.
+- type synonym expansion (String)
+
+CONVERSION FUNCTIONS
+==================== 
+graph_to_string:
+- convert runtime lazy_dynamic_index of build_lazy_blocks which already exist in the
+  graph to disk blocks.
+- cache parts of the graph which are lazily read from a dynamic
+  If there are at least two lazy references to a single dynamic and the block to which
+  is refered share a common block, then the current implementation cannot yet detect 
+  this.
+- laziness in RunTimeIDs
+- ids of build_lazy_blocks which already existed must be converted to disk ids
+- CopyGraphToStringArguments and CopyGraphToStringResults *must* appear in type equation
+  (request.icl, like realtje)
+
+COMPILER
+========
+- merge forgotten bit of predef
+
+DYNAMIC LINKER
+==============
+- clean up sources
+- library instance sharing (don't know if possible)
+
+STATIC LINKER
+=============
+?
+
+_SystemDynamic
+==============
+- split-up in library-part and StdEnv-part  

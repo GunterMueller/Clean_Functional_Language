@@ -1,0 +1,97 @@
+#
+# xs.lo
+# =====
+#
+#	Link Options file to link Clean applications that
+#	use static libraries for the Clean IO system.
+
+# This file is used to specify options to link Clean programs
+# that use the Clean IO library. The options file is passed
+# to the clm command with the -sl flag:
+#
+#	% clm -sl xs <main module>
+
+# Link option files consist of two parts separated by an
+# '=' sign.
+#
+# The first section consists of options that are passed on
+# to the linker by clm.
+
+-R$OPENWINLIB
+-L$OPENWINLIB
+-lXol
+-lXmu
+# $OPENWINLIB/libXmu.sa
+-lXt
+# $OPENWINLIB/libXt.sa
+-lX11
+-lXext
+
+$CLEANIOLIB/libCleanIO.a
+$CLEANIOLIB/libCleanolit.a
+
+
+# The equal sign separates the two sections
+=
+
+# The second section lists all the modules that clm should *not*
+# pass to the linker, because they are already combined in
+# the library libXClean
+#
+# The names between parentheses are the modules on which the
+# the first module depends.
+
+deltaWindow
+	(deltaEventIO)
+deltaMenu
+	(deltaEventIO)
+deltaIOState
+	(deltaEventIO)
+deltaFileSelect
+	(deltaEventIO)
+timerDevice
+	(ioState)
+menuDevice
+	(ioState StdEnv StdList StdClassList StdTuple
+	 StdArray _SystemArray StdCharList StdFunc StdEnum)
+misc
+	(StdClass StdOverloaded StdBool StdInt
+	 StdReal StdChar StdString StdFile)
+dialogDevice
+	(windowDevice)
+deltaDialog
+	(dialogDevice)
+deltaEventIO
+	(windowDevice)
+deltaTimer
+	(deltaEventIO timerDevice)
+deltaSystem
+	(StdInt StdOverloaded StdReal StdString)
+deltaControls
+	(deltaDialog deltaTimer deltaSystem)
+windowDef
+	(commonDef)
+ioState
+	(deltaIOSystem)
+deltaIOSystem
+	(timerDef menuDef windowDef dialogDef)
+timerDef
+	(commonDef)
+menuDef
+	(commonDef)
+dialogDef
+	(commonDef)
+windowDevice
+	(cursorInternal)
+cursorInternal
+	(windowDevice)
+deltaPicture
+	(deltaFont)
+deltaFont
+	(picture)
+picture
+	(StdMisc misc)
+commonDef
+	(deltaPicture)
+xevent xtypes xcursor xdialog xfileselect xkernel
+xmenu xpicture xtimer xwindow xpath

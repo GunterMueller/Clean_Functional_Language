@@ -1,0 +1,712 @@
+Typing dynamics
+===============
+
+Parsing (parse.icl)
+===================
+wantDynamicType :: !*ParseState -> *(!DynamicType,!*ParseState)
+wantDynamicType pState 
+*	# (type_vars, pState) = optionalQuantifiedVariables UniversalQuantifier pState
+*	  (type, pState) = want pState
+*	= ({ dt_uni_vars = type_vars, dt_type = type, dt_global_vars = [] }, pState)
+
+nameToTypeVar name pState
+	# last_char_index = size name - 1
+*	| name.[last_char_index] == '^'
+*		# new_name = name % (0, last_char_index - 1)
+*		# (ident, pState) = stringToIdent new_name IC_Type pState
+*		= (GTV (MakeTypeVar ident), pState)								// e.g. a^
+		# (ident, pState) = stringToIdent name IC_Type pState			// e.g. a
+		= (TV (MakeTypeVar ident), pState)
+
+	
+wantLhsExpressionT  :: !Token !ParseState -> (!ParsedExpr, !ParseState)
+wantLhsExpressionT (IdentToken name) pState /* PK: to make a=:C x equivalent to a=:(C x) */
+	| isLowerCaseName name
+		# (id, pState)		= stringToIdent name IC_Expression pState
+		  (token, pState)	= nextToken FunctionContext pState
+		| token == DefinesColonToken 
+			# (token, pState)	= nextToken FunctionContext pState
+			  (expr, pState)	= wantLhsExpressionT2 token pState
+			= (PE_Bound { bind_dst = id, bind_src = expr }, pState)
+		| token == DoubleColonToken
+*			# (dyn_type, pState) = wantDynamicType pState
+*			= (PE_DynamicPattern (PE_Ident id) dyn_type, pState)
+		// token <> DefinesColonToken // token back and call to wantLhsExpressionT2 would do also.
+		# (exprs, pState) = parseList trySimpleLhsExpression (tokenBack pState)
+		= (combineExpressions (PE_Ident id) exprs, pState)
+
+trySimpleLhsExpressionT ::  !Token !ParseState -> (!Bool, !ParsedExpr, !ParseState)
+trySimpleLhsExpressionT token pState
+	# (succ, expr, pState) = trySimpleExpressionT token cIsAPattern pState
+	| succ
+		# (token, pState) = nextToken FunctionContext pState
+		| token == DoubleColonToken
+*			# (dyn_type, pState) = wantDynamicType pState
+*			= (True, PE_DynamicPattern expr dyn_type, pState)
+			= (True, expr, tokenBack pState)
+		= (False, PE_Empty, pState)
+		
+trySimpleNonLhsExpressionT DynamicToken pState
+	# (dyn_expr, pState) = wantExpression cIsNotAPattern pState
+	  (token, pState) = nextToken FunctionContext pState
+	| token == DoubleColonToken
+*		# (dyn_type, pState) = wantDynamicType pState
+*		= (True, PE_Dynamic dyn_expr (Yes dyn_type), pState)
+*		= (True, PE_Dynamic dyn_expr No, tokenBack pState)
+
+AST (syntax.icl)
+================
+ParsedExpr
+	= ...
+	| PE_DynamicPattern !ParsedExpr !DynamicType
+	| PE_Dynamic !ParsedExpr !(Optional DynamicType)
+
+
+::	DynamicType =
+	{	dt_uni_vars 	:: ![ATypeVar]			// initialized to optional universal quantified variables
+	,	dt_global_vars	:: ![TypeVar]			// initialized to []	
+	,	dt_type			:: !AType				// optional type specified by programmer
+	}
+
+Summary
+-------
+(expression :: pattern)					->	PE_DynamicPattern expression
+dynamic expression [:: dynamic_type]	->	PE_Dynamic expression optional_type	
+	
+Clean 2.0 syntax
+----------------
+DynamicType = [A. type_var {type_var}* ] AType
+
+TypeVar = '.' | NonUpperCaseName (not starting with ('A'-'Z')|'_'))
+
+
+Post parse
+==========
+*	collectFunctions (PE_Dynamic exprs opt_dyn_type) icl_module ca
+*		# (exprs, ca) = collectFunctions exprs icl_module ca
+*		= (PE_Dynamic exprs opt_dyn_type, ca)
+
+Checker (checkFunctionBodies)
+=============================
+:: 	AuxiliaryPattern
+		...
+		| AP_Dynamic !AuxiliaryPattern !DynamicType !OptionalVariable
+		...
+		| AP_Empty !Ident
+
+Initial (PE_DynamicPattern -> AP_Dynamic)
+-----------------------------------------
+checkPattern :: !ParsedExpr !(Optional (Bind Ident (Ptr VarInfo))) !PatternInput !(![Ident],![ArrayPattern]) !*PatternState !*ExpressionInfo !*CheckState -> *(!AuxiliaryPattern,!(![Ident],![ArrayPattern]),!*PatternState,!*ExpressionInfo,!*CheckState);
+checkPattern (PE_DynamicPattern pattern type) opt_var p_input accus ps e_info cs=:{cs_x}
+	# (dyn_pat, accus, ps, e_info, cs) = checkPattern pattern No p_input accus ps e_info cs
+	= (AP_Dynamic dyn_pat type opt_var, accus, ps, e_info, { cs & cs_x.x_needed_modules = cs_x.x_needed_modules bitor cNeedStdDynamics })
+
+Example:
+	f opt_var=:(r :: Real)
+		= abort "aa"
+
+- opt_var	= function argument name
+- dyn_pat	= sub-pattern of r
+
+Later:
+------
+::	ExprInfo		= EI_Empty
+		/* For handling dynamics */
+					| EI_Dynamic 				!(Optional DynamicType) !Int
+					| EI_DynamicType			!DynamicType ![DynamicPtr]
+		/* Auxiliary, was EI_DynamicType before checking */
+					| EI_DynamicTypeWithVars	![TypeVar] !DynamicType ![DynamicPtr]				
+		/* Auxiliary, used during type checking */
+					| EI_TempDynamicType 		!(Optional DynamicType) !AType ![TypeContext] !ExprInfoPtr !SymbIdent
+					| EI_TempDynamicPattern 	![TypeVar] !DynamicType ![DynamicPtr] ![TempLocalVar] !AType ![TypeContext] !ExprInfoPtr !SymbIdent
+					
+					| EI_TypeOfDynamic 			![VarInfoPtr] !TypeCodeExpression				/* Final */
+					| EI_TypeOfDynamicPattern 	![VarInfoPtr] !TypeCodeExpression				/* Final */
+
+					| EI_TypeCode 		!TypeCodeExpression
+					| EI_TypeCodes 		![TypeCodeExpression]
+
+AP_Dynamic subpattern type opt_var -> EI_DynamicType type opt_dynamics
+----------------------------------------------------------------------
+	transform_pattern_into_cases (AP_Dynamic pattern type opt_var) fun_arg result_expr pattern_position var_store expr_heap opt_dynamics cs
+		# (var_arg, result_expr, pattern_position, var_store, expr_heap, opt_dynamics, cs)
+				= convertSubPattern pattern result_expr pattern_position var_store expr_heap opt_dynamics cs
+				
+				
+		  (type_case_info_ptr, expr_heap) = newPtr EI_Empty expr_heap
+		  (dynamic_info_ptr, expr_heap) = newPtr (EI_DynamicType type opt_dynamics) expr_heap
+		  
+	  	  (act_var, result_expr, expr_heap) = transform_pattern_variable fun_arg opt_var result_expr expr_heap
+	  	  
+	  	  type_case_patterns = [{ dp_var = var_arg, dp_type	= dynamic_info_ptr,	dp_rhs = result_expr, dp_type_patterns_vars = [],
+	  	  							dp_type_code = TCE_Empty, dp_position = pattern_position }]
+		= (buildTypeCase act_var type_case_patterns No type_case_info_ptr, NoPos, var_store, expr_heap, [dynamic_info_ptr], cs)	
+	
+Comments:	
+- Functions convertSubPattern and convertSubPatterns only exist to support nested pattern matches (or cases) in the expression
+  part of a dynamic e.g. r in the above example can contain a subpattern.
+- (EI_DynamicTemp type opt_dynamics). opt_dynamics is a list to dynamic pattern matches i.e. subpatterns and patterns occuring 
+  in or before the current pattern.
+  
+AP_Dynamic subpattern type opt_var -> EI_DynamicType type opt_dynamics (similar to above case)
+----------------------------------------------------------------------------------------------
+	transform_pattern (AP_Dynamic pattern type opt_var) patterns pattern_scheme pattern_variables defaul result_expr _ var_store expr_heap opt_dynamics cs
+		# (var_arg, result_expr, _, var_store, expr_heap, opt_dynamics, cs) = convertSubPattern pattern result_expr NoPos var_store expr_heap opt_dynamics cs
+		  (dynamic_info_ptr, expr_heap) = newPtr (EI_DynamicType type opt_dynamics) expr_heap
+		  pattern = { dp_var = var_arg, dp_type	= dynamic_info_ptr,	dp_rhs = result_expr, dp_type_patterns_vars = [],
+		  				dp_type_code = TCE_Empty, dp_position = NoPos }
+		  pattern_variables = cons_optional opt_var pattern_variables
+		= case pattern_scheme of
+			DynamicPatterns _
+				# dyn_patterns = case patterns of 
+										DynamicPatterns dyn_patterns
+											-> dyn_patterns
+										NoPattern
+											-> []
+				-> (DynamicPatterns [pattern : dyn_patterns], pattern_scheme, pattern_variables, defaul, var_store, expr_heap, [dynamic_info_ptr], cs)
+			NoPattern
+				-> (DynamicPatterns [pattern], DynamicPatterns [], pattern_variables, defaul, var_store, expr_heap, [dynamic_info_ptr], cs)
+			_
+				-> (patterns, pattern_scheme, pattern_variables, defaul, var_store, expr_heap, opt_dynamics,
+						{ cs & cs_error = checkError "<dynamic pattern>" "illegal combination of patterns" cs.cs_error })
+						
+						
+	get_field_var (AP_Dynamic _ _ (Yes {bind_src,bind_dst}))
+		= (bind_src, bind_dst)
+
+AP_Dynamic subpattern type opt_var -> AP_Dynamic subpattern type (Yes var)
+--------------------------------------------------------------------------
+	add_bound_variable (AP_Dynamic dynamic_pattern dynamic_type No) {bind_dst = {glob_object={fs_var}}} ps_var_heap
+		# (new_info_ptr, ps_var_heap) = newPtr VI_Empty ps_var_heap
+		= (AP_Dynamic dynamic_pattern dynamic_type (Yes { bind_src = fs_var, bind_dst = new_info_ptr}), ps_var_heap)
+		
+AP_Dynamic subpattern type opt_var -> EI_DynamicType type opt_dynamics (similar to above case)
+----------------------------------------------------------------------------------------------
+convertSubPattern (AP_Dynamic pattern type opt_var) result_expr pattern_position var_store expr_heap opt_dynamics cs
+	# (var_arg, result_expr, pattern_position, var_store, expr_heap, opt_dynamics, cs)
+			= convertSubPattern pattern result_expr pattern_position var_store expr_heap opt_dynamics cs
+ 	  ({bind_src,bind_dst}, var_store) = determinePatternVariable opt_var var_store
+	  (var_expr_ptr, expr_heap) = newPtr EI_Empty expr_heap
+	  (type_case_info_ptr, expr_heap) = newPtr EI_Empty expr_heap
+	  (dynamic_info_ptr, expr_heap) = newPtr (EI_DynamicType type opt_dynamics) expr_heap
+ 	  type_case_patterns = [{ dp_var = var_arg, dp_type = dynamic_info_ptr, dp_rhs = result_expr, dp_type_patterns_vars = [],
+ 	  						dp_type_code = TCE_Empty, dp_position = pattern_position }]
+	= ({ fv_name = bind_src, fv_info_ptr = bind_dst, fv_def_level = NotALevel, fv_count = 0 },
+		buildTypeCase (Var { var_name = bind_src, var_info_ptr = bind_dst, var_expr_ptr = var_expr_ptr }) 
+							type_case_patterns No type_case_info_ptr,
+		NoPos, var_store, expr_heap, [dynamic_info_ptr], cs)
+
+PE_Dynamic -> EI_Dynamic and DynamicExpr
+----------------------------------------
+checkExpression :: ![FreeVar] !ParsedExpr !ExpressionInput !*ExpressionState !*ExpressionInfo !*CheckState
+	-> *(!Expression, ![FreeVar], !*ExpressionState, !*ExpressionInfo, !*CheckState);
+checkExpression free_vars (PE_Dynamic expr opt_type) e_input e_state=:{es_expr_heap,es_dynamics, es_dynamic_expr_count } e_info cs=:{cs_x}
+	# (dyn_info_ptr, es_expr_heap) = newPtr (EI_Dynamic opt_type es_dynamic_expr_count) es_expr_heap
+	  (dyn_expr, free_vars, e_state, e_info, cs) = checkExpression free_vars expr e_input
+	  		{e_state & es_dynamics = [dyn_info_ptr : es_dynamics], es_expr_heap = es_expr_heap, es_dynamic_expr_count = inc es_dynamic_expr_count} e_info cs
+	= (DynamicExpr { dyn_expr = dyn_expr, dyn_opt_type = opt_type, dyn_info_ptr = dyn_info_ptr, dyn_type_code = TCE_Empty, dyn_uni_vars = [] },
+			free_vars, e_state, e_info, { cs & cs_x.x_needed_modules = cs_x.x_needed_modules bitor cNeedStdDynamics }) 
+			
+Summary (x -> EI_Dynamic or x -> EI_DynamicType)
+------------------------------------------------
+::	DynamicExpr =
+	{	dyn_expr		:: !Expression
+	,	dyn_opt_type	:: !Optional DynamicType	// copied from opt_type
+	,	dyn_info_ptr	:: !ExprInfoPtr
+	,	dyn_uni_vars	:: ![VarInfoPtr]			/* filled after type checking */
+	,	dyn_type_code	:: !TypeCodeExpression		/* filled after type checking */
+	}	
+	
+PE_Dynamic expr opt_type	-> EI_Dynamic opt_type es_dynamic_expr_count
+							-> DynamicExpr dynamic_expr
+							
+							::	DynamicExpr =
+								{	dyn_expr		:: !Expression				// initialized with result of checkExpression
+								,	dyn_opt_type	:: !Optional DynamicType	// just copied from opt_type
+								,	dyn_info_ptr	:: !ExprInfoPtr				// ptr to just created EI_Dynamic
+								,	dyn_uni_vars	:: ![VarInfoPtr]			// []
+								,	dyn_type_code	:: !TypeCodeExpression		// TCE_Empty
+								}	
+								
+Checker (checktypes.icl)
+========================
+- calling site of checkDynamicType (checkFunction,check.icl):
+	# {es_fun_defs,es_calls,es_var_heap,es_expr_heap,es_type_heaps,es_dynamics} = e_state
+	  (ef_type_defs, ef_modules, es_type_heaps, es_expr_heap, cs) = 
+	  	checkDynamicTypes mod_index es_dynamics fun_type e_info.ef_type_defs e_info.ef_modules es_type_heaps es_expr_heap cs
+
+checkDynamicTypes :: !Index ![ExprInfoPtr] !(Optional SymbolType) !u:{# CheckedTypeDef} !u:{# DclModule} !*TypeHeaps !*ExpressionHeap !*CheckState
+	-> (!u:{# CheckedTypeDef}, !u:{# DclModule}, !*TypeHeaps, !*ExpressionHeap, !*CheckState)
+checkDynamicTypes mod_index dyn_type_ptrs No type_defs modules type_heaps expr_heap cs
+	# (type_defs, modules, heaps, expr_heap, cs) = checkDynamics mod_index (inc cModuleScope) dyn_type_ptrs type_defs modules type_heaps expr_heap cs
+	
+	  (expr_heap, cs_symbol_table) = remove_global_type_variables_in_dynamics dyn_type_ptrs (expr_heap, cs.cs_symbol_table)
+	  
+	= (type_defs, modules, heaps, expr_heap, { cs & cs_symbol_table = cs_symbol_table })
+where
+	remove_global_type_variables_in_dynamics dyn_info_ptrs expr_heap_and_symbol_table
+		= foldSt remove_global_type_variables_in_dynamic dyn_info_ptrs expr_heap_and_symbol_table
+	where
+		remove_global_type_variables_in_dynamic dyn_info_ptr (expr_heap, symbol_table)
+			# (dyn_info, expr_heap) = readPtr dyn_info_ptr expr_heap
+			= case dyn_info of
+				EI_Dynamic (Yes {dt_global_vars}) _
+					-> (expr_heap, remove_global_type_variables dt_global_vars symbol_table)
+				EI_Dynamic No _
+					-> (expr_heap, symbol_table)
+				EI_DynamicTypeWithVars loc_type_vars {dt_global_vars} loc_dynamics
+					-> remove_global_type_variables_in_dynamics loc_dynamics (expr_heap, remove_global_type_variables dt_global_vars symbol_table)
+						
+	
+		remove_global_type_variables global_vars symbol_table
+			= foldSt remove_global_type_variable global_vars symbol_table
+		where		
+			remove_global_type_variable {tv_name=tv_name=:{id_info}} symbol_table
+				# (entry, symbol_table) = readPtr id_info symbol_table
+				| entry.ste_kind == STE_Empty
+					= symbol_table
+					= symbol_table <:= (id_info, entry.ste_previous)
+
+
+							 
+checkDynamicTypes mod_index dyn_type_ptrs (Yes {st_vars}) type_defs modules type_heaps expr_heap cs=:{cs_symbol_table}
+	# (th_vars, cs_symbol_table) = foldSt add_type_variable_to_symbol_table st_vars (type_heaps.th_vars, cs_symbol_table)
+	  (type_defs, modules, heaps, expr_heap, cs) = checkDynamics mod_index (inc cModuleScope) dyn_type_ptrs type_defs modules
+	  		{ type_heaps & th_vars = th_vars } expr_heap { cs & cs_symbol_table = cs_symbol_table }
+	  cs_symbol_table =	removeVariablesFromSymbolTable cModuleScope st_vars cs.cs_symbol_table
+	  (expr_heap, cs) = check_global_type_variables_in_dynamics dyn_type_ptrs (expr_heap, { cs & cs_symbol_table = cs_symbol_table })
+	= (type_defs, modules, heaps, expr_heap, cs) 
+where
+	add_type_variable_to_symbol_table {tv_name={id_info},tv_info_ptr} (var_heap,symbol_table)
+		# (entry, symbol_table) = readPtr id_info symbol_table
+		= (	var_heap <:= (tv_info_ptr, TVI_Empty),
+			symbol_table <:= (id_info, {ste_index = NoIndex, ste_kind = STE_TypeVariable tv_info_ptr,
+									ste_def_level = cModuleScope, ste_previous = entry }))
+
+	check_global_type_variables_in_dynamics dyn_info_ptrs expr_heap_and_cs
+		= foldSt check_global_type_variables_in_dynamic dyn_info_ptrs expr_heap_and_cs
+	where
+		check_global_type_variables_in_dynamic dyn_info_ptr (expr_heap, cs)
+			# (dyn_info, expr_heap) = readPtr dyn_info_ptr expr_heap
+			= case dyn_info of
+				EI_Dynamic (Yes {dt_global_vars}) _
+					-> (expr_heap, check_global_type_variables dt_global_vars cs)
+				EI_Dynamic No _
+					-> (expr_heap, cs)
+				EI_DynamicTypeWithVars loc_type_vars {dt_global_vars} loc_dynamics
+					-> check_global_type_variables_in_dynamics loc_dynamics (expr_heap, check_global_type_variables dt_global_vars cs)
+						
+	
+		check_global_type_variables global_vars cs
+			= foldSt check_global_type_variable global_vars cs
+		where		
+			check_global_type_variable {tv_name=tv_name=:{id_info}} cs=:{cs_symbol_table, cs_error}
+				# (entry, cs_symbol_table) = readPtr id_info cs_symbol_table
+				| entry.ste_kind == STE_Empty
+					= { cs & cs_symbol_table = cs_symbol_table }
+					= { cs & cs_symbol_table = cs_symbol_table <:= (id_info, entry.ste_previous),
+							 cs_error = checkError tv_name.id_name "global type variable not used in type of the function" cs_error }
+
+EI_DynamicType dyn_type loc_dynamics -> EI_DynamicTypeWithVars loc_type_vars dyn_type loc_dynamics
+--------------------------------------------------------------------------------------------------
+checkDynamics mod_index scope dyn_type_ptrs type_defs modules type_heaps expr_heap cs
+	= foldSt (check_dynamic mod_index scope) dyn_type_ptrs (type_defs, modules, type_heaps, expr_heap, cs)
+where	
+	check_dynamic mod_index scope dyn_info_ptr (type_defs, modules, type_heaps, expr_heap, cs)
+		# (dyn_info, expr_heap) = readPtr dyn_info_ptr expr_heap
+		= case dyn_info of
+			EI_Dynamic opt_type ei_dynamic_id
+				-> case opt_type of
+					Yes dyn_type
+						# (dyn_type, loc_type_vars, type_defs, modules, type_heaps, cs) = check_dynamic_type mod_index scope dyn_type type_defs modules type_heaps cs
+						| isEmpty loc_type_vars
+							-> (type_defs, modules, type_heaps, expr_heap <:= (dyn_info_ptr, EI_Dynamic (Yes dyn_type) ei_dynamic_id), cs)
+				  			# cs_symbol_table = removeVariablesFromSymbolTable scope loc_type_vars cs.cs_symbol_table
+							  cs_error = checkError loc_type_vars "type variable(s) not defined" cs.cs_error
+							-> (type_defs, modules, type_heaps, expr_heap <:= (dyn_info_ptr, EI_Dynamic (Yes dyn_type) ei_dynamic_id),
+									{ cs & cs_error = cs_error, cs_symbol_table = cs_symbol_table })
+					No
+						-> (type_defs, modules, type_heaps, expr_heap, cs)
+			EI_DynamicType dyn_type loc_dynamics
+				# (dyn_type, loc_type_vars, type_defs, modules, type_heaps, cs) = check_dynamic_type mod_index scope dyn_type type_defs modules type_heaps cs
+				  (type_defs, modules, type_heaps, expr_heap, cs) = check_local_dynamics mod_index scope loc_dynamics type_defs modules type_heaps expr_heap cs
+				  cs_symbol_table = removeVariablesFromSymbolTable scope loc_type_vars cs.cs_symbol_table
+				-> (type_defs, modules, type_heaps, expr_heap <:= (dyn_info_ptr, EI_DynamicTypeWithVars loc_type_vars dyn_type loc_dynamics),
+							{ cs & cs_symbol_table = cs_symbol_table }) 
+						// ---> ("check_dynamic ", scope, dyn_type, loc_type_vars)
+
+	check_local_dynamics mod_index scope local_dynamics type_defs modules type_heaps expr_heap cs
+		= foldSt (check_dynamic mod_index (inc scope)) local_dynamics (type_defs, modules, type_heaps, expr_heap, cs)
+
+	check_dynamic_type mod_index scope dt=:{dt_uni_vars,dt_type} type_defs modules type_heaps=:{th_vars} cs
+		# (dt_uni_vars, (th_vars, cs)) = mapSt (add_type_variable_to_symbol_table scope) dt_uni_vars (th_vars, cs)
+		  ots = { ots_type_defs = type_defs, ots_modules = modules }
+		  oti = { oti_heaps = { type_heaps & th_vars = th_vars }, oti_all_vars = [], oti_all_attrs = [], oti_global_vars = [] }
+		  (dt_type, ( {ots_type_defs, ots_modules}, {oti_heaps,oti_all_vars,oti_all_attrs, oti_global_vars}, cs))
+		  		= checkOpenAType mod_index scope DAK_Ignore dt_type (ots, oti, cs)
+		  th_vars = foldSt (\{tv_info_ptr} -> writePtr tv_info_ptr TVI_Empty) oti_global_vars oti_heaps.th_vars
+	  	  cs_symbol_table = removeAttributedTypeVarsFromSymbolTable scope dt_uni_vars cs.cs_symbol_table
+		| isEmpty oti_all_attrs
+			= ({ dt & dt_uni_vars = dt_uni_vars, dt_global_vars = oti_global_vars, dt_type = dt_type },
+					oti_all_vars, ots_type_defs, ots_modules, { oti_heaps & th_vars = th_vars }, { cs & cs_symbol_table = cs_symbol_table })
+			# cs_symbol_table = removeAttributesFromSymbolTable oti_all_attrs cs_symbol_table
+			= ({ dt & dt_uni_vars = dt_uni_vars, dt_global_vars = oti_global_vars, dt_type = dt_type },
+					oti_all_vars, ots_type_defs, ots_modules, { oti_heaps & th_vars = th_vars },
+					{ cs & cs_symbol_table = cs_symbol_table, cs_error = checkError (hd oti_all_attrs).av_name "type attribute variable not allowed" cs.cs_error})
+		
+	add_type_variable_to_symbol_table :: !Level !ATypeVar !*(!*TypeVarHeap,!*CheckState) -> (!ATypeVar,!(!*TypeVarHeap, !*CheckState))
+	add_type_variable_to_symbol_table scope atv=:{atv_variable=atv_variable=:{tv_name}, atv_attribute} (type_var_heap, cs=:{cs_symbol_table,cs_error})
+		#  var_info = tv_name.id_info
+		   (var_entry, cs_symbol_table) = readPtr var_info cs_symbol_table
+		| var_entry.ste_kind == STE_Empty || scope < var_entry.ste_def_level
+			#! (new_var_ptr, type_var_heap) = newPtr TVI_Empty type_var_heap
+			# cs_symbol_table = cs_symbol_table <:=
+				(var_info, {ste_index = NoIndex, ste_kind = STE_TypeVariable new_var_ptr, ste_def_level = scope, ste_previous = var_entry })
+			= ({atv & atv_attribute = TA_Multi, atv_variable = { atv_variable & tv_info_ptr = new_var_ptr }}, (type_var_heap,
+					{ cs & cs_symbol_table = cs_symbol_table, cs_error = check_attribute atv_attribute cs_error}))
+			= (atv, (type_var_heap, { cs & cs_symbol_table = cs_symbol_table, cs_error = checkError tv_name.id_name "type variable already defined" cs_error }))
+
+	check_attribute TA_Unique error
+		= error
+	check_attribute TA_Multi error
+		= error
+	check_attribute TA_None error
+		= error
+	check_attribute attr error
+		= checkError attr "attribute not allowed in type of dynamic" error
+
+EI_DynamicType dyn_type loc_dynamics -> EI_DynamicTypeWithVars loc_type_vars dyn_type loc_dynamics
+	::	DynamicType =
+		{	dt_uni_vars 	:: ![ATypeVar]			// add_type_variable_to_symbol_table over the universal quantified variables
+		,	dt_global_vars	:: ![TypeVar]			// type variables suffixed with a '^'
+		,	dt_type			:: !AType				// optional type specified by programmer
+		}
+
+Type variable kinds in dynamics:
+	f (x :: a -> b -> c)		a,b and c are *local* type variables (stored in loc_type_vars)
+	f (x :: a^)					a^ are global type vars
+	f (x :: A.a -> a)			a are *universal* quantified variables
+
+Summary (checker)
+-----------------
+- After checking there only:
+	EI_DynamicTypeWithVars loc_type_vars dyn_type loc_dynamics		= see above
+	EI_Dynamic opt_type es_dynamic_expr_count						= see above
+	
+	
+Typing (type.icl, overloading.icl, ...)
+=======================================
+
+Before type checking of a component starts
+==========================================
+::	ExprInfo		= EI_Empty
+		/* Auxiliary, used during type checking */
+
+					| EI_TempDynamicType 		!(Optional DynamicType) !AType ![TypeContext] !ExprInfoPtr !SymbIdent
+//					| EI_TempDynamicPattern 	![TypeVar] !DynamicType !(Optional ExprInfoPtr) ![TempLocalVar] !AType ![TypeContext] !ExprInfoPtr !SymbIdent
+					| EI_TempDynamicPattern 	![TypeVar] !DynamicType ![DynamicPtr] ![TempLocalVar] !AType ![TypeContext] !ExprInfoPtr !SymbIdent
+					
+					| EI_TypeOfDynamic 			![VarInfoPtr] !TypeCodeExpression				/* Final */
+					| EI_TypeOfDynamicPattern 	![VarInfoPtr] !TypeCodeExpression				/* Final */
+
+					| EI_TypeCode 		!TypeCodeExpression
+					| EI_TypeCodes 		![TypeCodeExpression]
+
+EI_Dynamic opt_dyn_type _ -> EI_TempDynamicType opt_dyn_type tdt_type contexts expr_ptr type_code_symbol
+--------------------------------------------------------------------------------------------------------
+(in function CreateInitialSymbolTypes, type_component, before requirements are collected)
+
+	fresh_dynamics dyn_ptrs state
+		= foldSt fresh_dynamic dyn_ptrs state
+
+	fresh_dynamic dyn_ptr (var_store, type_heaps, var_heap, expr_heap, predef_symbols)
+		# (dyn_info, expr_heap) = readPtr dyn_ptr expr_heap
+		= case dyn_info of
+			EI_Dynamic opt_dyn_type=:(Yes {dt_uni_vars,dt_type,dt_global_vars}) _
+				# (th_vars, var_store) = fresh_existential_attributed_variables dt_uni_vars (type_heaps.th_vars, var_store)
+				  (th_vars, var_store) = fresh_type_variables dt_global_vars (th_vars, var_store)
+				  (tdt_type, {copy_heaps}) = freshCopy dt_type { copy_heaps = { type_heaps & th_vars = th_vars }}
+				  (contexts, expr_ptr, type_code_symbol, (var_heap, expr_heap, type_var_heap, predef_symbols))
+				  		= determine_context_and_expr_ptr dt_global_vars (var_heap, expr_heap, copy_heaps.th_vars, predef_symbols)
+				-> (var_store, { copy_heaps & th_vars = type_var_heap }, var_heap,
+						expr_heap <:= (dyn_ptr, EI_TempDynamicType opt_dyn_type tdt_type contexts expr_ptr type_code_symbol), predef_symbols)
+						
+Comments:
+EI_Dynamic opt_dyn_type _ -> EI_TempDynamicType opt_dyn_type tdt_type contexts expr_ptr type_code_symbol
+--------------------------------------------------------------------------------------------------------
+							 opt_dyn_type comes from opt_dyn_type
+							 tdt_type is fresh instance of dt_type
+							 contexts a fresh context for each global variable
+							 expr_ptr = EI_Empty
+							 type_code_symbol = PD_TypeCodeMember, symb_kind = SK_TypeCode, symb_arity = 0
+			EI_Dynamic No _ 
+				# fresh_var = TempV var_store
+				  tdt_type = { at_attribute = TA_Multi, at_annotation = AN_None, at_type = fresh_var }
+
+				# ({pds_ident,pds_module,pds_def},predef_symbols) = predef_symbols![PD_TypeCodeClass]
+		  		  tc_class_symb = {glob_module = pds_module, glob_object = {ds_ident = pds_ident, ds_arity = 1, ds_index = pds_def }}
+ 				  (pds, predef_symbols) = predef_symbols![PD_TypeCodeMember]
+		  		  ({pds_ident,pds_module,pds_def},predef_symbols) = predef_symbols![PD_TypeCodeMember]
+				  tc_member_symb = { symb_name = pds_ident, symb_kind = SK_OverloadedFunction {glob_module = pds_module, glob_object = pds_def }, symb_arity = 0}
+		 		  (new_var_ptr, var_heap) = newPtr VI_Empty var_heap
+				  context = {tc_class = tc_class_symb, tc_types = [fresh_var], tc_var = new_var_ptr}
+		  		  (expr_ptr, expr_heap) = newPtr EI_Empty expr_heap //---> ("^EI_Dynamic No=" +++ toString var_store)
+				-> (inc var_store, type_heaps, var_heap,
+						expr_heap <:= (dyn_ptr, EI_TempDynamicType No tdt_type [context] expr_ptr tc_member_symb), predef_symbols)
+
+Comments:
+EI_Dynamic No _ -> EI_TempDynamicType No tdt_type [context] EI_Empty type_code_symbol
+-------------------------------------------------------------------------------------
+				 tdt_type is (TempV fresh_var)
+				 context a fresh context (PD_TypeCodeClass, arity 1, fresh_var)
+				 expr_ptr = EI_Empty
+				 type_code_symbol = (PD_TypeCodeMember, symb_kind = SK_OverloadedFunction, symb_arity = 0)
+
+
+			EI_DynamicTypeWithVars loc_type_vars dt=:{dt_type,dt_global_vars} loc_dynamics
+				# (fresh_vars, (th_vars, var_store)) = fresh_existential_variables loc_type_vars (type_heaps.th_vars, var_store)
+				  (th_vars, var_store) = fresh_type_variables dt_global_vars (th_vars, var_store)
+				  (tdt_type, {copy_heaps}) = freshCopy dt_type { copy_heaps = { type_heaps & th_vars = th_vars }}
+				  (contexts, expr_ptr, type_code_symbol, (var_heap, expr_heap, type_var_heap, predef_symbols))
+				  		= determine_context_and_expr_ptr dt_global_vars (var_heap, expr_heap, copy_heaps.th_vars, predef_symbols)
+				-> fresh_local_dynamics loc_dynamics (var_store, { copy_heaps & th_vars = type_var_heap }, var_heap,
+						expr_heap <:= (dyn_ptr, EI_TempDynamicPattern loc_type_vars dt loc_dynamics fresh_vars tdt_type contexts expr_ptr type_code_symbol), predef_symbols)
+
+
+EI_DynamicTypeWithVars loc_type_vars dt=:{dt_type,dt_global_vars} loc_dynamics -> EI_TempDynamicPattern loc_type_vars dt loc_dynamics fresh_vars tdt_type contexts expr_ptr type_code_symbol
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+				loc_type_vars (copied)
+				dt (copied)
+				loc_dynamics (copied) dynamic patterns which are performed after the current one i.e. nested dynamic patterns or patterns syntaxically following the current one.
+				fresh_vars - list of integers denoting local variables
+				tdt_type - fresh copy of dt_type
+				
+				contexts - for each global variable, fresh context is created
+				expr_ptr - EI_Empty
+				type_code_symbol - PD_TypeCodeMember, symb_kind = SK_TypeCode, symb_arity = 0
+	
+
+	fresh_local_dynamics loc_dynamics state
+		= foldSt fresh_dynamic loc_dynamics state
+
+	clear_dynamics dyn_ptrs heaps
+		= foldSt clear_dynamic dyn_ptrs heaps
+		
+	clear_dynamic dyn_ptr (var_heap, expr_heap)
+		# (dyn_info, expr_heap) = readPtr dyn_ptr expr_heap
+		= case dyn_info of
+			EI_Dynamic (Yes {dt_global_vars}) _
+				-> (clear_type_vars dt_global_vars var_heap, expr_heap)
+			EI_Dynamic No _
+				-> (var_heap, expr_heap)
+			EI_DynamicTypeWithVars loc_type_vars {dt_global_vars} loc_dynamics
+				-> clear_local_dynamics loc_dynamics (clear_type_vars dt_global_vars var_heap, expr_heap)
+
+	clear_local_dynamics loc_dynamics state
+		= foldSt clear_dynamic loc_dynamics state
+		
+	clear_type_vars type_vars var_heap
+		= foldSt (\{tv_info_ptr} -> writePtr tv_info_ptr TVI_Empty) type_vars var_heap 
+		
+	fresh_existential_attributed_variables type_variables state
+		= foldSt (\{atv_variable={tv_info_ptr}} (var_heap, var_store) -> (var_heap <:= (tv_info_ptr, TVI_Type (TempQV var_store)), inc var_store))
+							type_variables state 
+	fresh_existential_variables type_variables state
+		= mapSt (\{tv_info_ptr} (var_heap, var_store) -> (var_store, (var_heap <:= (tv_info_ptr, TVI_Type (TempQV var_store)), inc var_store)))
+							type_variables state 
+	fresh_type_variables type_variables state
+		= foldSt fresh_type_variable type_variables state 
+
+	fresh_type_variable {tv_info_ptr} (var_heap, var_store)
+		# (var_info, var_heap) = readPtr tv_info_ptr var_heap
+		= case var_info of
+			TVI_Empty
+				-> (var_heap <:= (tv_info_ptr, TVI_Type (TempV var_store)), inc var_store)
+			_
+				-> (var_heap, var_store)
+				
+Comments:
+---------
+- clear_dynamics is called *before* fresh_dynamics and assigns new numbers for each global type variable
+- difference between SK_TypeCode and SK_OverloadefFunction
+
+determine_context_and_expr_ptr
+------------------------------
+Output:
+- for each global type variable e.g. a^ a fresh context is created
+- an expression ptr is created, initialized with EI_Empty
+- a tc member is created (PD_TypeCodeMember, symb_kind = SK_TypeCode, symb_arity = 0)
+
+	determine_context_and_expr_ptr global_vars (var_heap, expr_heap, type_var_heap, predef_symbols)
+		# ({pds_ident,pds_module,pds_def},predef_symbols) = predef_symbols![PD_TypeCodeClass]
+		  tc_class_symb = {glob_module = pds_module, glob_object = {ds_ident = pds_ident, ds_arity = 1, ds_index = pds_def }}
+		  ({pds_ident,pds_module,pds_def},predef_symbols) = predef_symbols![PD_TypeCodeMember]
+		  tc_member_symb = { symb_name	= pds_ident, symb_kind = SK_TypeCode, symb_arity = 0}
+		  (contexts, (var_heap, type_var_heap)) = mapSt (build_type_context tc_class_symb) global_vars (var_heap, type_var_heap)
+		  (expr_ptr, expr_heap) = newPtr EI_Empty expr_heap
+		= (contexts, expr_ptr, tc_member_symb, (var_heap, expr_heap, type_var_heap, predef_symbols))
+
+	build_type_context tc_class_symb {tv_info_ptr} (var_heap, type_var_heap)
+		# (TVI_Type fresh_var, type_var_heap) = readPtr tv_info_ptr type_var_heap
+		  (new_var_ptr, var_heap) = newPtr VI_Empty var_heap
+		= ({tc_class = tc_class_symb, tc_types = [fresh_var], tc_var = new_var_ptr}, (var_heap, type_var_heap))
+
+Concrete syntax:
+class TC t
+where
+	_type_code
+	
+Comments:
+EI_Dynamic opt_dyn_type _ -> EI_TempDynamicType opt_dyn_type tdt_type contexts expr_ptr type_code_symbol
+							 if opt_dyn_type == No then type_code_symbol = (PD_TypeCodeMember, symb_kind = SK_OverloadedFunction, symb_arity = 0)
+							 else SK_TypeCode
+EI_DynamicTypeWithVars loc_type_vars dt=:{dt_type,dt_global_vars} loc_dynamics -> EI_TempDynamicPattern loc_type_vars dt loc_dynamics fresh_vars tdt_type contexts expr_ptr type_code_symbol
+
+Collecting type equatations before type checking
+================================================
+instance requirements DynamicExpr
+where
+	requirements ti {dyn_expr,dyn_info_ptr} (reqs, ts=:{ts_expr_heap})
+		# (EI_TempDynamicType _ dyn_type dyn_context dyn_expr_ptr type_code_symbol, ts_expr_heap) = readPtr dyn_info_ptr ts_expr_heap
+		  (dyn_expr_type, opt_expr_ptr, (reqs, ts)) = requirements ti dyn_expr (reqs, { ts & ts_expr_heap = ts_expr_heap })
+		  ts_expr_heap = storeAttribute opt_expr_ptr dyn_expr_type.at_attribute ts.ts_expr_heap
+		  type_coercion = { tc_demanded = dyn_type, tc_offered = dyn_expr_type, tc_position = CP_Expression dyn_expr, tc_coercible = True }
+		| isEmpty dyn_context
+			= ({ at_type = TB BT_Dynamic, at_attribute = TA_Multi, at_annotation = AN_None }, No, 
+					({reqs & req_type_coercions = [ type_coercion : reqs.req_type_coercions]}, 
+						{ ts &  ts_expr_heap = ts_expr_heap }))
+			= ({ at_type = TB BT_Dynamic, at_attribute = TA_Multi, at_annotation = AN_None }, No,
+					({ reqs & req_type_coercions = [ type_coercion : reqs.req_type_coercions], req_overloaded_calls = [dyn_expr_ptr : reqs.req_overloaded_calls ]},
+						{ ts & ts_expr_heap = ts_expr_heap <:= (dyn_expr_ptr, EI_Overloaded {
+								oc_symbol = type_code_symbol, oc_context = dyn_context, oc_specials = []}) }))
+								
+		requirements_of_dynamic_patterns ti goal_type [] used_dyn_types reqs_ts
+			= (used_dyn_types, reqs_ts)
+		requirements_of_dynamic_patterns ti goal_type [dp=:{dp_position, dp_type} : dps] used_dyn_types (reqs, ts=:{ts_expr_heap})
+			# (EI_TempDynamicPattern _ _ _ _ dyn_type dyn_context dyn_expr_ptr type_code_symbol, ts_expr_heap)
+					= readPtr dp_type ts_expr_heap
+			  (reqs_ts) 
+			  		= possibly_accumulate_reqs_in_new_group
+			  				dp_position
+							(requirements_of_dynamic_pattern dyn_type dyn_context dyn_expr_ptr type_code_symbol ti goal_type dp)
+							(reqs, { ts & ts_expr_heap = ts_expr_heap})
+			= requirements_of_dynamic_patterns ti goal_type dps [ [dyn_type] : used_dyn_types ] reqs_ts
+	
+		requirements_of_dynamic_pattern dyn_type dyn_context dyn_expr_ptr type_code_symbol 
+										ti goal_type {dp_var={fv_info_ptr},dp_rhs} (reqs, ts=:{ts_expr_heap, ts_var_heap})
+			# ts_var_heap = ts_var_heap <:= (fv_info_ptr, VI_Type dyn_type No)
+			  (dp_rhs_type, opt_expr_ptr, (reqs, ts)) = requirements ti dp_rhs (reqs, { ts & ts_expr_heap = ts_expr_heap, ts_var_heap = ts_var_heap })
+			  ts_expr_heap = storeAttribute opt_expr_ptr dp_rhs_type.at_attribute ts.ts_expr_heap
+			  type_coercion = { tc_demanded = goal_type, tc_offered = dp_rhs_type, tc_position = CP_Expression dp_rhs, tc_coercible = True }
+			| isEmpty dyn_context
+				# reqs = {reqs & req_type_coercions = [ type_coercion : reqs.req_type_coercions]}
+				= (reqs, { ts &  ts_expr_heap = ts_expr_heap })
+				# reqs = { reqs & req_type_coercions = [ type_coercion : reqs.req_type_coercions], req_overloaded_calls = [dyn_expr_ptr : reqs.req_overloaded_calls ]}
+				= (reqs, { ts & ts_expr_heap = ts_expr_heap <:=
+						(dyn_expr_ptr,  EI_Overloaded {  oc_symbol = type_code_symbol, oc_context = dyn_context, oc_specials = [] }) })
+
+Comments:
+- ergens moet SK_TypeCode in SK_OverloadedFunction veranderen
+
+convertOverloadedCall defs contexts {symb_name,symb_kind = SK_TypeCode} expr_info_ptr class_appls heaps_and_ptrs
+	# (class_expressions, (heaps, ptrs)) = convertClassApplsToExpressions defs contexts class_appls heaps_and_ptrs
+	= ({ heaps & hp_expression_heap = heaps.hp_expression_heap <:= (expr_info_ptr, EI_TypeCodes (map expressionToTypeCodeExpression class_expressions))}, ptrs)
+
+
+After collecting requirements, type checking, overloaded calls have been collected)
+============================================================================================================================
+called in (updateDynamics, type_component) just before updateExpression. updateExpression merges the dynamics with the normal AST
+
+
+dt_global_vars hebben allemaal een type_code
+
+// EI_TempDynamicType (Yes {dt_global_vars, dt_uni_vars, dt_type}) _ _ expr_ptr {symb_name} -> EI_TypeOfDynamic uni_vars type_code_expr
+convertDynamicTypes :: ![.Ptr ExprInfo] !*(*TypeCodeInfo,*Heap ExprInfo,u:[.LocalTypePatternVariable],*Heap VarInfo,*ErrorAdmin) [.Ptr VarInfo] -> (.TypeCodeInfo,.Heap ExprInfo,v:[LocalTypePatternVariable],.Heap VarInfo,.ErrorAdmin), [u <= v];
+convertDynamicTypes dyn_ptrs update_info rev_variables
+	= foldSt update_dynamic dyn_ptrs update_info
+where		
+	update_dynamic dyn_ptr (type_code_info, expr_heap, type_pattern_vars, var_heap, error)
+		# (dyn_info, expr_heap) = readPtr dyn_ptr expr_heap 
+		= case dyn_info of
+			EI_TempDynamicType (Yes {dt_global_vars, dt_uni_vars, dt_type}) _ _ expr_ptr {symb_name}
+				# (expr_info, expr_heap) = readPtr expr_ptr expr_heap
+				-> case expr_info of
+					EI_TypeCodes type_codes
+						// MV ..
+						# (type_var_heap,var_heap,error) = fold2St (f symb_name)
+														dt_global_vars type_codes (type_code_info.tci_type_var_heap,var_heap,error)
+						// .. MV
+						  (uni_vars, (type_var_heap, var_heap)) = new_type_variables dt_uni_vars (type_var_heap, var_heap)
+						  (type_code_expr, (type_code_info,var_heap,error)) = toTypeCodeExpression symb_name rev_variables dt_type ({ type_code_info & tci_type_var_heap = type_var_heap },var_heap,error)
+						-> (type_code_info, expr_heap <:= (dyn_ptr, EI_TypeOfDynamic uni_vars type_code_expr), type_pattern_vars, var_heap, error)
+/*
+ORIGINAL:
+
+						# type_var_heap = fold2St (\{tv_info_ptr} type_code -> writePtr tv_info_ptr (TVI_TypeCode type_code))
+														dt_global_vars type_codes type_code_info.tci_type_var_heap
+						  (uni_vars, (type_var_heap, var_heap)) = new_type_variables dt_uni_vars (type_var_heap, var_heap)
+						  (type_code_expr, (type_code_info, var_heap, error)) = toTypeCodeExpression dt_type { type_code_info & tci_type_var_heap = type_var_heap }
+						-> (type_code_info, expr_heap <:= (dyn_ptr, EI_TypeOfDynamic uni_vars type_code_expr), type_pattern_vars, var_heap, error)
+*/
+					EI_Empty
+						# (uni_vars, (type_var_heap, var_heap)) = new_type_variables dt_uni_vars (type_code_info.tci_type_var_heap, var_heap)
+						  (type_code_expr, (type_code_info,var_heap,error)) = toTypeCodeExpression symb_name rev_variables dt_type ({ type_code_info & tci_type_var_heap = type_var_heap },var_heap,error)
+						-> (type_code_info, expr_heap <:= (dyn_ptr, EI_TypeOfDynamic uni_vars type_code_expr), type_pattern_vars, var_heap, error)
+			EI_TempDynamicType No _ _ expr_ptr {symb_name}
+				# (expr_info, expr_heap) = readPtr expr_ptr expr_heap
+				-> case expr_info of
+					EI_TypeCode type_expr
+						# (type_expr, (free_vars, var_heap, rev_variables, error)) = retrieve_free_vars symb_name type_expr ([], var_heap, rev_variables, error)
+						  var_heap = foldSt mark_free_var free_vars var_heap 
+						-> (type_code_info, expr_heap <:= (dyn_ptr, EI_TypeOfDynamic free_vars type_expr), type_pattern_vars, var_heap, error)
+					EI_Selection selectors record_var _
+						# (_, var_info_ptr, var_heap, error) = getClassVariable symb_name record_var var_heap error
+						-> (type_code_info, expr_heap <:= (dyn_ptr, EI_TypeOfDynamic [] (convert_selectors selectors var_info_ptr /* MPM */ record_var)), type_pattern_vars, var_heap, error)
+			EI_TempDynamicPattern type_vars {dt_global_vars, dt_type} loc_dynamics temp_local_vars _ _ expr_ptr {symb_name}
+				# (expr_info, expr_heap) = readPtr expr_ptr expr_heap
+				-> case expr_info of
+					EI_TypeCodes type_codes
+//						# type_var_heap = fold2St (\{tv_info_ptr} type_code -> writePtr tv_info_ptr (TVI_TypeCode type_code)) dt_global_vars type_codes type_code_info.tci_type_var_heap
+						// MV ..
+						# (type_var_heap,var_heap,error) = fold2St (f symb_name)
+														dt_global_vars type_codes (type_code_info.tci_type_var_heap,var_heap,error)
+						// .. MV
+						  (var_ptrs, (type_pattern_vars, var_heap)) = mapSt addLocalTCInstance temp_local_vars (type_pattern_vars, var_heap)
+						  type_var_heap = fold2St (\{tv_info_ptr} var_ptr -> writePtr tv_info_ptr (TVI_TypeCode (TCE_Var var_ptr))) type_vars var_ptrs type_var_heap
+						  (type_code_expr, (type_code_info,var_heap,error)) = toTypeCodeExpression symb_name rev_variables dt_type ({ type_code_info & tci_type_var_heap = type_var_heap },var_heap,error)
+						-> convert_local_dynamics loc_dynamics (type_code_info, expr_heap <:= (dyn_ptr, EI_TypeOfDynamicPattern var_ptrs type_code_expr), type_pattern_vars, var_heap, error)
+					EI_Empty
+						# (var_ptrs, (type_pattern_vars, var_heap)) = mapSt addLocalTCInstance temp_local_vars (type_pattern_vars, var_heap)
+						  type_var_heap = fold2St (\{tv_info_ptr} var_ptr -> writePtr tv_info_ptr (TVI_TypeCode (TCE_Var var_ptr))) type_vars var_ptrs type_code_info.tci_type_var_heap
+						  (type_code_expr, (type_code_info,var_heap,error)) = toTypeCodeExpression symb_name rev_variables dt_type ({ type_code_info & tci_type_var_heap = type_var_heap },var_heap,error)
+						-> convert_local_dynamics loc_dynamics (type_code_info, expr_heap <:= (dyn_ptr, EI_TypeOfDynamicPattern var_ptrs type_code_expr), type_pattern_vars, var_heap, error)
+	where
+		f symb_name {tv_info_ptr} type_code (type_var_heap,var_heap,error)
+			# (type_code,(_,var_heap,_,error))
+				= retrieve_free_vars symb_name type_code ([],var_heap,rev_variables,error)
+			# type_var_heap
+				= writePtr tv_info_ptr (TVI_TypeCode type_code) type_var_heap
+			= (type_var_heap,var_heap,error)
+	
+		convert_local_dynamics loc_dynamics state
+			= foldSt update_dynamic loc_dynamics state
+
+		convert_selectors [type_code_selector] var_info_ptr record_var
+			// MV ..
+			| isMember record_var rev_variables
+				= TCE_TypeTerm var_info_ptr
+			// .. MV 			
+				= TCE_Var var_info_ptr
+		convert_selectors selectors var_info_ptr _
+			= TCE_Selector (init selectors) var_info_ptr
+		
+		new_type_variables uni_vars heaps
+			= mapSt new_type_variable uni_vars heaps
+			
+		new_type_variable {atv_variable = {tv_info_ptr}} (type_var_heap, var_heap)
+			# (new_var_ptr, var_heap) = newPtr VI_Empty var_heap
+			= (new_var_ptr, (type_var_heap <:= (tv_info_ptr, TVI_TypeCode (TCE_Var new_var_ptr)), var_heap))
+		
+		mark_free_var var_info_ptr var_heap
+			=  var_heap <:= (var_info_ptr, VI_LocallyDefined)		
+

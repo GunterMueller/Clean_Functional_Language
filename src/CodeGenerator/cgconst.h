@@ -1,0 +1,64 @@
+
+enum {
+	GADD,			GADD_O,			GAND,			GALLOCATE,		GASR,			GBEFORE,
+	GBEFORE0,		GBOUNDS,		GCMP_EQ,		GCMP_GT,		GCMP_GTU,		GCMP_LT,
+	GCMP_LTU,		GCNOT,			GCOPY,			GCREATE,		GCREATE_R,		GCREATE_U,		GDIV,
+	GEOR,			GFABS,			GFADD,			GFCMP_EQ,		GFCMP_GT, 		GFATAN,
+	GFCMP_LT,		GFCOS,			GFDIV,			GFITOR,			GFKEEP,			GFLOAD,
+	GFLOAD_I, 		GFLOAD_ID,		GFLOAD_X,		GFMOVEMI,		GFMUL, 			GFNEG,
+	GFREM,			GFRTOI,			GFSIN,			GFSUB,			GFILL, 			GFILL_R,
+	GFREGISTER,		GFSQRT,			GFSTORE,		GFSTORE_R,		GFSTORE_X,		GFTAN,
+	GGFREGISTER,	GGREGISTER,		GKEEP,			GINDIRECTION,	GLEA, 			GLOAD,
+	GLOAD_I,		GLOAD_ID,		GLOAD_X,		GLOAD_B_ID,		GLOAD_B_X,		GLOAD_DES_ID,
+	GLOAD_DES_I,	GLSL,			GLSR,			GREM,			GMOVEM, 		GMOVEMI,
+	GMUL,			GMUL_O,			GNEG,			GOR,			GREGISTER,		GSTORE,
+	GSTORE_R,		GSTORE_B_X,		GSTORE_X,		GSUB,			GSUB_O, 		GTEST_O,
+	GEXIT_IF
+#if defined (I486) || defined (ARM) || defined (G_POWER)
+	,GNOT
+#endif
+#ifndef G_A64
+	,GFHIGH,GFJOIN,GFLOW
+#else
+	,GFROMF,GTOF
+#endif
+#ifdef G_POWER
+	,GCREATE_S
+#endif
+#if defined (G_POWER) || (defined (ARM) && defined (G_A64))
+	,GUMULH
+#endif
+#if defined (I486) || defined (ARM) || defined (G_POWER)
+	,GDIVU
+#endif
+#if defined (I486) || defined (ARM)
+	,GFLOORDIV,	GMOD,	GROTL,	GROTR
+	,GADDDU,	GREMU,	GRESULT0,	GRESULT1,	GSUBDU
+	,GFLOAD_S_X,GFSTORE_S_X
+#endif
+#ifdef I486
+	,GDIVDU
+#endif
+#if defined (I486) || (defined (ARM) && !defined (G_A64))
+	,GMULUD
+#endif
+#if defined (I486) && !defined (G_A64)
+	,GFSINCOS,	GFRESULT0,	GFRESULT1
+#endif
+#ifdef G_A64
+	,GLOAD_S_X,	GSTORE_S_X ,GLOAD_SQB_ID
+#endif
+#ifdef M68000
+	,GFACOS,	GFASIN,	GFEXP,	GFLN,	GFLOG10
+#endif
+#if defined (I486) || defined (ARM)
+	,GCLZB
+#endif
+};
+
+enum {
+	JSR_BLOCK,	JSR_EVAL_BLOCK,		APPLY_BLOCK,	JSR_I_BLOCK
+#ifdef G_POWER
+	,JSR_BLOCK_WITH_INSTRUCTIONS
+#endif
+};

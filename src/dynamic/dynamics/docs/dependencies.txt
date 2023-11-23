@@ -1,0 +1,16 @@
+Dependencies
+
+The most global dependencies have been enumareted here. Look at
+datatype definitions for more local dependencies.
+
+e.g. T_ypeObjectType and T_ypeID in StdDynamic.{icl,dcl}
+Objects of these type are used in both the compiler and the 
+conversion-routines. These dependencies cannot be automatically
+checked and are listed there.
+
+More global dependencies:
+- :: _<module_name>_Module = __Module;
+
+  The name of constructor must be '__Module'. The graph_to_string
+  routine uses this for fast identification of types.
+

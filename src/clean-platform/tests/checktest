@@ -1,0 +1,32 @@
+#!/bin/bash
+
+cd "$(dirname "${BASH_SOURCE[0]}")"
+
+FILE="$1"
+COLLECTIONS="OS-Independent OS-Linux OS-Linux-64 OS-Posix Platform-x86"
+COLLECTION="$2"
+
+SUCCESS=1
+
+MODULES="$(find "../src/libraries/$COLLECTION" -name '*.dcl' \
+	| sed \
+		-e 's:.*libraries/[^/]*/::' \
+		-e 's:Deprecated/[^/]*/::' \
+		-e 's:.dcl::' \
+		-e 's:/:\.:g')"
+
+for mod in $MODULES
+do
+	if ! grep "import.* $mod\\($\\|[^[:alnum:].]\\)" "$FILE" >/dev/null
+	then
+		echo "Not used in $FILE: $mod"
+		export SUCCESS=0
+	fi
+done
+
+if [ $SUCCESS != 1 ]
+then
+	exit -1
+else
+	echo "All modules from $COLLECTION are included in $FILE."
+fi

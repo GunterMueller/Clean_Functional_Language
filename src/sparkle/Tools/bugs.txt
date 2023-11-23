@@ -1,0 +1,39 @@
+- [20 maart 2008]
+  typeren van een gecurriede functie met al zijn argument gaat fout:
+  "second (loop f) event state" typeert alsof "state" er niet is
+  (overigens, "second (loop f) event" typeert WEL goed)
+- [12 juli 2006]
+  {x} P /\ Q   zou te splitsen moeten zijn naar {x} P /\ {x} Q
+- [12 juli 2006]
+  {x} y = x    zou met Witness automatisch voor x de suggestie y moeten gebruiken
+- [12 juli 2006]
+  Toepassen van 'Extensionality' op de goal 'fst = _tupleselect_2_1' crasht Sparkle.
+- [12 juli 2006]
+  Reduceren van 1/0 crasht Sparkle.
+- [12 juli 2006]
+  Typeringsinformatie die IN een dictionary wordt gezet, gaat verloren.
+  Treedt op als: een overloaded functie twee argumenten heeft met een
+                 type-afhankelijkheid,
+                 het eerste argument een variabele is,
+                 en het tweede argument het type bepaalt,
+                 in dat geval wordt het specifieke dictionary argument
+                 correct aangemaakt,
+                 maar als het tweede argument wordt vervangen door _|_,
+                 dan is er typeringsinformatie verloren gegaan,
+                 en dat kan leiden tot onterechte type-fouten.
+- ExpandFun may crash mysteriously
+- [6 augustus 2003]
+    "instance eval (a,b) | eval a & eval b"
+  gecombineerd met de goal
+    "eval [(10,False)]"
+  levert een applicatie van eval op een verkeerde dictionary op:
+  de Int en Bool velden zijn omgedraaid.
+  --> module BindLexeme
+  --> functie createMemberField
+  --> de instanceNames zijn verdacht (er staat "b" voor "a")
+- [6 augustus, 2004]
+  --> aanwijzen van redexen is niet krachtig genoeg;
+      ander mechanisme is nodig
+   
+   
+   

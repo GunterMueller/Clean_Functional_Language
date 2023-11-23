@@ -1,0 +1,18 @@
+CC = x86_64-w64-mingw32-gcc
+CFLAGS = -D_WINDOWS_ -DG_A64 -O -fomit-frame-pointer
+
+OBJECTS = \
+	backend_dllexport.o backendsupport.o buildtree.o cocl.o \
+	codegen1.o codegen2.o codegen3.o codegen.o \
+	comsupport.o dbprint.o instructions.o optimisations.o \
+	pattern_match_2.o sa.o set_scope_numbers.o settings.o statesgen.o windows_io.o
+
+../backend.dll: $(OBJECTS)
+	$(CC) -shared -s $(OBJECTS) -o $@
+
+backend_dllexport.c: backend.o
+	cat add_dllexports.sh | tr -d '\r' > add_dllexports_without_cr.sh
+	chmod +x add_dllexports_without_cr.sh
+	./add_dllexports_without_cr.sh
+
+# winedump -j export backend.dll

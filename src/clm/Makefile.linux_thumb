@@ -1,0 +1,26 @@
+CC=gcc -mthumb
+CFLAGS=-O -pedantic -Wall -W
+CPPFLAGS=-DGNU_C -DLINUX -DLINUX_ELF -DI486 -DARM
+
+all: clm patch_bin
+
+clm: clm.o cachingcompiler.o
+	gcc -s clm.o cachingcompiler.o -o clm
+#	./patch_bin clm CLEANLIB $(HOME)/Clean2/exe
+#	./patch_bin clm CLEANPATH .:$(HOME)/Clean2/stdenv:$(HOME)/Clean2/iolib
+
+cachingcompiler.o: cachingcompiler.c cachingcompiler.h
+
+clm.o: clm.c cachingcompiler.h
+
+patch_bin: patch_bin.o
+	gcc -s patch_bin.o -o patch_bin
+ 
+patch_bin.o: patch_bin.c
+ 
+clms: clms.o cachingcompiler.o
+	gcc -s clms.o cachingcompiler.o -o clms
+ 
+clms.o: clm.c cachingcompiler.h
+	gcc $(CFLAGS) $(CPPFLAGS) -c -o clms.o -DSYSTEM_LINKER clm.c
+ 

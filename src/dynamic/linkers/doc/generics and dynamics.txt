@@ -1,0 +1,21 @@
+Generics and dynamics
+
+GOAL:
+conversion of unknown types
+
+DISADVANTAGES:
+- generic representation consumes lot of disk space.
+- conversion typically takes place once.
+- (small) parts might be converted
+
+PROPOSAL:
+- associate with each type which occurs in a dynamic
+  a function which converts it to the generic 
+  representation.
+
+  Then the programmer specifies a so-called conversion
+  function.
+
+  Finally the result of the conversion function which is
+  a generic representation is converted back into a
+  'normal' object (if succeeeds)

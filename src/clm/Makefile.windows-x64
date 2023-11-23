@@ -1,0 +1,11 @@
+CC=gcc
+CFLAGS=-O -pedantic -Wall -W
+CPPFLAGS=-DGNU_C -D_WINDOWS_ -DI486 -DA_64
+
+clm: clm.o
+	$(CC) -s clm.o -o clm
+
+clm.o: clm.c cachingcompiler.h
+
+patch_bin: patch_bin.o
+	$(CC) -s patch_bin.o -o patch_bin

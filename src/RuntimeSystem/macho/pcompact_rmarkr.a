@@ -1,0 +1,856 @@
+
+rmark_using_reversal:
+	stw	a3,-4(sp)
+	li	d3,0
+	li	d5,1
+	stwu	a3,-8(sp)
+	b	rmarkr_node
+
+rmark_using_reversal_:
+	subi	a0,a0,4
+	stw	d1,-4(sp)
+	cmplw	0,a0,d1
+	stwu	a3,-8(sp)
+	bgt	rmark_no_undo_reverse_1
+	stw	a0,0(a3)
+	stw	d0,0(a0)
+rmark_no_undo_reverse_1:
+	li	d3,0
+	li	d5,1
+	b	rmarkr_arguments
+
+rmark_array_using_reversal:
+	stw	d1,-4(sp)
+	cmplw	0,a0,d1
+	stwu	a3,-8(sp)
+	bgt	rmark_no_undo_reverse_2
+	lea	d0,__ARRAY__+2
+	stw	a0,0(a3)
+	stw	d0,0(a0)
+rmark_no_undo_reverse_2:
+	li	d3,0
+	li	d5,1
+	b	rmarkr_arguments
+
+rmarkr_hnf_2:
+	lwz	o0,0-NODE_POINTER_OFFSET(a0)
+	or	d3,d3,d5
+	ori	o0,o0,2
+	stw	o0,0-NODE_POINTER_OFFSET(a0)
+	lwzu	d2,4-NODE_POINTER_OFFSET(a0)
+	stw	d3,0-NODE_POINTER_OFFSET(a0)
+	mr	d3,a0
+	li	d5,0
+	mr	a0,d2
+
+rmarkr_node:
+	sub	d0,a0,d6
+	cmplw	0,d0,d7
+	bge-	rmarkr_next_node_after_static
+
+	srwi	o0,d0,5
+	lbzx	o1,o4,o0
+	rlwinm	o2,d0,32-2,29,31
+	rlwnm.	r0,o1,o2,24,24
+	bne	rmarkr_next_node
+
+rmarkr_arguments:
+	lwz	d0,0-NODE_POINTER_OFFSET(a0)
+	srw	o3,g3,o2
+
+	or	o1,o1,o3
+
+	andi.	r0,d0,2
+	lha	d2,-2(d0)
+
+	stbx	o1,o4,o0
+
+	cmpwi	cr6,d2,0
+	beq	rmarkr_lazy_node
+
+	beq	cr6,rmarkr_hnf_0
+
+	cmplwi	cr0,d2,256
+	addi	a0,a0,4
+	bge	rmarkr_record
+
+	subic.	d2,d2,2
+	beq	rmarkr_hnf_2
+	blt	rmarkr_hnf_1
+
+rmarkr_hnf_3:
+	lwz	a1,4-NODE_POINTER_OFFSET(a0)
+rmarkr_hnf_3_:
+	sub	d0,a1,d6
+	srwi	o0,d0,5
+	lbzx	o1,o4,o0
+	rlwinm	o2,d0,32-2,29,31
+	srw	o3,g3,o2
+	and.	r0,o1,o3
+	bne	rmarkr_shared_argument_part
+
+	or	o1,o1,o3
+	stbx	o1,o4,o0
+
+rmarkr_no_shared_argument_part:
+	lwz	o0,0-NODE_POINTER_OFFSET(a0)
+	or	d3,d3,d5
+	ori	o0,o0,2
+	stw	o0,0-NODE_POINTER_OFFSET(a0)
+	stwu	d3,4-NODE_POINTER_OFFSET(a0)
+
+	lwz	o0,0-NODE_POINTER_OFFSET(a1)
+	slwi	d2,d2,2
+	ori	o0,o0,1
+	stw	o0,0-NODE_POINTER_OFFSET(a1)
+
+	lwzux	d2,a1,d2
+	li	d5,0
+	stw	a0,0-NODE_POINTER_OFFSET(a1)
+	mr	d3,a1
+	mr	a0,d2
+	b	rmarkr_node
+
+rmarkr_shared_argument_part:
+	cmplw	0,a1,a0
+	bgt	rmarkr_hnf_1
+
+	lwz	o0,0-NODE_POINTER_OFFSET(a1)
+	addi	d0,a0,4+2+1
+	stw	d0,0-NODE_POINTER_OFFSET(a1)
+	stw	o0,4-NODE_POINTER_OFFSET(a0)
+	b	rmarkr_hnf_1
+
+rmarkr_lazy_node_1:
+	bne	rmarkr_selector_node_1
+
+rmarkr_hnf_1:
+	lwz	d2,0-NODE_POINTER_OFFSET(a0)
+	or	d3,d3,d5
+	stw	d3,0-NODE_POINTER_OFFSET(a0)
+	mr	d3,a0
+	li	d5,2
+	mr	a0,d2
+	b	rmarkr_node
+
+rmarkr_selector_node_1:
+	baddicc	d2,3
+	lwz	a1,0-NODE_POINTER_OFFSET(a0)
+	beq	rmarkr_indirection_node
+
+	addic.	d2,d2,1
+	sub	o2,a1,d6
+	ble	rmarkr_record_selector_node_1
+
+	srwi	d2,o2,5
+	lbzx	g1,o4,d2
+	rlwinm	g2,o2,32-2,29,31
+	rlwnm.	r0,g1,g2,24,24
+	bne	rmarkr_hnf_1
+
+	lwz	d2,0-NODE_POINTER_OFFSET(a1)
+	andi.	r0,d2,2
+	beq	rmarkr_hnf_1
+
+	lha	g1,-2(d2)
+	cmplwi	cr0,g1,2
+	ble	rmarkr_small_tuple_or_record
+
+rmarkr_large_tuple_or_record:	
+	lwz	a2,8-NODE_POINTER_OFFSET(a1)
+
+	sub	o2,a2,d6
+	srwi	d2,o2,5
+	lbzx	g1,o4,d2
+	rlwinm	g2,o2,32-2,29,31
+	rlwnm.	r0,g1,g2,24,24
+	bne	rmarkr_hnf_1
+
+ .if NEW_DESCRIPTORS
+	lwz	d0,-8(d0)
+	andc	o1,o1,o3
+	lea	g1,__indirection
+	stbx	o1,o4,o0
+
+	lhz	d0,4(d0)
+	stw	g1,-4-NODE_POINTER_OFFSET(a0)
+	subi	d2,a0,4
+
+	cmplwi	cr0,d0,8
+	blt	rmarkr_tuple_or_record_selector_node_2
+	beq	rmarkr_tuple_selector_node_2
+
+rmarkr_tuple_or_record_selector_node_g2:
+	addi	a0,a2,-12
+	lwzx	a0,a0,d0
+	stw	a0,4-NODE_POINTER_OFFSET(d2)
+	b	rmarkr_node
+
+rmarkr_tuple_selector_node_2:
+	lwz	a0,0(a2)
+	stw	a0,4-NODE_POINTER_OFFSET(d2)
+	b	rmarkr_node
+ .else
+rmarkr_small_tuple_or_record:
+	lwz	g1,-8(d0)
+	mflr	r0
+	andc	o1,o1,o3
+
+	lwz	g1,4(g1)
+	subi	d2,a0,4
+
+	mtlr	g1
+	stbx	o1,o4,o0
+	mr	a0,a1
+	stwu	r0,-4(sp)
+	blrl
+	mtlr	r0
+
+	lea	g1,__indirection
+	stw	a0,4-NODE_POINTER_OFFSET(d2)
+	stw	g1,0-NODE_POINTER_OFFSET(d2)
+	b	rmarkr_node
+ .endif
+
+rmarkr_record_selector_node_1:
+	srwi	d2,o2,5
+	lbzx	g1,o4,d2
+	rlwinm	g2,o2,32-2,29,31
+	beq	rmarkr_strict_record_selector_node_1
+
+	rlwnm.	r0,g1,g2,24,24
+	bne	rmarkr_hnf_1
+
+	lwz	d2,0-NODE_POINTER_OFFSET(a1)
+	andi.	r0,d2,2
+	beq	rmarkr_hnf_1
+
+	lha	g1,-2(d2)
+	cmplwi	cr0,g1,258
+	ble	rmarkr_small_tuple_or_record
+
+ .if NEW_DESCRIPTORS
+	lwz	a2,8-NODE_POINTER_OFFSET(a1)
+
+	sub	o2,a2,d6
+	srwi	d2,o2,5
+	lbzx	g1,o4,d2
+	rlwinm	g2,o2,32-2,29,31
+	rlwnm.	r0,g1,g2,24,24
+	bne	rmarkr_hnf_1
+
+rmarkr_small_tuple_or_record:
+	lwz	d0,-8(d0)
+	andc	o1,o1,o3
+	lea	g1,__indirection
+	stbx	o1,o4,o0
+
+	lhz	d0,4(d0)
+	stw	g1,-4-NODE_POINTER_OFFSET(a0)
+	subi	d2,a0,4
+
+	cmplwi	cr0,d0,8
+	bgt	rmarkr_tuple_or_record_selector_node_g2
+
+rmarkr_tuple_or_record_selector_node_2:
+	lwzx	a0,a1,d0
+	stw	a0,4-NODE_POINTER_OFFSET(d2)
+	b	rmarkr_node
+ .else
+	b	rmarkr_large_tuple_or_record
+ .endif
+
+rmarkr_strict_record_selector_node_1:
+	rlwnm.	r0,g1,g2,24,24
+	bne	rmarkr_hnf_1
+
+	lwz	d2,0-NODE_POINTER_OFFSET(a1)
+	andi.	r0,d2,2
+	beq	rmarkr_hnf_1
+
+	lha	g1,-2(d2)
+	cmplwi	cr0,g1,258
+	ble	rmarkr_select_from_small_record
+
+	lwz	a2,8-NODE_POINTER_OFFSET(a1)
+	sub	o2,a2,d6
+
+	srwi	d2,o2,5
+	lbzx	g1,o4,d2
+	rlwinm	g2,o2,32-2,29,31
+	rlwnm.	r0,g1,g2,24,24
+	bne	rmarkr_hnf_1
+
+rmarkr_select_from_small_record:
+ .if NEW_DESCRIPTORS
+	lwz	g1,-8(d0)
+	subi	a0,a0,4
+	lhz	d0,4(g1)
+	cmplwi	cr0,d0,8
+	ble	rmarkr_strict_record_selector_node_2
+	addi	d0,d0,-12
+	lwzx	d0,a2,d0
+	b	rmarkr_strict_record_selector_node_3
+rmarkr_strict_record_selector_node_2:
+	lwzx	d0,a1,d0
+rmarkr_strict_record_selector_node_3:
+	stw	d0,4-NODE_POINTER_OFFSET(a0)
+
+	lhz	d0,6(g1)
+	tst	d0
+	beq	rmarkr_strict_record_selector_node_5
+	cmplwi	cr0,d0,8
+	ble	rmarkr_strict_record_selector_node_4
+	mr	a1,a2
+	addi	d0,d0,-12
+rmarkr_strict_record_selector_node_4:
+	lwzx	d0,a1,d0
+	stw	d0,8-NODE_POINTER_OFFSET(a0)
+rmarkr_strict_record_selector_node_5:
+
+	lwz	d0,-4(g1)
+	stw	d0,0-NODE_POINTER_OFFSET(a0)
+ .else
+	lwz	g1,-8(d0)
+	mflr	r0
+	subi	a0,a0,4
+	lwz	g1,4(g1)
+
+	mtlr	g1
+	stwu	r0,-4(sp)
+	blrl
+	mtlr	r0
+ .endif
+	b	rmarkr_next_node
+
+rmarkr_indirection_node:
+	andc	o1,o1,o3
+	stbx	o1,o4,o0
+
+	mr	a0,a1
+	b	rmarkr_node
+
+rmarkr_next_node:
+	cmpwi	cr0,d5,0
+	bne	rmarkr_parent
+
+	lwzu	d2,-4-NODE_POINTER_OFFSET(d3)
+	lwz	o0,4-NODE_POINTER_OFFSET(d3)
+	andi.	d5,d2,3
+
+	cmpwi	cr0,d5,3
+	beq	rmarkr_argument_part_cycle1
+
+	stw	o0,0-NODE_POINTER_OFFSET(d3)
+
+rmarkr_c_argument_part_cycle1:
+	cmplw	0,a0,d3
+	bgt	rmarkr_no_reverse_1
+
+	lwz	o0,0-NODE_POINTER_OFFSET(a0)
+	addi	d0,d3,4+1
+	stw	o0,4-NODE_POINTER_OFFSET(d3)
+	stw	d0,0-NODE_POINTER_OFFSET(a0)
+	clrrwi	a0,d2,2
+	b	rmarkr_node
+
+rmarkr_no_reverse_1:
+	stw	a0,4-NODE_POINTER_OFFSET(d3)
+	clrrwi	a0,d2,2
+	b	rmarkr_node
+
+rmarkr_lazy_node:
+	beq	cr6,rmarkr_next_node
+
+	bsubicc	d2,1
+	baddi	a0,4
+	ble	rmarkr_lazy_node_1
+
+ 	cmplwi	cr0,d2,255
+	bge	rmarkr_closure_with_unboxed_arguments
+
+rmarkr_closure_with_unboxed_arguments_:
+	lwz	o0,0-NODE_POINTER_OFFSET(a0)
+	slwi	d2,d2,2
+	ori	o0,o0,2
+	stw	o0,0(a0)
+
+	lwzux	d2,a0,d2
+	or	d3,d3,d5
+	stw	d3,0-NODE_POINTER_OFFSET(a0)
+	mr	d3,a0
+	li	d5,0
+	mr	a0,d2
+	b	rmarkr_node
+
+rmarkr_closure_with_unboxed_arguments:
+;	baddi	d2,1
+	srwi	d0,d2,8
+	bandic	d2,255
+;	bsub	d2,d0
+	bsubc	d2,d0
+;	bsubicc	d2,1
+	bgt	rmarkr_closure_with_unboxed_arguments_
+	beq	rmarkr_hnf_1
+	bsubi	a0,4
+	b	rmarkr_next_node	
+
+rmarkr_hnf_0:
+	cmpw	d0,int_reg
+	bne	rmarkr_no_int_3
+
+	lwz	d2,4-NODE_POINTER_OFFSET(a0)
+	cmplwi	cr0,d2,33
+	bge	rmarkr_next_node
+
+	andc	o1,o1,o3
+	stbx	o1,o4,o0
+
+	lea	a0,small_integers
+	slwi	d2,d2,3
+	add	a0,a0,d2
+	b	rmarkr_next_node_after_static
+
+rmarkr_no_int_3:
+	cmplw	d0,char_reg
+	bne	rmarkr_no_char_3
+
+	andc	o1,o1,o3
+	stbx	o1,o4,o0
+
+	lbz	d2,7-NODE_POINTER_OFFSET(a0)
+	lea	a0,static_characters
+	slwi	d2,d2,3
+	add	a0,a0,d2
+	b	rmarkr_next_node_after_static
+
+rmarkr_no_char_3:
+	blt	rmarkr_no_normal_hnf_0
+
+	subi	a0,d0,2-ZERO_ARITY_DESCRIPTOR_OFFSET
+
+	andc	o1,o1,o3
+	stbx	o1,o4,o0
+	b	rmarkr_next_node_after_static
+		
+rmarkr_no_normal_hnf_0:
+	lea	o0,__ARRAY__+2
+	cmplw	0,d0,o0
+	bne+	rmarkr_next_node
+	b	rmarkr_array
+
+rmarkr_record:
+	subic.	d2,d2,258
+	beq	rmarkr_record_2
+	blt	rmarkr_record_1
+
+rmarkr_record_3:
+	lhz	d2,-2+2(d0)
+	lwz	a1,4-NODE_POINTER_OFFSET(a0)
+	subic.	d2,d2,1
+	blt	rmarkr_record_3_bb
+	
+	beq	rmarkr_record_3_ab
+
+	subic.	d2,d2,1
+	beq	rmarkr_record_3_aab
+
+	b	rmarkr_hnf_3_
+
+rmarkr_record_3_bb:
+	subi	a0,a0,4
+
+	sub	d0,a1,d6
+	setmbit	o4,d0,d1,o0,o1,o2,2
+
+	cmplw	a1,a0
+	bgt	rmarkr_next_node
+
+	srwi.	o0,o0,1
+
+	lwz	o2,0-NODE_POINTER_OFFSET(a1)
+	addi	d0,a0,8+2+1
+	stw	o2,8-NODE_POINTER_OFFSET(a0)
+	stw	d0,0-NODE_POINTER_OFFSET(a1)
+
+	bne+	rmarkr_not_next_byte_1
+
+	addi	d1,d1,1
+	lbzx	o1,o4,d1
+	li	o0,128
+rmarkr_not_next_byte_1:
+	and.	r0,o1,o0
+	beq+	rmarkr_not_yet_linked_bb
+		
+	sub	d0,a0,d6
+	addi	d0,d0,8
+	setmbit	o4,d0,d1,o0,o1,o2,2
+	b	rmarkr_next_node
+
+rmarkr_not_yet_linked_bb:
+	or	o1,o1,o0
+	stbx	o1,o4,d1
+	b	rmarkr_next_node
+
+rmarkr_record_3_ab:
+	sub	d0,a1,d6
+	setmbit	o4,d0,d1,o0,o1,o2,2
+
+	cmplw	0,a1,a0
+	bgt	rmarkr_hnf_1
+
+	srwi.	o0,o0,1
+
+	lwz	o2,0-NODE_POINTER_OFFSET(a1)
+	addi	d0,a0,4+2+1
+	stw	o2,4-NODE_POINTER_OFFSET(a0)
+	stw	d0,0-NODE_POINTER_OFFSET(a1)
+
+	bne+	rmarkr_not_next_byte_2
+
+	addi	d1,d1,1
+	lbzx	o1,o4,d1
+	li	o0,128
+rmarkr_not_next_byte_2:
+	and.	r0,o1,o0
+	beq+	rmarkr_not_yet_linked_ab
+
+	sub	d0,a0,d6
+	addi	d0,d0,4
+	setmbit	o4,d0,d1,o0,o1,o2,2
+	b	rmarkr_hnf_1
+		
+rmarkr_not_yet_linked_ab:
+	or	o1,o1,o0
+	stbx	o1,o4,d1
+	b	rmarkr_hnf_1
+
+rmarkr_record_3_aab:
+	sub	d0,a1,d6
+
+	tstmbit	o4,d0,d1,o0,o1,o2,2
+	bne	rmarkr_shared_argument_part
+
+	srw	o0,g3,o2
+	or	o1,o1,o0	
+	stbx	o1,o4,d1
+
+	lwz	o0,0-NODE_POINTER_OFFSET(a0)
+	or	d3,d3,d5
+	ori	o0,o0,2
+	stw	o0,0-NODE_POINTER_OFFSET(a0)
+	stwu	d3,4-NODE_POINTER_OFFSET(a0)
+		
+	lwz	d2,0-NODE_POINTER_OFFSET(a1)
+	li	d5,1
+	stw	a0,0-NODE_POINTER_OFFSET(a1)
+	mr	d3,a1
+	mr	a0,d2
+	b	rmarkr_node
+
+rmarkr_record_2:
+	lhz	g1,-2+2(d0)
+	cmplwi	g1,1
+	bgt	rmarkr_hnf_2
+	beq	rmarkr_hnf_1
+
+	subi	a0,a0,4
+	b	rmarkr_next_node
+
+rmarkr_record_1:
+	lhz	g1,-2+2(d0)
+	tst	g1
+	bne	rmarkr_hnf_1
+
+	subi	a0,a0,4
+	b	rmarkr_next_node
+
+rmarkr_array:
+	lwz	d1,8-NODE_POINTER_OFFSET(a0)
+	tst	d1
+	beq	rmarkr_lazy_array
+
+	lhz	d0,-2(d1)
+	tst	d0
+	beq	rmarkr_b_record_array
+
+	lhz	d1,-2+2(d1)
+	tst	d1
+	beq	rmarkr_b_record_array
+
+	subi	d0,d0,256
+	cmpw	cr0,d0,d1
+	beq	rmarkr_a_record_array
+
+rmarkr_ab_record_array:
+	mr	o2,d2
+	mr	o3,d3
+
+	lwz	d2,4-NODE_POINTER_OFFSET(a0)
+	addi	a0,a0,8
+	stw	a0,-4(sp)
+
+	slwi	d2,d2,2
+	mullw	a1,d2,d0
+
+	sub	d0,d0,d1
+	addi	a0,a0,4
+	add	a1,a1,a0
+	
+	mflr	r0
+	stw	r0,-8(sp)
+	bl	reorder2
+	lwz	r0,-8(sp)
+
+	lwz	a0,-4(sp)
+	mtlr	r0
+
+	lwz	d0,-4(a0)
+	mullw	d0,d0,d1
+		
+	mr	d3,o3
+	mr	d2,o2
+	b	rmarkr_lr_array
+
+rmarkr_b_record_array:
+	sub	d0,a0,d6
+	addi	d0,d0,4
+	setmbit	o4,d0,d1,o0,o1,o2,2
+	b	rmarkr_next_node
+
+rmarkr_a_record_array:
+	lwz	d0,4-NODE_POINTER_OFFSET(a0)
+	addi	a0,a0,8
+	mullw	d0,d0,d1
+	b	rmarkr_lr_array
+
+rmarkr_lazy_array:
+	lwz	d0,4-NODE_POINTER_OFFSET(a0)
+	addi	a0,a0,8
+rmarkr_lr_array:
+	sub	d1,a0,d6
+	srwi	d1,d1,2
+	add	d1,d1,d0
+	setmbit	o4,d1,d2,o0,o1,o2,0
+
+	cmplwi	cr0,d0,1
+	ble	rmarkr_array_length_0_1
+
+	mr	a1,a0
+	slwi	d0,d0,2
+	add	a0,a0,d0
+
+	lwz	d2,0-NODE_POINTER_OFFSET(a0)
+	lwz	o0,0-NODE_POINTER_OFFSET(a1)
+	stw	d2,0-NODE_POINTER_OFFSET(a1)
+	stw	o0,0-NODE_POINTER_OFFSET(a0)
+
+	lwzu	d2,-4-NODE_POINTER_OFFSET(a0)
+	lwzu	o0,-4-NODE_POINTER_OFFSET(a1)
+	addi	d2,d2,2
+	stw	o0,0-NODE_POINTER_OFFSET(a0)
+	stw	d2,0-NODE_POINTER_OFFSET(a1)
+
+	lwzu	d2,-4-NODE_POINTER_OFFSET(a0)
+	or	d3,d3,d5
+	stw	d3,0-NODE_POINTER_OFFSET(a0)
+	mr	d3,a0
+	li	d5,0
+	mr	a0,d2
+	b	rmarkr_node
+
+rmarkr_array_length_0_1:
+	subi	a0,a0,8
+	blt	rmarkr_next_node
+		
+	lwz	d1,12-NODE_POINTER_OFFSET(a0)
+	lwz	o0,8-NODE_POINTER_OFFSET(a0)
+	lwz	o1,4-NODE_POINTER_OFFSET(a0)
+	stw	o0,12-NODE_POINTER_OFFSET(a0)
+	stw	o1,8-NODE_POINTER_OFFSET(a0)
+	stwu	d1,4-NODE_POINTER_OFFSET(a0)
+	b	rmarkr_hnf_1
+
+rmarkr_parent:
+	tst	d3
+	beq	end_rmarkr
+
+	subic.	d5,d5,1
+	beq	rmarkr_argument_part_parent
+
+	cmplw	a0,d3
+	lwz	d2,0-NODE_POINTER_OFFSET(d3)
+	bgt	rmarkr_no_reverse_2
+
+	mr	a1,a0
+	addi	d0,d3,1
+	lwz	a0,0-NODE_POINTER_OFFSET(a1)
+	stw	d0,0-NODE_POINTER_OFFSET(a1)
+
+rmarkr_no_reverse_2:
+	stw	a0,0-NODE_POINTER_OFFSET(d3)
+	subi	a0,d3,4
+	andi.	d5,d2,3
+	clrrwi	d3,d2,2
+	b	rmarkr_next_node
+		
+rmarkr_argument_part_parent:
+	mr	a1,d3
+	mr	d3,a0
+
+	lwz	d2,0-NODE_POINTER_OFFSET(a1)
+
+	mr	a0,a1
+
+rmarkr_skip_upward_pointers:
+	andi.	d0,d2,3
+	cmpwi	cr0,d0,3
+	bne	rmarkr_no_upward_pointer
+
+	clrrwi	a1,d2,2
+	lwz	d2,0-NODE_POINTER_OFFSET(a1)
+	b	rmarkr_skip_upward_pointers
+
+rmarkr_no_upward_pointer:
+	cmplw	0,d3,a0
+	bgt	rmarkr_no_reverse_3
+
+ 	mr	o0,d3
+	lwz	d3,0-NODE_POINTER_OFFSET(d3)
+	addi	d0,a0,1
+	stw	d0,0-NODE_POINTER_OFFSET(o0)
+
+rmarkr_no_reverse_3:
+	stw	d3,0-NODE_POINTER_OFFSET(a1)
+
+	clrrwi	d3,d2,2
+
+	lwzu	d2,-4-NODE_POINTER_OFFSET(d3)
+
+	cmplw	6,a0,d3
+
+	lwz	o0,4-NODE_POINTER_OFFSET(d3)
+	andi.	d5,d2,3
+	stw	o0,0-NODE_POINTER_OFFSET(d3)
+
+	bgt	cr6,rmarkr_no_reverse_4
+
+	lwz	o0,0-NODE_POINTER_OFFSET(a0)
+	stw	o0,4-NODE_POINTER_OFFSET(d3)
+	addi	d0,d3,4+2+1
+	stw	d0,0-NODE_POINTER_OFFSET(a0)
+	clrrwi	a0,d2,2
+	b	rmarkr_node
+
+rmarkr_no_reverse_4:
+	stw	a0,4-NODE_POINTER_OFFSET(d3)
+	clrrwi	a0,d2,2
+	b	rmarkr_node
+
+rmarkr_argument_part_cycle1:
+	mr	d1,a1
+
+rmarkr_skip_pointer_list1:
+	clrrwi	a1,d2,2
+	lwz	d2,0-NODE_POINTER_OFFSET(a1)
+	andi.	d5,d2,3
+	cmpwi	cr0,d5,3
+	beq	rmarkr_skip_pointer_list1
+
+	stw	o0,0-NODE_POINTER_OFFSET(a1)
+	mr	a1,d1
+	b	rmarkr_c_argument_part_cycle1
+
+rmarkr_next_node_after_static:
+	cmpwi	cr0,d5,0
+	bne	rmarkr_parent_after_static
+
+	lwzu	d2,-4-NODE_POINTER_OFFSET(d3)
+	lwz	o0,4-NODE_POINTER_OFFSET(d3)
+	andi.	d5,d2,3
+
+	cmpwi	cr0,d5,3
+	beq	rmarkr_argument_part_cycle2
+		
+	stw	o0,0-NODE_POINTER_OFFSET(d3)
+
+rmarkr_c_argument_part_cycle2:
+	stw	a0,4-NODE_POINTER_OFFSET(d3)
+	clrrwi	a0,d2,2
+	b	rmarkr_node
+
+rmarkr_parent_after_static:
+	cmpwi	cr0,d3,0
+	beq	end_rmarkr_after_static
+
+	subic.	d5,d5,1
+	beq	rmarkr_argument_part_parent_after_static
+
+	lwz	d2,0-NODE_POINTER_OFFSET(d3)
+	stw	a0,0-NODE_POINTER_OFFSET(d3)
+	subi	a0,d3,4
+	andi.	d5,d2,3
+	clrrwi	d3,d2,2
+	b	rmarkr_next_node
+
+rmarkr_argument_part_parent_after_static:
+	mr	a1,d3
+	mr	d3,a0
+
+	lwz	d2,0-NODE_POINTER_OFFSET(a1)
+
+	mr	a0,a1
+
+rmarkr_skip_upward_pointers_2:
+	andi.	d0,d2,3
+	cmpwi	cr0,d0,3
+	bne	rmarkr_no_reverse_3
+
+	clrrwi	a1,d2,2
+	lwz	d2,0-NODE_POINTER_OFFSET(a1)
+	b	rmarkr_skip_upward_pointers_2
+
+rmarkr_argument_part_cycle2:
+	mr	d1,a1
+
+rmarkr_skip_pointer_list2:
+	clrrwi	a1,d2,2
+	lwz	d2,0-NODE_POINTER_OFFSET(a1)
+	andi.	d5,d2,3
+	cmpwi	cr0,d5,3
+	beq	rmarkr_skip_pointer_list2
+
+	stw	o0,0-NODE_POINTER_OFFSET(a1)
+	mr	a1,d1
+	b	rmarkr_c_argument_part_cycle2
+
+end_rmarkr_after_static:
+	lwz	a3,0(sp)
+	addi	sp,sp,8
+	stw	a0,0(a3)
+	b	rmarkr_next_stack_node
+
+end_rmarkr:
+	lwz	d1,4(sp)
+	lwz	a3,0(sp)
+	cmplw	0,a0,d1
+	addi	sp,sp,8
+	bgt	rmarkr_no_reverse_5
+	mr	a1,a0
+	addi	d0,a3,1
+	lwz	a0,0(a0)
+	stw	d0,0(a1)
+rmarkr_no_reverse_5:
+	stw	a0,0(a3)
+
+rmarkr_next_stack_node:
+	cmplw	0,sp,d4
+	bge	rmark_next_node
+
+	lwz	a0,0(sp)
+	lwz	a3,4(sp)
+	addi	sp,sp,8
+	
+	cmplwi	a0,1
+	bgt	rmark_using_reversal
+	b	rmark_next_node_

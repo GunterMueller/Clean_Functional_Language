@@ -1,0 +1,13 @@
+rm frontend/Clean\ System\ Files/*.abc
+rm frontend/Clean\ System\ Files/*.o
+rm frontend/Clean\ System\ Files/*.s
+rm backend/Clean\ System\ Files/*.abc
+rm backend/Clean\ System\ Files/*.o
+rm backend/Clean\ System\ Files/*.s
+rm main/Clean\ System\ Files/*.abc
+rm main/Clean\ System\ Files/*.o
+rm main/Clean\ System\ Files/*.s
+rm main/Unix/Clean\ System\ Files/*.abc
+rm main/Unix/Clean\ System\ Files/*.o
+rm main/Unix/Clean\ System\ Files/*.s
+

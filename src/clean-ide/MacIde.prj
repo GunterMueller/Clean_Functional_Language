@@ -1,0 +1,54 @@
+Version: 1.4
+Global
+	Built:	True
+	Target:	Object IO
+	Exec:	{Application}:mmIde
+	CodeGen
+		CheckStacks:	False
+		CheckIndexes:	True
+		TargetProcessor:	CurrentProcessor
+	Application
+		HeapSize:	33554432
+		StackSize:	2097152
+		ExtraMemory:	4194304
+		IntialHeapSize:	204800
+		HeapSizeMultiplier:	4096
+		ShowExecutionTime:	False
+		ShowGC:	False
+		ShowStackSize:	False
+		MarkingCollector:	True
+		StandardRuntimeEnv:	True
+		Profile
+			Memory:	False
+			MemoryMinimumHeapSize:	0
+			Time:	True
+			Stack:	False
+		Output
+			Output:	NoConsole
+			Font:	Monaco
+			FontSize:	9
+			WriteStdErr:	True
+	Link
+		LinkMethod:	Static
+		GenerateRelocations:	False
+		GenerateLinkMap:	False
+		LinkResources:	False
+		ResourceSource:	
+		GenerateDLL:	False
+		ExportedNames:	
+		AddCarbResource:	True
+	Paths
+		Path:	{Project}
+		Path:	{Project}:Ide
+		Path:	{Project}:Pm
+		Path:	{Project}:Ed
+		Path:	{Project}:Mac
+		Path:	{Project}:Util
+		Path:	{Project}:Interfaces:LinkerInterface
+		Path:	{Project}:Interfaces:ProverOptions
+		Path:	{Application}:Libraries:Directory
+	Precompile:	
+	Postlink:	
+MainModule
+	Name:	IDE
+	Dir:	{Project}:Ide

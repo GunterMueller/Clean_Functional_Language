@@ -1,0 +1,28 @@
+/* these are the Clean labels that are used in the implementation
+   of copy_string_to_graph and copy_graph_to_string
+*/
+
+#define CLEAN_rDynamicTemp e____SystemDynamic__rDynamicTemp
+
+/* these two labels are actually defined in graph_to_string.c */
+/* (and not in DynamicGraphConversion as their names suggest) */
+#define CLEAN_dcopy_graph_to_string e__DynamicGraphConversion__dcopy__graph__to__string__0x00010101
+#define CLEAN_lcopy_graph_to_string e__DynamicGraphConversion__lcopy__graph__to__string__0x00010101
+
+/* these four labels are actually defined in string_to_graph.c, */
+/* included from fromDynamic?.c files */
+/* (and not in DynamicGraphConversion as their names suggest) */
+#define CLEAN_dcopy_string_to_graph e__DynamicGraphConversion__dcopy__string__to__graph__0x00010101
+#define CLEAN_ncopy_string_to_graph e__DynamicGraphConversion__ncopy__string__to__graph__0x00010101
+#define CLEAN_lcopy_string_to_graph e__DynamicGraphConversion__lcopy__string__to__graph__0x00010101
+#define CLEAN_scopy_string_to_graph e__DynamicGraphConversion__scopy__string__to__graph__0x00010101
+
+#define CLEAN_cGlobalDynamicInfoDummy e__DynamicGraphConversion__cGlobalDynamicInfoDummy
+#define CLEAN_nbuild_block e__DynamicGraphConversion__nbuild__block
+#define CLEAN_nbuild_lazy_block e__DynamicGraphConversion__nbuild__lazy__block
+#define CLEAN_rCopyGraphToStringResults e__DynamicGraphConversion__rCopyGraphToStringResults
+#define CLEAN_rWrap e__DynamicGraphConversion__rWrap
+
+#define CLEAN_rLazyDynamicReference e__StdDynamicLowLevelInterface__rLazyDynamicReference
+
+#define CLEAN_rRunTimeIDW e__DynamicLinkerInterface__rRunTimeIDW

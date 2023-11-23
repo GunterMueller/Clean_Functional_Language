@@ -1,0 +1,19 @@
+foreign module xmenu;
+
+int add_menu_bar(int)					'AddMenuBar';
+int add_menu(int,CLEAN_STRING)				'AddMenu';
+int add_sub_menu(int,CLEAN_STRING)			'AddSubMenu';
+int add_check_item(int,CLEAN_STRING,int)		'AddCheckItem';
+int add_menu_separator(int)				'AddMenuSeparator';
+int add_menu_item(int,CLEAN_STRING)			'AddMenuItem';
+int enable_menu_widget(int)				'EnableMenuWidgetX';
+int disable_menu_widget(int)				'DisableMenuWidgetX';
+int check_widget(int,int)				'CheckWidget';
+int set_widget_title(int,CLEAN_STRING)			'SetWidgetTitle';
+int install_shortcut(int,CLEAN_STRING)			'InstallShortcut';
+int hide_menu(int)					'HideMenuX';
+int show_menu(int)					'ShowMenuX';
+void get_item_info(int, int *,int *,CLEAN_STRING *,CLEAN_STRING *) 'GetItemInfo';
+void get_submenu_info(int,CLEAN_STRING *,int *)		'GetSubmenuInfo';
+int destroy_item_widget(int)				'DestroyItemWidget';
+int destroy_menu(int)                                   'DestroyMenu';

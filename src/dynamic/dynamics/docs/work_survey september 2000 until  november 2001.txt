@@ -1,0 +1,61 @@
+September 2000 - november 2001
+------------------------------
+
+- General
+  * bug fixes compiler, {static,dynamic}-linker, conversion functions and
+    StdEnv 2.0
+  * optimalizations
+  * internal dynamics distributions
+
+- Static linker
+  * added user defined sections
+  * import libraries
+
+- Dynamic linker
+  * detected and corrected the jump problem
+
+- Code generator
+  * direct references to the start of a constructor section replaced by
+    indirect references over the constructor label
+
+- Dynamics
+  * type dependent functions
+  * dumpDynamic-tool
+  * discussions about dynamics (Rinus, John, Artem, Marco)
+  * design & implementation of strongly typed dynamics
+  * initial support for version management of conversion functions
+  * design data dynamics (dynamics at almost no cost)
+  * design & implementation nested aka lazy dynamics
+  * design overloaded & polymorphic dynamics
+ 
+- Marco Pil's thesis
+  * reading and correcting (mainly chapter 4)
+  * discussions
+
+- structure Clean 2.0-distributions
+
+Current work
+------------
+- implementation of lazy dynamics in order to create an internal
+  distribution.
+
+
+Future work
+-----------
+- finish lazy dynamics
+- cvs-synchronization
+- testing, bug-fixes & stablisation
+- internal release
+- design & implementation unique dynamics
+- version management for both dynamics and libraries (md5)
+- Marco's thesis
+- design & implementation of copied dynamics
+- conversion of objects using dynamics (together with Artem)
+- everything I forgot...
+- external release of dynamics
+
+Current status
+--------------
+The dynamic apply can be performed. The result which may contain lazy
+dynamics can be written to disk. I am working on reading lazy dynamics
+from disk.

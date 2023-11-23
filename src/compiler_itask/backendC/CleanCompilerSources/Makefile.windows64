@@ -1,0 +1,70 @@
+
+OBJECTS = \
+	backend.obj backendsupport.obj buildtree.obj \
+	cocl.obj codegen1.obj codegen2.obj codegen3.obj codegen.obj \
+	comsupport.obj dbprint.obj instructions.obj optimisations.obj \
+	pattern_match_2.obj result_state_database.obj sa.obj \
+	set_scope_numbers.obj settings.obj statesgen.obj windows_io.obj
+
+backend.dll: $(OBJECTS)
+	link /dll /release /out:..\backend.dll $(OBJECTS) @..\backend.link64
+
+backend.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 backend.c
+
+backendsupport.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 backendsupport.c
+
+buildtree.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 buildtree.c
+
+cocl.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 cocl.c
+
+codegen1.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 codegen1.c
+
+codegen2.obj:
+	cl /nologo /c /D_WINDOWS_ /DG_A64 /O1 codegen2.c
+
+codegen3.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 codegen3.c
+
+codegen.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 codegen.c
+
+comsupport.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 comsupport.c
+
+dbprint.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 dbprint.c
+
+instructions.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 instructions.c
+
+optimisations.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 optimisations.c
+
+pattern_match_2.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 pattern_match_2.c
+
+result_state_database.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 result_state_database.c
+
+sa.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 sa.c
+
+set_scope_numbers.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 set_scope_numbers.c
+
+settings.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 settings.c
+
+statesgen.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 statesgen.c
+
+windows_io.obj:
+	cl /nologo /c /D_WINDOWS_ /O1 windows_io.c
+
+cleanup:
+	del $(OBJECTS)

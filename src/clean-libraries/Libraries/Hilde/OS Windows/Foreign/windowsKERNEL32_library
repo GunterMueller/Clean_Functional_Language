@@ -1,0 +1,7 @@
+kernel32.dll
+SetEnvironmentVariableA@8
+SetEndOfFile@4
+DeleteFileA@4
+GetConsoleTitleA@8
+TerminateProcess@8
+GetCurrentProcessId@0

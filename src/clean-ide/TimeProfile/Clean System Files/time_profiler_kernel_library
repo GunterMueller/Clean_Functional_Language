@@ -1,0 +1,5 @@
+kernel32.dll
+LocalUnlock@4
+LocalLock@4
+GetShortPathNameA@12
+GetLongPathNameA@12

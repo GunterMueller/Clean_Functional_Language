@@ -1,0 +1,70 @@
+Version: 1.4
+Global
+	Built:	True
+	Target:	StdEnv
+	Exec:	{Project}:twice
+	CodeGen
+		CheckStacks:	False
+		CheckIndexes:	False
+	Application
+		HeapSize:	2097152
+		StackSize:	2097152
+		ExtraMemory:	81920
+		IntialHeapSize:	204800
+		HeapSizeMultiplier:	4096
+		ShowExecutionTime:	False
+		ShowGC:	False
+		ShowStackSize:	False
+		MarkingCollector:	False
+		StandardRuntimeEnv:	True
+		Profile
+			Memory:	False
+			MemoryMinimumHeapSize:	0
+			Time:	False
+			Stack:	False
+		Output
+			Output:	ShowConstructors
+			Font:	Geneva
+			FontSize:	12
+			WriteStdErr:	False
+	Link
+		LinkMethod:	Static
+		GenerateRelocations:	False
+		GenerateLinkMap:	False
+		LinkResources:	False
+		ResourceSource:	
+		GenerateDLL:	False
+		ExportedNames:	
+	Paths
+		Path:	{Project}
+	Precompile:	
+	Postlink:	
+MainModule
+	Name:	twice
+	Dir:	{Project}
+	Compiler
+		NeverMemoryProfile:	False
+		NeverTimeProfile:	False
+		StrictnessAnalysis:	True
+		ListTypes:	NoTypes
+		ListAttributes:	False
+		Warnings:	False
+		Verbose:	False
+		ReadableABC:	False
+		ReuseUniqueNodes:	False
+	Dcl
+		WindowPosition
+			X:	78
+			Y:	7
+			SizeX:	786
+			SizeY:	300
+	DclOpen:	False
+	Icl
+		WindowPosition
+			X:	172
+			Y:	82
+			SizeX:	786
+			SizeY:	300
+	IclOpen:	True
+	LastModified:	Yes 2002 6 28 13 14 4
+OtherModules

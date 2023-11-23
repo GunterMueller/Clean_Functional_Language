@@ -1,0 +1,1 @@
+implementation module elf_linker_types;

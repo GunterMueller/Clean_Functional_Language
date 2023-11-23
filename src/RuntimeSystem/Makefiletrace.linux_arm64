@@ -1,0 +1,33 @@
+
+SDIR = ./
+ODIR = ./
+
+DEFINES = -DUSE_CLIB -DLINUX -DARM -DGNU_C -DELF -DTIME_PROFILE -DPROFILE
+
+all: $(ODIR)_startupTrace.o
+
+$(ODIR)_startupTrace.o: $(ODIR)arm64startup.o $(ODIR)arm64fileIO3.o $(ODIR)scon.o $(ODIR)arm64trace.o $(ODIR)ufileIO2.o
+	ld -r -o $(ODIR)_startupTrace.o $(ODIR)arm64startup.o $(ODIR)scon.o $(ODIR)arm64trace.o $(ODIR)arm64fileIO3.o $(ODIR)ufileIO2.o
+
+$(ODIR)scon.o: $(SDIR)scon.c
+#	gcc -c -O $(DEFINES) -o $(ODIR)scon.o $(SDIR)scon.c
+	gcc -fno-stack-protector -O $(DEFINES) -ffunction-sections -fdata-sections $(SDIR)scon.c -S -o $(ODIR)scon.s
+	mv $(ODIR)scon.s $(ODIR)scon.s.copy
+	grep -v -w ___main $(ODIR)scon.s.copy > $(ODIR)scon.s
+	rm $(ODIR)scon.s.copy
+	as $(DEFINES_A) $(ODIR)scon.s -o $(ODIR)scon.o
+
+$(ODIR)ufileIO2.o: $(SDIR)ufileIO2.c
+	gcc -fno-stack-protector -c -O $(DEFINES) -ffunction-sections -fdata-sections -o $(ODIR)ufileIO2.o $(SDIR)ufileIO2.c
+
+$(ODIR)arm64startup.o: $(SDIR)arm64startup.s $(SDIR)arm64copy.s $(SDIR)arm64mark.s \
+			$(SDIR)arm64compact.s $(SDIR)arm64compact_rmark.s \
+			$(SDIR)arm64compact_rmarkr.s $(SDIR)arm64ap.s
+	as $(ODIR)arm64startup.s --defsym PROFILE=1 --defsym TRACE=1 --defsym LINUX=1 -o $(ODIR)arm64startup.o
+
+$(ODIR)arm64fileIO3.o: $(SDIR)arm64fileIO3.s
+	as $(ODIR)arm64fileIO3.s -o $(ODIR)arm64fileIO3.o
+
+$(ODIR)arm64trace.o: $(SDIR)arm64trace.s
+	as $(ODIR)arm64trace.s -o $(ODIR)arm64trace.o
+

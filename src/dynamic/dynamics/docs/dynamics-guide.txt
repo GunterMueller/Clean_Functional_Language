@@ -1,0 +1,204 @@
+Dynamics implementation 0.5, Version 13th december 2001
+-------------------------------------------------------
+
+INTRODUCTION
+============
+Dynamic are still being developed. It is important to note that
+dynamics are released for experiments only. Please read the last
+sentence again.
+
+This text tries to explain the building, the implementation and
+the use of dynamics. It is by no means complete.
+
+Overloaded, unique and/or polymorphic-dynamics are not supported
+other objects can be put into a dynamic.
+
+Binary compatibility is not guaranteed. In case of a new release
+you must rebuild your applications and dynamics from scratch.
+
+It has been tested on win95/98 but should also work on other version
+of windows. Just try it.
+
+In case you run into problems, please use the folder layout as assumed
+in this text.
+
+As this is still an experimental version (which will hopefully become
+alpha soon), it is unsupported.
+
+REQUIREMENTS
+============
+* Experience with Clean and some working knowledge of how things
+  work on windows.
+* Basic Clean distribution
+  e.g. CleanIDE, cocl, cg, static linker and StdEnv
+* Microsoft Visual C 6.0
+* Standard libraries
+  - ArgEnvWindows
+  - Directory1.0
+  - ExtendedArith 1.0 (only for 2.0)
+  - IOInterface 0.8.x
+  - Object IO 1.2.1 or higher
+  - StdLib 1.0
+  - WrapDebug
+  Standard libraries can be downloaded from WWW.
+
+  Non-standard libraries:
+  - ControlMaybe (only for 2.0)
+  - IDE Stuff
+  - IOInterface 0.8.1. handler
+  - MarkUpText v2.0
+  - MdM_IOLib v2.0	
+  - return_code CLean 1.3.2
+  Non-standard libraries are included with the Dynamics. The
+  '1.3' and/or '2.0' folders select the appropriate version
+  for the compiler you are using.
+
+  You should either have 1.3.x and/or 2.0 versions of the 
+  standard libraries. 
+
+  With the exception of applications using dynamics e.g. 
+  in the Example-folder, all sources can be compiled using
+  either a 1.3.x and/or 2.0 compiler.
+
+* Clean 2.0 compiler source
+* the guide assumes that the folder containing the CleanIDE is
+  named 'Clean' on your desktop. It furher assumes that the
+  'Dynamics'-folder is a subfolder of 'Clean'.
+* as.exe,sed in Dynamics\Graph conversions from the binutils
+
+BUILD INSTRUCTIONS
+==================
+The order of build is significant. Here and there you might
+need to change some paths. I assume you unpack the zips in
+your Desktop-folder.
+
+1. Create an IDE environment containing the appropriate paths to
+   both the standard and the non-standard libraries. Notes:
+   * add path to StdEnv, then paths to Object IO (requires also
+     a path to its 'Windows'-subfolder'.
+   * for most standard libraries, selecting its top-level folder 
+     will do.
+   * add paths to non-standard libraries
+   * add the following paths contained in the dynamics distribution
+     directory:
+     - Dynamics\StdDynamicEnv
+     - Dynamics\StdDynamicEnv\Windows
+   * use this environment for all projects mentioned in this guide
+   * path order is significant.
+
+2. Channel and Console/Gui-applications
+   Where: 
+	Dynamics\Channel
+   How: 
+	click on the *.dsw-file, make the DynamicLink-project the
+   	active project & do build DynamicLink.dll. Four DLLs are created
+  	in your system folder (which depends upon the Windows-version you
+  	use) and {Gui,Console}Client-applications in the Clean\Dynamics
+	folder.
+
+2. {Static,Dynamic}-linker
+   Where: 
+	linkers\{Static,Dynamic}Linker.prj
+   How: 
+	bring a {Static,Dynamic}Linker-project up-to-date
+
+   Change the paths relative to the CleanIDE folder to point to the {static,
+   dynamic}-linker.
+
+   It is assumed that the DynamicLinker.exe is contained in the folder 
+   Dynamic. Then the folder must look like:
+	- Dynamics - DynamicLinker.exe
+                   |			  - graph_to_string.obj
+                   - conversion		  | string_to_graph
+		   |
+		   - lazy dynamics
+		   |
+		   - libraries
+                   |			  - ConsoleClient.exe
+		   - utilities		- | GuiClient.exe
+					  - dumpDynamic.exe
+
+   Step 2 would have created the {Console,Gui}Client.exe in the utilities
+   folder. The DynamicLinker.exe should be in the root of the Dynamics folder.
+
+3. dumpDynamic
+   Where:
+	Dynamics\dumpDynamic
+   How:
+	bring a dumpDynamic-project up-to-date.
+
+   The dumpDynamic-executable is also put in the utilities-folder.
+
+4. Conversion functions
+   Where:
+        Dynamics\Graph conversion
+   How:
+        click on z.bat.
+
+   If you have installed the proper tools (as.exe, sed.exe, etc.) the
+   conversion-functions are generated in the 'conversion'-folder.
+
+5. Examples
+   Where:
+        Dynamics\Examples
+   How:
+        click on the project.
+
+   Read the source code to see what dynamics are communicated among 
+   application.
+
+   Instead of an executable an equally named .bat-file is generated
+   for a project. Using the CleanIDE the project can be started as 
+   all other Clean-applications.
+
+   When the application has finnished, you have to close the console
+   window yourself. 
+
+   This is only temporary executable format.
+ 
+NEW DYNAMIC PROJECT
+===================
+* create a project and use an environment containing a Clean 2.0
+  compiler.
+* in Project Options of the CleanIDE you should mark 'Enable Dynamics'.
+
+HOW THE IMPLEMENTATION WORKS (VERY ROUGHLY)
+-------------------------------------------
+The static linker generates a library somewhere in the libraries sub-
+directory of the dynamic linker and .bat-file which is used to start
+the application contained in the dynamic.
+
+Pieces of graphs can come from different applications (libraries), so
+dynamics can contain references to these applications. Only the really
+needed part of that application library will be linked in.
+
+Predefined types defined in the rts are shared among all dynamics at
+the moment. There exists a notion of type equivalent class which consists
+of type equations e.g. the DynamicTemp (which represents a dynamic) *must*
+be shared among all dynamics. So each library contributes his DynamicTemp.
+One of these implementations is chosen.
+
+Type equations can also be generated from:
+- type equivalences within a single application
+- as result of unification process. Actually the unification process drives
+  the dynamic linking.
+
+Dynamics can also contain references to other dynamic (in future it should 
+be possible to have dynamic which do not have these references).
+
+If a dynamic matches on dynamic patterns i.e. unification and the type def
+check succeed, then value of that dynamic should be 'usable' in all these
+contexts. With 'usable' I mean pattern matches on the value succeed when
+the constructors match. For example:
+
+:: Tree a = Leaf | Node a (Tree a) (Tree a)
+
+Then there is only one instance of the Leaf-constructor. 
+
+The dumpDynamic-application shows you the contents of a dynamic
+
+For an introduction of dynamic see:
+- First Class File I/O
+  from: ftp://ftp.cs.kun.nl/pub/Clean/papers/1997/pilm97-FstClassIOIFL.96.ps.gz
+- Dynamic types and type dependent functions
+  from: ftp://ftp.cs.kun.nl/pub/Clean/papers/1999/pilm99-DynTypesIFL98.ps.gz

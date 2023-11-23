@@ -1,0 +1,4369 @@
+Version:	1.3
+Global
+	Built:	True
+	CodeGen
+		CheckStacks:	False
+		CheckIndexes:	False
+		KeepABC:	False
+		TargetProcessor:	CurrentProcessor
+	Application
+		HeapSize:	4194304
+		StackSize:	102400
+		ExtraMemory:	81920
+		IntialHeapSize:	204800
+		HeapSizeMultiplier:	4096
+		ShowExecutionTime:	False
+		ShowGC:	False
+		ShowStackSize:	False
+		MarkingCollector:	False
+		Profile
+			Memory:	False
+			MemoryMinimumHeapSize:	0
+			Time601:	False
+			Time:	False
+		Output
+			Output:	ShowConstructors
+			Font:	Geneva
+			FontSize:	12
+			WriteStdErr:	False
+	Project
+		Verbose:	False
+	Link
+		DefaultSystemObjects:	True
+		DefaultLibraries:	True
+	Paths
+		Path:	{Project}
+		Path:	Clean:Linkers:dynamic:mac:SendReceiveTest
+		Path:	Clean:Linkers:dynamic:mac
+		Path:	Clean:Linkers:shared
+		Path:	Clean:Linkers:static:mac
+MainModule
+	Name:	client
+	Dir:	{Project}
+	IclOpen:	True
+	Compiler
+		NeverMemoryProfile:	False
+		NeverTimeProfile:	False
+		StrictnessAnalysis:	True
+		ListTypes:	NoTypes
+		ListAttributes:	False
+		Warnings:	False
+		Verbose:	False
+		ReadableABC:	False
+		ReuseUniqueNodes:	False
+	Dcl
+		Editor
+			TabSize:	4
+			Font:	Monaco
+			FontSize:	10
+			AutoIndent:	True
+		WindowPosition
+			X:	242
+			Y:	17
+			SizeX:	728
+			SizeY:	721
+	DclOpen:	False
+	Icl
+		Editor
+			TabSize:	4
+			Font:	Monaco
+			FontSize:	10
+			AutoIndent:	True
+		WindowPosition
+			X:	242
+			Y:	17
+			SizeX:	728
+			SizeY:	721
+	IclOpen:	True
+	LastModified:	Yes 2000 4 11 14 28 23
+	Dependencies
+		Module:	ExtInt
+		Module:	ExtLibrary
+		Module:	Picture
+		Module:	ProcessSerialNumber
+		Module:	StdArray
+		Module:	StdBool
+		Module:	StdChar
+		Module:	StdCharList
+		Module:	StdClass
+		Module:	StdEnum
+		Module:	StdEnv
+		Module:	StdFile
+		Module:	StdFunc
+		Module:	StdInt
+		Module:	StdList
+		Module:	StdMisc
+		Module:	StdOrdList
+		Module:	StdOverloaded
+		Module:	StdReal
+		Module:	StdString
+		Module:	StdTuple
+		Module:	_SystemArray
+		Module:	_SystemEnum
+		Module:	client
+		Module:	commonDef
+		Module:	controls
+		Module:	deltaFont
+		Module:	deltaIOSystem
+		Module:	deltaPicture
+		Module:	dialogDef
+		Module:	dialogLayout
+		Module:	event
+		Module:	events
+		Module:	font
+		Module:	highleveleventDef
+		Module:	ioState
+		Module:	mac_types
+		Module:	menuDef
+		Module:	pdExtInt
+		Module:	quickdraw
+		Module:	timerDef
+		Module:	windowDef
+OtherModules
+	Module
+		Name:	appleevents
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 35
+		Dependencies
+			Module:	appleevents
+	Module
+		Name:	ExtInt
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 23
+		Dependencies
+			Module:	ExtInt
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtInt
+	Module
+		Name:	DebugUtilities
+		Dir:	Clean:Linkers:shared
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 35
+		Dependencies
+			Module:	DebugUtilities
+			Module:	StdFile
+			Module:	StdOverloaded
+			Module:	StdString
+	Module
+		Name:	fonts
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 20
+		Dependencies
+			Module:	fonts
+			Module:	mac_types
+	Module
+		Name:	print
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 20
+		Dependencies
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	mac_types
+			Module:	print
+			Module:	quickdraw
+		NeededObjFiles
+			ObjectFile:	cPrinter.obj0
+	Module
+		Name:	menus
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 19
+		Dependencies
+			Module:	mac_types
+			Module:	menus
+	Module
+		Name:	desk
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 21
+		Dependencies
+			Module:	desk
+			Module:	mac_types
+	Module
+		Name:	windows
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 22
+		Dependencies
+			Module:	mac_types
+			Module:	windows
+	Module
+		Name:	memory
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 23
+		Dependencies
+			Module:	mac_types
+			Module:	memory
+	Module
+		Name:	pointer
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	90
+				Y:	7
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 14
+		Dependencies
+			Module:	mac_types
+			Module:	pointer
+	Module
+		Name:	StdEnv
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 18
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+	Module
+		Name:	StdBool
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 2 16 10 18 26
+		Dependencies
+			Module:	StdBool
+			Module:	StdOverloaded
+	Module
+		Name:	StdOverloaded
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 15
+		Dependencies
+			Module:	StdOverloaded
+	Module
+		Name:	StdInt
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 2 16 10 18 22
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	_SystemArray
+	Module
+		Name:	StdReal
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 2 16 10 18 28
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	_SystemArray
+	Module
+		Name:	StdChar
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 2 16 10 18 26
+		Dependencies
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+	Module
+		Name:	StdArray
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 17
+		Dependencies
+			Module:	StdArray
+			Module:	_SystemArray
+	Module
+		Name:	_SystemArray
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 2 16 10 18 22
+		Dependencies
+			Module:	_SystemArray
+	Module
+		Name:	StdString
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 2 16 10 18 17
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	_SystemArray
+			Module:	_SystemEnum
+	Module
+		Name:	StdFile
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 2 16 10 18 16
+		Dependencies
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdFile
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+	Module
+		Name:	StdClass
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 15
+		Dependencies
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+	Module
+		Name:	StdList
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 17
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	_SystemArray
+			Module:	_SystemEnum
+	Module
+		Name:	StdOrdList
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 17
+		Dependencies
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+	Module
+		Name:	StdTuple
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 17
+		Dependencies
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdOverloaded
+			Module:	StdTuple
+	Module
+		Name:	StdCharList
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 16
+		Dependencies
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdOverloaded
+			Module:	StdReal
+	Module
+		Name:	StdFunc
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 16
+		Dependencies
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+	Module
+		Name:	StdMisc
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 2 16 10 18 24
+		Dependencies
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+	Module
+		Name:	StdEnum
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 16
+		Dependencies
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	_SystemEnum
+	Module
+		Name:	_SystemEnum
+		Dir:	{Application}:StdEnv
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	True
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 3 28 11 38 32
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+	Module
+		Name:	deltaIOSystem
+		Dir:	{Application}:IOInterface 0.8.1 AppleEv extra
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	True
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 14
+		Dependencies
+			Module:	Picture
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	font
+			Module:	highleveleventDef
+			Module:	mac_types
+			Module:	menuDef
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+	Module
+		Name:	deltaPicture
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 19
+		Dependencies
+			Module:	Picture
+			Module:	deltaFont
+			Module:	deltaPicture
+			Module:	font
+			Module:	mac_types
+			Module:	quickdraw
+	Module
+		Name:	deltaFont
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 19
+		Dependencies
+			Module:	deltaFont
+			Module:	font
+	Module
+		Name:	font
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 19
+		Dependencies
+			Module:	Picture
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	_SystemArray
+			Module:	commonDef
+			Module:	deltaFont
+			Module:	deltaPicture
+			Module:	font
+			Module:	fonts
+			Module:	mac_types
+			Module:	menus
+			Module:	pointer
+			Module:	quickdraw
+	Module
+		Name:	Picture
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 18
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	commonDef
+			Module:	deltaFont
+			Module:	deltaPicture
+			Module:	font
+			Module:	fonts
+			Module:	mac_types
+			Module:	pointer
+			Module:	print
+			Module:	quickdraw
+	Module
+		Name:	quickdraw
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 18
+		Dependencies
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	mac_types
+			Module:	quickdraw
+		NeededObjFiles
+			ObjectFile:	cPrinter.obj0
+	Module
+		Name:	mac_types
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 15
+		Dependencies
+			Module:	mac_types
+	Module
+		Name:	highleveleventDef
+		Dir:	{Application}:IOInterface 0.8.1 AppleEv extra
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 20
+		Dependencies
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	highleveleventDef
+	Module
+		Name:	timerDef
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 20
+		Dependencies
+			Module:	Picture
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	deltaFont
+			Module:	deltaPicture
+			Module:	font
+			Module:	mac_types
+			Module:	quickdraw
+			Module:	timerDef
+	Module
+		Name:	commonDef
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 16
+		Dependencies
+			Module:	Picture
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	commonDef
+			Module:	deltaFont
+			Module:	deltaPicture
+			Module:	font
+			Module:	mac_types
+			Module:	quickdraw
+	Module
+		Name:	menuDef
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 20
+		Dependencies
+			Module:	Picture
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	deltaFont
+			Module:	deltaPicture
+			Module:	font
+			Module:	mac_types
+			Module:	menuDef
+			Module:	quickdraw
+	Module
+		Name:	windowDef
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 13
+		Dependencies
+			Module:	Picture
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+	Module
+		Name:	dialogDef
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 20
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	deltaFont
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	font
+			Module:	mac_types
+			Module:	pointer
+			Module:	quickdraw
+	Module
+		Name:	dialogLayout
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 14
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	commonDef
+			Module:	deltaFont
+			Module:	deltaPicture
+			Module:	dialogLayout
+			Module:	font
+			Module:	mac_types
+			Module:	pointer
+			Module:	quickdraw
+	Module
+		Name:	ioState
+		Dir:	{Application}:IOInterface 0.8.1 AppleEv extra
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 22
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	desk
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	menus
+			Module:	pointer
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+			Module:	windows
+	Module
+		Name:	events
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	189
+				Y:	24
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 21
+		Dependencies
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	events
+			Module:	mac_types
+	Module
+		Name:	controls
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 21
+		Dependencies
+			Module:	controls
+			Module:	mac_types
+	Module
+		Name:	event
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	562
+				Y:	251
+				SizeX:	546
+				SizeY:	222
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 21
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	deltaFont
+			Module:	deltaPicture
+			Module:	desk
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	mac_types
+			Module:	quickdraw
+	Module
+		Name:	ExtLibrary
+		Dir:	Clean:Linkers:dynamic:mac:SendReceiveTest
+		IclOpen:	True
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	289
+				Y:	22
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	True
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	289
+				Y:	22
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	True
+		LastModified:	Yes 2000 4 12 14 19 47
+		Dependencies
+			Module:	DebugUtilities
+			Module:	ExtInt
+			Module:	ExtLibrary
+			Module:	Picture
+			Module:	ProcessSerialNumber
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaEventIO
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	desk
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	memory
+			Module:	menuDef
+			Module:	pdExtInt
+			Module:	pointer
+			Module:	process
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+		NeededObjFiles
+			ObjectFile:	highlevelevents.obj
+	Module
+		Name:	ProcessSerialNumber
+		Dir:	Clean:Linkers:dynamic:mac
+		IclOpen:	True
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	364
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	364
+		IclOpen:	True
+		LastModified:	Yes 2000 4 12 14 18 23
+		Dependencies
+			Module:	ExtInt
+			Module:	ExtLibrary
+			Module:	Picture
+			Module:	ProcessSerialNumber
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	appleevents
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	memory
+			Module:	menuDef
+			Module:	pdExtInt
+			Module:	process
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+	Module
+		Name:	process
+		Dir:	{Application}:Extensions to PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 35
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	mac_types
+			Module:	process
+	Module
+		Name:	pdExtInt
+		Dir:	Clean:Linkers:static:mac
+		IclOpen:	True
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	390
+		IclOpen:	True
+		LastModified:	Yes 2000 4 12 14 18 22
+		Dependencies
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	pdExtInt
+	Module
+		Name:	deltaEventIO
+		Dir:	{Application}:IOInterface 0.8.1 AppleEv extra
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 25
+		Dependencies
+			Module:	AppleEventDevice
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaEventIO
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogAbout
+			Module:	dialogDef
+			Module:	dialogDevice
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	highleveleventDevice
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	menuDevice
+			Module:	menuInternal
+			Module:	menus
+			Module:	pointer
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	timerDevice
+			Module:	windowAccess
+			Module:	windowDef
+			Module:	windowDevice
+			Module:	windowInternal
+			Module:	windowInternal2
+			Module:	windowOpen
+	Module
+		Name:	AppleEventDevice
+		Dir:	{Application}:IOInterface 0.8.1 AppleEv extra
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 25
+		Dependencies
+			Module:	AppleEventDevice
+			Module:	Picture
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	_SystemArray
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	files
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+		NeededObjFiles
+			ObjectFile:	cae.obj
+	Module
+		Name:	highleveleventDevice
+		Dir:	{Application}:IOInterface 0.8.1 AppleEv extra
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 26
+		Dependencies
+			Module:	ExtLibrary
+			Module:	Picture
+			Module:	ProcessSerialNumber
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdCharList
+			Module:	StdClass
+			Module:	StdEnum
+			Module:	StdEnv
+			Module:	StdFile
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdMisc
+			Module:	StdOrdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	StdTuple
+			Module:	_SystemArray
+			Module:	_SystemEnum
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	highleveleventDevice
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+	Module
+		Name:	windowOpen
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 26
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	Window1
+			Module:	Window2
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaEventIO
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	deltaWindow
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowAccess
+			Module:	windowDef
+			Module:	windowInternal
+			Module:	windowInternal2
+			Module:	windowOpen
+			Module:	windows
+	Module
+		Name:	windowAccess
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 27
+		Dependencies
+			Module:	Picture
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	pointer
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowAccess
+			Module:	windowDef
+			Module:	windows
+	Module
+		Name:	windowInternal2
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 27
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	pointer
+			Module:	quickdraw
+			Module:	structure
+			Module:	timerDef
+			Module:	windowAccess
+			Module:	windowDef
+			Module:	windowInternal
+			Module:	windowInternal2
+			Module:	windowOpen
+			Module:	windows
+	Module
+		Name:	windowInternal
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 28
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdFunc
+			Module:	StdInt
+			Module:	StdList
+			Module:	StdOverloaded
+			Module:	StdReal
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	pointer
+			Module:	quickdraw
+			Module:	structure
+			Module:	timerDef
+			Module:	windowAccess
+			Module:	windowDef
+			Module:	windowInternal
+			Module:	windowInternal2
+			Module:	windows
+	Module
+		Name:	windowDevice
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 29
+		Dependencies
+			Module:	OS_utilities
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	Window1
+			Module:	Window2
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaEventIO
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	deltaWindow
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	pointer
+			Module:	quickdraw
+			Module:	structure
+			Module:	timerDef
+			Module:	timerDevice
+			Module:	windowAccess
+			Module:	windowDef
+			Module:	windowDevice
+			Module:	windowInternal
+			Module:	windowInternal2
+			Module:	windowOpen
+			Module:	windows
+	Module
+		Name:	dialogAbout
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 31
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogAbout
+			Module:	dialogAccess
+			Module:	dialogDef
+			Module:	dialogDevice
+			Module:	dialogInternal
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+	Module
+		Name:	dialogDevice
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 32
+		Dependencies
+			Module:	OS_utilities
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaMenu
+			Module:	deltaPicture
+			Module:	deltaTimer
+			Module:	dialogAbout
+			Module:	dialogAccess
+			Module:	dialogDef
+			Module:	dialogDevice
+			Module:	dialogInternal
+			Module:	dialogLayout
+			Module:	dialogUpdate
+			Module:	dialogs
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	menuDevice
+			Module:	menuInternal
+			Module:	menus
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	timerDevice
+			Module:	windowAccess
+			Module:	windowDef
+			Module:	windowDevice
+			Module:	windowInternal
+			Module:	windowInternal2
+			Module:	windowOpen
+			Module:	windows
+	Module
+		Name:	menuInternal
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 33
+		Dependencies
+			Module:	Picture
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	_SystemArray
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	menuInternal
+			Module:	menus
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+	Module
+		Name:	menuDevice
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 33
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaMenu
+			Module:	deltaPicture
+			Module:	desk
+			Module:	dialogAbout
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	menuDevice
+			Module:	menuInternal
+			Module:	menus
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+			Module:	windows
+	Module
+		Name:	timerDevice
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 29
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	timerDevice
+			Module:	windowDef
+	Module
+		Name:	Window2
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 27
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	Window2
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaEventIO
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowAccess
+			Module:	windowDef
+			Module:	windowDevice
+			Module:	windowInternal
+			Module:	windowInternal2
+			Module:	windowOpen
+			Module:	windows
+	Module
+		Name:	Window1
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 30
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdFile
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	Window1
+			Module:	Window2
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaEventIO
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogAccess
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowAccess
+			Module:	windowDef
+			Module:	windowDevice
+			Module:	windowInternal
+			Module:	windowInternal2
+			Module:	windowOpen
+			Module:	windows
+	Module
+		Name:	deltaWindow
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 30
+		Dependencies
+			Module:	Picture
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	Window1
+			Module:	Window2
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaEventIO
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	deltaWindow
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+	Module
+		Name:	dialogAccess
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 30
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogAccess
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	dialogs
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+	Module
+		Name:	dialogs
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 30
+		Dependencies
+			Module:	dialogs
+			Module:	mac_types
+	Module
+		Name:	structure
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 28
+		Dependencies
+			Module:	mac_types
+			Module:	structure
+	Module
+		Name:	OS_utilities
+		Dir:	{Application}:PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 30
+		Dependencies
+			Module:	OS_utilities
+			Module:	mac_types
+	Module
+		Name:	deltaMenu
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 34
+		Dependencies
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaMenu
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	menuDevice
+			Module:	menuInternal
+			Module:	menus
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+	Module
+		Name:	dialogUpdate
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 32
+		Dependencies
+			Module:	OS_utilities
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogAbout
+			Module:	dialogAccess
+			Module:	dialogDef
+			Module:	dialogInternal
+			Module:	dialogLayout
+			Module:	dialogUpdate
+			Module:	dialogs
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	menus
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	windowDef
+			Module:	windows
+	Module
+		Name:	deltaTimer
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 34
+		Dependencies
+			Module:	OS_utilities
+			Module:	Picture
+			Module:	StdBool
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	deltaTimer
+			Module:	dialogDef
+			Module:	dialogLayout
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	menuDef
+			Module:	pointer
+			Module:	quickdraw
+			Module:	timerDef
+			Module:	timerDevice
+			Module:	windowDef
+	Module
+		Name:	dialogInternal
+		Dir:	{Application}:IOInterface 0.8.1 Standard
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 33
+		Dependencies
+			Module:	Picture
+			Module:	StdArray
+			Module:	StdBool
+			Module:	StdChar
+			Module:	StdClass
+			Module:	StdInt
+			Module:	StdMisc
+			Module:	StdOverloaded
+			Module:	StdString
+			Module:	_SystemArray
+			Module:	commonDef
+			Module:	controls
+			Module:	deltaFont
+			Module:	deltaIOSystem
+			Module:	deltaPicture
+			Module:	dialogDef
+			Module:	dialogInternal
+			Module:	dialogLayout
+			Module:	dialogs
+			Module:	event
+			Module:	events
+			Module:	font
+			Module:	highleveleventDef
+			Module:	ioState
+			Module:	mac_types
+			Module:	memory
+			Module:	menuDef
+			Module:	menuInternal
+			Module:	menus
+			Module:	quickdraw
+			Module:	structure
+			Module:	timerDef
+			Module:	windowAccess
+			Module:	windowDef
+			Module:	windowDevice
+			Module:	windowInternal
+			Module:	windowInternal2
+			Module:	windowOpen
+			Module:	windows
+	Module
+		Name:	files
+		Dir:	{Application}:Extensions to PowerMacInterface
+		IclOpen:	False
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	False
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Monaco
+				FontSize:	10
+				AutoIndent:	True
+			WindowPosition
+				X:	242
+				Y:	17
+				SizeX:	728
+				SizeY:	721
+		IclOpen:	False
+		LastModified:	Yes 2000 4 12 14 18 25
+		Dependencies
+			Module:	StdArray
+			Module:	_SystemArray
+			Module:	files
+			Module:	mac_types

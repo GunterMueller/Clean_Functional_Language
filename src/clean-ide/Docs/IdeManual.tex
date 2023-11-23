@@ -1,0 +1,1398 @@
+% To Do:
+% ¥ use consistent formatting for Menu options (and file names etc.)
+% ¥ Time and Heap profiler sections
+% ¥ commandline arguments section
+% ¥ dynamics section
+% ¥ slibs section
+% ¥ dlibs section
+% ¥ batchbuild
+% ¥ precompile/postlink
+% ¥ building compliant Windows apps
+% ¥ building compliant Macintosh apps
+
+\documentclass[a4paper]{article}
+%\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+%\usepackage{pslatex}
+%\usepackage{mathptm}
+%\usepackage{pifont}
+\usepackage{multicol}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{fancyvrb}
+%\usepackage{makeidx}
+\usepackage[toc]{multitoc}
+\usepackage{longtable}
+\usepackage{array}
+%\usepackage{float}
+\usepackage{fancybox}
+\usepackage{color}
+\usepackage{colortbl}
+%\usepackage{url}
+%\usepackage{citeref}
+\usepackage{tocloft}
+\usepackage[colorlinks,breaklinks,pdfstartview={FitH},pdfpagemode=None,pdftex]{hyperref}
+\usepackage{amssymb}	%for \backprime
+%\newenvironment{mylist}
+% {
+%\begin{Pilist}{pzd}{113}
+% }
+% {
+%\end{Pilist}
+% }
+
+\newenvironment{menu}
+{\begin{description}}
+{\end{description}}
+
+\newcommand \note[1]{\leavevmode\marginpar{100}\textsc{#1}}		% wil dit in marge en alleen wanneer draft-optie...
+\newcommand \inref[1]{\nameref{#1}, p.\pageref{#1}}
+\newcommand \screen[1]{\par\fbox{\scalebox{.5}{\includegraphics{#1}}}\par\noindent}
+%\nameref{fig:filemenu}
+%\begin{figure}[H]
+%\centering
+%\caption[blah blah]{The File Menu}
+%\label{fig:filemenu}
+%\fbox{\includegraphics{filemenu}}
+%\end{figure}
+
+\newcommand \light{\rowcolor[gray]{.9}}
+\newcommand \dark{\rowcolor[gray]{.6}}
+
+\newcommand \keyword[1]{{\textbf{#1}}}
+
+\DefineShortVerb{\|}
+
+\newcolumntype{L}{<{$}l>{$}}
+
+\definecolor{mygray}{gray}{0.75}
+
+\hypersetup{pdftitle=Clean System User Manual}
+
+\title{{%
+	Clean System User Manual\\
+	%Draft Version 1.4.00\\
+	\textcopyright 1987-2001
+}}
+
+\author{D.F.R. van Arkel}
+
+\setcounter{tocdepth}{2}
+
+%\makeindex
+
+%\makeatletter
+%\setlength{\cftbeforepartskip}{1.0em \@plus\p@}
+%\makeatother
+
+\pagestyle{fancy}
+\cfoot{}
+\rfoot{\thepage}
+\lhead{\slshape \leftmark}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+Clean is a general purpose, higher order, pure and lazy functional
+programming language that can be used for the development of  real world applications. 
+The Clean System is a special programming
+environment for Clean.
+
+\tableofcontents
+
+\section*{Copyright Notice and Disclaimer}
+\begin{center}
+\shadowbox{
+\begin{tabular}{c}	%{|c|}
+	%\hline
+	Clean and the Clean System 
+	\textcopyright 1987-2001\\
+	
+	Computing Science Institute\\
+	University of Nijmegen\\
+	Nijmegen - The Netherlands\\
+	and\\
+	HILT - High Level Software Tools B.V.\\
+	Nijmegen - The Netherlands\\
+	\url{mailto:clean@cs.kun.nl}\\
+	
+	We do not make any warranty, either express or implied, with respect to this 
+	software.%\\
+	%\hline
+\end{tabular}
+}\end{center}
+
+\section{Availability}\label{availability}
+
+Clean and the Clean System can be used free of charge. They can be obtained
+\begin{itemize}
+\item via the World Wide Web: \url{http://www.cs.kun.nl/~clean}
+\item via ftp: \url{ftp://ftp.cs.kun.nl/pub/Clean}
+\end{itemize}
+Clean is available for several platforms. Please check the Clean website for the
+latest news. If you have any questions, bugs to report, or when you have wishes or
+comments please send an electronic mail to
+\url{mailto: clean@cs.kun.nl}.
+
+
+\section{More information on the language Clean}
+
+A description of the syntax and semantics of Clean can be found 
+in the following manual which is included in the distribution:
+
+\begin{center}
+\shadowbox{
+\begin{tabular}{c}
+Concurrent Clean Language Report\\
+%--- version 1.3 ---\\
+Rinus Plasmeijer and Marko van Eekelen\\
+University of Nijmegen
+\end{tabular}}
+\end{center}
+
+\noindent
+The ideas behind Clean and its implementation on sequential and parallel 
+machine architectures are explained in detail in the following textbook:
+
+\begin{center}
+\shadowbox{
+\begin{tabular}{c}
+Functional Programming and Parallel Graph Rewriting\\
+Rinus Plasmeijer and Marko van Eekelen\\
+Addison-Wesley Publishing Company\\
+\textcopyright 1993\\
+ISBN 0-201-41663-8
+\end{tabular}}
+\end{center}
+
+\noindent
+An introduction to functional programming in Clean for undergraduate students is also available. 
+Special about the book is that it contains non trivial applications such that the book will also be 
+very useful for people who want to develop serious programs:
+\begin{center}
+\shadowbox{
+\begin{tabular}{c}
+Functional Programming in Clean\\
+Paul de Mast (Polytechnical University Brabant)\\
+Jan-Marten Jansen and Dick Bruin (Polytechnical University Leeuwarden)\\
+Jeroen Fokker (University of Utrecht)\\
+Pieter Koopman, Sjaak Smetsers, Marko van Eekelen and Rinus Plasmeijer (all University of Nijmegen)
+\end{tabular}}
+\end{center}
+
+\noindent
+The books and the latest research papers on Clean can be found via the Clean home page at \url{http://www.cs.kun.nl/~clean}.
+
+\section{The Clean System}
+The Clean System is a programming 
+environment for Clean written in Clean itself.
+The current version of the system consist of:
+
+\begin{itemize}
+\item  The Project Manager: an automatic make facility for Clean projects
+\item  The Text Editor: a text editor with Clean sensitive search facilities and syntax colouring
+\item  The Clean Compiler: compiler for the platform on which the system is running
+\item  The Code Generator: code generator for the platform on which the system is running
+\item  The Linker: generates stand-alone (Mac or Windows) applications
+\item  Libraries for arithmetic, I/O handling, utility modules for interfacing
+\item The Time Profiler: for viewing time profiles
+\item The Heap Profiler: for viewing heap profiles
+\item Sparkle: a theorem prover for Clean programs, see \url{http://www.cs.kun.nl/Sparkle}
+%\item Visual Editor: a visual editor for Clean Object I/O programs
+\end{itemize}
+The project manager and editor are integrated into the Clean Integrated Development Environment (IDE). The remaining tools
+are separate applications automatically launched by the Clean Ide when this is required.
+
+\section{Installation}\label{installation}
+\begin{itemize}
+\item Make a backup of your old Clean programs, Clean system and I/O libraries.
+\item Unpack the Clean archive to a suitable directory on your hard disk (i.e.
+|C:\Clean\|).
+\item The Clean System generates native applications. If you have virus 
+detectors they may complain about this. Clear the protection for the Clean 
+compiler (\verb+cocl.exe+) and editor (\verb+CleanIDE.exe+). They should be allowed
+to create, edit and delete files . Make sure that you have an original unaffected 
+Nijmegen version of the Clean System (see~\inref{availability}).
+\item The first time you launch the Clean IDE it will ask if you want to allow it to install
+the Clean IDE into the Windows registry. This binds the various file types used by the Clean
+System so that they have nice icons and so that double-clicking them will launch the appropriate
+tool.
+\end{itemize}
+\section{Uninstalling}\label{uninstall}
+%\note{Need something here about de-installation...}
+To uninstall Clean: if you allowed the Clean IDE to enter its filetypes and settings into the
+Windows registry you might want to remove them again. Choose ``IDE Options...''' from the Defaults
+menu and press the ``Clear Registry'' button, then quit the IDE. You can now remove Clean by moving
+the Clean folder to the Trash.
+\section{Quick Start}\label{quickstart}
+\begin{itemize}
+\item Start the Clean IDE (|CleanIDE.exe|). You will see an empty project window. First we need
+to make a new project or open an existing project. A Clean project consists of definition modules
+(|.dcl| files) and implementation modules (|.icl| files). A definition module  indicates which definitions
+defined in the corresponding implementation module are exported. The topmost root module (the
+main module) is always an implementation module.
+\screen{a_openfile}
+\item Open the main module of the ``Game of Life'', |LifeGameExample.icl| (in the |Examples\ObjectIO Examples|
+|\Life\| directory).
+The source text of this Clean implementation module will be displayed in a text window and can be modified with the built-in editor.
+%\screen{a_textwindow}
+\screen{openfile}
+\item We now make a new Clean project which will have LifeGameExample as its main module by selecting
+New Project from the File menu. This presents a dialogue allowing you to set the project name and location.
+It is easiest to simply use the suggested defaults. As the examples come with pre-setup projects the IDE will
+ask wether you want to replace the existing version. Selecting yes is safe as you will exactly recreate the existing
+project in the following steps.
+\screen{a_newproject}
+The Clean IDE now knows where to save the project administration and the name of the main module
+(LifeGameExample) will appear in the project window.
+\item The LifeGameExample uses other Clean modules, namely modules from the StdEnv library and modules from
+the Object I/O library. Each project has an environment in which it is specified which libraries are being used
+in the project.
+\screen{a_chooseenv}
+The Clean IDE has a number of popular environments predefined. You have to choose which one you
+would like to use in this particular project. From the Environment menu choose Object IO. Now the IDE knows which
+libraries to use in this project.
+\screen{env_paths}
+By the way, one can define new environments (``New Environment...'') or change existing ones (``Edit Current...''). 
+One can set the libraries to be used, by adding the paths of the folders in which the corresponding Clean source 
+modules can be found. In the environments one can also include ``real'' libraries containing object code (Static 
+Libraries and Dynamic Libraries). One can even define which IDE components (Tools) to use (which Clean 
+compiler, e.g. version 1.3 or version 2.0 , which linker, and so on). In this way you can easily assign your own 
+preferences to a project or switch between settings just by choosing another environment setting. The environments 
+will be remembered by the IDE, the chosen environment will be remembered in the project administration file.
+In addition to the environment you might also want to use more project specific libraries which you might have 
+created to structure your projects, but, which are too specific to put in an environment. For example, the Life 
+Game has a help facility. The corresponding Clean modules are put in a separate folder to be shared by other 
+examples.
+\screen{a_projectoptions}
+\item Choose ``Project Options...'' from the ``Project'' menu, select the ``Paths'' panel and add the library 
+|ObjectIO Examples\gui utilities| to the Life Game project paths.
+\screen{projectpaths}
+Now all libraries used by the ``LifeGameExample'' are included and we can generate the application. 
+Of course, next time, when you open the Life Game project, everything is remembered.
+\screen{update_run}
+\item From the ``Project'' menu choose ``Update and Run'' . All Clean modules used by ``LifeGameExample'' 
+will appear in the project window. Those modules which are not up to date will be compiled to abc code. If 
+no errors are found, the code generator will translate all abc-files to object code. Finally, the linker will build 
+the application. If everything is fine, the Clean IDE will launch the application automatically.
+\screen{lifegame}
+\end{itemize}
+
+Building the application might not succeed when you have a virus detector 
+active (see~\inref{installation}). Launching will not succeed when the generated application
+does not have enough memory to run. 
+You can change the amount of allocated memory in the Project Options dialogue (see~\inref{project_options}).
+
+\section{Projects}
+The project manager in the Clean IDE checks and controls the consistency of all 
+the files, windows and options of the system such that  the creation and
+execution of Clean applications can be invoked with only 
+one command.
+
+All information about a project is remembered such that a second compilation 
+goes much faster than the first one. The information about a project is stored in 
+a file (\verb+name.prj+) such that projects can be continued in the same status they are 
+left.
+
+A Clean program consists of modules that can be compiled separately. There are 
+implementation modules (\verb+name.icl+) and definition modules (\verb+name.dcl+). Only 
+implementation modules can be compiled explicitly, the corresponding 
+definition modules are checked automatically.
+
+Modules are hierarchical. The topmost implementation module is variously called the 
+main, start, or root module. It should contain a Start rule (see the Clean 
+Language Report).
+
+The project manager needs to know what the main module is. When this 
+module is known all other modules (and the corresponding intermediate files) 
+in the hierarchy are examined by the manager. All these files together are 
+called a project (see~\inref{files}). The default name of the project is the name of the main 
+module. The settings of a particular project are stored in the project file.
+
+The project manager will scan your disk to find the files it needs. In order to 
+restrict the search time the search paths should be set as accurately as possible 
+(see~\inref{paths}).
+
+A new project can be created by selecting |New Project...| in the |File| menu.
+The default name of the project is the name of the module in the active editor window 
+and the default main module is also that module.
+Any implementation
+module can be assigned to be the main module via |Set Main Module| in the |Project| menu. 
+
+A window can be opened on a file containing a Clean module. The contents can 
+be changed with the text editor (see~\inref{text_editor}). When you generate an 
+application, the project manager may warn you when windows and files have 
+different contents. The Clean compiler always uses the version on disk, so don't 
+forget to save your changes before you bring your project up-to-date.
+
+\section{Modules}
+
+\subsection*{Implementation modules}
+An implementation module (\verb+name.icl+) consists of a sequence of type, function, 
+graph, class, macro and other definitions. These definitions have in principle 
+only a local scope: they only have meaning in the implementation module they 
+are defined in. In the corresponding definition module one can specify which 
+types and rules (defined in the corresponding implementation module) are 
+exported, i.e. are made visible to the outside world.
+
+\subsection*{The main module}
+The main module is always an implementation module. In its module header 
+the keyword \keyword{implementation} can be left out. In that case the main module 
+does not need a corresponding definition module. Furthermore, a main module 
+should always contain an explicit or implicit declaration of the Start rule, i.e. 
+this rule should either be defined in the main module or
+imported from another module. Any implementation module can become a 
+main module by inserting a Start rule. This is helpful for the debugging of 
+modules.
+
+\subsection*{Definition modules}
+In a definition module (\verb+name.dcl+) one can specify which definitions (defined in 
+the corresponding implementation module) are exported, i.e. are made visible 
+to the outside world. All other definitions given in the implementation module 
+remain hidden.
+
+\subsection*{System modules}
+System modules are special definition modules indicated by the keyword 
+\keyword{system} instead of \keyword{definition}. This indicates that the corresponding
+implementation modules are special system modules. These modules are predefined 
+and can only be made by system programmers.
+
+\section{Files}\label{files}
+
+Files used by the Clean System have certain extensions that indicate 
+their use. The following kinds of files are recognized by the Clean 
+System:
+\begin{description}
+\item[name.icl] A Clean implementation module with the name `name'.
+\item[name.dcl] A Clean definition module.
+It is assumed that a \verb+.icl+ file and its corresponding \verb+.dcl+ file are always kept in 
+one and the same folder.
+
+\item[name.abc] An abc file generated by the Clean compiler.
+\item[name.o] An object file generated by the Clean code generator.
+\item[name.s] An assembly file generated by the Clean code generator.
+
+\noindent
+The generated abc and object files are stored in the Clean System Files folder 
+that will be generated in the folder where the corresponding \verb+.icl+ (and \verb+.dcl+) files 
+are stored.
+
+\item[name.prj] The project file.
+
+\item[name.exe] An application generated by the linker.
+The generated application will be stored in the location given in the Project Options
+dialogue reachable from the \verb+Project+ menu. By default it uses the same name as the project
+with \verb+.exe+ extension and is stored in the same folder as the project file. 
+\end{description}
+The \verb+.icl+, \verb+.dcl+, \verb+.abc+, \verb+.s+ files are text files which can be edited with the 
+Clean editor.
+
+\section{Windows}
+
+Several kinds of windows can appear on your screen.
+\begin{description}
+\item   [.icl]
+An editor window on an implementation module.
+
+\item   [.dcl]
+An editor window on a definition module.
+
+\item   [Types]
+A window that displays derived and checked type information as well as
+the derived and assumed strictness information.
+
+\item   [Errors \& Warnings]
+A window that displays warnings and error messages generated by the system.
+
+\item   [Project]
+A window that displays information on the current project.
+
+\item [Search Results]
+A window displaying the results of the last search command.
+
+\item[Clipboard] A window displaying the current contents of the clipboard.
+\item[Console] A window showing the input and output of a Clean console application
+(see~\inref{environment_options}).
+\end{description}
+
+\noindent
+Any other text file can be opened in an editor window as well.
+
+\section{Paths}\label{paths}
+In a number of locations paths can be set for the IDE. These determine where the project
+manager looks for Clean modules and intermediate files. For optimal performance these should
+reflect as accurately as possible where modules can be found. In general the project manager
+first searches the paths given in the \verb+Project Options+ dialogue in the order that they
+are listed. If the module is not found there then the Environment paths of the current environment
+are searched.
+
+\section{IDE Options}\label{ide_options}
+\screen{ide_options}
+The IDE has a number of global options which can be set from the \verb+IDE Options+ dialogue
+available from the \verb+Defaults+ menu.
+\begin{description}
+\item[Switch windows] This setting influences the way project switches are handled. If it is on
+then when switching between projects the IDE closes the windows belonging to the old project and
+remembers their settings and then opens the windows belonging to the new project. If this setting
+is off then all open windows remain open and no new ones are opened.
+\item[Show toolbar] This setting determines wether or not the IDE toolbar is displayed. If it is on
+and the Clean IDE can find its bitmaps in the bitmaps folder then a toolbar is displayed the next time
+the IDE starts up.
+\item[Verbose diagnostics] This activates more verbose diagnostics from the Clean project manager
+when updating a project. If you are having difficulties convincing a project to build this can be a useful
+option to activate.
+\item[AltGr workaround] This activates a dirty hack for some users with non-english keyboards. It disables
+all menu shortcuts using symbols instead of letters. French and German users might want to activate this if
+they are currently having trouble accessing special symbols on their keyboard. It only has effect when launching
+the IDE so to see the result you need to change the flag and then quit and restart the IDE.
+\item[Newline Handling / Newline Convention] These settings together determine the newline handling for editor windows.
+There are to possible behaviours: one is to maintain the existing newline convention for existing files, the other
+is to always use the preferred newline convention. This preferred newline convention is settable, native refers
+to the platform native newline convention e.g. Dos when using Windows.
+\item[Time Profiler/Heap Profiler/Theorem Prover] These  settings allow customisation of the profiler and prover
+locations as new versions appear. Note that this also automatically adjusts the Windows registry settings for
+these tools so that double-clicking on profile files activates the correct version of the profiler. Also note that the
+current implementation of the file browser dialogue on selecting an application asks wether you want to replace it.
+Just answer yes, the application will not actually be replaced. This will be fixed in a future version.
+\item[Clear Registry] This button clears all Clean entries from the Windows registry. Use this to remove all
+traces of Clean from your system.
+\end{description}
+
+\section{Environment Options}\label{environment_options}
+Environments are used to gather commonly used settings. The active environment for a project is the environment
+that is flagged in the \verb+Environment+ menu when that project is active. You can select a
+new active environment by choosing it in the |Environment| menu. 
+The environment options are
+split into a number of groups. These options
+can be changed by selecting \verb+Edit Current...+ from the \verb+Environment+ menu.
+\begin{description}
+\item	[Tools] 
+Here the compiler, code generator, and linkers can be set that are used
+within an environment. Also the associated version of the  abc-code has to be given so that
+the Project Manager can check that compatible versions of these tools are being used. Most
+programmers wil only be using a single version of the Clean compiler and will never need to
+change these settings. For people mixing different versions of the Clean compiler the necessary
+details will be given seperately.
+
+The ``Console in IDE'' flag activates an experimental feature which redirects the console i/o for a
+Clean Console application into a special IDE window.
+The ``Sync/Async/Pers'' radiocontrol with associated editbox control the settings for the Clean make facility.
+These, together with the other tools options, will be subsumed by a system of tool descriptors in a future
+version of the IDE. For now use ABC version 916 together with the Pers flag when using the Clean 2.0
+tools, and ABC version 918 together with the Sync flag when using the Clean 1.3.x tools.
+\screen{env_tools}
+
+\item	[Paths] Here search paths can be specified which are common to all projects using
+this environment. See~\inref{paths}. Up/Dn allows reordering the paths to influence where modules
+are found.
+\screen{env_paths}
+
+\item	[Dynamic Libraries] Here dynamic libraries can be specified which are not already implicitly included
+but are required for a project.
+
+\item	[Static Libraries] Here static libraries can be specified, upcoming versions of the Clean System will
+be able to generate libraries of Clean modules.
+
+\item	[Object Modules] Here extra object modules can be specified. These last three options are generally only
+needed by Clean wizards.
+
+\end{description}
+
+\section{Project Options}\label{project_options}
+\begin{description}
+	\item[Application]
+	In this dialogue the run-time options for an application can be set. 
+	The options are used when a new application is generated.
+%	This version of the Clean System is able to generate sequential 
+%	applications. We are working on a code generator that produces parallel code.
+\screen{application_options}
+		\begin{itemize}
+		\item   Application Options
+
+		Set the heap space and the maximal amount of space available for the stacks. 
+		The stack space is created outside the heap space. Initially not all of the
+		heap is used (the Initial Heap Size). If a garbage collection does not free
+		enough memory, the heap is expanded (with the factor Next Heap Size Factor)
+		up to a maximum (the Maximum Heap Size).
+		
+		The application will stop with a run-time error message when a heap turns out 
+		to be too small during execution.
+		After a stack overflow the program may crash or behave unpredictably.
+		
+		Increase the space sizes when the application needs more memory. It is also 
+		possible that the application requires less memory. For an optimal tuning look 
+		at the run-time information that the application can produce (see the sction on
+		Profiling options).
+		
+%		\note{Document dynamics flag here...}
+		\item Enable dynamics
+		Activates support for the new Clean 2.0 language feature of dynamics.
+		Essentially it makes sure that all the tools know that a project using dynamics is being
+		built so that all the extra steps needed to support them are being taken. As dynamics support
+		matures this option will probably develop into its own project type.
+		\item Marking Garbage Collector
+		When fine-tuning your application performance you can experiment with an alternative
+		garbage collector, the marking garbage collector, again check the available run-time
+		information to see which setting is optimal.
+		
+		\item Console
+		With the Console options one has control over the way the result of the Start function 
+		is displayed.
+		
+		Choose Show Constructors and all constructors and brackets will be shown. 
+		Choose Basic Values Only if you only want to display basic values only (integers, 
+		booleans, strings, characters, reals).
+		
+		Choose No Console if the I/O of the program is handled via the I/O libraries. 
+		When this option is chosen no console (output window) for the program will be 
+		provided and the result of the Start function will not be displayed. When the 
+		Clean program explicitly tries to write to the console a console window will be 
+		opened. So, when your program terminates unexpectedly probably a run-time 
+		error has been detected. Choose one of the other Output options and run the 
+		program again to be able to read the error message.
+		
+		\item Executable
+		Here you can select a different location for the generated executable. You will
+		know when you want to do this.
+		\end{itemize}
+	
+		
+\screen{profiling_options}
+	\item	[Profiling]
+		The profiling options can be used to measure the performance of your application.
+		With Time profiling enabled, a Clean program will write a profile file after
+		execution. This file (\verb+Profile+ on the PowerMac, \verb+ApplicationName Time Profile.pcl+ on Windows) can
+		be inspected with the ShowTimeProfile tool. The time profile file is overwritten
+		every time you run the profiled application. For the PowerMac you also have to
+		specify the target processor. You will get a run-time error message if you choose
+		the wrong processor.
+		
+		Time profiling can also be useful for debugging. With Time Profiling a Clean
+		application that unexpectedly halts will print a stack trace of the functions that
+		lead to the error. This can be used track down stack overflows, out of bounds
+		array indices and `rule does not match' bugs. If you only want stack traces this
+		can also be selected here.
+		
+		With Heap profiling
+		the application writes a number of heap files (\verb+ApplicationName Heap Profile0..9+). These files are
+		generated when there is a garbage collection and the heap use is above a certain limit
+		(the Minimum Profile Heap). The heap files can be inspected with the ShowHeapProfile
+		application. 
+		
+\screen{diagnostics_options}
+	\item   [Diagnostics]
+		An application can produce all kinds of information to make an optimal tuning 
+		of the memory size to be assigned to the application possible.
+		
+		The execution time will be displayed when the application stops and Show 
+		Execution Time is chosen.
+		
+		Each time the garbage collector is invoked this is displayed when Show Garbage 
+		Collections is chosen. The run-time system uses both a copying as well as a 
+		mark-scan garbage collection algorithm. It automatically switches between 
+		these two garbage collection strategies to obtain an optimal time/space 
+		behaviour. This option gives you information about how 
+		well the heap size was chosen.
+		
+		In addition, also the sizes of the different stacks are printed when Print Stack 
+		Size is chosen. This helps to tune the sizes of the stacks.
+		
+		When Write stderr to file is enabled, the messages in the errors window are copied
+		to a file with name `Messages' in the current directory.
+		
+\screen{linker_options}
+	\item[Linker Options]
+		Here you can select the link method and various link options. 
+%		Static linking produces
+%		classic applications. Eager and dynamic linking produce applications where parts or all
+%		of the application code is not bound until run time. Eager and dynamic linking will be
+%		fully supported when the Clean language version 2.0 is released.
+		
+		Generate Relocations: this is an option for generating relocateable code. It provides
+		early support for making Clean DLL's. Only to be used by Clean wizards!
+		
+		Generate Link Map: this writes out a text file \verb+name.map+ containing the location
+		of various Clean symbols in the generated application. Used by Clean wizards to analyze
+		low-level application crashes. 
+		
+		Generate DLL: another option under development similar to the Generate Relocations option.
+
+		Use Standard Runtime Environment: an option for turning of the inclusion of the Clean Runtime
+		Environment. Only used by Clean wizards when developing new versions of the runtime environment.
+		
+		Include Resource Section: a currently Windows only option for copying the resource section from
+		another application into the freshly linked application. Used to include icons and whatnot in Windows
+		GUI applications. Note that the
+		current implementation of the file browser dialogue on selecting an application asks wether you want to replace it.
+		Just answer yes, the application will not actually be replaced. This will be fixed in a future version.
+% only in Project Options not Defaults...
+	\item	[Project Paths] Here the project search paths can be set, see~\inref{paths} and~\inref{environment_options}.
+	
+	\item	[Extra Objects / Dynamic Libraries / Static Libraries] These are for extra items to be included when linking,
+		for more information see~\inref{environment_options}.
+
+\end{description}
+
+\section{Module Options}\label{module_options}
+There are also a number of options which can be set per module. These can be set with
+the \verb+Module Options+ entry in the \verb+Module+ menu. This displays the module
+options dialogue for the actuve window in the editor. If this entry is selected when
+the project window is active, then the settings are applied to all modules currently
+selected in the project window.
+\screen{module_options}
+\begin{description}
+	\item   [Strictness analyzer]
+	When this option is set the strictness analyser will try to determine whether or 
+	not the defined functions are strict in their arguments. Strict arguments will be 
+	marked with `!' in the type definition.
+	
+	In general, much better code will be generated when this option is set. The 
+	penalty is that the compilation takes more time.
+	
+	When you are exporting a function with strict arguments, it is for efficiency 
+	reasons better to export the strictness information also. You have to do this by 
+	hand. Define the type specification including the strictness information in both 
+	the definition and the implementation module.
+	
+	Strictness annotations defined by the programmer are not checked but taken to 
+	be true.
+	
+	\item   [No Types]
+	No type or strictness information is displayed when this option is chosen.
+	
+	\item   [Inferred Types]
+	The inferred types of functions that are not typed by the programmer are 
+	displayed in the Types window. Strictness information is not displayed.
+	
+	\item   [Strict Export Types]
+	The types of functions that are exported are displayed including inferred 
+	strictness information, but only when the type in the definition module does 
+	not contain the same strictness information as was found by the strictness 
+	analyser. This way it is easy to check for all functions if all strictness
+	information is exported.
+	
+	\item   [All types]
+	The types of all functions including strictness information are displayed in the 
+	Types window.
+	
+	\item   [Show Attributes]
+	Check this box if you want uniqueness attributes displayed in the listed types.
+	
+	\item   [Be Verbose]
+	If set additional information about the compilation process is given. Turn it off 
+	to speed up the compilation.
+	
+	\item   [Give warnings]
+	When this option is set also warnings are produced in the Error window. Turn it 
+	on when you are an inexperienced Clean programmer or when you want to be 
+	informed about unusual but not erroneous situations.
+	
+	\item   [Generate comments]
+	Set this option if you want to be able to read the generated \verb+.abc+ file. Turn it off 
+	to speed up the compilation process.
+
+	\item   [Reuse unique nodes]
+	Enables compile-time garbage collection for certain unique nodes. See section 4.5.7 in
+	the Clean Language Reference manual for more details.
+	
+	\item   [Never time profile]
+	Don't generate time profiling information for this module, even if time profiling is
+	enabled in the \verb+Project Options+ dialogue.
+	
+	%\item   [Never memory profile]
+	%Don't generate memory profiling information for this module, even if memory profiling
+	%is enabled in the \verb+Project Options+ dialogue.
+\end{description}
+
+\section{The Text Editor}\label{text_editor}
+
+All text files (see~\inref{files}) can be edited with the built-in editor using the commands 
+available in the \verb+Edit+ and \verb+Search+ menus.
+The editor has an auto indent facility. When this option is on the editor will 
+remember the first non-tab, non-space position at the beginning of the line. 
+When a return is typed the cursor will move to the remembered position in the 
+next (new) line and the needed amount of tabs and spaces will be added.
+The auto indent option can be switched on and off in the Editor Settings 
+dialogue (see \verb+Editor Settings...+ under the \verb+Defaults+ menu).
+
+The editor also contains two key and mouse combinations with which definitions
+of imported Clean symbols (functions, types and constructors) can be 
+found:
+\verb!Control + Double-Click! on a Clean symbol locates the definition of the symbol 
+in its \verb+.dcl+ file.
+\verb!Control-Shift + Double-Click! on a Clean symbol locates the definition of the 
+symbol in its \verb+.icl+ file.
+
+The same effect can be achieved by selecting a symbol name and then choosing 
+\verb+Search Definition+ (for the \verb+.dcl+ file) or \verb+Search Implementation+
+(for the \verb+.icl+ file) in the 
+\verb+Search+ menu. Warning: Functions that have no type specification may not be 
+found. When your Clean modules have a (very) unusual layout the search 
+algorithm might also not be able to find the definitions of Clean symbols. 
+
+\section{The Clean Compiler}
+
+The Clean compiler compiles an implementation module to abc-code.
+It performs syntactical and semantical checks (see the Clean Language Report). 
+The corresponding definition module is also checked, as well as the consistency 
+between definition and implementation module. Errors are reported in the 
+Errors \& Warnings window.
+
+(Uniqueness) type information is inferred and checked. Strictness information is 
+inferred with help of the builtin strictness analyser. On demand, the type and 
+strictness information is displayed in the Types window.
+
+If no errors are found, abc-code is generated. For each \verb+.icl+ module a file \verb+.abc+ will 
+be created in the corresponding Clean System Files folder. This code is input for 
+the Code Generator to build native object files.
+
+\section{The Code Generator and Linker}
+
+The Code Generator takes sequential abc-code as input (an \verb+.abc+ file) and produces
+an object file in the Clean System Files folder. The Linker links all object 
+files of the project together and builds an application.
+
+By default, the Code Generator generates code for the machine that you are 
+working on.
+When you are developing your program you should use the
+Check Indices option.
+This will add checks for out-of-bound array operations.
+After you have convinced yourself that your program doesn't violate this condition, you can remove the checks for optimal speed.
+
+Heap and stack space must be allocated to the application. Also other options 
+can be set (see \verb+Project Options+ in the \verb+Project+ menu). These settings take effect the 
+next time the application is linked.
+On demand, the Code Generator can produce assembly files. To produce the 
+assembly code choose Generate Assembly in the \verb+Module+ menu. The 
+assembly file is generated in the same directory as the Clean \verb+.icl+ module with 
+the \verb+.s+ extension and is automatically opened in the editor.
+
+\section{The File Menu}
+\screen{menu_file}
+
+\begin{menu}
+\item   [New File...]
+A standard New File dialogue is diplayed allowing you to specify which file is to
+be created. A window is opened on this new file which can then be edited with the
+text editor.
+
+\item	[New Project...]
+A standard New File dialogue is displayed allowing you to specify where the new project
+is to be created. Initially the associated main module is set to be the module
+displayed in the active window when \verb+New Project+ was selected. If no module was
+active the project does not have a main module yet and one needs to be set by activating
+a module window and selecting \verb+Set Mein Module+ from the \verb+Project+ menu.
+
+\item   [Open...]
+Open a window on an existing file or project.
+
+\item   [Save]
+Save the contents of the active (front) window to the corresponding file.
+
+\item   [Save As...]
+Save the contents of the active (front) window to the indicated file. A standard 
+New File dialogue appears, asking you to specify the file's name and location.
+
+\item   [Save All]
+This command saves the contents of all open editor windows.
+
+\item   [Revert]
+Revert to the last saved version of the file corresponding to the active (front) 
+window.
+
+\item   [Close]
+Closes the active (front) window.
+A dialogue will appear when a text window is closed with contents
+that need to be saved.
+
+\item   [Close All]
+This command closes all open windows.
+
+\item   [Open Other]
+This command will open the corresponding \verb+.dcl+ file if the front window is a \verb+.icl+
+file or vice versa.
+
+\item   [Open Definition]
+When a portion of text is selected (for example the text `selection') the command
+is enabled and changes to \verb+Open selection.dcl+. When this command is chosen
+it will try to open the corresponding \verb+.dcl+ file. It can be used to quickly open
+imported modules: just select 
+the name of the file in the \keyword{import} statement and choose this command. For an 
+easy way to locate the definitions of imported functions and types see \verb+Find Definition+
+and \verb+Find Implementation+ under the \verb+Search+ menu.
+When no module name is selected, you can specify the module name in a dialogue box.
+
+\item   [Open Implementation]
+This command works the same as the Open Definition command, but now the 
+implementation module (\verb+.icl+ file) will be opened.
+
+\item	[Print Setup]
+Display the standard Print Setup dialogue for setting default printer options.
+
+\item	[Print...]
+Display the standard Print dialogue for printing the contents of the currently active
+editor window.
+
+\item	[Print All]
+Prints all open editor windows.
+
+\item	[Recent Files]
+This is a submenu containing the twelve most recently opened files. Selecting one of these
+reopens the corresponding file if it was closed or otherwise makes it the active window.
+
+\item	[Recent Projects]
+This is a submenu containing the twelve most recently opened projects. Selecting one of these
+reopens the corresponding project after saving the currently active project.
+
+\item   [Quit]
+Quit the Clean Integrated Development Environment.
+\end{menu}
+
+\section{The Edit Menu}
+\screen{menu_edit}
+
+\begin{menu}
+\item   [Undo]
+Undo the last change made in the text of the front window.
+
+\item   [Cut]
+Cuts the text currently selected in the front window to the clipboard.
+
+\item   [Copy]
+Copies the text currently selected in the front window to the clipboard.
+
+\item   [Paste]
+Insert the contents of the clipboard at the current cursor location or replace the 
+currently selected text in the front window by the contents of the clipboard.
+
+\item   [Clear]
+Clear the text currently selected in the front window.
+
+\item   [Shift Left / Shift Right]
+With these commands you can (un)indent the selected text.
+{\it Warning: undo is not implemented for these commands.}
+
+\item   [Balance]
+This commands selects the smallest balanced piece of text that surrounds the 
+current cursor position or currently selected text.
+This feature can be used to find corresponding open and close symbols in 
+Clean programs.
+The following symbols are balanced: Parentheses: `(' and `)' to check expressions,
+Brackets: `[' and `]' to check lists, Curly braces: `\{' and `\}'  to check annotations
+or record definitions.
+
+\item   [Select All]
+Select all text in the front window.
+
+\item	[Detab]
+Replaces all tabs in the front window by the correct number of spaces.
+
+\item	[Add Prefix / Remove Prefix / Change Prefix...]
+These three together are a generalisation of the \verb+Shift Left+ and \verb+Shift Right+
+commands. They allow the adding and removing of any prefix to the lines in the current selection.
+Useful for example for block commenting some code. Note that the \verb+Change Prefix+ dialogue performs
+some mangling on the prefix string, that is, it interprets \verb+\\+ as \verb+\+ and \verb+\t+ as a tab.
+Other \verb+\+{\it x} combinations are currently just taken as literals.
+{\it Warning: undo is not implemented for these commands.}
+
+\item   [Next Window]
+Activates the window directly under the active window and brings it to the front. 
+The active window is moved to the bottom of the stack of windows that are 
+currently open in the Clean Integrated Development Environment.
+
+\item   [Show Clipboard / Hide Clipboard]
+This command opens a window on the Clipboard or closes this window when it 
+is already open.
+
+\item[List Definitions...]
+This opens a popup menu with the global definitions found in the currently active editor window.
+The list is orted by definition type and alphabetically. Selecting an entry moves the cursor to the
+appropriate line.
+\end{menu}
+
+\section{The Search Menu}
+\screen{menu_search}
+\begin{menu}
+\item   [Find...]
+A dialogue appears in which one can define a text to search for (in the Find box) 
+and the text to replace the found text with (in the Replace box).
+
+By default the Find and Replace starts from the current cursor position or 
+currently selected text to the end of the text. On demand the Find and Replace 
+goes backwards to the beginning of the text. When Wrap Around is chosen the 
+Find and Replace does not stop at the beginning and end of the text in the 
+active window. When Ignore Case is chosen, no distinction is made between 
+upper and lower case characters in the text to search for. When the Match 
+Words option is checked only whole words will be selected. When the text to 
+search for appears as a part of another word it will be ignored. Whole words 
+are delimited by outline characters (spaces, tabs, (semi)colons, quotes etcetera).
+When Use Reg Exp is chosen the Find and Replace strings wil be interpreted as
+regular expression as detailed in~\inref{regular_expressions}.
+
+\item   [Find Next]
+This will find the next piece of text as defined in the Find 
+dialogue. When the \verb+Shift+ key is held down the command finds the previous
+piece of text as defined in the Find dialogue.
+
+\item   [Find Selection]
+The selected piece of text will be entered into the Find box and the 
+next occurrence of the selection will be found. When \verb+Shift+ is pressed the 
+previous occurrence will be found. 
+
+\item   [Replace \& Find Again]
+Replace selected text with the text as defined in the Replace box and find the next 
+piece of text as defined in the Find box. When the \verb+Shift+ key is being held 
+down the previous occurrence will be found.
+
+\item   [Search Identifier]
+If there is a selection in the active window then this command wil attempt to find
+this selection in all files in the current project. If there is no selection or the
+\verb+Shift+ key was pressed when selecting this command a dialogue appears allowing
+you to enter the search string and set the search method.
+
+Find Identifiers locates all occurrences of an identifier. You can use this for 
+example to change the name of an identifier in all the modules of a program. 
+The search results are displayed in the Search Results window. You can use \verb+Goto Next Search Result+
+(\verb+Ctrl-,+)
+to jump to the next occurrence.
+
+If Be Verbose is chosen the file currently being searched is listed.
+
+\item   [Search Definition]
+When a Clean symbol (function, type or constructor) is selected this command 
+will try to find the definition of this symbol in its definition module. Pressing 
+Ctrl and double-clicking on the name has the same effect. Macros and 
+functions that have no type specification may not be found. When your Clean 
+modules have a (very) unusual layout the search algorithm may also not be 
+able to find the definitions of Clean symbols.
+
+\item   [Search Implementation]
+This command does the same as \verb+Find Definition+, but now the implementation 
+modules will be searched for the symbol. Holding down \verb+Shift+ and \verb+Ctrl+ and 
+double-clicking on the name has the same effect as this command.
+
+\item	[Goto Next Search Result]
+Move to the location of the next entry in the Search Results window.
+
+\item   [Goto Next Error]
+This command selects the next error message in the Errors window and also 
+selects the corresponding text line in which the error occurred. When an error 
+occurs in a file which is not opened a window on this file will be opened 
+automatically. This command only has an effect when the Errors \& Warnings window is 
+open.
+
+\item   [Goto Cursor]
+Scroll front window to show the text at the current cursor position.
+
+\item   [Goto Line...]
+Select the line with the indicated line number. Define the desired line number 
+in dialogue box. The lines in a text window are numbered starting from 1. The line 
+with the indicated line number is selected. For other ways of moving the cursor 
+around and selecting lines see~\inref{text_editor}.
+
+\item	[Goto Selection...]
+Define the desired selection in the dialogue box. The given selection will be highlighted and
+displayed in the text window.
+
+\end{menu}
+
+\section{The Project Menu}
+\screen{menu_project}
+\begin{menu}
+\item   [Bring Up to Date]
+This command will bring the project up-to-date.
+
+This means that, starting from the main module all implementations that are 
+inconsistent will be recompiled . Also the inconsistent object files 
+are regenerated and a new application is built.
+
+Inconsistencies can arise when implementation modules are modified or when 
+implementation modules have to be recompiled because they are depending on 
+modified modules.
+
+After an update all files are consistent. Launching of an application can now be 
+done without recompilations.
+
+\item   [Update and Run]
+This command first brings a Clean program up-to-date and then 
+launches it.
+
+The \verb+Update and Run+ command will perform the same actions as the \verb+Bring Up To Date+
+command explained above. In addition the generated application is launched. 
+The system will warn you when there is not enough free memory left to launch 
+the generated application.
+
+\item	[Run]
+If you are convinced that the application already exists and is up-to-date then you can use
+the \verb+Run+ command to immediately launch it without first performing the consistency checks
+performed by the \verb+Update and Run+ command described above.
+
+\item   [Set Main Module]
+Set the main module of the currently active project to the implementation 
+module displayed in the front window. Note that this clears all the found dependancy information
+for the current project and all the associated compiler and editor settings.
+
+\item   [Project Options]
+Here the project options for the current project can be set, see~\inref{project_options}.
+
+\item	[Show Heap Profile]
+This launches the \verb+Show Heap Profile+ application and attempts to open the heap profile
+for the current project. This wil only succeed if a heap profile has been generated for the
+current project. That is if heap profiling has been selected in the \verb+Profiling+ pane of
+the \verb+Project Options+ of the current project, and then the generated application has been
+executed.
+
+\item	[Show Time Profile]
+This launches the \verb+Show Time Profile+ application and attempts to open the time profile
+for the current project. This wil only succeed if a time profile has been generated for the
+current project. That is if time profiling has been selected in the \verb+Profiling+ pane of
+the \verb+Project Options+ of the current project, and then the generated application has been
+executed.
+
+\item[Theorem Prover Project]
+This launches the Clean Theorem Prover and attempts to open a proof project for the currenlty
+active project in the IDE.
+
+\item[Theorem Prover Module]
+This command is currently disabled.
+\end{menu}
+
+\section{The Module Menu}
+\screen{menu_module}
+\begin{menu}
+\item   [Compile]
+Compile the Clean implementation module (\verb+name.icl+) displayed in 
+the active window.
+Error messages will appear when inconsistencies are found. With \verb+Find Error+ in 
+the \verb+Search+ menu the line in which the error was found is selected.
+When no errors are found, type information is displayed in the Types window 
+when this option was chosen (see~\inref{module_options}).
+
+A file \verb+name.abc+ will be created in the folder Clean System Files. This folder will 
+also be created if it does not yet exist in the same folder where 
+\verb+name.icl+ and \verb+name.dcl+ are located.
+
+\item   [Check Syntax]
+Check the Clean implementation module (\verb+name.icl+) displayed in the 
+active window.
+Check Syntax does the same as compile, but now no \verb+.abc+ file is generated.
+
+\item   [Generate Assembly]
+Generate an assembly file corresponding to the Clean implementation
+module (\verb+name.icl+) displayed in the active window. The assembly file is 
+placed in the same folder as the icl file and has the extension \verb+.s+ (for example 
+\verb+name.s+).
+
+The assembly file is generated by the Code Generator taking a \verb+name.abc+ file as 
+input. This file is generated by the Clean compiler. If the \verb+.abc+ file is not present 
+or inconsistent the Generate Assembly command will invoke a compilation of 
+the implementation module.
+
+\item	[Module Options]
+This displays a dialogue where a number of options can be set for the currently active module,
+see~\inref{module_options}.
+
+\end{menu}
+
+\section{The Defaults Menu}
+\screen{menu_defaults}
+\begin{menu}
+\item[Module Defaults]
+A dialogue appears to set the default module options for new modules added to a project,
+see~\inref{module_options}.
+
+\item	[Project Defaults]
+In this dialogue the default Project Options for new projects can be set, note that paths
+and extra link items cannot be set by default. If this is required then add them to an
+environment. See~\inref{project_options} and \inref{environment_options}.
+\item	[Window Settings]
+The followingmenu entries are placed under the submenu Window Settings:
+\begin{description}
+	\item	[Editor Colours...]
+	Here you can set the colours used for syntax colouring the editor windows.
+	\item   [Editor Settings...]
+	This dialogue allows you to set a new text font and text size for editor
+	windows. Also the tab width can be redefined. With the Auto Indent 
+	checkbox the auto indent facility of the text editor can be switched on and off.
+	\item	[Project Window]
+	Here you can set some font and colour information for the project window.
+	\item	[Types Window]
+	This allows you to set the font and syntax colouring information for the Types window.
+	\item[Console Window]
+	This allows you to to set the font and syntax colouring information for the Console window.
+	\item	[Search Window]
+	Here you can set the font and colours used in the Search Results window.
+	\item	[Error Window]
+	Here you can set the font and colours used in the Errors \& Warnings window.
+\end{description}
+
+\item	[Key Mapping...]
+In this dialogue the key mappings for the editor can be set, see~\inref{key_mappings}.
+
+\item	[IDE Options...]
+In this dialogue some global preferences for the Clean IDE can
+be set. See \inref{ide_options}.
+\end{menu}
+
+\section{The Environment Menu}
+\screen{menu_environment}
+\begin{menu}
+\item	[Edit Current...] Allows you to edit the settings for the currently active environment. See~\inref{environment_options}.
+\item	[New...] Displays a dialogue asking for the name of the environment to be added, and
+	then displays the options dialogue.
+\item	[Edit List...] Allows you to edit the list of known environments.
+\end{menu}
+Below these comes a list with the currently available environments with the currently
+active environment indicated by a check mark. You can change the active environment
+by selecting the desired environment from the list.
+
+\section{The Help Menu}
+\screen{menu_help}
+\begin{menu}
+\item	[About...]
+Displays an about window for the Clean IDE. The current version number can be found here,
+please mention this when reporting bugs.
+
+\item   [Help]
+This submenu displays the documents found in the |Help| directory. Selecting a help item
+opens the associated document in an appropriate application. E.g. Acrobat Reader for this manual.
+
+\end{menu}
+
+\section{The Window Menu}
+\screen{menu_window}
+The Window menu displays a platform dependant number of
+options for arranging the open windows and switching between them.
+
+%	\section{The Time Profiler}
+%	Under construction.
+%	
+%	\section{The Heap Profiler}
+%	Under construction.
+
+\appendix
+\section{Keymappings}\label{key_mappings}
+The editor also supports (user modifiable) key mappings.
+The preinstalled default mapping is as follows:
+
+\begin{longtable}{|l|l|l|}
+\hline
+\light	SHIFT + ALT + LeftKey		& Select	& WordLeft				\\
+\light	CTRL + SHIFT + LeftKey		& Select	& StartOfLine				\\
+\light	SHIFT + LeftKey				& Select	& CharLeft			\\
+\light	ALT + LeftKey				& Move		& WordLeft			\\
+\light	CTRL + LeftKey				& Move		& StartOfLine		\\
+\light	LeftKey						& Move		& CharLeft		\\
+\hline
+\dark	ALT + SHIFT + RightKey		& Select	& WordRight				\\
+\dark	SHIFT + CTRL + RightKey		& Select	& EndOfLine			\\
+\dark	SHIFT + RightKey			& Select	& CharRight				\\
+\dark	ALT + RightKey				& Move		& WordRight		\\
+\dark	CTRL + RightKey				& Move		& EndOfLine		\\
+\dark	RightKey					& Move		& CharRight			\\
+\hline
+\light	ALT + SHIFT + UpKey			& Select	& PageUp			\\
+\light	CTRL + SHIFT + UpKey		& Select	& StartOfText				\\
+\light	SHIFT + UpKey				& Select	& LineUp				\\
+\light	ALT + UpKey					& Move		& PageUp			\\
+\light	CTRL + UpKey				& Move		& StartOfText			\\
+\light	UpKey						& Move		& LineUp			\\
+\hline
+\dark	ALT + SHIFT + DownKey		& Select	& PageDown				\\
+\dark	CTRL + SHIFT + DownKey		& Select	& EndOfText			\\
+\dark	SHIFT + DownKey				& Select	& LineDown			\\
+\dark	ALT + DownKey				& Move		& PageDown		\\
+\dark	CTRL + DownKey				& Move		& EndOfText		\\
+\dark	DownKey						& Move		& LineDown		\\
+\hline
+\light	BeginKey					& Scroll	& StartOfText				\\
+\light	EndKey						& Scroll	& EndOfText			\\
+\light	PgUpKey						& Scroll	& PageUp			\\
+\light	PgDownKey					& Scroll	& PageDown			\\
+\hline
+\dark	CTRL + DeleteKey			& Remove	& StartOfLine			\\
+\dark	ALT + DeleteKey				& Remove	& WordRight		\\
+\dark	DeleteKey					& Remove	& CharRight		\\
+\hline
+\light	CTRL + BackSpaceKey			& Remove	& EndOfLine		\\
+\light	ALT + BackSpaceKey			& Remove	& WordLeft		\\
+\light	BackSpaceKey				& Remove	& CharLeft			\\
+\hline
+\end{longtable}
+
+A customized mapping can be made by defining a mapping using the \verb+Key Mapping+ dialogue in the
+\verb+Defaults+ menu and then saving it. Any saved keymapping can later be reloaded from the same
+dialogue. If the keymapping is then installed in the ``Config'' directory
+under the name \verb+default.km+ then in future the IDE will use that
+as its default key mapping rather than the preinstalled one given above.
+In the distribution an alternative (Windows) keymapping is provided under the name \verb+windows.km+
+
+\newcommand{\entrylabel}[1]{\mbox{\textsf{#1}}\hfil}
+\newcommand{\textbackprime}{\raisebox{3pt}{\mbox{$\backprime$}}}
+
+\section{Command shortcuts}
+Alphabetic list of (hopefully) all command key combinations in the Clean IDE:
+\begin{multicols}{2}
+\begin{description}
+\setlength{\itemsep}{0pt}
+\renewcommand{\makelabel}{\entrylabel}
+%\item[Ctrl-`] show pop-up of top level definitions
+%\item[Ctrl-$\backprime$] show pop-up of top level definitions
+\item[Ctrl-\textbackprime] show pop-up of top level definitions
+\item[Ctrl-/] open other
+\item[Ctrl-\textbackslash] next window
+%\item[Ctrl-|\|] next window
+\item[Ctrl-Shift-\textbackslash] prev window
+\item[Ctrl-=] find identifier in project
+\item[Ctrl-Shift-=] show find identifier dialogue
+\item[Ctrl-[] shift left
+\item[{Ctrl-]}] shift right
+\item[Ctrl-,] next search result
+\item[Ctrl-Shift-,] previous search result
+\item[Ctrl-A] select all
+\item[Ctrl-B] balance
+\item[Ctrl-C] copy
+\item[Ctrl-D] open definition module
+\item[Ctrl-Shift-D] show open definition module dialogue
+\item[Ctrl-E] find next error
+\item[Ctrl-Shift-E] find previous error
+\item[Ctrl-F] open find dialogue
+\item[Ctrl-Shift-F] open find dialogue with backwards option preselected
+\item[Ctrl-G] repeat previous find command
+\item[Ctrl-Shift-G] repeat previous find command in reverse direction
+\item[Ctrl-H] find current selection
+\item[Ctrl-Shift-H] find current selection in reverse direction
+\item[Ctrl-I] open implementation module
+\item[Ctrl-Shift-I] show open implementation module dialogue
+\item[Ctrl-J] open module options dialogue
+\item[Ctrl-K] compile current module
+\item[Ctrl-L] find definition of current selection
+\item[Ctrl-Shift-L] show find definition dialogue
+\item[Ctrl-M] find implementation of current selection
+\item[Ctrl-Shift-M] show find implementation dialogue
+\item[Ctrl-N] new editor file
+\item[Ctrl-Shift-N] new project file
+\item[Ctrl-O] open file or project
+\item[Ctrl-Shift-O] open file as text,
+	same as above but always open as text
+\item[Ctrl-P] print window
+\item[Ctrl-Shift-P] print all editor windows
+\item[Ctrl-Q] quit
+\item[Ctrl-R] update and run
+\item[Ctrl-Shift-R] run
+\item[Ctrl-S] save editor window
+\item[Ctrl-Shift-S] save all editor windows
+\item[Ctrl-Alt-S] save as
+\item[Ctrl-Alt-Shift-S] save copy as
+\item[Ctrl-T] replace and find again
+\item[Ctrl-U] bring up to date
+\item[Ctrl-Shift-U] force update,
+	recompiles all modules
+\item[Ctrl-V] paste
+\item[Ctrl-W] close window
+\item[Ctrl-Shift-W] close all editor windows
+\item[Ctrl-X] cut
+\item[Ctrl-Y] check syntax
+\item[Ctrl-Z] undo
+\end{description}
+\end{multicols}
+
+\section{Regular Expressions}\label{regular_expressions}
+In addition to its regular
+searching method the IDE has some support for searching in
+files using regular expressions. This feature is still
+under development, and is still rather slow...
+
+The syntax for regular expressions to be found is as follows:
+
+\begin{tabbing}
+exprs \= = \=beg exprs end \=:	\kill
+expr	\> = \> beg exprs end			\>: search string indicated by regular expression\\
+beg		\> = \> \verb+^+ 				\>: search for an exprs at beginning of a line\\
+		\> || \> \verb+|+				\>: search for exprs at the beginning of a word\\
+		\> || \>							\>: search for exprs starting anywhere\\
+end		\> = \> \verb+^+ 				\>: search for an exprs ending at the end of a line\\
+		\> || \> \verb+|+				\>: search for exprs ending at a word\\
+		\> || \>							\>: search for an exprs ending anywhere\\
+exprs	\> = \> RE						\>: search for indicated expression\\
+		\> || \> RE expr					\>: search for sequence of indicated expressions\\
+exprs	\> = \> \verb+{+expr\verb+}+	\>: search for expr and remember the corresponding matching expression as substring\\
+RE		\> = \> unit					\>: search for unit\\
+		\> || \> unit \verb+*+			\>: search for zero or more occurrences of unit\\
+		\> || \> unit \verb!+!			\>: search for one  or more occurrences of unit\\
+unit	\> = \> $c$						\>: search for the indicated character\\
+		\> || \> \verb+(+exprs\verb+)+	\>: turn exprs into unit\\
+char	\> = \> $c$						\>: search for the specified character, if it is not used as special RE character\\
+		\> || \> \verb+#+$c$				\>: search for the specified character, even if it is a special RE character\\
+		\> || \> \verb+.+				\>: search for any character\\
+		\> || \> \verb+@+				\>: search for any letter\\
+		\> || \> \verb+~+				\>: search for any non-letter\\
+		\> || \> \verb+[+alt\verb+]+		\>: search for any of the specified characters\\
+alt		\> = \> $c$						\>: this character \\
+		\> || \> $c1$$c2	$				\>: or any character in this sequence\\
+		\> || \> $c1$\verb+..+$c2$		\>:	or any character in this interval
+\end{tabbing}
+
+\noindent
+%where the special RE characters are: \{ \} * + ( ) \# . @ \textasciitilde [ ] 
+where the special RE characters are: \verb?{ } * + ( ) # . @ ~ [ ]?
+
+\noindent
+And the replacement expression can be specified as follows:
+
+\begin{tabbing}
+exprs \= = \=beg exprs end \=:	\kill
+rexpr	\> = \> exprs			\> : replace string found by exprs\\
+		\> || \> exprs rexpr		\> : replace string found by sequence of exprs\\
+exprs	\> = \> $c$				\> : replace string found by the indicated character, if no control character\\
+		\> || \> \verb+#+$c$		\> : replace string found by the specified character, even if it is a control character. \\
+		\> || \> \verb+&+		\> : replace string found by itself\\
+		\> || \> \verb+$+$n$		\> : replace string found by the $n$-th substring indicated in the search expression, $0 \leq n \leq 9$\\\
+		\>   \> 				\> : replaced by empty string if the $n$-th substring does not exist
+\end{tabbing}
+
+\noindent
+where the replacement expression control characters are: \verb+& $ #+
+
+\section{Bugs}
+
+If you have bugs to report, please send us a short description with a tiny
+example via electronic mail (\url{mailto: clean@cs.kun.nl}) and we will try to fix it as
+soon as possible.
+
+\section{Authors \& Credits}
+
+Clean and the Clean System are a spinoff of the 
+research performed by the research group on functional programming 
+languages, Computing Science Institute, at the University of Nijmegen under the 
+supervision of Rinus Plasmeijer. To see who is currently responsible for which part
+of Clean and the Clean System have a look at the Clean web pages.
+
+Special thanks to the following people:
+Christ Aarts, Steffen van Bakel, Erik Barendsen, Henk Barendregt, Pieter Hartel, 
+Hans Koetsier, Pieter Koopman,  Ken McDonald, Ronan Sleep and all the Clean 
+users who helped us to get a better system.
+
+Many thanks to the following sponsors:
+\begin{itemize}
+\item the Dutch Foundation for Applied Technical Sciences (STW);
+\item the Dutch Foundation for Scientific Research (NWO);
+\item the International Academic Centre for Informatics (IACI);
+\item Kropman B.V., Installation Techniques, Nijmegen, The Netherlands.
+\item Hitachi Advanced Research Laboratories, Japan;
+\item the Dutch Ministry of Science and Education (the Parallel Reduction Machine 
+project (1984-1987)) who initiated the Clean research;
+\item Esprit Basic Research Action (project 3074, SemaGraph: the Semantics and 
+Pragmatics of Graph Rewriting (1989-1991));
+\item Esprit Basic Research Action (SemaGraph II working group 3646 (1992-
+1995));
+\item Esprit Parallel Computing Action (project 4106, (1990-1991));
+\item Esprit II (TIP-M project area II.3.2, Tropics: TRansparent Object-oriented 
+Parallel Information Computing System (1989-1990)).
+\end{itemize}
+
+%\printindex
+\end{document}

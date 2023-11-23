@@ -1,0 +1,4 @@
+foreign module xpath;
+
+CLEAN_STRING get_home_path(int)   'GetHomePath';
+CLEAN_STRING get_appl_path(int)   'GetApplicationPath';

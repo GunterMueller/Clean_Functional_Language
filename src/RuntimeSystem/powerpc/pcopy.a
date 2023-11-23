@@ -1,0 +1,1430 @@
+
+NODE_POINTER_OFFSET	set	0
+		
+	lea	o0,heap_p2
+	lea	o1,stack_p
+	lwz	a6,0(o0)
+	lwz	a2,0(o1)
+
+ if COPIED_VECTOR
+	lea	o0,heap_size_129
+	lwz	d7,0(o0)
+	lea	o0,heap_p1
+	slwi	d7,d7,6
+	lwz	a3,0(o0)
+ else
+	lea	o0,heap_size
+	lwz	d7,0(o0)
+	srwi	d7,d7,1
+ endif
+	add	o4,a6,d7
+
+ if WRITE_HEAP
+	lea	o0,heap2_begin_and_end
+	stw	o4,4(o0)
+ endif
+
+	lea	o0,caf_list
+
+ if USE_DCBZ
+	li	g3,32
+	li	o3,-32
+ endif
+	lwz	d0,0(o0)
+	cmpwi	0,d0,0
+	beq	end_copy_cafs
+
+copy_cafs_lp:
+	lwz	o5,-4(d0)
+	lwz	d5,0(d0)
+	addi	a2,d0,4
+	subi	d5,d5,1
+	bl	copy_lp2
+
+	addic.	d0,o5,0
+	bne	copy_cafs_lp
+
+end_copy_cafs:
+
+	lea	o0,stack_p
+	lwz	a2,0(o0)
+
+	sub	d5,a4,a2
+	subic.	d5,d5,4
+	srwi	d5,d5,2
+
+	bgel	copy_lp2
+
+	lea	o0,heap_p2
+	lwz	a2,0(o0)
+
+;
+;	Copy all referenced nodes to the other semi space
+;
+
+	lea	g2,copy_lp1
+
+copy_lp1:
+	cmplw	0,a2,a6
+	bge	end_copy1
+
+	lwz	d0,0(a2)
+	mtlr	g2
+
+	baddi	a2,4
+	andi.	o0,d0,2
+
+	lha	d5,-2(d0)
+
+	beq	not_in_hnf_1
+
+in_hnf_1:
+	cmpwi	0,d5,0
+	beq	copy_array_21
+
+	cmpwi	0,d5,2
+	ble	b_copy_lp2
+
+	cmplwi	0,d5,256
+	bge	copy_record_1
+
+	lwz	o0,4(a2)
+	mr	d6,d5
+
+	andi.	r0,o0,1
+	bne	node_without_arguments_part
+
+	li	d5,0
+	bl	copy_lp2
+
+	mtlr	g2
+
+	baddi	a2,4
+	subi	d5,d6,2
+	b	copy_lp2
+
+node_without_arguments_part:
+	clrrwi	o0,o0,1
+	stw	o0,4(a2)
+	li	d5,0
+	bl	copy_lp2
+
+	baddi	a2,4
+	b	copy_lp1
+
+copy_record_1:
+	subic.	d5,d5,258
+	bgt	copy_record_arguments_3
+
+	lhz	d5,-2+2(d0)
+	blt	copy_record_arguments_1
+
+	subic.	d5,d5,1
+	bgt	copy_lp2
+ if 1
+	b	copy_node_arity1
+ else
+	beq-	copy_node_arity1
+
+	baddi	a2,8
+	b	copy_lp1
+ endif
+
+copy_record_arguments_1:
+ if 1
+	li	d5,0
+	b	copy_lp2
+ else
+	cmpwi	d5,0
+	li	d5,0
+	bne	copy_lp2
+	baddi	a2,4
+	b	copy_lp1
+ endif
+
+copy_record_arguments_3:
+ if COPIED_VECTOR
+	lwz	o1,4(a2)
+	andi.	r0,o1,1
+	lhz	d1,-2+2(d0)
+	cmpwi	6,d1,0
+	bne	record_node_without_arguments_part
+ else
+	lhz	d1,-2+2(d0)
+	cmpwi	6,,d1,0
+ endif
+	baddi	d5,2+1
+ if 1
+	subi	d6,d1,1
+ else
+	beq	6,copy_record_arguments_3b
+
+	subic.	d6,d1,1
+	beq	copy_record_arguments_3abb
+ endif
+	slwi	d5,d5,2
+	add	d4,a2,d5
+
+	li	d5,0
+	bl	copy_lp2
+		
+	baddi	a2,4
+	subi	d5,d6,1
+	bl	copy_lp2
+
+	mr	a2,d4
+	b	copy_lp1
+
+ if 0
+copy_record_arguments_3abb:
+	subi	d5,d5,1
+	slwi	d6,d5,2
+	li	d5,0
+	bl	copy_lp2	
+
+	add	a2,a2,d6
+	b	copy_lp1
+
+copy_record_arguments_3b:
+	slwi	d5,d5,2
+	add	a2,a2,d5
+	b	copy_lp1
+ endif
+
+ if COPIED_VECTOR
+record_node_without_arguments_part:
+	clrrwi	o1,o1,1
+	stw	o1,4(a2)
+
+	baddi	a2,8
+	beq	6,copy_lp1
+
+	subi	a2,a2,8
+	li	d5,0
+	bl	copy_lp2
+		
+	baddi	a2,4
+	b	copy_lp1
+ endif
+
+not_in_hnf_1:
+	cmpwi	0,d5,257
+	bge	copy_unboxed_closure_arguments
+
+	subic.	d5,d5,1
+	bgt	copy_lp2
+
+copy_node_arity1:
+	li	d5,0
+	bl	copy_lp2
+
+	baddi	a2,4
+	b	copy_lp1
+
+copy_unboxed_closure_arguments:
+	srwi	d4,d5,8
+	rlwinm	d5,d5,0,24,31
+
+	beq	copy_unboxed_closure_arguments1
+
+	bsubc	d5,d4
+	bsubi	d5,1
+	bnel+	copy_lp2
+	
+	slwi	d4,d4,2
+	badd	a2,d4
+	b	copy_lp1
+
+copy_unboxed_closure_arguments1:
+	baddi	a2,8
+	b	copy_lp1
+
+copy_array_21:
+	lwz	d1,4(a2)
+	cmpwi	0,d1,0
+
+	lwz	d5,0(a2)
+	baddi	a2,8
+	beq	copy_array_21_a
+
+	lhz	d0,-2(d1)
+	subi	d0,d0,256
+
+	lhz	d1,-2+2(d1)
+	cmpwi	0,d1,0
+	beq	copy_array_21_b
+
+	cmpw	0,d0,d1
+	beq	copy_array_21_r_a
+
+copy_array_21_ab:
+	subic.	d5,d5,1
+	blt	copy_lp1
+
+	sub	d0,d0,d1
+	slwi	d0,d0,2
+	subi	d1,d1,1
+
+	mr	d6,d5
+	stw	d1,-4(sp)
+	stwu	d0,-8(sp)
+
+copy_array_21_lp_ab:
+	lwz	d5,4(sp)
+	bl	copy_lp2
+
+	lwz	o1,0(sp)
+	subic.	d6,d6,1
+	add	a2,a2,o1
+	bge	copy_array_21_lp_ab
+		
+	baddi	sp,8
+	b	copy_lp1
+
+copy_array_21_b:
+	mullw	d2,d5,d0
+	slwi	d2,d2,2
+	add	a2,a2,d2
+	b	copy_lp1
+
+copy_array_21_r_a:
+	mullw	d2,d5,d0
+	mr	d5,d2
+copy_array_21_a:
+	subic.	d5,d5,1
+	bge	copy_lp2
+		
+	b	copy_lp1
+
+;
+;	Copy root nodes to the other semi-space
+;
+
+b_copy_lp2:
+	bsubi	d5,1
+copy_lp2:
+	lwz	a1,0(a2)
+	baddi	a2,4
+
+	lwz	d0,0-NODE_POINTER_OFFSET(a1)
+	bsubi	d5,1
+
+continue_after_selector_2:
+	andi.	r0,d0,2
+	beq	not_in_hnf_2
+
+in_hnf_2:	lhz	d2,-2(d0)
+	cmpwi	5,d5,0
+
+	cmpwi	0,d2,0
+	beq	copy_arity_0_node2
+
+	cmplwi	6,d2,256
+ if 0
+  if NODE_POINTER_OFFSET==0
+	stw	a6,-4(a2)
+  endif
+	stw	d0,0(a6)
+ endif
+	bge	6,copy_record_2
+
+ if 1
+  if NODE_POINTER_OFFSET==0
+	stw	a6,-4(a2)
+  endif
+	stw	d0,0(a6)
+ endif
+	subic.	d2,d2,2
+
+	lwz	o0,4-NODE_POINTER_OFFSET(a1)
+
+	addi	a0,a6,1+NODE_POINTER_OFFSET
+	stw	a0,0-NODE_POINTER_OFFSET(a1)
+
+	blt	copy_hnf_node2_1
+	bgt	copy_hnf_node2_3
+
+	lwz	o1,8-NODE_POINTER_OFFSET(a1)
+
+	stw	o0,4(a6)
+ if NODE_POINTER_OFFSET==0
+	stw	o1,8(a6)
+	stw	a6,-4(a2)
+	baddi	a6,12
+ else
+	stwu	o1,8(a6)
+	stw	a6,-4(a2)
+	baddi	a6,4
+ endif
+	bge	5,copy_lp2
+	blr	
+
+copy_hnf_node2_1:
+	stw	o0,4(a6)
+	baddi	a6,8
+ if NODE_POINTER_OFFSET
+	stw	a6,-4(a2)
+ endif
+	bge	5,copy_lp2
+	blr	
+
+copy_hnf_node2_3:
+	lwz	a0,8-NODE_POINTER_OFFSET(a1)
+	baddi	a6,12
+
+	stw	o0,4-12(a6)
+ if NODE_POINTER_OFFSET
+ 	addi	a1,a6,NODE_POINTER_OFFSET
+ endif
+	lwz	d1,0-NODE_POINTER_OFFSET(a0)
+
+	andi.	r0,d1,1
+	bne	arguments_already_copied_2
+
+ if NODE_POINTER_OFFSET==0
+	stw	a6,-4(a6)
+	ori	a1,a6,1
+	stw	d1,0(a6)
+ else
+	stwu	a1,-4(a6)
+	ori	a1,a1,1
+	stw	a6,-4(a2)
+	stwu	d1,4(a6)
+ endif
+	stw	a1,0-NODE_POINTER_OFFSET(a0)
+
+cp_hnf_arg_lp2:
+ if NODE_POINTER_OFFSET
+	lwz	o0,4-NODE_POINTER_OFFSET(a0)
+	baddi	a0,4
+ else
+	lwzu	o0,4(a0)
+ endif
+	subic.	d2,d2,1
+	stwu	o0,4(a6)
+	bgt	cp_hnf_arg_lp2
+
+	baddi	a6,4
+
+	bge	5,copy_lp2
+	blr	
+
+arguments_already_copied_2:
+	stw	d1,-4(a6)
+ if NODE_POINTER_OFFSET
+	addi	a1,a6,-4
+	stw	a1,-4(a2)
+ endif
+ 	bge	5,copy_lp2
+	blr	
+		
+copy_arity_0_node2:
+	cmplw	d0,int_reg
+	blt	copy_real_file_or_string_2
+
+	cmplw	d0,char_reg
+	bgt	copy_normal_hnf_0_2
+
+copy_int_bool_or_char_2:
+ if SHARE_CHAR_INT
+	bne	no_char_2
+		
+	lbz	d2,7-NODE_POINTER_OFFSET(a1)
+ if NODE_POINTER_OFFSET
+	lea	a0,static_characters8
+ else
+	lea	a0,static_characters
+ endif
+	slwi	d2,d2,3
+	add	a0,a0,d2
+	stw	a0,-4(a2)
+
+	bge	5,copy_lp2
+	blr	
+
+no_char_2:
+	cmpw	int_reg,d0
+	lwz	o0,4-NODE_POINTER_OFFSET(a1)
+	bne	no_small_int_or_char_2
+
+	cmplwi	0,o0,33
+	slwi	d2,o0,3
+	bge	no_small_int_or_char_2
+
+ if NODE_POINTER_OFFSET
+	lea	a0,small_integers8
+ else
+	lea	a0,small_integers
+ endif
+	add	a0,a0,d2
+	stw	a0,-4(a2)
+
+	bge	5,copy_lp2
+	blr	
+		
+no_small_int_or_char_2:
+ else
+no_small_int_or_char_2:
+	lwz	o0,4-NODE_POINTER_OFFSET(a1)
+ endif
+
+ if NODE_POINTER_OFFSET
+	ori	d2,o4,1
+	stw	o4,-4(a2)
+	stw	d2,0-NODE_POINTER_OFFSET(a1)
+ endif
+
+	stwu	d0,-8(o4)
+	stw	o0,4(o4)
+
+ if NODE_POINTER_OFFSET==0
+	ori	d2,o4,1
+	stw	o4,-4(a2)
+	stw	d2,0-NODE_POINTER_OFFSET(a1)
+ endif
+
+	bge	5,copy_lp2
+	blr	
+
+copy_normal_hnf_0_2:
+	subi	a0,d0,2-ZERO_ARITY_DESCRIPTOR_OFFSET-NODE_POINTER_OFFSET
+	stw	a0,-4(a2)
+	bge	5,copy_lp2
+	blr
+
+copy_real_file_or_string_2:
+	lea	o0,__STRING__2
+	cmplw	0,d0,o0
+	ble	copy_string_or_array_2
+
+copy_real_or_file_2:
+ if NODE_POINTER_OFFSET==0
+	stwu	d0,-12(o4)
+	lwz	o0,4-NODE_POINTER_OFFSET(a1)
+
+	addi	d2,o4,1
+	stw	d2,0-NODE_POINTER_OFFSET(a1)
+
+	lwz	o1,8-NODE_POINTER_OFFSET(a1)
+
+	stw	o0,4(o4)
+	stw	o1,8(o4)
+	stw	o4,-4(a2)
+ else
+	lwz	o1,8-NODE_POINTER_OFFSET(a1)
+	lwz	o0,4-NODE_POINTER_OFFSET(a1)
+	stwu	o1,-4(o4)
+	stw	o4,-4(a2)
+	addi	d2,o4,1
+	stw	d2,0-NODE_POINTER_OFFSET(a1)
+	stw	o0,-4(o4)
+	stwu	d0,-8(o4)
+ endif
+	bge	5,copy_lp2
+	blr
+
+already_copied_2:
+	cmpwi	5,d5,0
+already_copied_2_:
+	subi	d0,d0,1
+	stw	d0,-4(a2)
+
+	bge	5,copy_lp2
+	blr	
+
+ if 1
+copy_record_2:
+	subic.	d2,d2,258
+	
+	lhz	o1,-2+2(d0)
+	
+	blt	copy_record_node2_1
+	bgt	copy_record_node2_3
+
+	cmpwi	o1,0
+	beq	copy_real_or_file_2
+
+  if NODE_POINTER_OFFSET==0
+	stw	a6,-4(a2)
+  endif
+	stw	d0,0(a6)
+	lwz	o0,4-NODE_POINTER_OFFSET(a1)
+
+	addi	a0,a6,1+NODE_POINTER_OFFSET
+	stw	a0,0-NODE_POINTER_OFFSET(a1)
+
+	lwz	o1,8-NODE_POINTER_OFFSET(a1)
+
+	stw	o0,4(a6)
+  if NODE_POINTER_OFFSET==0
+	stw	o1,8(a6)
+	baddi	a6,12
+  else
+	stwu	o1,8(a6)
+ 	stw	a6,-4(a2)
+	baddi	a6,4
+  endif
+	bge	5,copy_lp2
+	blr
+
+copy_record_node2_1:
+	cmpwi	o1,0
+
+	lwz	o0,4-NODE_POINTER_OFFSET(a1)
+
+	beq	copy_record_node2_1_b
+
+  if NODE_POINTER_OFFSET==0
+	stw	a6,-4(a2)
+  endif
+	stw	d0,0(a6)
+
+	addi	a0,a6,1+NODE_POINTER_OFFSET
+	stw	a0,0-NODE_POINTER_OFFSET(a1)
+
+	stw	o0,4-NODE_POINTER_OFFSET(a6)
+	baddi	a6,8
+  if NODE_POINTER_OFFSET
+ 	stw	a6,-4(a2)
+  endif
+	bge	5,copy_lp2
+	blr
+
+copy_record_node2_1_b:
+ if NODE_POINTER_OFFSET==0
+	stwu	d0,-8(o4)
+	addi	d2,o4,1
+	stw	d2,0-NODE_POINTER_OFFSET(a1)
+	stw	o0,4(o4)
+	stw	o4,-4(a2)
+ else
+	stw	o4,-4(a2)
+	addi	d2,o4,1
+	stw	d2,0-NODE_POINTER_OFFSET(a1)
+	stw	o0,-4(o4)
+	stwu	d0,-8(o4)
+ endif
+	bge	5,copy_lp2
+	blr
+
+copy_record_node2_3:
+	cmplwi	o1,1
+
+	lwz	o0,4-NODE_POINTER_OFFSET(a1)
+
+	ble	copy_record_node2_3_ab_or_b
+
+  if NODE_POINTER_OFFSET==0
+	stw	a6,-4(a2)
+  endif
+	stw	d0,0(a6)
+
+	addi	a0,a6,1+NODE_POINTER_OFFSET
+	stw	a0,0-NODE_POINTER_OFFSET(a1)
+
+	lwz	a0,8-NODE_POINTER_OFFSET(a1)
+	stw	o0,4(a6)
+
+  if 1
+	lwz	o1,0-NODE_POINTER_OFFSET(a0)
+
+	andi.	r0,o1,1  	
+	bne	record_arguments_already_copied_2	
+  else
+   if COPIED_VECTOR
+	lea	a1,heap_copied_vector
+	sub	d0,a0,a3
+	lwz	a1,0(a1)
+
+	tstmbit	a1,d0,d1,o0,o1,o2,3
+	bne	record_arguments_already_copied_2
+
+	li	o0,128
+	srw	o0,o0,o2
+	or	o1,o1,o0	
+	stbx	o1,a1,d1
+   endif
+  endif
+
+  if NODE_POINTER_OFFSET==0
+	addi	a1,a6,12
+	stw	a1,8(a6)
+  else
+	addi	a1,a6,12+NODE_POINTER_OFFSET
+	stwu	a1,8(a6)
+ 	stw	a6,-4(a2)
+  endif
+  if 0
+	lwz	o1,0-NODE_POINTER_OFFSET(a0)
+  endif
+	addi	a1,a1,1
+	stw	a1,0-NODE_POINTER_OFFSET(a0)
+  if NODE_POINTER_OFFSET==0
+	stwu	o1,12(a6)
+  else
+	stwu	o1,4(a6)
+  endif
+
+cp_record_arg_lp2:
+  if NODE_POINTER_OFFSET
+	lwz	o1,4-NODE_POINTER_OFFSET(a0)
+	baddi	a0,4
+  else
+	lwzu	o1,4(a0)
+  endif
+	subic.	d2,d2,1
+	stwu	o1,4(a6)
+	bgt	cp_record_arg_lp2
+
+	addi	a6,a6,4
+
+	bge	5,copy_lp2
+	blr
+
+  if COPIED_VECTOR
+record_arguments_already_copied_2:
+	lwz	o0,0-NODE_POINTER_OFFSET(a0)
+   if NODE_POINTER_OFFSET==0
+	addi	a6,a6,12
+
+	stw	o0,-4(a6)
+   else
+	stwu	o0,8(a6)
+ 	stw	a6,-4(a2)
+	addi	a6,a6,4
+   endif
+	bge	5,copy_lp2
+	blr	
+  endif
+
+copy_record_node2_3_ab_or_b:
+	blt	copy_record_node2_3_b
+
+copy_record_node2_3_ab:
+  if NODE_POINTER_OFFSET==0
+	stw	a6,-4(a2)
+  endif
+	stw	d0,0(a6)
+
+	addi	a0,a6,1+NODE_POINTER_OFFSET
+	stw	a0,0-NODE_POINTER_OFFSET(a1)
+
+	lwz	a0,8-NODE_POINTER_OFFSET(a1)
+	stw	o0,4(a6)
+
+  if COPIED_VECTOR
+	lea	a1,heap_copied_vector
+	sub	d0,a0,a3
+	lwz	a1,0(a1)
+
+	tstmbit	a1,d0,d1,o0,o1,o2,3
+	bne	record_arguments_already_copied_2
+
+	li	o0,128
+	srw	o0,o0,o2
+	or	o1,o1,o0	
+	stbx	o1,a1,d1
+  endif
+
+	slwi	o0,d2,2
+	lwz	o1,0-NODE_POINTER_OFFSET(a0)
+	sub	o0,o4,o0
+
+	subi	d0,o0,3
+	subi	o0,o0,4
+
+  if NODE_POINTER_OFFSET==0
+	stw	d0,8(a6)
+	addi	a6,a6,12
+  else
+	stwu	d0,8(a6)
+ 	stw	a6,-4(a2)
+ 	addi	a6,a6,4
+  endif
+
+	b	cp_record_arg_lp3_c
+
+copy_record_node2_3_b:
+	stwu	d0,-12(o4)
+	stw	o4,-4(a2)
+
+	addi	a0,o4,1+NODE_POINTER_OFFSET
+	stw	a0,0-NODE_POINTER_OFFSET(a1)
+
+	lwz	a0,8-NODE_POINTER_OFFSET(a1)
+	stw	o0,4(o4)
+
+  if COPIED_VECTOR
+	lea	a1,heap_copied_vector
+	sub	d0,a0,a3
+	lwz	a1,0(a1)
+
+	tstmbit	a1,d0,d1,o0,o1,o2,3
+	bne	record_arguments_already_copied_3
+
+	li	o0,128
+	srw	o0,o0,o2
+	or	o1,o1,o0	
+	stbx	o1,a1,d1
+  endif
+
+	slwi	o0,d2,2
+	lwz	o1,0-NODE_POINTER_OFFSET(a0)
+	sub	o0,o4,o0
+
+	subi	d0,o0,3
+	subi	o0,o0,4
+
+	stw	o0,8(o4)
+
+cp_record_arg_lp3_c:
+
+	stw	d0,0-NODE_POINTER_OFFSET(a0)
+	mr	o4,o0
+	stw	o1,0(o0)
+
+cp_record_arg_lp3:
+	lwzu	o1,4(a0)
+	subic.	d2,d2,1
+	stwu	o1,4(o0)
+	bgt	cp_record_arg_lp3
+
+	bge	5,copy_lp2
+	blr
+
+  if COPIED_VECTOR
+record_arguments_already_copied_3:
+	lwz	o0,0-NODE_POINTER_OFFSET(a0)
+	bsubi	o0,1
+	stw	o0,8(o4)
+	bge	5,copy_lp2
+	blr
+  endif
+
+
+ else
+copy_record_2:
+	subic.	d2,d2,258
+	lwz	o0,4-NODE_POINTER_OFFSET(a1)
+
+	addi	a0,a6,1+NODE_POINTER_OFFSET
+	stw	a0,0-NODE_POINTER_OFFSET(a1)
+
+	blt	copy_record_node2_1
+	bgt	copy_record_node2_3
+
+	lwz	o1,8-NODE_POINTER_OFFSET(a1)
+
+	stw	o0,4(a6)
+  if NODE_POINTER_OFFSET==0
+	stw	o1,8(a6)
+	baddi	a6,12
+  else
+	stwu	o1,8(a6)
+ 	stw	a6,-4(a2)
+	baddi	a6,4
+  endif
+	bge	5,copy_lp2
+	blr	
+
+copy_record_node2_1:
+	stw	o0,4-NODE_POINTER_OFFSET(a6)
+	baddi	a6,8
+  if NODE_POINTER_OFFSET
+ 	stw	a6,-4(a2)
+  endif
+	bge	5,copy_lp2
+	blr
+
+copy_record_node2_3:
+	lwz	a0,8-NODE_POINTER_OFFSET(a1)
+	stw	o0,4(a6)
+
+  if COPIED_VECTOR
+	lea	a1,heap_copied_vector
+	sub	d0,a0,a3
+	lwz	a1,0(a1)
+
+	tstmbit	a1,d0,d1,o0,o1,o2,3
+	bne	record_arguments_already_copied_2
+
+	li	o0,128
+	srw	o0,o0,o2
+	or	o1,o1,o0	
+	stbx	o1,a1,d1
+  endif
+  if NODE_POINTER_OFFSET==0
+	addi	a1,a6,12
+	stw	a1,8(a6)
+  else
+	addi	a1,a6,12+NODE_POINTER_OFFSET
+	stwu	a1,8(a6)
+ 	stw	a6,-4(a2)
+  endif
+	lwz	o1,0-NODE_POINTER_OFFSET(a0)
+	addi	a1,a1,1
+	stw	a1,0-NODE_POINTER_OFFSET(a0)
+  if NODE_POINTER_OFFSET==0
+	stwu	o1,12(a6)
+  else
+	stwu	o1,4(a6)
+  endif
+	subi	d2,d2,1
+
+cp_record_arg_lp2:
+  if NODE_POINTER_OFFSET
+	lwz	o1,4-NODE_POINTER_OFFSET(a0)
+	baddi	a0,4
+  else
+	lwzu	o1,4(a0)
+  endif
+	subic.	d2,d2,1
+	stwu	o1,4(a6)
+	bge	cp_record_arg_lp2
+
+	addi	a6,a6,4
+
+	bge	5,copy_lp2
+	blr	
+
+  if COPIED_VECTOR
+record_arguments_already_copied_2:
+	lwz	o0,0-NODE_POINTER_OFFSET(a0)
+  if NODE_POINTER_OFFSET==0
+	addi	a6,a6,12
+
+	stw	o0,-4(a6)
+  else
+	stwu	o0,8(a6)
+ 	stw	a6,-4(a2)
+	addi	a6,a6,4
+  endif
+	bge	5,copy_lp2
+	blr	
+  endif
+ endif
+
+not_in_hnf_2:
+	andi.	r0,d0,1
+	bne-	already_copied_2
+
+	lwz	d2,-4-NODE_POINTER_OFFSET(d0)
+	cmpwi	5,d5,0
+
+	extsb.	d2,d2
+	beq	copy_arity_0_node2_
+
+copy_node2_1_:
+	subic.	d2,d2,2
+	blt	copy_arity_1_node2
+
+copy_node2_3:
+ if NODE_POINTER_OFFSET==0
+	stw	a6,-4(a2)
+ endif
+	stw	d0,0(a6)
+	addi	a0,a6,1+NODE_POINTER_OFFSET
+	stw	a0,0-NODE_POINTER_OFFSET(a1)
+	lwzu	o0,4-NODE_POINTER_OFFSET(a1)
+ if NODE_POINTER_OFFSET
+	addi	o1,a6,8
+	stw	o1,-4(a2)
+ endif
+	stwu	o0,4(a6)
+cp_arg_lp2:
+	lwzu	o0,4(a1)
+	subic.	d2,d2,1
+	stwu	o0,4(a6)
+	bge	cp_arg_lp2
+
+	addi	a6,a6,4
+	bge	5,copy_lp2
+	blr	
+
+copy_arity_1_node2:
+	cmpwi	0,d2,-1-2
+	ble	copy_selector_2
+
+copy_arity_1_node2_:
+ if NODE_POINTER_OFFSET==0
+	stw	a6,-4(a2)
+ endif
+	lwz	o0,4-NODE_POINTER_OFFSET(a1)
+	addi	a0,a6,1+NODE_POINTER_OFFSET
+	stw	a0,0-NODE_POINTER_OFFSET(a1)
+ if NODE_POINTER_OFFSET
+	addi	o1,a6,8
+	stw	o1,-4(a2)
+ endif
+	stw	d0,0(a6)
+	stw	o0,4(a6)
+	addi	a6,a6,12
+
+	bge	5,copy_lp2
+	blr	
+
+copy_indirection_2:
+	mr	d1,a1
+	lwz	a1,4-NODE_POINTER_OFFSET(a1)
+	
+	lwz	d0,0-NODE_POINTER_OFFSET(a1)
+
+	andi.	r0,d0,2
+	bne	in_hnf_2
+
+	andi.	r0,d0,1
+	bne	already_copied_2_
+
+	lwz	d2,-4(d0)
+
+	extsb.	d2,d2
+	beq	copy_arity_0_node2_
+
+	cmpwi	0,d2,-2
+	bne	copy_node2_1_
+
+skip_indirections_2:
+	lwz	a1,4-NODE_POINTER_OFFSET(a1)
+	lwz	d0,0-NODE_POINTER_OFFSET(a1)
+
+	andi.	r0,d0,3
+	bne	update_indirection_list_2
+
+	lwz	o0,-4(d0)
+	mr	a0,d0
+	cmpwi	0,o0,-2
+	beq	skip_indirections_2
+
+update_indirection_list_2:
+	addi	a0,d1,4
+	lwz	d1,0-NODE_POINTER_OFFSET(a0)
+	stw	a1,0-NODE_POINTER_OFFSET(a0)
+	cmpw	0,a1,d1
+	bne	update_indirection_list_2
+
+	lwz	d0,0-NODE_POINTER_OFFSET(a1)
+	b	continue_after_selector_2
+
+copy_selector_2:
+	cmpwi	0,d2,-2-2
+	beq	copy_indirection_2
+
+	mr	a0,d0
+	blt	copy_record_selector_2
+
+ if LINUX
+	lwz	d2,-8(a0)
+ else
+	lha	d2,-6(a0)
+ endif
+	lwz	a0,4-NODE_POINTER_OFFSET(a1)
+ if ! LINUX
+	lwzx	d2,rtoc,d2
+ endif
+	lwz	d1,0-NODE_POINTER_OFFSET(a0)
+	andi.	r0,d1,2
+	beq	copy_arity_1_node2_
+
+	lha	g1,-2(d1)
+	cmplwi	0,g1,2
+	ble	copy_selector_2_
+
+ if ! NEW_DESCRIPTORS
+copy_selector_2__:
+ endif
+ if 1
+	lwz	d1,8-NODE_POINTER_OFFSET(a0)
+	lwz	g1,0(d1)
+ else
+	lwz	g1,8-NODE_POINTER_OFFSET(a0)
+	lwz	g1,0(g1)
+ endif
+	andi.	r0,g1,1
+	bne	copy_arity_1_node2_
+
+ if NEW_DESCRIPTORS
+	lhz	d2,4(d2)
+	lea	g1,__indirection
+	stw	g1,0-NODE_POINTER_OFFSET(a1)
+	
+	cmplwi	0,d2,8
+	blt	copy_selector_2_1
+	beq	copy_selector_2_2
+
+	addi	d1,d1,-12
+	lwzx	a0,d1,d2
+	stw	a0,4-NODE_POINTER_OFFSET(a1)
+	lwz	d0,0-NODE_POINTER_OFFSET(a0)
+	mr	a1,a0
+	b	continue_after_selector_2
+
+copy_selector_2_1:
+	lwz	a0,4-NODE_POINTER_OFFSET(a0)
+	stw	a0,4-NODE_POINTER_OFFSET(a1)
+	lwz	d0,0-NODE_POINTER_OFFSET(a0)
+	mr	a1,a0
+	b	continue_after_selector_2
+
+copy_selector_2_2:
+	lwz	a0,0(d1)
+	stw	a0,4-NODE_POINTER_OFFSET(a1)
+	lwz	d0,0-NODE_POINTER_OFFSET(a0)
+	mr	a1,a0
+	b	continue_after_selector_2
+
+copy_selector_2_:
+	lhz	d2,4(d2)
+	lea	g1,__indirection
+	stw	g1,0-NODE_POINTER_OFFSET(a1)
+
+	lwzx	a0,a0,d2
+	stw	a0,4-NODE_POINTER_OFFSET(a1)
+	lwz	d0,0-NODE_POINTER_OFFSET(a0)
+	mr	a1,a0
+	b	continue_after_selector_2
+ else
+copy_selector_2_:
+ if ! LINUX
+	lwzx	d2,rtoc,d2
+ endif
+	lwz	g1,4(d2)
+
+	mtctr	g1
+
+	mr	d2,a1
+
+	mflr	r0
+	stwu	r0,-4(sp)
+	bctrl
+	mtlr	r0
+
+	lea	g1,__indirection
+	stw	a0,4-NODE_POINTER_OFFSET(d2)
+	stw	g1,0-NODE_POINTER_OFFSET(d2)
+
+	mr	a1,a0
+	lwz	d0,0-NODE_POINTER_OFFSET(a1)
+	b	continue_after_selector_2
+ endif
+
+copy_record_selector_2:
+	cmpwi	0,d2,-2-3
+ if LINUX
+	lwz	d2,-8(a0)
+ else
+	lha	d2,-6(a0)
+ endif
+	beq	copy_strict_record_selector_2
+
+	lwz	a0,4-NODE_POINTER_OFFSET(a1)
+	lwz	d1,0-NODE_POINTER_OFFSET(a0)
+	andi.	r0,d1,2
+	beq	copy_arity_1_node2_
+
+	lha	g1,-2(d1)
+  if ! LINUX
+	lwzx	d2,rtoc,d2
+  endif
+	cmplwi	0,g1,258
+ if NEW_DESCRIPTORS
+	ble	copy_record_selector_2_
+ else
+	ble	copy_selector_2_
+ endif
+
+ if 1
+	lhz	g1,-2+2(d1)
+	cmplwi	0,g1,2
+	bge	copy_selector_2__
+ endif
+
+	lea	g1,heap_copied_vector
+ if 1
+	lwz	d1,8-NODE_POINTER_OFFSET(a0)
+	lwz	g1,0(g1)
+	sub	g0,d1,a3
+
+	tstmbit	g1,g0,o0,g1,o1,o2,3
+ else
+	lwz	g0,8-NODE_POINTER_OFFSET(a0)
+	lwz	g1,0(g1)
+	sub	g0,g0,a3
+
+	tstmbit	g1,g0,d1,o0,o1,o2,3
+ endif
+ if NEW_DESCRIPTORS
+  if 1
+ 	beq	copy_record_selector_2_
+	b	copy_arity_1_node2_
+copy_selector_2__:
+	lwz	d1,8-NODE_POINTER_OFFSET(a0)
+	lwz	g1,0(d1)
+	andi.	r0,g1,1
+	bne	copy_arity_1_node2_
+  else
+	bne	copy_arity_1_node2_
+  endif
+copy_record_selector_2_:
+	lhz	d2,4(d2)
+	lea	g1,__indirection
+	stw	g1,0-NODE_POINTER_OFFSET(a1)
+	
+	cmplwi	0,d2,8
+	ble	copy_record_selector_3
+	mr	a0,d1
+	addi	d2,d2,-12
+copy_record_selector_3:
+	lwzx	a0,a0,d2
+	stw	a0,4-NODE_POINTER_OFFSET(a1)
+	lwz	d0,0-NODE_POINTER_OFFSET(a0)
+	mr	a1,a0
+	b	continue_after_selector_2
+ else
+	bne	copy_arity_1_node2_
+	b	copy_selector_2_
+ endif
+
+copy_strict_record_selector_2:
+	lwz	a0,4-NODE_POINTER_OFFSET(a1)
+	lwz	d1,0-NODE_POINTER_OFFSET(a0)
+	andi.	r0,d1,2
+	beq	copy_arity_1_node2_
+
+	lha	g1,-2(d1)
+  if ! LINUX
+	lwzx	d2,rtoc,d2
+  endif
+	cmplwi	0,g1,258
+	ble	copy_strict_record_selector_2_
+
+ if 1
+	lhz	g1,-2+2(d1)
+	cmplwi	0,g1,2
+	blt	copy_strict_record_selector_2_b
+
+	lwz	d1,8-NODE_POINTER_OFFSET(a0)
+	lwz	g1,0(d1)
+	andi.	r0,g1,1
+	bne	copy_arity_1_node2_
+	b	copy_strict_record_selector_2_
+
+copy_strict_record_selector_2_b:
+ endif
+
+	lea	g1,heap_copied_vector
+	lwz	d1,8-NODE_POINTER_OFFSET(a0)
+	lwz	g1,0(g1)
+	sub	g0,d1,a3
+
+	tstmbit_ g1,g0,o0,o1,o2,3
+	bne	copy_arity_1_node2_
+
+copy_strict_record_selector_2_:
+ if NEW_DESCRIPTORS
+	lhz	d0,4(d2)
+	cmplwi	0,d0,8
+	ble	copy_strict_record_selector_3
+	addi	d0,d0,-12
+	lwzx	d0,d1,d0
+	b	copy_strict_record_selector_4
+copy_strict_record_selector_3:
+	lwzx	d0,a0,d0
+copy_strict_record_selector_4:
+	stw	d0,4-NODE_POINTER_OFFSET(a1)
+
+	lhz	d0,6(d2)
+	cmplwi	0,d0,0
+	beq	copy_strict_record_selector_6
+	cmplwi	0,d0,8
+	ble	copy_strict_record_selector_5
+	addi	d0,d0,-12
+	mr	a0,d1
+copy_strict_record_selector_5:
+	lwzx	d0,a0,d0
+	stw	d0,8-NODE_POINTER_OFFSET(a1)
+copy_strict_record_selector_6:
+	lwz	d0,-4(d2)
+	stw	d0,0-NODE_POINTER_OFFSET(a1)
+	b	in_hnf_2
+ else
+  if ! LINUX
+	lwzx	d2,rtoc,d2
+  endif
+	mr	d0,a1
+	lwz	g1,4(d2)
+	mr	a1,a0
+	mtctr	g1
+
+	mr	a0,d0
+
+	mflr	r0
+	stwu	r0,-4(sp)
+	bctrl
+	mtlr	r0
+
+	lwz	d0,0-NODE_POINTER_OFFSET(a0)
+	mr	a1,a0
+	b	in_hnf_2
+ endif
+
+copy_arity_0_node2_:
+ if NODE_POINTER_OFFSET==0
+	stwu	d0,-12(o4)
+	stw	o4,-4(a2)
+	ori	d2,o4,1
+ else
+	addi	o1,o4,-4
+	stwu	d0,-12(o4)
+	ori	d2,o1,1
+	stw	o1,-4(a2)
+ endif
+	stw	d2,0-NODE_POINTER_OFFSET(a1)
+	bge	5,copy_lp2
+	blr	
+
+copy_string_or_array_2:
+	bne	copy_array_2
+
+	sub	d1,a1,a3
+	cmplw	0,d1,d7
+	bge	copy_string_constant
+
+	lwz	d2,4-NODE_POINTER_OFFSET(a1)
+	mr	a0,a1
+
+	lwz	o0,0-NODE_POINTER_OFFSET(a0)
+	addi	d2,d2,3
+	srwi	d2,d2,2
+
+	slwi	d1,d2,2
+	subi	a1,o4,8-NODE_POINTER_OFFSET
+	sub	a1,a1,d1
+
+	stw	a1,-4(a2)
+	ori	d0,a1,1
+
+	subi	o4,a1,NODE_POINTER_OFFSET
+ if NODE_POINTER_OFFSET
+	stwu	d0,0-NODE_POINTER_OFFSET(a0)
+	stwu	o0,0-NODE_POINTER_OFFSET(a1)
+ else
+	stw	d0,0-NODE_POINTER_OFFSET(a0)
+	stw	o0,0(a1)
+ endif
+
+cp_s_arg_lp2:
+	lwzu	o0,4(a0)
+	subic.	d2,d2,1
+	stwu	o0,4(a1)
+	bge	cp_s_arg_lp2
+
+	bge	5,copy_lp2
+	blr
+
+copy_string_constant:
+	stw	a1,-4(a2)
+	bge	5,copy_lp2
+	blr
+
+copy_array_2:
+	mr	a0,a1
+
+	lwz	d0,8-NODE_POINTER_OFFSET(a0)
+	lwz	d2,4-NODE_POINTER_OFFSET(a0)
+	cmpwi	0,d0,0
+	beq	copy_array_a2
+
+	lhz	d1,-2(d0)
+	cmpwi	0,d1,0
+	beq	copy_strict_basic_array_2
+
+	subi	d0,d1,256
+	mullw	d2,d2,d0
+
+copy_array_a2:
+	addi	a1,a6,0-NODE_POINTER_OFFSET
+
+	slwi	d1,d2,2
+	add	a6,a6,d1
+	addi	a6,a6,12
+
+	stw	a1,-4(a2)
+	addi	d0,a1,1
+
+	lwz	o0,0-NODE_POINTER_OFFSET(a0)
+ if NODE_POINTER_OFFSET
+	stwu	d0,0-NODE_POINTER_OFFSET(a0)
+	addi	d2,d2,1
+	stwu	o0,0-NODE_POINTER_OFFSET(a1)
+ else
+	stw	d0,0-NODE_POINTER_OFFSET(a0)
+	addi	d2,d2,1
+	stw	o0,0(a1)
+ endif
+	b	cp_s_arg_lp2
+
+copy_strict_basic_array_2:
+	cmplw	d0,int_reg
+	beq	copy_int_array_2
+	cmpw	bool_reg,d0
+	beq	copy_bool_array_2
+	add	d2,d2,d2
+copy_int_array_2:
+	slwi	d1,d2,2
+	subi	a1,o4,12-NODE_POINTER_OFFSET
+
+	sub	a1,a1,d1
+	lwz	o0,0-NODE_POINTER_OFFSET(a0)
+
+	stw	a1,-4(a2)
+	addi	d0,a1,1
+
+	subi	o4,a1,NODE_POINTER_OFFSET
+ if NODE_POINTER_OFFSET
+	stwu	d0,0-NODE_POINTER_OFFSET(a0)
+	addi	d2,d2,1
+	stw	o0,0-NODE_POINTER_OFFSET(a1)
+ else
+	stw	d0,0-NODE_POINTER_OFFSET(a0)
+	addi	d2,d2,1
+	stw	o0,0(a1)
+ endif
+	b	cp_s_arg_lp2
+
+copy_bool_array_2:
+	addi	d2,d2,3
+	srwi	d2,d2,2
+	b	copy_int_array_2
+
+end_copy1:
+
+ if FINALIZERS
+	lea	a0,finalizer_list
+	lea	a1,free_finalizer_list
+	lwz	a2,0(a0)
+
+determine_free_finalizers_after_copy:
+	lwz	d0,0(a2)
+	andi.	o0,d0,1
+	beq	finalizer_not_used_after_copy
+
+	lwz	a2,4(a2)
+	subi	d0,d0,1
+	stw	d0,0(a0)
+	addi	a0,d0,4
+	b	determine_free_finalizers_after_copy
+
+finalizer_not_used_after_copy:
+	lea	o0,__Nil_m8
+	cmplw	a2,o0
+	beq	end_finalizers_after_copy
+
+	stw	a2,0(a1)
+	addi	a1,a2,4
+	lwz	a2,4(a2)
+	b	determine_free_finalizers_after_copy	
+
+end_finalizers_after_copy:
+	stw	a2,0(a0)
+	stw	a2,0(a1)
+ endif

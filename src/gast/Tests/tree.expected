@@ -1,0 +1,4 @@
+"propMirror1" Passed after 1000 tests
+15:Node (Node Leaf Red (Node Leaf Red Leaf)) Red (Node (Node Leaf Red Leaf) Red Leaf)
+"propMirror2" Counterexample 1 found after 15 tests: Node (Node Leaf Red (Node Leaf Red Leaf)) Red (Node (Node Leaf Red Leaf) Red Leaf)
+"propMirror2" 1 counterexample found after 15 tests, 3 cases rejected

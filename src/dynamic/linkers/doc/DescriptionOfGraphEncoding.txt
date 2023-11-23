@@ -1,0 +1,30 @@
+Global description of datagraph representation in Clean
+
+datagraph = that part of the conceptual graph which has not been replaced
+            by instructions. (
+
+The datagraph consists of:
+1) a representation of the datagraph (structure/values)
+A graph consists of a node descriptor plus its arguments. The node descriptor
+is stored as a pointer to an entry in the descriptor/module name table. 
+
+The graph is traversed in a top-down left-to-right fashion. Implicit pointers
+are used i.e. offsets from the node to its arguments. An arbitrary node can
+*not* be accessed, only via its parent. In the case of unboxed arguments: they
+are stored directly in the string representation of the parent node. They are
+stored together at the end of the string representation of the node.
+
+The descriptor which is linked in contains the information of how many args
+are stored.
+
+Sharing is encoded by changing the run-time graph by indirection pointer. If
+the algoritm encounters this indirection pointer. It sets the sharing bit in 
+the descriptor/module name pointer. What follows is the offset to the already
+encoded shared node.
+
+The (partially) arity of descriptors is also stored in the pointer to the
+descriptor/module name table.
+
+2) a descriptor/module name table
+
+

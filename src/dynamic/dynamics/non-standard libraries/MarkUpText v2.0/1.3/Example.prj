@@ -1,0 +1,8563 @@
+Version: 1.4
+Global
+	Built:	True
+	Target:	StdEnv + ObjectIO 1.2
+	Exec:	{Project}\Example.exe
+	CodeGen
+		CheckStacks:	True
+		CheckIndexes:	True
+		TargetProcessor:	CurrentProcessor
+	Application
+		HeapSize:	409600
+		StackSize:	102400
+		ExtraMemory:	81920
+		IntialHeapSize:	204800
+		HeapSizeMultiplier:	4096
+		ShowExecutionTime:	False
+		ShowGC:	False
+		ShowStackSize:	False
+		MarkingCollector:	False
+		StandardRuntimeEnv:	True
+		Profile
+			Memory:	False
+			MemoryMinimumHeapSize:	5242880
+			Time:	True
+			Stack:	False
+		Output
+			Output:	ShowConstructors
+			Font:	Courier
+			FontSize:	9
+			WriteStdErr:	False
+	Link
+		LinkMethod:	Static
+		GenerateRelocations:	False
+		GenerateLinkMap:	False
+		LinkResources:	False
+		ResourceSource:	
+	Paths
+		Path:	{Project}
+		Path:	C:\CleanCompiler\Compiler - 17 november 1999
+		Path:	{Application}\Object IO Libraries\Object IO 1.2\MdM_IOlib
+		Path:	C:\CleanCompiler\Theorem Prover
+		Path:	C:\CleanCompiler\Theorem Prover\RWSDebug
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\Object IO 1.2\MdM_IOlib
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug
+		Path:	C:\WINDOWS\DESKTOP\Linkers\dynamic\pc
+		Path:	C:\WINDOWS\DESKTOP\Linkers\dynamic\shared
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc
+		Path:	C:\WINDOWS\DESKTOP\dumpDynamic
+MainModule
+	Name:	Example
+	Dir:	{Project}
+	Compiler
+		NeverMemoryProfile:	False
+		NeverTimeProfile:	False
+		StrictnessAnalysis:	True
+		ListTypes:	NoTypes
+		ListAttributes:	False
+		Warnings:	False
+		Verbose:	False
+		ReadableABC:	False
+		ReuseUniqueNodes:	True
+	Dcl
+		Editor
+			TabSize:	4
+			Font:	Courier New
+			FontSize:	7
+			AutoIndent:	True
+			ShowTabs:	True
+			ShowLins:	True
+		WindowPosition
+			X:	0
+			Y:	0
+			SizeX:	500
+			SizeY:	300
+	DclOpen:	False
+	Icl
+		Editor
+			TabSize:	4
+			Font:	Courier New
+			FontSize:	7
+			AutoIndent:	True
+			ShowTabs:	True
+			ShowLins:	True
+		WindowPosition
+			X:	165
+			Y:	16
+			SizeX:	902
+			SizeY:	787
+	IclOpen:	False
+	LastModified:	No 0 0 0 0 0 0
+OtherModules
+	Module
+		Name:	IndexType
+		Dir:	C:\WINDOWS\DESKTOP\Sources Theorem Prover
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	expand_8_3_names_in_path
+		Dir:	C:\WINDOWS\DESKTOP\IDE stuff
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ArgEnv
+		Dir:	{Application}\Libraries\ArgEnvWindows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+		NeededObjFiles
+			ObjectFile:	ArgEnvC.obj
+	Module
+		Name:	write_dynamic
+		Dir:	C:\WINDOWS\DESKTOP\dumpDynamic
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	compute_graph
+		Dir:	C:\WINDOWS\DESKTOP\dumpDynamic
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	pdExtInt
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\static\pc
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ExtInt
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\shared
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	Version
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\dynamic\shared
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	xcoff
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\static\pc
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	NamesTable
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\shared
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	pdSymbolTable
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\static\pc
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	SymbolTable
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\shared
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ExtArray
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\shared
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	Directory
+		Dir:	{Application}\Libraries\Directory1.0
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+		NeededObjFiles
+			ObjectFile:	cDirectory.obj
+		NeededLibraries
+			Library:	directory_library
+	Module
+		Name:	pdExtString
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\static\pc
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ExtString
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\shared
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	pdExtFile
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\static\pc
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+		NeededObjFiles
+			ObjectFile:	fileutilities.obj
+			ObjectFile:	filesize.obj
+		NeededLibraries
+			Library:	kernel32_library
+			Library:	fileutilities_library
+	Module
+		Name:	ExtFile
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\shared
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	UnknownModuleOrSymbol
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\dynamic\shared
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	dynamics
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\dynamic\shared
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	DebugUtilities
+		Dir:	C:\WINDOWS\DESKTOP\Linkers\shared
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	read_dynamic
+		Dir:	C:\WINDOWS\DESKTOP\dumpDynamic
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	memory
+		Dir:	C:\WINDOWS\DESKTOP\dumpDynamic
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+		NeededObjFiles
+			ObjectFile:	mem.o
+	Module
+		Name:	ddState
+		Dir:	C:\WINDOWS\DESKTOP\dumpDynamic
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	10
+				AutoIndent:	True
+				ShowTabs:	False
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+		NeededLibraries
+			Library:	StaticClientChannel_library
+	Module
+		Name:	layout
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowevent
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlresize
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlcreate
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	timerevent
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controldraw
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ostooltip
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	clipboardCrossCall_12
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	sdisize
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	processevent
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receiverevent
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	MdM_IOlib
+		Dir:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\Object IO 1.2\MdM_IOlib
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	301
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	MarkUpText
+		Dir:	{Project}
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	171
+				Y:	1
+				SizeX:	899
+				SizeY:	391
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	173
+				Y:	29
+				SizeX:	915
+				SizeY:	787
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdEnv
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdBool
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdOverloaded
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdInt
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdReal
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdChar
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdArray
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	_SystemArray
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdString
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdFile
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdClass
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdList
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdOrdList
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTuple
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdCharList
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdFunc
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMisc
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdEnum
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	_SystemEnum
+		Dir:	{Application}\StdEnv
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdIO
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdId
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMaybe
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdIOBasic
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	id
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	device
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	systemid
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	iostate
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osdocumentinterface
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menuCrossCall_12
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ostoolbox
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ostypes
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ostoolbar
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osbitmap
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ospicture
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	pictCCall_12
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	rgnCCall_12
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osfont
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osrgn
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdPictureDef
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdIOCommon
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	713
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdBitmap
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdPicture
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdKey
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	key
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osevent
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	clCrossCall_12
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+		NeededObjFiles
+			ObjectFile:	Dsutil.obj
+			ObjectFile:	ddutil.obj
+			ObjectFile:	cOSGameLib_12.obj
+			ObjectFile:	cGameLib_12.obj
+			ObjectFile:	cTCP.obj
+			ObjectFile:	cprinter_12.obj
+			ObjectFile:	util_12.obj
+			ObjectFile:	cpicture_12.obj
+			ObjectFile:	cdebug_12.obj
+			ObjectFile:	cCrossCall_12.obj
+		NeededLibraries
+			Library:	dsound_library
+			Library:	ddraw_library
+			Library:	userExt_library
+			Library:	gdiExt_library
+			Library:	kernelExt_library
+			Library:	wsock_library
+			Library:	winspool_library
+			Library:	winmm_library
+			Library:	shell32_library
+			Library:	ole32_library
+			Library:	kernel32_library
+			Library:	comctl32_library
+			Library:	advapi32_library
+	Module
+		Name:	osguishare
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osactivaterequests
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	oswindow
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ostime
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	devicefunctions
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	deviceevents
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receivermessage
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receivertable
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	semidynamic
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	timertable
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTimerDef
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	809
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowaccess
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	devicesystemstate
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menuhandle
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMenuDef
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	commondef
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receiverhandle
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osmenu
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	processhandle
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	timerhandle
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowhandle
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdWindowDef
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdControlDef
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	keyfocus
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	processstack
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	roundrobin
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdPSt
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdFileSelect
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdSound
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTime
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ostick
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdSystem
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdProcessDef
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdProcessAttribute
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdProcess
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdClipboard
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdPrint
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osprint
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdPrintText
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdControlAttribute
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdControlClass
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdControlReceiver
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdReceiverDef
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdControl
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	1048
+				SizeY:	905
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMenuAttribute
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMenuElementClass
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMenuReceiver
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMenuElement
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdMenu
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdReceiverAttribute
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdReceiver
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTimerAttribute
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTimerElementClass
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTimerReceiver
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdTimer
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	690
+				SizeY:	510
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdWindowAttribute
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdWindow
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	554
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	world
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osmouse
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	clCCall_12
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowCrossCall_12
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ossystem
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	cast
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	scheduler
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osbeep
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osfileselect
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receiverid
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receiverdevice
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	processdevice
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	toolbar
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	osclipboard
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlvalidate
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	wstate
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowvalidate
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receiveraccess
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlaccess
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlinternal
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowclipstate
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	wstateaccess
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menudefaccess
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	mstate
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menuaccess
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menuevent
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menucreate
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menudevice
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menuinternal
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	menuitems
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	receiverdefaccess
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	timeraccess
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	timerdefaccess
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	timerdevice
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlpos
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowcontrols
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowcreate
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowdevice
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controllayout
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	controlrelayout
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	relayout
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowdispose
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowdraw
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowupdate
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	7
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	windowCCall_12
+		Dir:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	8
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	8
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	StdPStClass
+		Dir:	{Application}\ObjectIO12\ObjectIO
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	8
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	8
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	RWSDebug
+		Dir:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	8
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	8
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	Debug
+		Dir:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	8
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	8
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	Wrap
+		Dir:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	8
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	8
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+	Module
+		Name:	ShowWrapped
+		Dir:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	NoTypes
+			ListAttributes:	False
+			Warnings:	False
+			Verbose:	False
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+		Dcl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	8
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		DclOpen:	False
+		Icl
+			Editor
+				TabSize:	4
+				Font:	Courier New
+				FontSize:	8
+				AutoIndent:	True
+				ShowTabs:	True
+				ShowLins:	True
+			WindowPosition
+				X:	0
+				Y:	0
+				SizeX:	500
+				SizeY:	300
+		IclOpen:	False
+		LastModified:	No 0 0 0 0 0 0
+Static
+	Mods
+		Path:	{Project}\Example.icl
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\IndexType.icl
+		Path:	C:\WINDOWS\DESKTOP\IDE stuff\expand_8_3_names_in_path.icl
+		Path:	{Application}\Libraries\ArgEnvWindows\ArgEnv.icl
+		Path:	C:\WINDOWS\DESKTOP\dumpDynamic\write_dynamic.icl
+		Path:	C:\WINDOWS\DESKTOP\dumpDynamic\compute_graph.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc\pdExtInt.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\ExtInt.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\dynamic\shared\Version.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc\xcoff.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\NamesTable.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc\pdSymbolTable.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\SymbolTable.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\ExtArray.icl
+		Path:	{Application}\Libraries\Directory1.0\Directory.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc\pdExtString.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\ExtString.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc\pdExtFile.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\ExtFile.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\dynamic\shared\UnknownModuleOrSymbol.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\dynamic\shared\dynamics.icl
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\DebugUtilities.icl
+		Path:	C:\WINDOWS\DESKTOP\dumpDynamic\read_dynamic.icl
+		Path:	C:\WINDOWS\DESKTOP\dumpDynamic\memory.icl
+		Path:	C:\WINDOWS\DESKTOP\dumpDynamic\ddState.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\layout.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\windowevent.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\controlresize.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\controlcreate.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\timerevent.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\controldraw.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\ostooltip.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\clipboardCrossCall_12.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\sdisize.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\processevent.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\receiverevent.icl
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\Object IO 1.2\MdM_IOlib\MdM_IOlib.icl
+		Path:	{Project}\MarkUpText.icl
+		Path:	{Application}\StdEnv\StdEnv.icl
+		Path:	{Application}\StdEnv\StdBool.icl
+		Path:	{Application}\StdEnv\StdOverloaded.icl
+		Path:	{Application}\StdEnv\StdInt.icl
+		Path:	{Application}\StdEnv\StdReal.icl
+		Path:	{Application}\StdEnv\StdChar.icl
+		Path:	{Application}\StdEnv\StdArray.icl
+		Path:	{Application}\StdEnv\_SystemArray.icl
+		Path:	{Application}\StdEnv\StdString.icl
+		Path:	{Application}\StdEnv\StdFile.icl
+		Path:	{Application}\StdEnv\StdClass.icl
+		Path:	{Application}\StdEnv\StdList.icl
+		Path:	{Application}\StdEnv\StdOrdList.icl
+		Path:	{Application}\StdEnv\StdTuple.icl
+		Path:	{Application}\StdEnv\StdCharList.icl
+		Path:	{Application}\StdEnv\StdFunc.icl
+		Path:	{Application}\StdEnv\StdMisc.icl
+		Path:	{Application}\StdEnv\StdEnum.icl
+		Path:	{Application}\StdEnv\_SystemEnum.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdIO.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdId.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdMaybe.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdIOBasic.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\id.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\device.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\systemid.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\iostate.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\osdocumentinterface.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\menuCrossCall_12.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\ostoolbox.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\ostypes.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\ostoolbar.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\osbitmap.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\ospicture.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\pictCCall_12.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\rgnCCall_12.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\osfont.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\osrgn.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdPictureDef.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdIOCommon.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdBitmap.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdPicture.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdKey.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\key.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\osevent.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\clCrossCall_12.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\osguishare.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\osactivaterequests.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\oswindow.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\ostime.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\devicefunctions.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\deviceevents.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\receivermessage.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\receivertable.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\semidynamic.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\timertable.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdTimerDef.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\windowaccess.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\devicesystemstate.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\menuhandle.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdMenuDef.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\commondef.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\receiverhandle.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\osmenu.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\processhandle.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\timerhandle.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\windowhandle.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdWindowDef.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdControlDef.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\keyfocus.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\processstack.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\roundrobin.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdPSt.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdFileSelect.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdSound.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdTime.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\ostick.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdSystem.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdProcessDef.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdProcessAttribute.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdProcess.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdClipboard.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdPrint.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\osprint.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdPrintText.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdControlAttribute.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdControlClass.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdControlReceiver.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdReceiverDef.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdControl.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdMenuAttribute.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdMenuElementClass.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdMenuReceiver.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdMenuElement.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdMenu.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdReceiverAttribute.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdReceiver.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdTimerAttribute.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdTimerElementClass.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdTimerReceiver.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdTimer.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdWindowAttribute.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdWindow.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\world.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\osmouse.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\clCCall_12.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\windowCrossCall_12.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\ossystem.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\cast.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\scheduler.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\osbeep.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\osfileselect.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\receiverid.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\receiverdevice.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\processdevice.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\toolbar.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\osclipboard.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\controlvalidate.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\wstate.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\windowvalidate.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\receiveraccess.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\controlaccess.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\controlinternal.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\windowclipstate.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\wstateaccess.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\menudefaccess.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\mstate.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\menuaccess.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\menuevent.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\menucreate.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\menudevice.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\menuinternal.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\menuitems.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\receiverdefaccess.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\timeraccess.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\timerdefaccess.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\timerdevice.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\controlpos.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\windowcontrols.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\windowcreate.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\windowdevice.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\controllayout.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\controlrelayout.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\relayout.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\windowdispose.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\windowdraw.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\windowupdate.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\windowCCall_12.icl
+		Path:	{Application}\ObjectIO12\ObjectIO\StdPStClass.icl
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug\RWSDebug.icl
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug\Debug.icl
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug\Wrap.icl
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug\ShowWrapped.icl
+	Objs
+		Path:	{Application}\StdEnv\Clean System Files\_startup0.o
+		Path:	{Application}\StdEnv\Clean System Files\_startup1Profile.o
+		Path:	{Application}\StdEnv\Clean System Files\_startup2.o
+		Path:	{Application}\StdEnv\Clean System Files\_system.o
+		Path:	C:\WINDOWS\DESKTOP\IDE stuff\Clean System Files\expand_8_3_names_in_path.o
+		Path:	{Application}\Libraries\ArgEnvWindows\Clean System Files\ArgEnv.o
+		Path:	C:\WINDOWS\DESKTOP\dumpDynamic\Clean System Files\write_dynamic.o
+		Path:	C:\WINDOWS\DESKTOP\dumpDynamic\Clean System Files\compute_graph.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc\Clean System Files\pdExtInt.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\Clean System Files\ExtInt.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\dynamic\shared\Clean System Files\Version.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc\Clean System Files\xcoff.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\Clean System Files\NamesTable.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc\Clean System Files\pdSymbolTable.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\Clean System Files\SymbolTable.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\Clean System Files\ExtArray.o
+		Path:	{Application}\Libraries\Directory1.0\Clean System Files\Directory.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc\Clean System Files\pdExtString.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\Clean System Files\ExtString.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc\Clean System Files\pdExtFile.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\Clean System Files\ExtFile.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\dynamic\shared\Clean System Files\UnknownModuleOrSymbol.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\dynamic\shared\Clean System Files\dynamics.o
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\Clean System Files\DebugUtilities.o
+		Path:	C:\WINDOWS\DESKTOP\dumpDynamic\Clean System Files\read_dynamic.o
+		Path:	C:\WINDOWS\DESKTOP\dumpDynamic\Clean System Files\memory.o
+		Path:	C:\WINDOWS\DESKTOP\dumpDynamic\Clean System Files\ddState.o
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug\Clean System Files\ShowWrapped.o
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug\Clean System Files\Wrap.o
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug\Clean System Files\Debug.o
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug\Clean System Files\RWSDebug.o
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\Object IO 1.2\MdM_IOlib\Clean System Files\MdM_IOlib.o
+		Path:	{Project}\Clean System Files\MarkUpText.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\timerevent.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\timerdevice.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\timerdefaccess.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\timeraccess.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdTimer.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdTimerReceiver.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdTimerElementClass.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdTimerAttribute.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\receiverevent.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\receiverdevice.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdReceiver.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\mstate.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdMenuElement.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdMenuReceiver.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\windowcontrols.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\controlaccess.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdControl.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\receiverdefaccess.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\receiveraccess.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdReceiverAttribute.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdReceiverDef.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdControlReceiver.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdPrintText.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\controlinternal.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\windowevent.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\windowdispose.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\receiverid.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\controlresize.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\controldraw.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\windowdevice.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\ostooltip.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\controlcreate.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\menuitems.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\menuinternal.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\menudevice.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\menuevent.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\menuaccess.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\menucreate.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdMenuAttribute.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\menudefaccess.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdMenuElementClass.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdMenu.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\windowcreate.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\windowdraw.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\relayout.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\controlrelayout.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\controlpos.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\layout.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\controllayout.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\windowvalidate.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\controlvalidate.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdControlClass.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdWindow.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\osprint.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdPrint.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\clipboardCrossCall_12.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\osclipboard.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdClipboard.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\wstateaccess.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\windowclipstate.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\wstate.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\windowupdate.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdWindowAttribute.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdControlAttribute.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\windowaccess.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\oswindow.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\sdisize.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\toolbar.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\processevent.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\processdevice.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdProcess.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdSystem.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\ostick.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdTime.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdSound.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\scheduler.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\osfileselect.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdFileSelect.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdPStClass.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\world.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\osbeep.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdProcessDef.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdProcessAttribute.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdPSt.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\osmouse.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\roundrobin.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\processstack.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\timerhandle.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\processhandle.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\osmenu.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdMenuDef.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\menuhandle.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\devicesystemstate.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\keyfocus.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\receiverhandle.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdWindowDef.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdControlDef.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\windowhandle.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdTimerDef.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\timertable.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\cast.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\semidynamic.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\receivertable.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\receivermessage.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\deviceevents.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\devicefunctions.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\ostime.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\osactivaterequests.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\osguishare.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\osevent.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\windowCrossCall_12.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\ossystem.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\windowCCall_12.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\ostoolbar.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\menuCrossCall_12.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\osdocumentinterface.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\iostate.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\key.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdKey.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdPicture.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\osrgn.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdPictureDef.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\clCCall_12.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\osfont.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\ostypes.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\clCrossCall_12.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\ostoolbox.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\rgnCCall_12.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\pictCCall_12.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\ospicture.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\osbitmap.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdBitmap.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdIOCommon.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\commondef.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\systemid.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\device.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\id.o
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\Clean System Files\IndexType.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdIOBasic.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdMaybe.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdId.o
+		Path:	{Application}\ObjectIO12\ObjectIO\Clean System Files\StdIO.o
+		Path:	{Application}\StdEnv\Clean System Files\StdFunc.o
+		Path:	{Application}\StdEnv\Clean System Files\StdCharList.o
+		Path:	{Application}\StdEnv\Clean System Files\StdTuple.o
+		Path:	{Application}\StdEnv\Clean System Files\StdOrdList.o
+		Path:	{Application}\StdEnv\Clean System Files\StdList.o
+		Path:	{Application}\StdEnv\Clean System Files\StdFile.o
+		Path:	{Application}\StdEnv\Clean System Files\_SystemEnum.o
+		Path:	{Application}\StdEnv\Clean System Files\StdEnum.o
+		Path:	{Application}\StdEnv\Clean System Files\StdChar.o
+		Path:	{Application}\StdEnv\Clean System Files\StdClass.o
+		Path:	{Application}\StdEnv\Clean System Files\_SystemArray.o
+		Path:	{Application}\StdEnv\Clean System Files\StdArray.o
+		Path:	{Application}\StdEnv\Clean System Files\StdReal.o
+		Path:	{Application}\StdEnv\Clean System Files\StdString.o
+		Path:	{Application}\StdEnv\Clean System Files\StdMisc.o
+		Path:	{Application}\StdEnv\Clean System Files\StdInt.o
+		Path:	{Application}\StdEnv\Clean System Files\StdOverloaded.o
+		Path:	{Application}\StdEnv\Clean System Files\StdBool.o
+		Path:	{Application}\StdEnv\Clean System Files\StdEnv.o
+		Path:	{Project}\Clean System Files\Example.o
+		Path:	{Application}\Libraries\ArgEnvWindows\Clean System Files\ArgEnvC.obj
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\Dsutil.obj
+		Path:	{Application}\Libraries\Directory1.0\Clean System Files\cDirectory.obj
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\ddutil.obj
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\cOSGameLib_12.obj
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\cGameLib_12.obj
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\cTCP.obj
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\cprinter_12.obj
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc\Clean System Files\fileutilities.obj
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc\Clean System Files\filesize.obj
+		Path:	C:\WINDOWS\DESKTOP\dumpDynamic\Clean System Files\mem.o
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\util_12.obj
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\cpicture_12.obj
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\cdebug_12.obj
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\cCrossCall_12.obj
+	Dlib
+		Path:	{Application}\StdEnv\Clean System Files\kernel_library
+		Path:	{Application}\StdEnv\Clean System Files\user_library
+		Path:	{Application}\StdEnv\Clean System Files\comdlg_library
+		Path:	{Application}\StdEnv\Clean System Files\gdi_library
+		Path:	{Application}\StdEnv\Clean System Files\StaticClientChannel_library
+		Path:	{Application}\Libraries\Directory1.0\Clean System Files\directory_library
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\dsound_library
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\ddraw_library
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\Clean System Files\kernel32_library
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc\Clean System Files\fileutilities_library
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\userExt_library
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\gdiExt_library
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\kernelExt_library
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\wsock_library
+		Path:	{Application}\StdEnv\Clean System Files\winspool_library
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\winmm_library
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\shell32_library
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\ole32_library
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared\Clean System Files\kernel32_library
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\comctl32_library
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows\Clean System Files\advapi32_library
+	Pths
+		Path:	{Project}
+		Path:	C:\CleanCompiler\Compiler - 17 november 1999
+		Path:	{Application}\Object IO Libraries\Object IO 1.2\MdM_IOlib
+		Path:	C:\CleanCompiler\Theorem Prover
+		Path:	C:\CleanCompiler\Theorem Prover\RWSDebug
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\Object IO 1.2\MdM_IOlib
+		Path:	C:\WINDOWS\DESKTOP\Sources Theorem Prover\RWSDebug
+		Path:	C:\WINDOWS\DESKTOP\Linkers\dynamic\pc
+		Path:	C:\WINDOWS\DESKTOP\Linkers\dynamic\shared
+		Path:	C:\WINDOWS\DESKTOP\Linkers\shared
+		Path:	C:\WINDOWS\DESKTOP\Linkers\static\pc
+		Path:	C:\WINDOWS\DESKTOP\dumpDynamic
+		Path:	{Application}\StdEnv
+		Path:	{Application}\ObjectIO12\ObjectIO
+		Path:	{Application}\ObjectIO12\ObjectIO\OS Windows
+		Path:	{Application}\ObjectIO12\GameLib
+		Path:	{Application}\Libraries\ArgEnvWindows
+		Path:	{Application}\Libraries\Directory1.0
+		Path:	C:\WINDOWS\DESKTOP\IDE stuff
+	AppP:	C:\WINDOWS\DESKTOP\Clean
+	PrjP:	C:\WINDOWS\DESKTOP\MarkUpText v2.0

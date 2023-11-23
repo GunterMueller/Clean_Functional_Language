@@ -1,0 +1,174 @@
+Version: 1.0
+TWFnt
+	Name:	Monaco
+	Size:	9
+TWPos
+	VX:	88
+	VY:	490
+TWSiz
+	W:	946
+	H:	247
+TWSync
+	col_text:	RGB 0 :: 0 :: 0
+	col_back:	RGB 215 :: 255 :: 255
+	col_margin:	RGB 204 :: 242 :: 242
+	col_tabs:	RGB 215 :: 0 :: 0
+	col_comm:	RGB 0 :: 0 :: 215
+	col_stri:	RGB 0 :: 175 :: 0
+	col_char:	RGB 185 :: 0 :: 255
+	col_keyw:	3Grey
+	col_type:	0Black
+	col_decl:	0Black
+CWFnt
+	Name:	Monaco
+	Size:	9
+CWPos
+	VX:	30
+	VY:	30
+CWSiz
+	W:	800
+	H:	300
+CWSync
+	col_text:	0Black
+	col_back:	1White
+	col_margin:	RGB 231 :: 204 :: 231
+	col_tabs:	5Red
+	col_comm:	7Blue
+	col_stri:	6Green
+	col_char:	9Magenta
+	col_keyw:	3Grey
+	col_type:	0Black
+	col_decl:	0Black
+EWPrefs
+	EWPos
+		VX:	0
+		VY:	502
+	EWSiz
+		W:	1001
+		H:	193
+	EWFNm:	Monaco
+	EWFSz:	9
+	EWFor:	RGB 0 :: 0 :: 0
+	EWBak:	RGB 255 :: 215 :: 255
+	EWErr:	1
+	EWWrn:	1
+	EWInf:	1
+SWPrefs
+	EWPos
+		VX:	632
+		VY:	27
+	EWSiz
+		W:	382
+		H:	620
+	EWFNm:	Monaco
+	EWFSz:	9
+	EWFor:	RGB 0 :: 0 :: 0
+	EWBak:	RGB 143 :: 219 :: 255
+PWPos
+	VX:	70
+	VY:	3
+PWSiz
+	W:	265
+	H:	436
+PWTop:	RGB 215 :: 255 :: 229
+PWFor:	RGB 109 :: 0 :: 0
+PWBak:	RGB 210 :: 210 :: 179
+PWFnt
+	Name:	Monaco
+	Size:	9
+PWDcl:	1
+EdFnt
+	Name:	Monaco
+	Size:	9
+EdTab:	64
+EdMargin:	0
+ComOp
+	NeverMemoryProfile:	False
+	NeverTimeProfile:	False
+	StrictnessAnalysis:	True
+	ListTypes:	StrictExportTypes
+	ListAttributes:	True
+	Warnings:	True
+	Verbose:	True
+	ReadableABC:	False
+	ReuseUniqueNodes:	True
+GenOp
+	CheckStacks:	False
+	CheckIndexes:	True
+LnkOp
+	LinkMethod:	Static
+	GenerateRelocations:	False
+	GenerateLinkMap:	False
+	LinkResources:	False
+	ResourceSource:	
+	GenerateDLL:	False
+	ExportedNames:	
+AppOp
+	HeapSize:	409600
+	StackSize:	102400
+	ExtraMemory:	81920
+	IntialHeapSize:	204800
+	HeapSizeMultiplier:	4096
+	ShowExecutionTime:	False
+	ShowGC:	False
+	ShowStackSize:	False
+	MarkingCollector:	False
+	StandardRuntimeEnv:	True
+	Profile
+		Memory:	False
+		MemoryMinimumHeapSize:	0
+		Time:	False
+		Stack:	False
+	Output
+		Output:	ShowConstructors
+		Font:	Monaco
+		FontSize:	9
+		WriteStdErr:	False
+SynCl
+	col_text:	RGB 0 :: 0 :: 0
+	col_back:	RGB 215 :: 255 :: 215
+	col_margin:	RGB 204 :: 242 :: 204
+	col_tabs:	RGB 195 :: 0 :: 0
+	col_comm:	RGB 0 :: 0 :: 195
+	col_stri:	RGB 0 :: 155 :: 0
+	col_char:	RGB 155 :: 0 :: 155
+	col_keyw:	RGB 127 :: 0 :: 127
+	col_type:	0Black
+	col_decl:	0Black
+DefCl
+	col_text:	RGB 0 :: 0 :: 0
+	col_back:	RGB 255 :: 215 :: 215
+	col_margin:	RGB 242 :: 204 :: 204
+	col_tabs:	RGB 195 :: 0 :: 0
+	col_comm:	RGB 0 :: 0 :: 195
+	col_stri:	RGB 0 :: 155 :: 0
+	col_char:	RGB 155 :: 0 :: 155
+	col_keyw:	RGB 127 :: 0 :: 127
+	col_type:	RGB 195 :: 0 :: 0
+	col_decl:	RGB 195 :: 0 :: 0
+ImpCl
+	col_text:	RGB 0 :: 0 :: 0
+	col_back:	RGB 255 :: 255 :: 215
+	col_margin:	RGB 242 :: 242 :: 204
+	col_tabs:	RGB 195 :: 0 :: 0
+	col_comm:	RGB 0 :: 0 :: 195
+	col_stri:	RGB 0 :: 155 :: 0
+	col_char:	RGB 155 :: 0 :: 155
+	col_keyw:	RGB 127 :: 0 :: 127
+	col_type:	RGB 195 :: 0 :: 0
+	col_decl:	RGB 195 :: 0 :: 0
+FileHist
+SwitchClose:	0
+ShowToolbar:	1
+BeVerbose:	1
+AltGrWorkaround:	0
+NewlineHandling:	L0
+RegPrefs
+	TimepName:	ShowTimeProfile
+	TimepPath:	{Application}:Tools:
+	HeappName:	ShowHeapProfile
+	HeappPath:	{Application}:Tools:
+	ProofName:	Sparkle
+	ProofPath:	{Application}:Tools:Sparkle 0.0.3a:
+	VisedName:	VisualEditor.exe
+	VisedPath:	{Application}:Tools:Visual Editor:

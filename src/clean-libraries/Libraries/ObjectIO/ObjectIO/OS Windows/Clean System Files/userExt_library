@@ -1,0 +1,12 @@
+user32.dll
+ChangeClipboardChain@8
+GetNextDlgTabItem@12
+IsWindowVisible@4
+LoadImageA@24
+RedrawWindow@16
+RegisterClassExA@4
+ScrollDC@28
+ShowCursor@4
+ShowScrollBar@12
+TrackPopupMenu@28
+WaitMessage@0

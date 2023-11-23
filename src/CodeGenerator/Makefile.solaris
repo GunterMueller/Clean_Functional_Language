@@ -1,0 +1,90 @@
+
+CC = cc
+CFLAGS = -DGNU_C -DSUN_C -DSOLARIS -O
+
+OBJECTS = cg.o cgcalc.o cgcode.o cginput.o cginstructions.o \
+	cglin.o cgopt.o cgswas.o cgstack.o cgsas.o
+
+cg: $(OBJECTS)
+	$(CC) -s $(OBJECTS) -o $@ 
+
+clean:
+	rm $(OBJECTS)
+
+# DO NOT DELETE
+
+cg.o: /usr/include/string.h /usr/include/sys/feature_tests.h
+cg.o: /usr/include/sys/isa_defs.h cgport.h /usr/include/stdlib.h
+cg.o: /usr/include/stdio.h /usr/include/sys/va_list.h
+cg.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h MAIN_CLM.d
+cg.o: cgrconst.h cgtypes.h cgcode.h cglin.h cgopt.h cgas.h cgwas.h cgstack.h
+cg.o: cg.h cginput.h /usr/include/setjmp.h
+cgas.o: /usr/include/stdio.h /usr/include/sys/feature_tests.h
+cgas.o: /usr/include/sys/isa_defs.h /usr/include/sys/va_list.h
+cgas.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h
+cgas.o: /usr/include/string.h cgport.h cg.h cgrconst.h cgtypes.h cgiconst.h
+cgas.o: cgcode.h cginstructions.h cgas.h
+cgcalc.o: /usr/include/stdio.h /usr/include/sys/feature_tests.h
+cgcalc.o: /usr/include/sys/isa_defs.h /usr/include/sys/va_list.h
+cgcalc.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h cgport.h cg.h
+cgcalc.o: cgrconst.h cgtypes.h cgconst.h cgcalc.h cgstack.h
+cgcode.o: /usr/include/stdio.h /usr/include/sys/feature_tests.h
+cgcode.o: /usr/include/sys/isa_defs.h /usr/include/sys/va_list.h
+cgcode.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h
+cgcode.o: /usr/include/string.h cgport.h cg.h cgconst.h cgrconst.h cgtypes.h
+cgcode.o: cgcodep.h cgcode.h cglin.h cgcalc.h cgstack.h cginstructions.h
+cgcode.o: cgas.h cgwas.h
+cgias.o: /usr/include/stdio.h /usr/include/sys/feature_tests.h
+cgias.o: /usr/include/sys/isa_defs.h /usr/include/sys/va_list.h
+cgias.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h
+cgias.o: /usr/include/string.h cgport.h cgrconst.h cgtypes.h cg.h cgiconst.h
+cgias.o: cgcode.h cgias.h
+cginput.o: /usr/include/string.h /usr/include/sys/feature_tests.h
+cginput.o: /usr/include/sys/isa_defs.h cgport.h /usr/include/stdio.h
+cginput.o: /usr/include/sys/va_list.h /usr/include/stdio_tag.h
+cginput.o: /usr/include/stdio_impl.h /usr/include/setjmp.h cg.h cgcodep.h
+cginput.o: cginput.h MAIN_CLM.d
+cginstructions.o: /usr/include/stdio.h /usr/include/sys/feature_tests.h
+cginstructions.o: /usr/include/sys/isa_defs.h /usr/include/sys/va_list.h
+cginstructions.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h
+cginstructions.o: /usr/include/string.h cgport.h cg.h cgconst.h cgrconst.h
+cginstructions.o: cgtypes.h cgcode.h cgcodep.h cgstack.h cglin.h
+cginstructions.o: cginstructions.h cgas.h cgwas.h
+cgiwas.o: /usr/include/stdio.h /usr/include/sys/feature_tests.h
+cgiwas.o: /usr/include/sys/isa_defs.h /usr/include/sys/va_list.h
+cgiwas.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h
+cgiwas.o: /usr/include/string.h /usr/include/ctype.h cgport.h cgrconst.h
+cgiwas.o: cgtypes.h cg.h cgiconst.h cgcode.h cgiwas.h
+cglin.o: /usr/include/stdio.h /usr/include/sys/feature_tests.h
+cglin.o: /usr/include/sys/isa_defs.h /usr/include/sys/va_list.h
+cglin.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h cgport.h cg.h
+cglin.o: cgconst.h cgiconst.h cgrconst.h cgtypes.h cglin.h cgcalc.h cgstack.h
+cgopt.o: /usr/include/stdio.h /usr/include/sys/feature_tests.h
+cgopt.o: /usr/include/sys/isa_defs.h /usr/include/sys/va_list.h
+cgopt.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h cgport.h cg.h
+cgopt.o: cgrconst.h cgtypes.h cgiconst.h cglin.h cgopt.h
+cgpas.o: /usr/include/stdio.h /usr/include/sys/feature_tests.h
+cgpas.o: /usr/include/sys/isa_defs.h /usr/include/sys/va_list.h
+cgpas.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h
+cgpas.o: /usr/include/string.h /usr/include/ctype.h cgport.h
+cgptoc.o: /usr/include/stdlib.h /usr/include/sys/feature_tests.h
+cgptoc.o: /usr/include/sys/isa_defs.h cgport.h
+cgpwas.o: /usr/include/stdio.h /usr/include/sys/feature_tests.h
+cgpwas.o: /usr/include/sys/isa_defs.h /usr/include/sys/va_list.h
+cgpwas.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h
+cgpwas.o: /usr/include/string.h /usr/include/ctype.h cgport.h
+cgstack.o: /usr/include/stdio.h /usr/include/sys/feature_tests.h
+cgstack.o: /usr/include/sys/isa_defs.h /usr/include/sys/va_list.h
+cgstack.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h cgport.h
+cgstack.o: cgconst.h cgrconst.h cgtypes.h cgstack.h cg.h cglin.h cgcalc.h
+cgstack.o: cgopt.h cgcode.h
+cgswas.o: /usr/include/stdio.h /usr/include/sys/feature_tests.h
+cgswas.o: /usr/include/sys/isa_defs.h /usr/include/sys/va_list.h
+cgswas.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h
+cgswas.o: /usr/include/string.h cgport.h cgrconst.h cgtypes.h cg.h cgiconst.h
+cgswas.o: cgcode.h cgswas.h
+cgwas.o: /usr/include/stdio.h /usr/include/sys/feature_tests.h
+cgwas.o: /usr/include/sys/isa_defs.h /usr/include/sys/va_list.h
+cgwas.o: /usr/include/stdio_tag.h /usr/include/stdio_impl.h
+cgwas.o: /usr/include/string.h /usr/include/ctype.h cgport.h cgrconst.h
+cgwas.o: cgtypes.h cg.h cgiconst.h cgcode.h cginstructions.h cgwas.h

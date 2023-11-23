@@ -1,0 +1,72 @@
+Version: 1.0
+Environments
+	Environment
+		EnvironmentName:	StdEnv
+		EnvironmentPaths
+			Path:	{Application}:Libraries:StdEnv
+		EnvironmentCompiler:	Tools:CleanCompiler2;C2Co;cocl
+		EnvironmentCodeGen:	Tools:CleanCompiler2;C2Co;cg_xo
+		EnvironmentLinker:	tools\StaticLinker.exe
+		EnvironmentDynLink:	tools\DynamicLinker.exe
+		EnvironmentVersion:	920
+		EnvironmentRedirect:	False
+		EnvironmentCompileMethod:	Sync
+		EnvironmentProcessor:	PowerPC_Carbon
+	Environment
+		EnvironmentName:	StdEnv (Classic)
+		EnvironmentPaths
+			Path:	{Application}:Libraries:StdEnv
+		EnvironmentCompiler:	Tools:CleanCompiler2;C2Co;cocl
+		EnvironmentCodeGen:	Tools:CleanCompiler2;C2Co;cg
+		EnvironmentLinker:	tools\StaticLinker.exe
+		EnvironmentDynLink:	tools\DynamicLinker.exe
+		EnvironmentVersion:	920
+		EnvironmentRedirect:	False
+		EnvironmentCompileMethod:	Sync
+		EnvironmentProcessor:	PowerPC_Classic
+	Environment
+		EnvironmentName:	StdEnv (MachO)
+		EnvironmentPaths
+			Path:	{Application}:Libraries:StdEnv
+		EnvironmentCompiler:	Tools:CleanCompiler2;C2Co;cocl
+		EnvironmentCodeGen:	Tools:CleanCompiler2;C2Co;cg_o
+		EnvironmentLinker:
+		EnvironmentDynLink:	tools\DynamicLinker.exe
+		EnvironmentVersion:	920
+		EnvironmentRedirect:	False
+		EnvironmentCompileMethod:	Sync
+		EnvironmentProcessor:	PowerPC_MachO
+	Environment
+		EnvironmentName:	Object IO
+		EnvironmentPaths
+			Path:	{Application}:Libraries:StdEnv
+			Path:	{Application}:Libraries:StdLib
+			Path:	{Application}:Libraries:CarbonInterface
+			Path:	{Application}:Libraries:ObjectIO:OS Mac Carbon
+			Path:	{Application}:Libraries:ObjectIO
+			Path:	{Application}:Libraries:TCP
+		EnvironmentCompiler:	Tools:CleanCompiler2;C2Co;cocl
+		EnvironmentCodeGen:	Tools:CleanCompiler2;C2Co;cg_xo
+		EnvironmentLinker:	tools\StaticLinker.exe
+		EnvironmentDynLink:	tools\DynamicLinker.exe
+		EnvironmentVersion:	920
+		EnvironmentRedirect:	False
+		EnvironmentCompileMethod:	Sync
+		EnvironmentProcessor:	PowerPC_Carbon
+	Environment
+		EnvironmentName:	Object IO (MachO)
+		EnvironmentPaths
+			Path:	{Application}:Libraries:StdEnv
+			Path:	{Application}:Libraries:StdLib
+			Path:	{Application}:Libraries:CarbonInterface
+			Path:	{Application}:Libraries:ObjectIO:OS Mac Carbon
+			Path:	{Application}:Libraries:ObjectIO
+			Path:	{Application}:Libraries:TCP
+		EnvironmentCompiler:	Tools:CleanCompiler2;C2Co;cocl
+		EnvironmentCodeGen:	Tools:CleanCompiler2;C2Co;cg_o
+		EnvironmentLinker:
+		EnvironmentDynLink:	tools\DynamicLinker.exe
+		EnvironmentVersion:	920
+		EnvironmentRedirect:	False
+		EnvironmentCompileMethod:	Sync
+		EnvironmentProcessor:	PowerPC_MachO

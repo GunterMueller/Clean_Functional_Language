@@ -1,0 +1,2782 @@
+
+	.text
+
+	.globl	ap_2
+	.globl	ap_3
+	.globl	ap_4
+	.globl	ap_5
+	.globl	ap_6
+	.globl	ap_7
+	.globl	ap_8
+	.globl	ap_9
+	.globl	ap_10
+	.globl	ap_11
+	.globl	ap_12
+	.globl	ap_13
+	.globl	ap_14
+	.globl	ap_15
+	.globl	ap_16
+	.globl	ap_17
+	.globl	ap_18
+	.globl	ap_19
+	.globl	ap_20
+	.globl	ap_21
+	.globl	ap_22
+	.globl	ap_23
+	.globl	ap_24
+	.globl	ap_25
+	.globl	ap_26
+	.globl	ap_27
+	.globl	ap_28
+	.globl	ap_29
+	.globl	ap_30
+	.globl	ap_31
+	.globl	ap_32
+
+	.globl	add_empty_node_2
+	.globl	add_empty_node_3
+	.globl	add_empty_node_4
+	.globl	add_empty_node_5
+	.globl	add_empty_node_6
+	.globl	add_empty_node_7
+	.globl	add_empty_node_8
+	.globl	add_empty_node_9
+	.globl	add_empty_node_10
+	.globl	add_empty_node_11
+	.globl	add_empty_node_12
+	.globl	add_empty_node_13
+	.globl	add_empty_node_14
+	.globl	add_empty_node_15
+	.globl	add_empty_node_16
+	.globl	add_empty_node_17
+	.globl	add_empty_node_18
+	.globl	add_empty_node_19
+	.globl	add_empty_node_20
+	.globl	add_empty_node_21
+	.globl	add_empty_node_22
+	.globl	add_empty_node_23
+	.globl	add_empty_node_24
+	.globl	add_empty_node_25
+	.globl	add_empty_node_26
+	.globl	add_empty_node_27
+	.globl	add_empty_node_28
+	.globl	add_empty_node_29
+	.globl	add_empty_node_30
+	.globl	add_empty_node_31
+	.globl	add_empty_node_32
+
+	.globl	yet_args_needed_5
+	.globl	yet_args_needed_6
+	.globl	yet_args_needed_7
+	.globl	yet_args_needed_8
+	.globl	yet_args_needed_9
+	.globl	yet_args_needed_10
+	.globl	yet_args_needed_11
+	.globl	yet_args_needed_12
+	.globl	yet_args_needed_13
+	.globl	yet_args_needed_14
+	.globl	yet_args_needed_15
+	.globl	yet_args_needed_16
+	.globl	yet_args_needed_17
+	.globl	yet_args_needed_18
+	.globl	yet_args_needed_19
+	.globl	yet_args_needed_20
+	.globl	yet_args_needed_21
+	.globl	yet_args_needed_22
+	.globl	yet_args_needed_23
+	.globl	yet_args_needed_24
+	.globl	yet_args_needed_25
+	.globl	yet_args_needed_26
+	.globl	yet_args_needed_27
+	.globl	yet_args_needed_28
+	.globl	yet_args_needed_29
+	.globl	yet_args_needed_30
+	.globl	yet_args_needed_31
+
+	.text
+; __TEXT.ap_32:
+
+ap_32:
+	lwz	a3,0(a2)
+	li	d1,32*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap32
+
+	.text
+; __TEXT.ap_31:
+
+ap_31:
+	lwz	a3,0(a2)
+	li	d1,31*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap31
+
+	.text
+; __TEXT.ap_30:
+
+ap_30:
+	lwz	a3,0(a2)
+	li	d1,30*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap30
+
+	.text
+; __TEXT.ap_29:
+
+ap_29:
+	lwz	a3,0(a2)
+	li	d1,29*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap29
+
+	.text
+; __TEXT.ap_28:
+
+ap_28:
+	lwz	a3,0(a2)
+	li	d1,28*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap28
+
+	.text
+; __TEXT.ap_27:
+
+ap_27:
+	lwz	a3,0(a2)
+	li	d1,27*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap27
+
+	.text
+; __TEXT.ap_26:
+
+ap_26:
+	lwz	a3,0(a2)
+	li	d1,26*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap26
+
+	.text
+; __TEXT.ap_25:
+
+ap_25:
+	lwz	a3,0(a2)
+	li	d1,25*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap25
+
+	.text
+; __TEXT.ap_24:
+
+ap_24:
+	lwz	a3,0(a2)
+	li	d1,24*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap24
+
+	.text
+; __TEXT.ap_23:
+
+ap_23:
+	lwz	a3,0(a2)
+	li	d1,23*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap23
+
+	.text
+; __TEXT.ap_22:
+
+ap_22:
+	lwz	a3,0(a2)
+	li	d1,22*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap22
+
+	.text
+; __TEXT.ap_21:
+
+ap_21:
+	lwz	a3,0(a2)
+	li	d1,21*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap21
+
+	.text
+; __TEXT.ap_20:
+
+ap_20:
+	lwz	a3,0(a2)
+	li	d1,20*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap20
+
+	.text
+; __TEXT.ap_19:
+
+ap_19:
+	lwz	a3,0(a2)
+	li	d1,19*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap19
+
+	.text
+; __TEXT.ap_18:
+
+ap_18:
+	lwz	a3,0(a2)
+	li	d1,18*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap18
+
+	.text
+; __TEXT.ap_17:
+
+ap_17:
+	lwz	a3,0(a2)
+	li	d1,17*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap17
+
+	.text
+; __TEXT.ap_16:
+
+ap_16:
+	lwz	a3,0(a2)
+	li	d1,16*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap16
+
+	.text
+; __TEXT.ap_15:
+
+ap_15:
+	lwz	a3,0(a2)
+	li	d1,15*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap15
+
+	.text
+; __TEXT.ap_14:
+
+ap_14:
+	lwz	a3,0(a2)
+	li	d1,14*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap14
+
+	.text
+; __TEXT.ap_13:
+
+ap_13:
+	lwz	a3,0(a2)
+	li	d1,13*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap13
+
+	.text
+; __TEXT.ap_12:
+
+ap_12:
+	lwz	a3,0(a2)
+	li	d1,12*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap12
+
+	.text
+; __TEXT.ap_11:
+
+ap_11:
+	lwz	a3,0(a2)
+	li	d1,11*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap11
+
+	.text
+; __TEXT.ap_10:
+
+ap_10:
+	lwz	a3,0(a2)
+	li	d1,10*80
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap10
+
+	.text
+; __TEXT.ap_9:
+
+ap_9:
+	lwz	a3,0(a2)
+	li	d1,9*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap9
+
+	.text
+; __TEXT.ap_8:
+
+ap_8:
+	lwz	a3,0(a2)
+	li	d1,8*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap8
+
+	.text
+; __TEXT.ap_7:
+
+ap_7:
+	lwz	a3,0(a2)
+	li	d1,7*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap7
+
+	.text
+; __TEXT.ap_6:
+
+ap_6:
+	lwz	a3,0(a2)
+	li	d1,6*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap6
+
+	.text
+; __TEXT.ap_5:
+
+ap_5:
+	lwz	a3,0(a2)
+	li	d1,5*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap5
+
+	.text
+; __TEXT.ap_4:
+
+ap_4:
+	lwz	a3,0(a2)
+	li	d1,4*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap4
+
+	.text
+; __TEXT.ap_3:
+
+ap_3:
+	lwz	a3,0(a2)
+	li	d1,3*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap
+
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap3
+
+	.text
+; __TEXT.ap_2:
+
+ap_2:
+ 	lwz	a3,0(a2)
+ 	li	d1,2*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	bne	no_fast_ap2_
+
+fast_ap_2_2_:
+	lhz	d0,-2(a3)
+	add	d1,d1,a3
+	lwz	a3,-6(d1)
+ .if PROFILE
+	subi	a3,a3,32
+ .else
+	subi	a3,a3,16
+ .endif
+	cmplwi	0,d0,1
+	blt	repl_args_0_2
+	beq	repl_args_1
+
+	cmplwi	0,d0,3
+	blt	repl_args_2
+
+	stw	a0,0(a4)
+	stw	a1,4(a4)
+	addi	a4,a4,8
+	lwz	a1,8(a2)
+
+	b	fast_ap_
+
+	.text
+; __TEXT.no_fast_ap2_:
+
+no_fast_ap2_:
+	stw	a0,0(a4)
+	mr	a0,a1
+	mr	a1,a2
+	lwz	a2,2(a3)
+	addi	a4,a4,4
+	mflr	r0
+	b	no_fast_ap2
+
+	.text
+; __TEXT.fast_ap_2_2:
+
+fast_ap_2_2:
+	mr	a2,a1
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+	mtlr	r0
+	b	fast_ap_2_2_
+
+	.text
+; __TEXT.fast_ap_2:
+
+fast_ap_2:
+	mr	a2,a1
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+	mtlr	r0
+
+fast_ap:
+	lhz	d0,-2(a3)
+	add	d1,d1,a3
+	lwz	a3,-6(d1)
+ .if PROFILE
+	subi	a3,a3,32
+ .else
+	subi	a3,a3,16
+ .endif
+	cmplwi	0,d0,1
+	blt	repl_args_0
+	beq	repl_args_1
+
+	cmplwi	0,d0,3
+	blt	repl_args_2
+
+	stw	a0,0(a4)
+	stw	a1,4(a4)
+	addi	a4,a4,8
+	lwz	a1,8(a2)
+
+fast_ap_:
+	lwz	a2,4(a2)
+	beq	repl_args_3
+
+	cmplwi	0,d0,5
+	blt	repl_args_4
+	beq	repl_args_5
+
+	cmplwi	0,d0,7
+	blt	repl_args_6
+
+	slwi	d0,d0,2
+	addi	d0,d0,-8
+
+repl_args_7_:
+	lwzx	o0,a1,d0
+	stw	o0,0(a4)
+	subi	d0,d0,4
+	addi	a4,a4,4
+	cmplwi	0,d0,(6*4)-8
+	bne	repl_args_7_
+
+repl_args_6:
+	mtctr	a3
+	lwz	d0,16(a1)
+	stw	d0,0(a4)
+	lwz	d0,12(a1)
+	stw	d0,4(a4)
+	lwz	d0,8(a1)
+	stw	d0,8(a4)
+	lwz	a0,4(a1)
+	lwz	a1,0(a1)
+	addi	a4,a4,12
+	bctr
+
+repl_args_0_2:
+	mtctr	a3
+	bctr
+
+repl_args_0:
+	mtctr	a3
+	mr	a2,a1
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+	bctr
+
+repl_args_1:
+	mtctr	a3
+	lwz	a2,4(a2)
+	bctr
+
+repl_args_2:
+	stw	a0,0(a4)
+	mr	a0,a1
+	addi	a4,a4,4
+	lwz	a1,8(a2)
+	mtctr	a3
+	lwz	a2,4(a2)
+	bctr
+
+repl_args_3:
+	mtctr	a3
+	lwz	a0,4(a1)
+	lwz	a1,0(a1)
+	bctr
+
+repl_args_4:
+	mtctr	a3
+	lwz	d0,8(a1)
+	stw	d0,0(a4)
+	lwz	a0,4(a1)
+	lwz	a1,0(a1)
+	addi	a4,a4,4
+	bctr
+
+repl_args_5:
+	mtctr	a3
+	lwz	d0,12(a1)
+	stw	d0,0(a4)
+	lwz	d0,8(a1)
+	stw	d0,4(a4)
+	lwz	a0,4(a1)
+	lwz	a1,0(a1)
+	addi	a4,a4,8
+	bctr
+
+	.text
+; __TEXT.no_fast_ap32:
+
+no_fast_ap32:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,31*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap31:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,30*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap30:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,29*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap29:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,28*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap28:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,27*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap27:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,26*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap26:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,25*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap25:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,24*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap24:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,23*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap23:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,22*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap22:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,21*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap21:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,20*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap20:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,19*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap19:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,18*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap18:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,17*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap17:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,16*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap16:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,15*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap15:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,14*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap14:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,13*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap13:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,12*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap12:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,11*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap11:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+	lwz	a2,2(a3)
+
+	li	d1,10*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap10:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,9*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap9:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,8*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap8:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,7*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap7:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,6*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap6:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,5*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap5:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,4*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap4:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,3*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2
+
+	lwz	a2,2(a3)
+no_fast_ap3:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl	
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+
+	li	d1,2*8
+ 	lhz	o1,0(a3)
+	cmpw	0,o1,d1
+	beq	fast_ap_2_2
+
+	lwz	a2,2(a3)
+no_fast_ap2:
+	mtctr	a2
+	stwu	r0,-4(r1)
+	bctrl
+	mtlr	r0
+	lwz	a3,0(a0)
+	mr	a1,a0
+	lwzu	a0,-4(a4)
+	lwz	a2,2(a3)
+	mtctr	a2
+	bctr
+
+	.text
+; __TEXT.add_empty_node_2:
+
+add_empty_node_2:
+	subic.	d7,d7,3
+	blt	add_empty_node_2_gc
+add_empty_node_2_gc_:
+	stwu	a5,4(a6)
+	mr	a2,a1
+	mr	a1,a0
+	mr	a0,a6
+	addi	a6,a6,8
+	blr	
+add_empty_node_2_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_2_gc_
+
+	.text
+; __TEXT.add_empty_node_3:
+
+add_empty_node_3:
+	subic.	d7,d7,3
+	blt	add_empty_node_3_gc
+add_empty_node_3_gc_:
+	stwu	a5,4(a6)
+	stw	a6,0(a4)
+	addi	a6,a6,8
+	addi	a4,a4,4
+	blr	
+add_empty_node_3_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_3_gc_
+
+	.text
+; __TEXT.add_empty_node_4:
+
+add_empty_node_4:
+	subic.	d7,d7,3
+	blt	add_empty_node_4_gc
+add_empty_node_4_gc_:
+	lwz	a3,-4(a4)
+	stw	a3,0(a4)
+	stwu	a5,4(a6)
+	stw	a6,-4(a4)
+	addi	a6,a6,8
+	addi	a4,a4,4
+	blr	
+add_empty_node_4_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_4_gc_
+
+	.text
+; __TEXT.add_empty_node_5:
+
+add_empty_node_5:
+	subic.	d7,d7,3
+	blt	add_empty_node_5_gc
+add_empty_node_5_gc_:
+	lwz	a3,-4(a4)
+	stw	a3,0(a4)
+	lwz	a3,-8(a4)
+	stw	a3,-4(a4)
+	stwu	a5,4(a6)
+	stw	a6,-8(a4)
+	addi	a6,a6,8
+	addi	a4,a4,4
+	blr	
+add_empty_node_5_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_5_gc_
+
+	.text
+; __TEXT.add_empty_node_6:
+
+add_empty_node_6:
+	subic.	d7,d7,3
+	blt	add_empty_node_6_gc
+add_empty_node_6_gc_:
+	lwz	a3,-4(a4)
+	stw	a3,0(a4)
+	lwz	a3,-8(a4)
+	stw	a3,-4(a4)
+	lwz	a3,-12(a4)
+	stw	a3,-8(a4)
+	stwu	a5,4(a6)
+	stw	a6,-12(a4)
+	addi	a6,a6,8
+	addi	a4,a4,4
+	blr	
+add_empty_node_6_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_6_gc_
+
+	.text
+; __TEXT.add_empty_node_7:
+
+add_empty_node_7:
+	subic.	d7,d7,3
+	blt	add_empty_node_7_gc
+add_empty_node_7_gc_:
+	lwz	a3,-4(a4)
+	stw	a3,0(a4)
+	lwz	a3,-8(a4)
+	stw	a3,-4(a4)
+	lwz	a3,-12(a4)
+	stw	a3,-8(a4)
+	lwz	a3,-16(a4)
+	stw	a3,-12(a4)
+	stwu	a5,4(a6)
+	stw	a6,-16(a4)
+	addi	a6,a6,8
+	addi	a4,a4,4
+	blr	
+add_empty_node_7_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_7_gc_
+
+	.text
+; __TEXT.add_empty_node_8:
+
+add_empty_node_8:
+	subic.	d7,d7,3
+	blt	add_empty_node_8_gc
+add_empty_node_8_gc_:
+	lwz	a3,-4(a4)
+	stw	a3,0(a4)
+	lwz	a3,-8(a4)
+	stw	a3,-4(a4)
+	lwz	a3,-12(a4)
+	stw	a3,-8(a4)
+	lwz	a3,-16(a4)
+	stw	a3,-12(a4)
+	lwz	a3,-20(a4)
+	stw	a3,-16(a4)
+	stwu	a5,4(a6)
+	stw	a6,-20(a4)
+	addi	a6,a6,8
+	addi	a4,a4,4
+	blr	
+add_empty_node_8_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_8_gc_
+
+	.text
+; __TEXT.add_empty_node_9:
+
+add_empty_node_9:
+	subic.	d7,d7,3
+	blt	add_empty_node_9_gc
+add_empty_node_9_gc_:
+	lwz	a3,-4(a4)
+	stw	a3,0(a4)
+	lwz	a3,-8(a4)
+	stw	a3,-4(a4)
+	lwz	a3,-12(a4)
+	stw	a3,-8(a4)
+	lwz	a3,-16(a4)
+	stw	a3,-12(a4)
+	lwz	a3,-20(a4)
+	stw	a3,-16(a4)
+	lwz	a3,-24(a4)
+	stw	a3,-20(a4)
+	stwu	a5,4(a6)
+	stw	a6,-24(a4)
+	addi	a6,a6,8
+	addi	a4,a4,4
+	blr	
+add_empty_node_9_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_9_gc_
+
+	.text
+; __TEXT.add_empty_node_10:
+
+add_empty_node_10:
+	subic.	d7,d7,3
+	blt	add_empty_node_10_gc
+add_empty_node_10_gc_:
+	lwz	a3,-4(a4)
+	stw	a3,0(a4)
+	lwz	a3,-8(a4)
+	stw	a3,-4(a4)
+	lwz	a3,-12(a4)
+	stw	a3,-8(a4)
+	lwz	a3,-16(a4)
+	stw	a3,-12(a4)
+	lwz	a3,-20(a4)
+	stw	a3,-16(a4)
+	lwz	a3,-24(a4)
+	stw	a3,-20(a4)
+	lwz	a3,-28(a4)
+	stw	a3,-24(a4)
+	stwu	a5,4(a6)
+	stw	a6,-28(a4)
+	addi	a6,a6,8
+	addi	a4,a4,4
+	blr	
+add_empty_node_10_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_10_gc_
+
+	.text
+; __TEXT.add_empty_node_11:
+
+add_empty_node_11:
+	subic.	d7,d7,3
+	blt	add_empty_node_11_gc
+add_empty_node_11_gc_:
+	lwz	a3,-4(a4)
+	stw	a3,0(a4)
+	lwz	a3,-8(a4)
+	stw	a3,-4(a4)
+	lwz	a3,-12(a4)
+	stw	a3,-8(a4)
+	lwz	a3,-16(a4)
+	stw	a3,-12(a4)
+	lwz	a3,-20(a4)
+	stw	a3,-16(a4)
+	lwz	a3,-24(a4)
+	stw	a3,-20(a4)
+	lwz	a3,-28(a4)
+	stw	a3,-24(a4)
+	lwz	a3,-32(a4)
+	stw	a3,-28(a4)
+	stwu	a5,4(a6)
+	stw	a6,-32(a4)
+	addi	a6,a6,8
+	addi	a4,a4,4
+	blr	
+add_empty_node_11_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_11_gc_
+
+	.text
+; __TEXT.add_empty_node_32:
+
+add_empty_node_32:
+	li	d1,7
+	b	add_empty_node_12_
+
+	.text
+; __TEXT.add_empty_node_28:
+
+add_empty_node_28:
+	li	d1,6
+	b	add_empty_node_12_
+
+	.text
+; __TEXT.add_empty_node_24:
+
+add_empty_node_24:
+	li	d1,5
+	b	add_empty_node_12_
+
+	.text
+; __TEXT.add_empty_node_20:
+
+add_empty_node_20:
+	li	d1,4
+	b	add_empty_node_12_
+
+	.text
+; __TEXT.add_empty_node_16:
+
+add_empty_node_16:
+	li	d1,3
+	b	add_empty_node_12_
+
+	.text
+; __TEXT.add_empty_node_12:
+
+add_empty_node_12:
+	li	d1,2
+add_empty_node_12_:
+	subic.	d7,d7,3
+	blt	add_empty_node_12_gc
+add_empty_node_12_gc_:
+	mr	d0,a4
+	lwz	a3,-4(a4)
+	stw	a3,0(a4)
+add_empty_node_12_lp:
+	lwz	a3,-8(d0)
+	stw	a3,-4(d0)
+	lwz	a3,-12(d0)
+	stw	a3,-8(d0)
+	lwz	a3,-16(d0)
+	stw	a3,-12(d0)
+	lwz	a3,-20(d0)
+	stw	a3,-16(d0)
+	subi	d0,d0,16
+	subic.	d1,d1,1
+	bne	add_empty_node_12_lp
+	stwu	a5,4(a6)
+	stw	a6,-4(d0)
+	addi	a6,a6,8
+	addi	a4,a4,4
+	blr	
+add_empty_node_12_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_12_gc_
+
+	.text
+; __TEXT.add_empty_node_29:
+
+add_empty_node_29:
+	li	d1,6
+	b	add_empty_node_13_
+
+	.text
+; __TEXT.add_empty_node_25:
+
+add_empty_node_25:
+	li	d1,5
+	b	add_empty_node_13_
+
+	.text
+; __TEXT.add_empty_node_21:
+
+add_empty_node_21:
+	li	d1,4
+	b	add_empty_node_13_
+
+	.text
+; __TEXT.add_empty_node_17:
+
+add_empty_node_17:
+	li	d1,3
+	b	add_empty_node_13_
+
+	.text
+; __TEXT.add_empty_node_13:
+
+add_empty_node_13:
+	li	d1,2
+add_empty_node_13_:
+	subic.	d7,d7,3
+	blt	add_empty_node_13_gc
+add_empty_node_13_gc_:
+	mr	d0,a4
+	lwz	a3,-4(a4)
+	stw	a3,0(a4)
+	lwz	a3,-8(a4)
+	stw	a3,-4(a4)
+add_empty_node_13_lp:
+	lwz	a3,-12(d0)
+	stw	a3,-8(d0)
+	lwz	a3,-16(d0)
+	stw	a3,-12(d0)
+	lwz	a3,-20(d0)
+	stw	a3,-16(d0)
+	lwz	a3,-24(d0)
+	stw	a3,-20(d0)
+	subi	d0,d0,16
+	subic.	d1,d1,1
+	bne	add_empty_node_13_lp
+	stwu	a5,4(a6)
+	stw	a6,-8(d0)
+	addi	a6,a6,8
+	addi	a4,a4,4
+	blr	
+add_empty_node_13_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_13_gc_
+
+	.text
+; __TEXT.add_empty_node_30:
+
+add_empty_node_30:
+	li	d1,6
+	b	add_empty_node_14_
+
+	.text
+; __TEXT.add_empty_node_26:
+
+add_empty_node_26:
+	li	d1,5
+	b	add_empty_node_14_
+
+	.text
+; __TEXT.add_empty_node_22:
+
+add_empty_node_22:
+	li	d1,4
+	b	add_empty_node_14_
+
+	.text
+; __TEXT.add_empty_node_18:
+
+add_empty_node_18:
+	li	d1,3
+	b	add_empty_node_14_
+
+	.text
+; __TEXT.add_empty_node_14:
+
+add_empty_node_14:
+	li	d1,2
+add_empty_node_14_:
+	subic.	d7,d7,3
+	blt	add_empty_node_14_gc
+add_empty_node_14_gc_:
+	mr	d0,a4
+	lwz	a3,-4(a4)
+	stw	a3,0(a4)
+	lwz	a3,-8(a4)
+	stw	a3,-4(a4)
+	lwz	a3,-12(a4)
+	stw	a3,-8(a4)
+add_empty_node_14_lp:
+	lwz	a3,-16(d0)
+	stw	a3,-12(d0)
+	lwz	a3,-20(d0)
+	stw	a3,-16(d0)
+	lwz	a3,-24(d0)
+	stw	a3,-20(d0)
+	lwz	a3,-28(d0)
+	stw	a3,-24(d0)
+	subi	d0,d0,16
+	subic.	d1,d1,1
+	bne	add_empty_node_14_lp
+	stwu	a5,4(a6)
+	stw	a6,-12(d0)
+	addi	a6,a6,8
+	addi	a4,a4,4
+	blr	
+add_empty_node_14_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_14_gc_
+
+	.text
+; __TEXT.add_empty_node_31:
+
+add_empty_node_31:
+	li	d1,7
+	b	add_empty_node_15_
+
+	.text
+; __TEXT.add_empty_node_27:
+
+add_empty_node_27:
+	li	d1,6
+	b	add_empty_node_15_
+
+	.text
+; __TEXT.add_empty_node_23:
+
+add_empty_node_23:
+	li	d1,5
+	b	add_empty_node_15_
+
+	.text
+; __TEXT.add_empty_node_19:
+
+add_empty_node_19:
+	li	d1,4
+	b	add_empty_node_15_
+
+	.text
+; __TEXT.add_empty_node_15:
+
+add_empty_node_15:
+	li	d1,3
+add_empty_node_15_:
+	subic.	d7,d7,3
+	blt	add_empty_node_15_gc
+add_empty_node_15_gc_:
+	mr	d0,a4
+add_empty_node_15_lp:
+	lwz	a3,-4(d0)
+	stw	a3,0(d0)
+	lwz	a3,-8(d0)
+	stw	a3,-4(d0)
+	lwz	a3,-12(d0)
+	stw	a3,-8(d0)
+	lwz	a3,-16(d0)
+	stw	a3,-12(d0)
+	subi	d0,d0,16
+	subic.	d1,d1,1
+	bne	add_empty_node_15_lp
+	stwu	a5,4(a6)
+	stw	a6,0(d0)
+	addi	a6,a6,8
+	addi	a4,a4,4
+	blr	
+add_empty_node_15_gc:
+	stwu	r0,-4(sp)
+	mflr	r0
+	bl	collect_2
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	b	add_empty_node_15_gc_
+
+
+	.text
+; __TEXT.yet_args_needed_0:
+
+yet_args_needed_0:
+	subic.	d7,d7,2
+	blt	yet_args_needed_0_gc
+yet_args_needed_0_gc_r:
+	stwu	a0,8(a6)
+	lwz	d0,0(a1)
+	addi	a0,a6,4-8
+	addi	d0,d0,8
+	stw	d0,4-8(a6)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+yet_args_needed_0_gc:
+	mflr	r0
+	bl	collect_2
+	b	yet_args_needed_0_gc_r
+
+	.text
+; __TEXT.yet_args_needed_1:
+
+	subic.	d7,d7,3
+	blt	build_node_2_gc
+build_node_2_gc_r:
+	stw	d1,4(a6)
+	b	build_node_2
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_1:
+	subic.	d7,d7,3
+	blt	yet_args_needed_1_gc
+yet_args_needed_1_gc_r:
+	stwu	a0,12(a6)
+	lwz	d0,0(a1)
+	addi	a0,a6,4-12
+	addi	d0,d0,8
+	stw	d0,4-12(a6)
+	lwz	d1,4(a1)
+	stw	d1,8-12(a6)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+yet_args_needed_1_gc:
+	mflr	r0
+	bl	collect_2
+	b	yet_args_needed_1_gc_r
+
+build_node_2:
+	stw	a1,8(a6)
+	stwu	a0,12(a6)
+	addi	a0,a6,4-12
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr
+
+build_node_2_gc:
+	mflr	r0
+	bl	collect_2
+	b	build_node_2_gc_r
+	
+	.text
+; __TEXT.yet_args_needed_2:
+
+	subic.	d7,d7,5
+	blt	build_node_3_gc
+build_node_3_gc_r:
+	stw	d1,4(a6)
+	b	build_node_3
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_2:
+	subic.	d7,d7,5
+	blt	yet_args_needed_2_gc
+yet_args_needed_2_gc_r:
+	lwz	d0,0(a1)
+	stw	a0,8(a6)
+	addi	d0,d0,8
+	lwz	d2,4(a1)
+	stw	d0,12(a6)
+	addi	a0,a6,12
+	lwz	o0,8(a1)
+	stw	d2,16(a6)
+	stwu	o0,4(a6)
+	stwu	a6,16(a6)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+yet_args_needed_2_gc:
+	mflr	r0
+	bl	collect_2
+	b	yet_args_needed_2_gc_r
+
+build_node_3:
+	stw	a2,8(a6)
+	stwu	a1,16(a6)
+	stw	a6,-4(a6)
+	stwu	a0,4(a6)
+	addi	a0,a6,4-20
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr
+
+build_node_3_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_3_gc_r
+
+	.text
+; __TEXT.yet_args_needed_3:
+
+	subic.	d7,d7,6
+	blt	build_node_4_gc
+build_node_4_gc_r:
+	stw	d1,4(a6)
+	b	build_node_4
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_3:
+	subic.	d7,d7,6
+	blt	yet_args_needed_2_gc
+yet_args_needed_3_gc_r:
+	lwz	d0,0(a1)
+	stw	a0,12(a6)
+	addi	d0,d0,8
+	lwz	d2,4(a1)
+	stw	d0,16(a6)
+	lwz	a1,8(a1)
+	stw	d2,20(a6)
+	lwz	o0,0(a1)
+	lwz	o1,4(a1)
+	stwu	o0,4(a6)
+	stwu	a6,20(a6)
+	addi	a0,a6,16-24
+	stw	o1,8-24(a6)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+yet_args_needed_3_gc:
+	mflr	r0
+	bl	collect_2
+	b	yet_args_needed_3_gc_r
+
+build_node_4:
+	stw	a2,8(a6)
+	stwu	a1,16(a6)
+	stw	a6,-4(a6)
+	stw	a0,4(a6)
+	addi	a0,a6,4-16
+	lwzu	a2,-4(a4)
+	stwu	a2,8(a6)
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr
+
+build_node_4_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_4_gc_r
+
+	.text
+; __TEXT.yet_args_needed_4:
+
+	subic.	d7,d7,7
+	blt	build_node_5_gc
+build_node_5_gc_r:
+	stw	d1,4(a6)
+	b	build_node_5
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_4:
+	subic.	d7,d7,7
+	blt	yet_args_needed_4_gc
+yet_args_needed_4_gc_r:
+	lwz	d0,0(a1)
+	stw	a0,16(a6)
+	addi	d0,d0,8
+	lwz	d2,4(a1)
+	stw	d0,20(a6)
+	lwz	a1,8(a1)
+	stw	d2,24(a6)
+	lwz	o0,0(a1)
+	lwz	o1,4(a1)
+	stwu	o0,4(a6)
+	stwu	a6,24(a6)
+	addi	a0,a6,20-28
+	lwz	o2,8(a1)
+	stw	o1,8-28(a6)
+	stw	o2,12-28(a6)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr	
+
+yet_args_needed_4_gc:
+	mflr	r0
+	bl	collect_2
+	b	yet_args_needed_4_gc_r
+
+build_node_5:
+	stw	a2,8(a6)
+	stwu	a1,16(a6)
+	stw	a6,-4(a6)
+	stw	a0,4(a6)
+	addi	a0,a6,4-16
+	lwz	a2,-4(a4)
+	stw	a2,8(a6)
+	lwzu	a2,-8(a4)
+	stwu	a2,12(a6)
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr
+
+build_node_5_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_5_gc_r
+
+	.text
+; __TEXT.yet_args_needed_5:
+
+	subic.	d7,d7,8
+	blt	build_node_6_gc
+build_node_6_gc_r:
+	li	d0,1
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_5:
+	lwz	d1,0(a1)
+	li	d0,8
+	b	yet_args_needed_
+
+build_node_6_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_6_gc_r
+
+	.text
+; __TEXT.yet_args_needed_6:
+
+	subic.	d7,d7,9
+	blt	build_node_7_gc
+build_node_7_gc_r:
+	li	d0,2
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_6:
+	lwz	d1,0(a1)
+	li	d0,9
+	b	yet_args_needed_
+
+build_node_7_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_7_gc_r
+
+	.text
+; __TEXT.yet_args_needed_7:
+
+	subic.	d7,d7,10
+	blt	build_node_8_gc
+build_node_8_gc_r:
+	li	d0,3
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_7:
+	lwz	d1,0(a1)
+	li	d0,10
+	b	yet_args_needed_
+
+build_node_8_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_8_gc_r
+
+	.text
+; __TEXT.yet_args_needed_8:
+
+	subic.	d7,d7,11
+	blt	build_node_9_gc
+build_node_9_gc_r:
+	li	d0,4
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_8:
+	lwz	d1,0(a1)
+	li	d0,11
+	b	yet_args_needed_
+
+build_node_9_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_9_gc_r
+
+	.text
+; __TEXT.yet_args_needed_9:
+
+	subic.	d7,d7,12
+	blt	build_node_10_gc
+build_node_10_gc_r:
+	li	d0,5
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_9:
+	lwz	d1,0(a1)
+	li	d0,12
+	b	yet_args_needed_
+
+build_node_10_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_10_gc_r
+
+	.text
+; __TEXT.yet_args_needed_10:
+
+	subic.	d7,d7,13
+	blt	build_node_11_gc
+build_node_11_gc_r:
+	li	d0,6
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_10:
+	lwz	d1,0(a1)
+	li	d0,13
+	b	yet_args_needed_
+
+build_node_11_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_11_gc_r
+
+	.text
+; __TEXT.yet_args_needed_11:
+
+	subic.	d7,d7,14
+	blt	build_node_12_gc
+build_node_12_gc_r:
+	li	d0,7
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_11:
+	lwz	d1,0(a1)
+	li	d0,14
+	b	yet_args_needed_
+
+build_node_12_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_12_gc_r
+
+	.text
+; __TEXT.yet_args_needed_12:
+
+	subic.	d7,d7,15
+	blt	build_node_13_gc
+build_node_13_gc_r:
+	li	d0,8
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_12:
+	lwz	d1,0(a1)
+	li	d0,15
+	b	yet_args_needed_
+
+build_node_13_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_13_gc_r
+
+	.text
+; __TEXT.yet_args_needed_13:
+
+	subic.	d7,d7,16
+	blt	build_node_14_gc
+build_node_14_gc_r:
+	li	d0,9
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_13:
+	lwz	d1,0(a1)
+	li	d0,16
+	b	yet_args_needed_
+
+build_node_14_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_14_gc_r
+
+	.text
+; __TEXT.yet_args_needed_14:
+
+	subic.	d7,d7,17
+	blt	build_node_15_gc
+build_node_15_gc_r:
+	li	d0,10
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_14:
+	lwz	d1,0(a1)
+	li	d0,17
+	b	yet_args_needed_
+
+build_node_15_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_15_gc_r
+
+	.text
+; __TEXT.yet_args_needed_15:
+
+	subic.	d7,d7,18
+	blt	build_node_16_gc
+build_node_16_gc_r:
+	li	d0,11
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_15:
+	lwz	d1,0(a1)
+	li	d0,18
+	b	yet_args_needed_
+
+build_node_16_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_16_gc_r
+
+	.text
+; __TEXT.yet_args_needed_16:
+
+	subic.	d7,d7,19
+	blt	build_node_17_gc
+build_node_17_gc_r:
+	li	d0,12
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_16:
+	lwz	d1,0(a1)
+	li	d0,19
+	b	yet_args_needed_
+
+build_node_17_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_17_gc_r
+
+	.text
+; __TEXT.yet_args_needed_17:
+
+	subic.	d7,d7,20
+	blt	build_node_18_gc
+build_node_18_gc_r:
+	li	d0,13
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_17:
+	lwz	d1,0(a1)
+	li	d0,20
+	b	yet_args_needed_
+
+build_node_18_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_18_gc_r
+
+	.text
+; __TEXT.yet_args_needed_18:
+
+	subic.	d7,d7,21
+	blt	build_node_19_gc
+build_node_19_gc_r:
+	li	d0,14
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_18:
+	lwz	d1,0(a1)
+	li	d0,21
+	b	yet_args_needed_
+
+build_node_19_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_19_gc_r
+
+	.text
+; __TEXT.yet_args_needed_19:
+
+	subic.	d7,d7,22
+	blt	build_node_20_gc
+build_node_20_gc_r:
+	li	d0,15
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_19:
+	lwz	d1,0(a1)
+	li	d0,22
+	b	yet_args_needed_
+
+build_node_20_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_20_gc_r
+
+	.text
+; __TEXT.yet_args_needed_20:
+
+	subic.	d7,d7,23
+	blt	build_node_21_gc
+build_node_21_gc_r:
+	li	d0,16
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_20:
+	lwz	d1,0(a1)
+	li	d0,23
+	b	yet_args_needed_
+
+build_node_21_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_21_gc_r
+
+	.text
+; __TEXT.yet_args_needed_21:
+
+	subic.	d7,d7,24
+	blt	build_node_22_gc
+build_node_22_gc_r:
+	li	d0,17
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_21:
+	lwz	d1,0(a1)
+	li	d0,24
+	b	yet_args_needed_
+
+build_node_22_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_22_gc_r
+
+	.text
+; __TEXT.yet_args_needed_22:
+
+	subic.	d7,d7,25
+	blt	build_node_23_gc
+build_node_23_gc_r:
+	li	d0,18
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_22:
+	lwz	d1,0(a1)
+	li	d0,25
+	b	yet_args_needed_
+
+build_node_23_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_23_gc_r
+
+	.text
+; __TEXT.yet_args_needed_23:
+
+	subic.	d7,d7,26
+	blt	build_node_24_gc
+build_node_24_gc_r:
+	li	d0,19
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_23:
+	lwz	d1,0(a1)
+	li	d0,26
+	b	yet_args_needed_
+
+build_node_24_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_24_gc_r
+
+	.text
+; __TEXT.yet_args_needed_24:
+
+	subic.	d7,d7,27
+	blt	build_node_25_gc
+build_node_25_gc_r:
+	li	d0,20
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_24:
+	lwz	d1,0(a1)
+	li	d0,27
+	b	yet_args_needed_
+
+build_node_25_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_25_gc_r
+
+	.text
+; __TEXT.yet_args_needed_25:
+
+	subic.	d7,d7,28
+	blt	build_node_26_gc
+build_node_26_gc_r:
+	li	d0,21
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_25:
+	lwz	d1,0(a1)
+	li	d0,28
+	b	yet_args_needed_
+
+build_node_26_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_26_gc_r
+
+	.text
+; __TEXT.yet_args_needed_26:
+
+	subic.	d7,d7,29
+	blt	build_node_27_gc
+build_node_27_gc_r:
+	li	d0,22
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_26:
+	lwz	d1,0(a1)
+	li	d0,29
+	b	yet_args_needed_
+
+build_node_27_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_27_gc_r
+
+	.text
+; __TEXT.yet_args_needed_27:
+
+	subic.	d7,d7,30
+	blt	build_node_28_gc
+build_node_28_gc_r:
+	li	d0,23
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_27:
+	lwz	d1,0(a1)
+	li	d0,30
+	b	yet_args_needed_
+
+build_node_28_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_28_gc_r
+
+	.text
+; __TEXT.yet_args_needed_28:
+
+	subic.	d7,d7,31
+	blt	build_node_29_gc
+build_node_29_gc_r:
+	li	d0,24
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_28:
+	lwz	d1,0(a1)
+	li	d0,31
+	b	yet_args_needed_
+
+build_node_29_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_29_gc_r
+
+	.text
+; __TEXT.yet_args_needed_29:
+
+	subic.	d7,d7,32
+	blt	build_node_30_gc
+build_node_30_gc_r:
+	li	d0,25
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_29:
+	lwz	d1,0(a1)
+	li	d0,32
+	b	yet_args_needed_
+
+build_node_30_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_30_gc_r
+
+	.text
+; __TEXT.yet_args_needed_30:
+
+	subic.	d7,d7,33
+	blt	build_node_31_gc
+build_node_31_gc_r:
+	li	d0,26
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_30:
+	lwz	d1,0(a1)
+	li	d0,33
+	b	yet_args_needed_
+
+build_node_31_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_31_gc_r
+
+	.text
+; __TEXT.yet_args_needed_31:
+
+	subic.	d7,d7,34
+	blt	build_node_32_gc
+build_node_32_gc_r:
+	li	d0,27
+	b	build_node_
+ .if PROFILE
+	nop
+	nop
+	nop
+	nop
+ .endif
+
+yet_args_needed_31:
+	lwz	d1,0(a1)
+	li	d0,34
+	b	yet_args_needed_
+
+build_node_32_gc:
+	mflr	r0
+	bl	collect_3
+	b	build_node_32_gc_r
+
+	.text
+; __TEXT.yet_args_needed:
+
+yet_args_needed:
+	lwz	d1,0(a1)
+	lhz	d0,-2(d1)
+	addi	d0,d0,3
+
+yet_args_needed_:
+	sub.	d7,d7,d0
+	blt	yet_args_needed_gc
+
+yet_args_needed_gc_r:
+	lwz	d3,4(a1)
+	subi	d0,d0,1+4+3
+	lwz	a1,8(a1)
+	addi	d2,a6,4
+	lwz	o0,0(a1)
+	lwz	o1,4(a1)
+	stw	o0,4(a6)
+	lwz	o2,8(a1)
+	stw	o1,8(a6)
+	addi	a1,a1,12
+	stwu	o2,12(a6)
+
+yet_args_needed_cp_a:
+	lwz	o0,0(a1)
+	addi	a1,a1,4
+	stwu	o0,4(a6)
+	subic.	d0,d0,1
+	bge	yet_args_needed_cp_a
+
+	stw	a0,4(a6)
+	addi	d1,d1,8
+	stw	d1,8(a6)
+	addi	a0,a6,8
+	stw	d3,12(a6)
+	stwu	d2,16(a6)
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr
+
+yet_args_needed_gc:
+	mflr	r0
+	bl	collect_2
+	b	yet_args_needed_gc_r
+
+	.text
+; __TEXT.build_node_:
+
+build_node_:
+	stw	d1,4(a6)
+	stw	a2,8(a6)
+	stwu	a1,16(a6)
+	stw	a6,-4(a6)
+	stw	a0,4(a6)
+	addi	a0,a6,4-16
+	lwz	a2,-4(a4)
+	stw	a2,8(a6)
+	lwzu	a2,-8(a4)
+	stwu	a2,12(a6)
+
+build_node_cp_a:
+	lwz	a2,-4(a4)
+	subi	a4,a4,4
+	subic.	d0,d0,1
+	stwu	a2,4(a6)
+	bne	build_node_cp_a
+
+	lwz	r0,0(sp)
+	addi	sp,sp,4
+	blr

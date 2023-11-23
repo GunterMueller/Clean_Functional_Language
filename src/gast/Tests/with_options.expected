@@ -1,0 +1,14 @@
+{"name":"membership","event":"start","location":{"moduleName":"with_options"}}
+{"name":"membership","message":"\"membership\" Passed after 1000 tests\n","event":"passed","location":{"moduleName":"with_options"}}
+{"name":"conversion_invariant","event":"start","location":{"moduleName":"with_options"}}
+{"name":"conversion_invariant","message":"\"conversion_invariant\" Passed after 1000 tests\n","event":"passed","location":{"moduleName":"with_options"}}
+{"name":"length_correct","event":"start","location":{"moduleName":"with_options"}}
+{"name":"length_correct","message":"\"length_correct\" Passed after 1000 tests\n","event":"passed","location":{"moduleName":"with_options"}}
+{"name":"subset_correct","event":"start","location":{"moduleName":"with_options"}}
+{"name":"subset_correct","message":"\"subset_correct\" Passed after 1000 tests\n","event":"passed","location":{"moduleName":"with_options"}}
+{"name":"proper_subset_correct","event":"start","location":{"moduleName":"with_options"}}
+{"name":"proper_subset_correct","message":"\"proper_subset_correct\" Passed after 1000 tests\n","event":"passed","location":{"moduleName":"with_options"}}
+{"name":"newSet_is_empty","event":"start"}
+{"name":"newSet_is_empty","message":"\"newSet_is_empty\" Proof: success for all arguments after 1 test\n","event":"passed"}
+{"name":"emptyset","event":"start","location":{"moduleName":"with_options"}}
+{"name":"emptyset","message":"\"emptyset\" Passed after 1000 tests\n","event":"passed","location":{"moduleName":"with_options"}}

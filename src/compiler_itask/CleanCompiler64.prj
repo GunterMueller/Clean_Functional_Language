@@ -1,0 +1,77 @@
+Version: 1.4
+Global
+	ProjectRoot:	.
+	Target:	StdEnv
+	Exec:	{Project}*CleanCompiler64.exe
+	CodeGen
+		CheckStacks:	False
+		CheckIndexes:	True
+	Application
+		HeapSize:	268435456
+		StackSize:	4194304
+		ExtraMemory:	0
+		IntialHeapSize:	8388608
+		HeapSizeMultiplier:	1024
+		ShowExecutionTime:	False
+		ShowGC:	False
+		ShowStackSize:	False
+		MarkingCollector:	True
+		StandardRuntimeEnv:	True
+		Profile
+			Memory:	False
+			MemoryMinimumHeapSize:	0
+			Time:	False
+			Stack:	False
+		Output
+			Output:	NoConsole
+			Font:	MS Sans Serif
+			FontSize:	8
+			WriteStdErr:	False
+	Link
+		LinkMethod:	Static
+		GenerateRelocations:	False
+		GenerateLinkMap:	False
+		LinkResources:	False
+		ResourceSource:	
+		GenerateDLL:	False
+		ExportedNames:	
+	Paths
+		Path:	{Project}*frontend
+		Path:	{Project}*backend
+		Path:	{Project}*main
+		Path:	{Project}*main*Windows
+		Path:	{Project}*backend*Windows
+		Path:	{Application}*Libraries*ArgEnv
+	Precompile:	
+	Postlink:	
+MainModule
+	Name:	cocl
+	Dir:	{Project}*main
+	Compiler
+		NeverMemoryProfile:	False
+		NeverTimeProfile:	False
+		StrictnessAnalysis:	True
+		ListTypes:	StrictExportTypes
+		ListAttributes:	True
+		Warnings:	True
+		Verbose:	True
+		ReadableABC:	False
+		ReuseUniqueNodes:	True
+		Fusion:	False
+OtherModules
+	Module
+		Name:	backendconvert
+		Dir:	{Project}*backend
+		Compiler
+			NeverMemoryProfile:	False
+			NeverTimeProfile:	False
+			StrictnessAnalysis:	True
+			ListTypes:	StrictExportTypes
+			ListAttributes:	True
+			Warnings:	True
+			Verbose:	True
+			ReadableABC:	False
+			ReuseUniqueNodes:	True
+			Fusion:	True
+		NeededLibraries
+			Library:	backend_library

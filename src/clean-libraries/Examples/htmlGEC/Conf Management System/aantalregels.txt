@@ -1,0 +1,34 @@
+Aantal regels van de "leaf" pagina's:
+
+Functie						#regels
+-----------------------------------
+rootHomePage				. 4
+refereeHomePage				. 4
+authorsHomePage				. 4
+guestHomePage				.55
+modifyStatesPage			. 6
+assignPapersConflictsPage	.52
+submitPaperPage				. 5
+showPapersPage				. 6
+submitReportPage			.16
+showReportsPage				. 6
+discussPapersPage			.44
+showPapersStatusPage		.18
+changeInfo					. 4
+changePasswrdPage			. 8
+
+                   totaal:  232
+                   
+                gemiddeld: 16.6
+
+
+Module                      #regels
+-----------------------------------
+ConfManager                 .240
+confIData                   .170
+loginAdmin                  . 63
+loginAdminIData             .100
+stateHandling               .279
+stateHandlingIData          .256
+
+                   totaal:  1108

@@ -1,0 +1,3 @@
+winmm.dll
+PlaySoundA@12
+mciSendStringA@16

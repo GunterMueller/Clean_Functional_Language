@@ -1,0 +1,4 @@
+version.dll
+GetFileVersionInfoSizeA@8
+GetFileVersionInfoA@16
+VerQueryValueA@16

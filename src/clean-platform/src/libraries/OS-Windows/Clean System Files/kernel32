@@ -1,0 +1,11 @@
+kernel32.dll
+CreateIoCompletionPort
+GetQueuedCompletionStatusEx
+GetLastError
+GetCurrentProcessId
+CreateNamedPipeA
+CreateFile
+CancelIo
+PostQueuedCompletionStatus
+GetEnvironmentVariableA@12
+SetEnvironmentVariableA@8

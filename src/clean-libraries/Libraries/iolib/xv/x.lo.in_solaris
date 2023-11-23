@@ -1,0 +1,47 @@
+#
+# x.lo
+# ====
+#
+# Link Options file to link Clean applications that
+# use dynamic libraries for the Clean IO system.
+
+# This file is used to specify options to link Clean programs
+# that use the Clean IO library. The options file is passed
+# to the clm command with the -sl flag:
+#
+#	% clm -sl x <main module>
+
+# Link option files consist of two parts separated by an
+# '=' sign.
+#
+# The first section consists of options that are passed on
+# to the linker by clm.
+
+$CLEANIOLIB/xv/cdialog.o
+$CLEANIOLIB/xv/cfileselect.o
+$CLEANIOLIB/xv/ckernel.o
+$CLEANIOLIB/xv/cmenu.o
+$CLEANIOLIB/xv/cpath.o
+$CLEANIOLIB/xv/cpicture.o
+$CLEANIOLIB/xv/ctimer.o
+$CLEANIOLIB/xv/cwindow.o
+-R/usr/X11/lib
+-L/usr/X11/lib
+-R$OPENWINLIB
+-L$OPENWINLIB
+-lxview
+-lolgx
+-lXmu
+-lX11
+-lXt
+
+# The equal sign separates the two sections
+=
+
+# The second section lists all the modules that clm should *not*
+# pass to the linker, because they are already combined in
+# the Clean libraries
+#
+# The names between parentheses are the modules on which the
+# the first module depends.
+

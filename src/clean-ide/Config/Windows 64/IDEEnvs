@@ -1,0 +1,125 @@
+Version: 1.0
+Environments
+	Environment
+		EnvironmentName:	StdEnv
+		EnvironmentPaths
+			Path:	{Application}\Libraries\StdEnv
+		EnvironmentCompiler:	Tools\Clean System 64\CleanCompiler64.exe
+		EnvironmentCodeGen:	Tools\Clean System 64\CodeGenerator.exe
+		EnvironmentLinker:	Tools\Clean System 64\StaticLinker.exe
+		EnvironmentDynLink:	Tools\Dynamics\DynamicLinker.exe
+		EnvironmentVersion:	920
+		EnvironmentRedirect:	False
+		EnvironmentCompileMethod:	Pers
+		EnvironmentProcessor:	I386
+		Environment64BitProcessor:	True
+	Environment
+		EnvironmentName:	StdEnv 64
+		EnvironmentPaths
+			Path:	{Application}\Libraries\StdEnv
+		EnvironmentCompiler:	Tools\Clean System 64\CleanCompiler64.exe
+		EnvironmentCodeGen:	Tools\Clean System 64\CodeGenerator.exe
+		EnvironmentLinker:	Tools\Clean System 64\StaticLinker.exe
+		EnvironmentDynLink:	Tools\Dynamics\DynamicLinker.exe
+		EnvironmentVersion:	920
+		EnvironmentRedirect:	False
+		EnvironmentCompileMethod:	Pers
+		EnvironmentProcessor:	I386
+		Environment64BitProcessor:	True
+	Environment
+		EnvironmentName:	Object IO
+		EnvironmentPaths
+			Path:	{Application}\Libraries\StdEnv
+			Path:	{Application}\Libraries\StdLib
+			Path:	{Application}\Libraries\ObjectIO
+			Path:	{Application}\Libraries\ObjectIO\OS Windows
+		EnvironmentCompiler:	Tools\Clean System 64\CleanCompiler64.exe
+		EnvironmentCodeGen:	Tools\Clean System 64\CodeGenerator.exe
+		EnvironmentLinker:	Tools\Clean System 64\StaticLinker.exe: -h 40M
+		EnvironmentDynLink:	Tools\Dynamics\DynamicLinker.exe
+		EnvironmentVersion:	920
+		EnvironmentRedirect:	False
+		EnvironmentCompileMethod:	Pers
+		EnvironmentProcessor:	I386
+		Environment64BitProcessor:	True
+	Environment
+		EnvironmentName:	Object IO 64
+		EnvironmentPaths
+			Path:	{Application}\Libraries\StdEnv
+			Path:	{Application}\Libraries\StdLib
+			Path:	{Application}\Libraries\ObjectIO
+			Path:	{Application}\Libraries\ObjectIO\OS Windows
+		EnvironmentCompiler:	Tools\Clean System 64\CleanCompiler64.exe
+		EnvironmentCodeGen:	Tools\Clean System 64\CodeGenerator.exe
+		EnvironmentLinker:	Tools\Clean System 64\StaticLinker.exe: -h 40M
+		EnvironmentDynLink:	Tools\Dynamics\DynamicLinker.exe
+		EnvironmentVersion:	920
+		EnvironmentRedirect:	False
+		EnvironmentCompileMethod:	Pers
+		EnvironmentProcessor:	I386
+		Environment64BitProcessor:	True
+	Environment
+		EnvironmentName:	Platform
+		EnvironmentPaths
+			Path:	{Application}\Libraries\StdEnv
+			Path:	{Application}\Libraries\Platform
+		EnvironmentCompiler:	Tools\Clean System 64\CleanCompiler64.exe : -h 250m
+		EnvironmentCodeGen:	Tools\Clean System 64\CodeGenerator.exe
+		EnvironmentLinker:	Tools\Clean System 64\StaticLinker.exe
+		EnvironmentDynLink:	Tools\Dynamics\DynamicLinker.exe
+		EnvironmentVersion:	920
+		EnvironmentRedirect:	False
+		EnvironmentCompileMethod:	Pers
+		EnvironmentProcessor:	I386
+		Environment64BitProcessor:	True
+	Environment
+		EnvironmentName:	Gast
+		EnvironmentPaths
+			Path:	{Application}\Libraries\StdEnv
+			Path:	{Application}\Libraries\StdLib
+			Path:	{Application}\Libraries\Gast
+			Path:	{Application}\Libraries\Generics
+			Path:	{Application}\Libraries\MersenneTwister
+			Path:	{Application}\Libraries\Platform
+		EnvironmentCompiler:	Tools\Clean System 64\CleanCompiler64.exe
+		EnvironmentCodeGen:	Tools\Clean System 64\CodeGenerator.exe
+		EnvironmentLinker:	Tools\Clean System 64\StaticLinker.exe
+		EnvironmentDynLink:	Tools\Dynamics\DynamicLinker.exe
+		EnvironmentVersion:	920
+		EnvironmentRedirect:	False
+		EnvironmentCompileMethod:	Pers
+		EnvironmentProcessor:	I386
+		Environment64BitProcessor:	True
+	Environment
+		EnvironmentName:	Dynamics
+		EnvironmentPaths
+			Path:	{Application}\Libraries\StdEnv
+			Path:	{Application}\Libraries\Dynamics
+		EnvironmentCompiler:	Tools\Clean System 64\CleanCompiler64.exe :: -dynamics
+		EnvironmentCodeGen:	Tools\Clean System 64\CodeGenerator.exe
+		EnvironmentLinker:	Tools\Clean System 64\StaticLinker.exe
+		EnvironmentDynLink:	Tools\Dynamics\DynamicLinker.exe
+		EnvironmentVersion:	920
+		EnvironmentRedirect:	False
+		EnvironmentCompileMethod:	Pers
+		EnvironmentProcessor:	I386
+		Environment64BitProcessor:	True
+	Environment
+		EnvironmentName:	Experimental
+		EnvironmentPaths
+			Path:	{Application}\Libraries\StdEnv
+			Path:	{Application}\Libraries\StdLib
+			Path:	{Application}\Libraries\ObjectIO
+			Path:	{Application}\Libraries\ObjectIO\OS Windows
+			Path:	{Application}\Libraries\Directory
+			Path:	{Application}\Libraries\Dynamics
+			Path:	{Application}\Libraries\Generics
+		EnvironmentCompiler:	Tools\Clean System 64\CleanCompiler64.exe:: -dynamics -generics
+		EnvironmentCodeGen:	Tools\Clean System 64\CodeGenerator.exe
+		EnvironmentLinker:	Tools\Clean System 64\StaticLinker.exe
+		EnvironmentDynLink:	Tools\Dynamics\DynamicLinker.exe
+		EnvironmentVersion:	920
+		EnvironmentRedirect:	False
+		EnvironmentCompileMethod:	Pers
+		EnvironmentProcessor:	I386
+		Environment64BitProcessor:	True

@@ -1,0 +1,7 @@
+kernel32.dll
+CreatePipe@16
+DuplicateHandle@28
+GetCurrentProcess@0
+WaitForMultipleObjects@16
+GetVersion@0
+TerminateProcess@8

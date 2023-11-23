@@ -1,0 +1,3 @@
+kernel32.dll
+GetFullPathNameA@16
+GetVersionExA@4

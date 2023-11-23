@@ -1,0 +1,17 @@
+CC=gcc
+CFLAGS=-O -pedantic -Wall -W
+CPPFLAGS=-DGNU_C -DLINUX -DI486 -DA_64 -DMACH_O64
+
+clm: clm.o cachingcompiler.o
+	gcc clm.o cachingcompiler.o -o clm
+
+cachingcompiler.o: cachingcompiler.c cachingcompiler.h
+
+clm.o: clm.c cachingcompiler.h
+#	gcc -pedantic -Wall -c -DGNU_C -O clm.c
+ 
+clms: clms.o cachingcompiler.o
+	gcc -s clms.o cachingcompiler.o -o clms
+ 
+clms.o: clm.c cachingcompiler.h
+	gcc $(CFLAGS) $(CPPFLAGS) -c -o clms.o -DSYSTEM_LINKER clm.c

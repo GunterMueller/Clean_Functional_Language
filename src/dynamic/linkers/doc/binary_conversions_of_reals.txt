@@ -1,0 +1,47 @@
+>Does anybody have a Clean function that can read a binary file (Unix
+>or Windows) of single floats as Clean Reals (double floats)? Thanks,
+
+You could read the float as an Int (using freadi) and convert this 32 bit integer to two 32 bit integers that represent a 64 bit Real, and then convert these to a Real using the 'ints_to_real' function below.
+The 'real_to_ints' and 'ints_to_real' functions should work on all platforms, but the order of the Ints depends on the byte order used by the processor.
+The 'int_float_to_real' function does not handle all cases and has not been tested very well.
+
+Or you could write such a function in C and use htoclean to call this C function.
+
+Regards,
+
+John van Groningen
+
+1
+real_to_ints :: !Real -> (!Int,!Int);
+real_to_ints r = code {
+        pop_b 0
+        };
+
+ints_to_real :: !(!Int,!Int) -> Real;
+ints_to_real r = code {
+        pop_b 0
+        };
+
+int_float_to_real :: !Int -> Real;
+int_float_to_real f
+        # e=f bitand 0x7f800000;
+        # v=f bitand 0x7fffffff;
+        | e==0
+                | v==0
+//                      = ints_to_real (0,f); // little endian
+                        = ints_to_real (f,0); // big endian
+                        = abort
+                "int_float_to_real for denormalized number not implemented";
+        | e<>0x7f800000
+                # i2 = f << 29;
+                # i1 = (f bitxor v) bitor (v>>3) + ((1023-127)<<20);
+//              = ints_to_real (i2,i1); // little endian
+                = ints_to_real (i1,i2); // big endian
+                = abort
+                "int_float_to_real for NAN or infinity not implemented";
+
+Start
+//      = ints_to_real (real_to_ints 1.1);
+//      = ints_to_real (1023<<20,0);
+        = int_float_to_real 0x3f800000;
+

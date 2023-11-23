@@ -1,0 +1,36 @@
+
+cg.exe: cg.obj cgaas.obj cgcalc.obj cgcode.obj cginput.obj cginstructions.obj cgawas.obj cglin.obj cgopt.obj cgstack.obj
+	cl /nologo /Zi cg.obj cgaas.obj cgcalc.obj cgcode.obj cginput.obj cginstructions.obj cgawas.obj cglin.obj cgopt.obj cgstack.obj
+
+cg.obj: cg.c
+	cl /nologo /Zi /c /O2 /DI486 /D_WINDOWS_ /DANSI_C cg.c
+
+cgaas.obj: cgaas.c
+	cl /nologo /Zi /c /O2 /DI486 /D_WINDOWS_ /DANSI_C cgaas.c
+
+cgawas.obj: cgawas.c
+	cl /nologo /Zi /c /O2 /DI486 /D_WINDOWS_ /DANSI_C cgawas.c
+
+cgcalc.obj: cgcalc.c
+	cl /nologo /Zi /c /O2 /DI486 /D_WINDOWS_ /DANSI_C cgcalc.c
+
+cgcode.obj: cgcode.c
+	cl /nologo /Zi /c /O2 /DI486 /D_WINDOWS_ /DANSI_C cgcode.c
+
+cginput.obj: cginput.c
+	cl /nologo /Zi /c /O /DI486 /D_WINDOWS_ /DANSI_C cginput.c
+
+cginstructions.obj: cginstructions.c
+	cl /nologo /Zi /c /O2 /DI486 /D_WINDOWS_ /DANSI_C cginstructions.c
+
+cglin.obj: cglin.c
+	cl /nologo /Zi /c /O2 /DI486 /D_WINDOWS_ /DANSI_C cglin.c
+
+cgopt.obj: cgopt.c
+	cl /nologo /Zi /c /O2 /DI486 /D_WINDOWS_ /DANSI_C cgopt.c
+
+cgstack.obj: cgstack.c
+	cl /nologo /Zi /c /O2 /DI486 /D_WINDOWS_ /DANSI_C cgstack.c
+
+cleanup:
+	del cg.exe cg.obj cgaas.obj cgawas.obj cgcalc.obj cgcode.obj cginput.obj cginstructions.obj cglin.obj cgopt.obj cgstack.obj

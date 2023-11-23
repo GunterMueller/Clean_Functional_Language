@@ -1,0 +1,11 @@
+Static linker bug list:
+
+(pc):
+- relocation section is not correctly generated.
+- during a 'normal' link i.e. eager nor lazy library symbol disappear from the list of
+  imported symbols. The new linker uses the old linker's datastructures and functions
+  which remove redundant symbols. In the new situation, this behaviour is not desirable
+  in the case of complement generation.
+  
+(mac):
+- overflow of TOC not detected

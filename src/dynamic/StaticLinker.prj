@@ -1,0 +1,73 @@
+Version: 1.4
+Global
+	ProjectRoot:	.
+	Built:	False
+	Target:	Everything
+	Exec:	{Project}\StaticLinker.exe
+	CodeGen
+		CheckStacks:	False
+		CheckIndexes:	True
+	Application
+		HeapSize:	31457280
+		StackSize:	1048576
+		ExtraMemory:	81920
+		IntialHeapSize:	4194304
+		HeapSizeMultiplier:	768
+		ShowExecutionTime:	False
+		ShowGC:	False
+		ShowStackSize:	False
+		MarkingCollector:	False
+		StandardRuntimeEnv:	True
+		Profile
+			Memory:	False
+			MemoryMinimumHeapSize:	0
+			Time:	False
+			Stack:	False
+		Output
+			Output:	NoConsole
+			Font:	Courier
+			FontSize:	9
+			WriteStdErr:	False
+	Link
+		LinkMethod:	Static
+		GenerateRelocations:	False
+		GenerateLinkMap:	True
+		LinkResources:	False
+		ResourceSource:	
+		GenerateDLL:	False
+		ExportedNames:	
+	Paths
+		Path:	{Project}\linkers\static
+		Path:	{Project}\linkers\static\pc
+		Path:	{Project}\linkers\shared
+		Path:	{Project}\linkers\release
+		Path:	{Project}\dynamics\StdDynamicEnv\extension
+		Path:	{Project}\dynamics\StdDynamicEnv\implementation\windows
+		Path:	{Project}\dynamics\StdDynamicEnv\implementation
+		Path:	{Project}\dynamics\StdDynamicEnv\general
+		Path:	{Project}\linkers\static\pc\Extra
+		Path:	{Project}\dynamics\non-standard libraries\IDE stuff
+		Path:	{Project}\dynamics\non-standard libraries\return_code Clean 1.3.2
+		Path:	{Project}\linkers\frontend\pc
+		Path:	{Project}\linkers\library\pc
+		Path:	{Project}\linkers\directory_structure
+		Path:	{Project}\linkers\cg_interface
+		Path:	{Project}\linkers\clean 2.0 interface
+		Path:	{Project}\dynamics\non-standard libraries\stripped compiler
+		Path:	{Project}\linkers\pc32bits
+	Precompile:	
+	Postlink:	
+MainModule
+	Name:	StaticLinker
+	Dir:	{Project}\linkers\static\pc
+	Compiler
+		NeverMemoryProfile:	False
+		NeverTimeProfile:	False
+		StrictnessAnalysis:	True
+		ListTypes:	StrictExportTypes
+		ListAttributes:	True
+		Warnings:	True
+		Verbose:	True
+		ReadableABC:	False
+		ReuseUniqueNodes:	True
+		Fusion:	False

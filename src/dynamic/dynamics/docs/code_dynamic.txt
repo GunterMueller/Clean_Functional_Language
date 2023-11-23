@@ -1,0 +1,108 @@
+Choosing type implementation
+
+* Central question: 
+	Assume a dynamic will actually be built. What type implementation must be used for each 
+	type contained in the external type of a dynamic?
+
+
+* Answer depends:
+	- on type names contained in the dynamic pattern
+	- on type names contained in the external type of the dynamic itself
+	- on visible dynamics in the same library
+	- depends on the order of evaluation
+
+
+* Usable type
+	A type t1 is usable iff its name occurs in an external type of a dynamic and it is type 
+	equivalent with a type t2 from the library in which the dynamic is visible.   
+
+* Usable dynamic
+	A dynamic is *usable* w.r.t. library iff the set of types identified by their names occuring 
+	in its external type, is usable and there exists a scope which accomodates the set of library 
+	types.
+
+If there is a possibility that a dynamic is usable in its library, then its set of library type 
+implementations *must* be used.
+
+
+Visible dynamics
+****************
+
+* Notation:
+	- <type table index, library instance>
+	- _ means don't care
+* Unification generates:
+	1) pairs of type references which definitions *must* be equivalent
+	2) list of type references which occur in the external type
+
+STEP 1: Using the dynamic *throughout* its library e.g. application
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 
+dapply (f :: a -> b) (v :: a)
+	= dynamic f v :: v 
+
+f-dynamic
+	= dynamic _ :: Tree<f,2> -> List<v,2>
+v-dynamic 
+	= dynamic _ :: Tree<v,3>
+result of unification
+	= dynamic f v :: List<v,2>
+
+equality on types is an equivalence relation i.e. reflexive, symmetric and transitiv
+
+case 1: f,v usable
+------------------
+Tree: 
+	1) <f,2> = <v,3>
+	2) <f,2> = <context,1>, <v,3> = <context,1>
+
+List
+	2) <f,2> = <context,1>
+
+The implementations of Trees and Lists in libraries 2,3 and 1 must be a single one.
+Moreover library 1 from which both dynamics are visible provides a Tree and List
+implementation.
+
+
+case 2: f usable and v unusable
+-------------------------------
+Tree: 
+	1) <f,2> = <v,3>
+	2) <f,2> = <context,1>
+
+but then <v,3> = <context,1> which is contradiction with the assumption. Therefore
+this case cannot occur.
+
+case 3: f unusable and v usable
+-------------------------------
+Tree: 
+	1) <f,2> = <v,3>
+	2) <f,2> = <context,1>
+
+The Trees in the three libraries should have a single implementation and have one
+provided by library 1. But there is not yet an implementation for List
+
+case 4: f,v unusable
+--------------------
+Tree: 
+	1) <f,2> = <v,3>
+
+The Trees of libraries 2 and 3 should have a single implementation. But there is
+no Tree nor List implementation (because List and Tree have no equivalent 
+definitions in the library 1). 
+
+What implementation is chosen depends on the evaluation order. 
+
+Step 2: Reducing dependencies (created by step 1) when encoding the dynamic
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In step 1 it was checked whether dynamics are usable in its library. If so the
+library implementation should be chosen. THis generates extra references which
+need not be e.g. if in case 1 the f and v are not used in their library, then
+the conversion-routine still saves references to library 1 which are clearly
+superficial. Better is to replace them by reference to library 2.
+
+type points to its implementatio
+
+ 
+closure <,>
+transitivity

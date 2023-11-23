@@ -1,0 +1,13 @@
+kernel32.dll
+GetProcAddress@8
+LoadLibraryA@4
+GetModuleHandleA@4
+OutputDebugStringA@4
+LockResource@4
+LoadResource@8
+FindResourceA@12
+_lclose@4
+_lread@12
+_lopen@8
+MulDiv@12
+

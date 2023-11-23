@@ -1,0 +1,45 @@
+Compiler interface to macOS
+
+Codes in first and second parenthesis block of a code statement: 
+Rx	= 	Allocate x bytes from stack pointer (sub)
+Ox	=	Offset x from stack pointer
+W	=	Push/pop word (2 bytes)
+L	= 	Push/pop long (4 bytes)
+Dx	=	Register x
+U	=	Uniqueness
+Ix	=	Deallocate x bytes from stack pointer (add)
+r	= 	result
+SDx	= 	Dx := |Dx| + 7	(used for PASCAL strings)
+CDx	= 	Dx := |Dx| + 8  (used when a Clean String represent a OS record, the 8 is used to skip descp and length)
+
+Note:
+	| Dx | maps the register to its POWERPC equivalent
+	
+runtime
+r0			= 	scratch
+r1			= 	stack register
+r2			= 	rtoc
+D0			= 	r3
+D1			=	r4
+D2			= 	r5
+
+
+r25			= 	2de parameter
+r24			= 	3de parameter
+r23			=	1ste parmater
+
+r17(a6)		=	heap pointer
+r31(d7)		= 	amount of free memory
+
+LR 			= contains return address of the executing function
+
+Syntax:
+-------
+code( arguments to be pushed ) ( pop arguments )
+
+A L (or W) within the first parenthesis pair is *pushed* onto the stack. However
+a L (or W) within the second parenthesis pair is *popped*.
+
+Remarks:
+--------
+1) you should always use a period before a call in a code block

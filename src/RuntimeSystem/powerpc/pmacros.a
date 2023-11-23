@@ -1,0 +1,54 @@
+	macro
+	lea	&r,&a
+	lwz	&r,&a{TC}(RTOC)
+	endm
+
+	macro
+	tst	&r
+	cmpwi	0,&r,0
+	endm
+
+	macro
+	badd	&rd,&rs
+	add	&rd,&rd,&rs
+	endm
+
+	macro
+	baddi	&rd,&i
+	addi	&rd,&rd,&i
+	endm
+
+	macro
+	baddicc	&r,&i
+	addic.	&r,&r,&i
+	endm
+
+	macro
+	bandic	&r,&i
+	andi.	&r,&r,&i
+	endm
+
+	macro
+	bsub	&rd,&rs
+	sub	&rd,&rd,&rs
+	endm
+
+	macro
+	bsubc	&rd,&rs
+	sub.	&rd,&rd,&rs
+	endm
+
+	macro
+	bsubi	&r,&i
+	subi	&r,&r,&i
+	endm
+
+	macro
+	bsubicc	&r,&i
+	subic.	&r,&r,&i
+	endm
+
+	macro
+	bor	&rd,&rs
+	or	&rd,&rd,&rs
+	endm

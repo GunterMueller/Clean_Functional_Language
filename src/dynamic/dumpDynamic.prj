@@ -1,0 +1,59 @@
+Version: 1.4
+Global
+	Built:	True
+	Target:	Everything
+	Exec:	{Project}\dumpDynamic.exe
+	CodeGen
+		CheckStacks:	False
+		CheckIndexes:	True
+	Application
+		HeapSize:	8388608
+		StackSize:	409600
+		ExtraMemory:	81920
+		IntialHeapSize:	204800
+		HeapSizeMultiplier:	4096
+		ShowExecutionTime:	False
+		ShowGC:	False
+		ShowStackSize:	False
+		MarkingCollector:	False
+		StandardRuntimeEnv:	True
+		Profile
+			Memory:	False
+			MemoryMinimumHeapSize:	0
+			Time:	False
+			Stack:	False
+		Output
+			Output:	ShowConstructors
+			Font:	Courier
+			FontSize:	9
+			WriteStdErr:	False
+	Link
+		LinkMethod:	Static
+		GenerateRelocations:	False
+		GenerateLinkMap:	True
+		LinkResources:	False
+		ResourceSource:	
+		GenerateDLL:	False
+		ExportedNames:	
+	Paths
+		Path:	{Project}\dynamics\dumpDynamic
+		Path:	{Project}\dynamics\StdDynamicEnv\extension
+		Path:	{Project}\dynamics\StdDynamicEnv\implementation\windows
+		Path:	{Project}\dynamics\StdDynamicEnv\implementation
+		Path:	{Project}\dynamics\StdDynamicEnv\general
+		Path:	{Project}\linkers\dynamic
+		Path:	{Project}\linkers\release
+		Path:	{Project}\dynamics\non-standard libraries\IDE stuff
+		Path:	{Project}\linkers\directory_structure
+		Path:	{Project}\linkers\shared
+		Path:	{Project}\linkers\static\pc
+		Path:	{Project}\linkers\cg_interface
+		Path:	{Project}\linkers\clean 2.0 interface
+		Path:	{Project}\dynamics\non-standard libraries\stripped compiler
+		Path:	{Project}\linkers\library\pc
+		Path:	{Project}\linkers\pc32bits
+	Precompile:	
+	Postlink:	
+MainModule
+	Name:	dumpDynamic
+	Dir:	{Project}\dynamics\dumpDynamic

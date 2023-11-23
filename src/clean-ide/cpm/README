@@ -1,0 +1,90 @@
+============================================
+==  CPM: Clean Project Manager -- README  ==
+============================================
+
+CPM is a tool for managing CleanIDE-compatible projects on the commandline and
+is initially targeted at OS X and Linux users who do not have access to the
+CleanIDE. Windows is currently not supported, although CPM might work with
+little or no modifications on Windows as well,
+
+Currently, only basic project management features are supported:
+- Build a project
+- Create a new project
+- Show project info
+- Manage project paths
+- Create new modules
+
+In the future, all aspects of a CleanIDE project file should be manageable via
+CPM.
+
+CPM is designed to display help messages when an incomplete command is entered.
+Users are encouraged to explore CPM by themselves by reading these help
+messages.
+
+== Prerequisites ==
+This section lists the system requirements for CPM. It assumes that CPM will be
+used on Mac OS X or Linux. Windows supported has not been tested yet.
+
+Requirements:
+  - A recent installation of Clean (version 2.4 or higher)
+  - Clean Platform (hierarchical branch)
+  - A recent binary distribution of BatchBuild (or a binary distribution of CPM)
+
+== Installation instructions ==
+Before you can use CPM, you will need to compile it using BatchBuild (or a
+previous version of CPM). Building the bundled project file requires an OSXEnv
+environment to be present in your IDEEnvs file. A sensible default environment
+for 64 bit OS X is the following:
+
+  Environment
+    EnvironmentName:  OSXEnv
+    EnvironmentPaths
+      Path:  {Application}/lib/StdEnv
+      Path:  {Application}/clean-platform
+    EnvironmentCompiler:  lib/exe/cocl
+    EnvironmentCodeGen:  lib/exe/cg
+    EnvironmentLinker:  Tools\Clean System\StaticLinker.exe
+    EnvironmentDynLink:  Tools\Dynamics\DynamicLinker.exe
+    EnvironmentVersion:  920
+    EnvironmentRedirect:  False
+    EnvironmentCompileMethod:  Pers
+    EnvironmentProcessor:  I386
+    Environment64BitProcessor:  True
+
+The environment assumes that clean-platform is in your Clean directory.
+EnvironmentLinker and EnvironmentDynLink can be ignored, as they are not used
+on Mac OS X and Linux.
+
+Compiling CPM with BatchBuild is straight-forward:
+
+  batch_build Cpm.prj
+
+The bundled project file compiles CPM for Mac OS X. Linux users will need to
+modify the environment and include paths in Cpm.prj.
+
+== Usage instructions for Mac OS X and Linux ==
+To use CPM on OS X (or Linux), you will need to specify a compatible
+environment in your project file. In the example below, we configure a project
+to build against an OS X-compatible environment. $CLEAN_HOME is the directory
+where you have installed your Clean compiler.
+
+  - Make sure the `cpm` executable is in $CLEAN_HOME and $CLEAN_HOME is in your
+    $PATH
+
+  - In the project file, specify target OSXEnv by replacing the `Target` entry
+    with `Target: OSXEnv`
+
+  - In `$CLEAN_HOME/IDEEnvs`, add a new environment and call it `OSXEnv`.
+    The easiest way is to duplicate the StdEnv and rename it.
+
+  - Modify the `EnvironmentCompiler` and `EnvironmentCodeGen` entries in the
+    new environment and change them to `lib/exe/cocl` and `lib/exe/cg`
+    respectively.
+
+  - Make sure `EnvironmentVersion` has value `920`
+
+== Troubleshooting ==
+
+Q: Compilation exits with `IO error`
+A: Make sure that you have a recent version of cocl and that it is placed in
+   both $CLEAN_HOME/exe and $CLEAN_HOME/lib/exe
